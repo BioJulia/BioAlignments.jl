@@ -47,7 +47,7 @@ function write_header(stream, header, refseqnames, refseqlens)
     buf = IOBuffer()
     l = write(SAM.Writer(buf), header)
     n += write(stream, Int32(l))
-    n += write(stream, takebuf_array(buf))
+    n += write(stream, take!(buf))
 
     # reference sequences
     n += write(stream, Int32(length(refseqnames)))

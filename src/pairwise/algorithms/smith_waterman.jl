@@ -11,15 +11,15 @@ type SmithWaterman{T<:Union{Signed,AbstractFloat}}
     H::Vector{T}
     E::Vector{T}
 
-    function SmithWaterman(m::Integer, n::Integer)
+    function (::Type{SmithWaterman{T}}){T}(m::Integer, n::Integer)
         trace = Matrix{Trace}(m + 1, n + 1)
         fill!(trace, 0xff)
         H = Vector{T}(m + 1)
         E = Vector{T}(m)
-        return new(trace, H, E)
+        return new{T}(trace, H, E)
     end
 
-    function SmithWaterman()
+    function (::Type{SmithWaterman{T}}){T}()
         return SmithWaterman{T}(0, 0)
     end
 end

@@ -13,7 +13,7 @@
 """
 Supertype of score model.
 """
-abstract AbstractScoreModel{T<:Real}
+@compat abstract type AbstractScoreModel{T<:Real} end
 
 """
     AffineGapScoreModel(submat, gap_open, gap_extend)
@@ -50,10 +50,10 @@ type AffineGapScoreModel{T} <: AbstractScoreModel{T}
     gap_open::T
     gap_extend::T
 
-    function AffineGapScoreModel(submat::AbstractSubstitutionMatrix{T}, gap_open::T, gap_extend::T)
+    function (::Type{AffineGapScoreModel{T}}){T}(submat::AbstractSubstitutionMatrix{T}, gap_open::T, gap_extend::T)
         @assert gap_open ≤ 0 "gap_open should be non-positive"
         @assert gap_extend ≤ 0 "gap_extend should be non-positive"
-        return new(submat, gap_open, gap_extend)
+        return new{T}(submat, gap_open, gap_extend)
     end
 end
 
@@ -123,7 +123,7 @@ end
 """
 Supertype of cost model.
 """
-abstract AbstractCostModel{T}
+@compat abstract type AbstractCostModel{T} end
 
 """
     CostModel(submat, insertion, deletion)
@@ -156,10 +156,10 @@ type CostModel{T} <: AbstractCostModel{T}
     insertion::T
     deletion::T
 
-    function CostModel(submat, insertion, deletion)
+    function (::Type{CostModel{T}}){T}(submat, insertion, deletion)
         @assert insertion ≥ 0 "insertion should be non-negative"
         @assert deletion ≥ 0 " deletion should be non-negative"
-        return new(submat, insertion, deletion)
+        return new{T}(submat, insertion, deletion)
     end
 end
 

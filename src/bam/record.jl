@@ -277,7 +277,7 @@ function cigar(record::Record)::String
     for (op, len) in zip(cigar_rle(record)...)
         print(buf, len, Char(op))
     end
-    return takebuf_string(buf)
+    return String(take!(buf))
 end
 
 """

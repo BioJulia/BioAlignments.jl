@@ -11,16 +11,16 @@ type NeedlemanWunsch{T<:Union{Signed,AbstractFloat}}
     H::Vector{T}
     E::Vector{T}
 
-    function NeedlemanWunsch(m::Integer, n::Integer)
+    function (::Type{NeedlemanWunsch{T}}){T}(m::Integer, n::Integer)
         trace = Matrix{Trace}(m + 1, n + 1)
         fill!(trace, 0xff)
         H = Vector{T}(m + 1)
         E = Vector{T}(m)
-        return new(trace, H, E)
+        return new{T}(trace, H, E)
     end
 
-    function NeedlemanWunsch()
-        return NeedlemanWunsch{T}(m, n)
+    function (::Type{NeedlemanWunsch{T}}){T}()
+        return NeedlemanWunsch{T}(0, 0)
     end
 end
 

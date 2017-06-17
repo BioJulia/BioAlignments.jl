@@ -4,6 +4,7 @@ using BioSymbols
 import BGZFStreams: BGZFStream
 import BioCore.Exceptions: MissingFieldException
 import BioSequences: @dna_str
+import Compat: take!
 import GenomicFeatures
 import YAML
 
@@ -1122,7 +1123,7 @@ end
 
         buf = IOBuffer()
         write(buf, "NM", UInt8('s'), Int16(1))
-        auxdata = BAM.AuxData(takebuf_array(buf))
+        auxdata = BAM.AuxData(take!(buf))
         @test length(auxdata) == 1
         @test auxdata["NM"] === Int16(1)
         @test collect(auxdata) == ["NM" => Int16(1)]
@@ -1133,7 +1134,7 @@ end
         write(buf, "XA", UInt8('f'), Float32(3.14))
         write(buf, "XB", UInt8('Z'), "some text\0")
         write(buf, "XC", UInt8('B'), UInt8('i'), Int32(3), Int32[10, -5, 8])
-        auxdata = BAM.AuxData(takebuf_array(buf))
+        auxdata = BAM.AuxData(take!(buf))
         @test length(auxdata) == 5
         @test auxdata["AS"] === Int8(-18)
         @test auxdata["NM"] === Int16(1)
@@ -1293,9 +1294,9 @@ end
             range = randrange(1:1_000_000)
             seekstart(reader)
             # linear scan
-            expected = collect(filter(reader) do record
+            expected = filter(collect(reader)) do record
                 BAM.isoverlapping(record, refindex, range)
-            end)
+            end
             # indexed scan
             actual = collect(eachoverlap(reader, refname, range))
             @test compare_records(actual, expected)

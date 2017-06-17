@@ -140,7 +140,7 @@ function cigar(aln::Alignment)
                 anchors[i].refpos - anchors[i-1].refpos)
         print(out, n, Char(anchors[i].op))
     end
-    return takebuf_string(out)
+    return String(take!(out))
 end
 
 # Check validity of a sequence of anchors.

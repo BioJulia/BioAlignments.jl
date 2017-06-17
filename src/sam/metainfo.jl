@@ -84,7 +84,7 @@ function MetaInfo(tag::AbstractString, value)
     else
         throw(ArgumentError("tag must match r\"[A-Z][A-Z]\""))
     end
-    return MetaInfo(takebuf_array(buf))
+    return MetaInfo(take!(buf))
 end
 
 function initialize!(metainfo::MetaInfo)
