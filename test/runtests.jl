@@ -1294,9 +1294,9 @@ end
             range = randrange(1:1_000_000)
             seekstart(reader)
             # linear scan
-            expected = collect(filter(reader) do record
+            expected = filter(collect(reader)) do record
                 BAM.isoverlapping(record, refindex, range)
-            end)
+            end
             # indexed scan
             actual = collect(eachoverlap(reader, refname, range))
             @test compare_records(actual, expected)
