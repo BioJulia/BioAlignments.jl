@@ -10,4 +10,4 @@ BioAlignments.jl
 [codecov-img]: http://codecov.io/github/BioJulia/BioAlignments.jl/coverage.svg?branch=master
 [codecov-url]: http://codecov.io/github/BioJulia/BioAlignments.jl?branch=master
 [docs-latest-img]: https://img.shields.io/badge/docs-latest-blue.svg
-[docs-latest-url]: https://biojulia.github.io/BioAlignments.jl/latest/intervals/
+[docs-latest-url]: https://biojulia.github.io/BioAlignments.jl/latest/
