@@ -185,9 +185,9 @@ function Base.print(io::IO, aln::PairwiseAlignment, width::Integer=60)
             print(refbuf, lpad(refpos, posw))
             print(matbuf)
 
-            println(io, takebuf_string(seqbuf))
-            println(io, takebuf_string(matbuf))
-            println(io, takebuf_string(refbuf))
+            println(io, String(take!(seqbuf)))
+            println(io, String(take!(matbuf)))
+            println(io, String(take!(refbuf)))
 
             if !done(aln, s)
                 println(io)
@@ -203,8 +203,8 @@ function Base.print(io::IO, aln::PairwiseAlignment, width::Integer=60)
         print(refbuf, lpad(refpos, posw))
         print(matbuf)
 
-        println(io, takebuf_string(seqbuf))
-        println(io, takebuf_string(matbuf))
-        println(io, takebuf_string(refbuf))
+        println(io, String(take!(seqbuf)))
+        println(io, String(take!(matbuf)))
+        println(io, String(take!(refbuf)))
     end
 end

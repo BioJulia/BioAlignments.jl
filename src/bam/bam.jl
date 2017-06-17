@@ -8,6 +8,7 @@ import BioAlignments: BioAlignments, SAM
 import GenomicFeatures: GenomicFeatures, Interval
 import BioSequences
 import BioCore: BioCore, isfilled
+import Compat: take!
 
 # FIXME
 const Bio = BioCore
