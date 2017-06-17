@@ -24,10 +24,10 @@ immutable SubstitutionMatrix{T,S} <: AbstractSubstitutionMatrix{S}
     # score is defined or not
     defined::BitMatrix
 
-    function SubstitutionMatrix(data::Matrix{S}, defined::BitMatrix)
+    function (::Type{SubstitutionMatrix{T,S}}){T,S}(data::Matrix{S}, defined::BitMatrix)
         @assert size(data) == size(defined)
         @assert size(data, 1) == size(data, 2) == length(BioSymbols.alphabet(T)) - 1
-        return new(data, defined)
+        return new{T,S}(data, defined)
     end
 
 end

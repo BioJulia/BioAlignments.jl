@@ -17,7 +17,7 @@ type BandedNeedlemanWunsch{T<:Union{Signed,AbstractFloat}}
     lower::Int
     upper::Int
 
-    function BandedNeedlemanWunsch(
+    function (::Type{BandedNeedlemanWunsch{T}}){T}(
             m::Integer, n::Integer,
             lower::Integer, upper::Integer)
         lower = min(lower, m)
@@ -26,10 +26,10 @@ type BandedNeedlemanWunsch{T<:Union{Signed,AbstractFloat}}
         trace = Matrix{Trace}(width, n + 1)
         H = Vector{T}(width)
         E = Vector{T}(width)
-        return new(trace, H, E, lower, upper)
+        return new{T}(trace, H, E, lower, upper)
     end
 
-    function BandedNeedlemanWunsch()
+    function (::Type{BandedNeedlemanWunsch{T}}){T}()
         return BandedNeedlemanWunsch{T}(0, 0, 0, 0)
     end
 end
