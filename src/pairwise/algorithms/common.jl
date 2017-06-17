@@ -38,12 +38,12 @@ macro start_traceback()
 end
 
 macro finish_traceback()
-    quote
+    esc(quote
         push!(anchors, AlignmentAnchor(anchor_point, op))
         push!(anchors, AlignmentAnchor((i, j), OP_START))
         reverse!(anchors)
         pop!(anchors)  # remove OP_INVALID
-    end
+    end)
 end
 
 macro anchor(ex)
