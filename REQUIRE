@@ -2,5 +2,6 @@ julia 0.5
 BioCore 1.0
 BioSequences 0.5
 BioSymbols 1.0
+Compat 0.18
 GenomicFeatures 0.1
 IntervalTrees 0.2
