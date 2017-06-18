@@ -1295,7 +1295,7 @@ end
             seekstart(reader)
             # linear scan
             expected = filter(collect(reader)) do record
-                BAM.isoverlapping(record, refindex, range)
+                BAM.compare_intervals(record, (refindex, range)) == 0
             end
             # indexed scan
             actual = collect(eachoverlap(reader, refname, range))

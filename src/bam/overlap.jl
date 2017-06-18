@@ -59,8 +59,13 @@ function Base.done(iter::OverlapIterator, state)
         chunk = state.chunks[state.chunkid]
         while BGZFStreams.virtualoffset(iter.reader.stream) < chunk.stop
             read!(iter.reader, state.record)
-            if isoverlapping(state.record, state.refindex, iter.interval)
+            c = compare_intervals(state.record, (state.refindex, iter.interval))
+            if c == 0
+                # overlapping
                 return false
+            elseif c > 0
+                # no more overlapping records in this chunk since records are sorted
+                break
             end
         end
         state.chunkid += 1
@@ -75,6 +80,16 @@ function Base.next(::OverlapIterator, state)
     return copy(state.record), state
 end
 
-function isoverlapping(record::Record, refid_::Integer, interval::UnitRange)
-    return refid(record) == refid_ && position(record) ≤ last(interval) && rightposition(record) ≥ first(interval)
+function compare_intervals(record::Record, interval::Tuple{Int,UnitRange{Int}})
+    rid = refid(record)
+    if rid < interval[1] || (rid == interval[1] && rightposition(record) < first(interval[2]))
+        # strictly left
+        return -1
+    elseif rid > interval[1] || (rid == interval[1] && position(record) > last(interval[2]))
+        # strictly right
+        return +1
+    else
+        # overlapping
+        return 0
+    end
 end
