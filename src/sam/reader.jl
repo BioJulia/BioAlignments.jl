@@ -49,7 +49,7 @@ end
 # file   = header . body
 # header = metainfo*
 # body   = record*
-info("compiling SAM")
+isinteractive() && info("compiling SAM")
 const sam_metainfo_machine, sam_record_machine, sam_header_machine, sam_body_machine = (function ()
     cat = Automa.RegExp.cat
     rep = Automa.RegExp.rep
