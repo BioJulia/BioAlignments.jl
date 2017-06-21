@@ -38,6 +38,7 @@ markdown_extensions:
 pages:
 - Home: index.md
 - Alignments: alignments.md
+- Pairwise alignment: pairalign.md
 - IO:
   - SAM: io/bam.md
   - BAM: io/sam.md

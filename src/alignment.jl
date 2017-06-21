@@ -79,8 +79,10 @@ end
 
 function Base.show(io::IO, aln::Alignment)
     println(io, summary(aln), ':')
-    println(io, "  alignment: ", cigar(aln))
-      print(io, "  aligned range: ", aln.firstref, '-', aln.lastref)
+    println(io, "  aligned range:")
+    println(io, "    seq: ", first(aln.anchors).seqpos, '-', last(aln.anchors).seqpos)
+    println(io, "    ref: ", first(aln.anchors).refpos, '-', last(aln.anchors).refpos)
+      print(io, "  CIGAR string: ", cigar(aln))
 end
 
 """
