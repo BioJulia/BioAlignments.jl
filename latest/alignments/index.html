@@ -5,6 +5,7 @@
     
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
       
         <meta name="description" content="Sequence alignment tools">
       
@@ -17,7 +18,7 @@
       
         <link rel="shortcut icon" href="../assets/images/favicon.png">
       
-      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.7.3">
+      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.7.4">
     
     
       
@@ -28,7 +29,7 @@
       <script src="../assets/javascripts/modernizr-1df76c4e58.js"></script>
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/application-acc56dad49.css">
+      <link rel="stylesheet" href="../assets/stylesheets/application-769c285a91.css">
       
     
     
@@ -262,33 +263,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#pairwise-alignment" title="Pairwise alignment" class="md-nav__link">
-    Pairwise alignment
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#operations-on-pairwise-alignment" title="Operations on pairwise alignment" class="md-nav__link">
-    Operations on pairwise alignment
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#substitution-matrices" title="Substitution matrices" class="md-nav__link">
-    Substitution matrices
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#alignment-file-formats-for-high-throughput-sequencing" title="Alignment file formats for high-throughput sequencing" class="md-nav__link">
     Alignment file formats for high-throughput sequencing
   </a>
@@ -329,15 +303,27 @@
       
 
 
+  <li class="md-nav__item">
+    <a href="../pairalign/" title="Pairwise alignment" class="md-nav__link">
+      Pairwise alignment
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
     
-    <label class="md-nav__link" for="nav-3">
+    <label class="md-nav__link" for="nav-4">
       IO
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-3">
+      <label class="md-nav__title" for="nav-4">
         IO
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -427,33 +413,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#pairwise-alignment" title="Pairwise alignment" class="md-nav__link">
-    Pairwise alignment
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#operations-on-pairwise-alignment" title="Operations on pairwise alignment" class="md-nav__link">
-    Operations on pairwise alignment
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#substitution-matrices" title="Substitution matrices" class="md-nav__link">
-    Substitution matrices
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#alignment-file-formats-for-high-throughput-sequencing" title="Alignment file formats for high-throughput sequencing" class="md-nav__link">
     Alignment file formats for high-throughput sequencing
   </a>
@@ -499,7 +458,7 @@
                 
                 <p><a id='Sequence-Alignments-1'></a></p>
 <h1 id="sequence-alignments">Sequence Alignments</h1>
-<p>The <code>Align</code> module contains tools for computing and working with sequence alignments.</p>
+<p>The <code>BioAlignments</code> module contains tools for computing and working with sequence alignments.</p>
 <p><a id='Representing-alignments-1'></a></p>
 <h2 id="representing-alignments">Representing alignments</h2>
 <p>The <code>Alignment</code> type can represent a wide variety of global or local sequence alignments while facilitating efficient coordinate transformation.  Alignment are always relative to a possibly unspecified reference sequence and represent a series of <a href="https://en.wikipedia.org/wiki/Edit_distance">edit operations</a> performed on that reference to transform it to the query sequence.</p>
@@ -538,13 +497,16 @@ reference: AGGGTGGCATTTATCAG---ACGTTTCGAGAC
 
 
 <p>An <code>Alignment</code> object can be created from a series of anchors:</p>
-<div class="codehilite"><pre><span></span><span class="gp">julia&gt;</span> <span class="n">Alignment</span><span class="p">([</span>
-           <span class="n">AlignmentAnchor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">OP_START</span><span class="p">),</span>
-           <span class="n">AlignmentAnchor</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">OP_MATCH</span><span class="p">),</span>
-           <span class="n">AlignmentAnchor</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="n">OP_DELETE</span><span class="p">)</span>
-       <span class="p">])</span>
-<span class="go">········</span>
-<span class="go">····----</span>
+<div class="codehilite"><pre><span></span>julia&gt; Alignment([
+           AlignmentAnchor(0,  4, OP_START),
+           AlignmentAnchor(4,  8, OP_MATCH),
+           AlignmentAnchor(4, 12, OP_DELETE)
+       ])
+BioAlignments.Alignment:
+  aligned range:
+    seq: 0-4
+    ref: 4-12
+  CIGAR string: 4M4D
 </pre></div>
 
 
@@ -621,27 +583,27 @@ reference: AGGGTGGCATTTATCAG---ACGTTTCGAGAC
 <h2 id="aligned-sequence">Aligned sequence</h2>
 <p>A sequence aligned to another sequence is represented by the <code>AlignedSequence</code> type, which is a pair of the aligned sequence and an <code>Alignment</code> object.</p>
 <p>The following example creates an aligned sequence object from a sequence and an alignment:</p>
-<div class="codehilite"><pre><span></span><span class="gp">julia&gt;</span> <span class="n">AlignedSequence</span><span class="p">(</span>  <span class="c"># pass an Alignment object</span>
-           <span class="n">dna</span><span class="s">&quot;ACGTAT&quot;</span><span class="p">,</span>
-           <span class="n">Alignment</span><span class="p">([</span>
-               <span class="n">AlignmentAnchor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">OP_START</span><span class="p">),</span>
-               <span class="n">AlignmentAnchor</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">OP_MATCH</span><span class="p">),</span>
-               <span class="n">AlignmentAnchor</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">OP_INSERT</span><span class="p">)</span>
-           <span class="p">])</span>
-       <span class="p">)</span>
-<span class="go">···---</span>
-<span class="go">ACGTAT</span>
+<div class="codehilite"><pre><span></span>julia&gt; AlignedSequence(  # pass an Alignment object
+           dna&quot;ACGTAT&quot;,
+           Alignment([
+               AlignmentAnchor(0, 0, OP_START),
+               AlignmentAnchor(3, 3, OP_MATCH),
+               AlignmentAnchor(6, 3, OP_INSERT)
+           ])
+       )
+···---
+ACGTAT
 
-<span class="gp">julia&gt;</span> <span class="n">AlignedSequence</span><span class="p">(</span>  <span class="c"># or pass a vector of anchors</span>
-           <span class="n">dna</span><span class="s">&quot;ACGTAT&quot;</span><span class="p">,</span>
-           <span class="p">[</span>
-               <span class="n">AlignmentAnchor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">OP_START</span><span class="p">),</span>
-               <span class="n">AlignmentAnchor</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">OP_MATCH</span><span class="p">),</span>
-               <span class="n">AlignmentAnchor</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">OP_INSERT</span><span class="p">)</span>
-           <span class="p">]</span>
-       <span class="p">)</span>
-<span class="go">···---</span>
-<span class="go">ACGTAT</span>
+julia&gt; AlignedSequence(  # or pass a vector of anchors
+           dna&quot;ACGTAT&quot;,
+           [
+               AlignmentAnchor(0, 0, OP_START),
+               AlignmentAnchor(3, 3, OP_MATCH),
+               AlignmentAnchor(6, 3, OP_INSERT)
+           ]
+       )
+···---
+ACGTAT
 </pre></div>
 
 
@@ -685,7 +647,7 @@ reference: AGGGTGGCATTTATCAG---ACGTTTCGAGAC
 
 
 <p>Map a position from sequence to reference.</p>
-<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/2154672e6a03456d87579e8c39135156b2929a4e/src/alignment.jl#L86-L90' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/8c2600694f28ef00ad2edf1ae535df83385124e9/src/alignment.jl#L88-L92' class='documenter-source'>source</a><br></p>
 <p><a id='BioAlignments.ref2seq' href='#BioAlignments.ref2seq'>#</a>
 <strong><code>BioAlignments.ref2seq</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>ref2seq(aln, i)
@@ -693,7 +655,7 @@ reference: AGGGTGGCATTTATCAG---ACGTTTCGAGAC
 
 
 <p>Map a position from reference to sequence.</p>
-<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/2154672e6a03456d87579e8c39135156b2929a4e/src/alignment.jl#L104-L108' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/8c2600694f28ef00ad2edf1ae535df83385124e9/src/alignment.jl#L106-L110' class='documenter-source'>source</a><br></p>
 <p><a id='BioAlignments.cigar' href='#BioAlignments.cigar'>#</a>
 <strong><code>BioAlignments.cigar</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>cigar(aln::Alignment)
@@ -702,318 +664,7 @@ reference: AGGGTGGCATTTATCAG---ACGTTTCGAGAC
 
 <p>Make a CIGAR string encoding of <code>aln</code>.</p>
 <p>This is not entirely lossless as it discards the alignments start positions.</p>
-<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/2154672e6a03456d87579e8c39135156b2929a4e/src/alignment.jl#L122-L128' class='documenter-source'>source</a><br></p>
-<p><a id='Pairwise-alignment-1'></a></p>
-<h2 id="pairwise-alignment">Pairwise alignment</h2>
-<p>Pairwise alignment is a sequence alignment between two sequences.  The <code>Bio.Align</code> module implements several pairwise alignment methods that maximize alignment score or minimize alignment cost.</p>
-<p>A pair of optimization type and score (or cost) model determines the best alignments between two sequences. The next example uses a pair of <code>GlobalAlignment</code> and <code>AffineGapScoreModel</code> to obtain the best alignment:</p>
-<div class="codehilite"><pre><span></span><span class="gp">julia&gt;</span> <span class="n">problem</span> <span class="o">=</span> <span class="n">GlobalAlignment</span><span class="p">()</span>
-<span class="go">Bio.Align.GlobalAlignment()</span>
-
-<span class="gp">julia&gt;</span> <span class="n">scoremodel</span> <span class="o">=</span> <span class="n">AffineGapScoreModel</span><span class="p">(</span>
-                  <span class="n">match</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
-                  <span class="n">mismatch</span><span class="o">=-</span><span class="mi">4</span><span class="p">,</span>
-                  <span class="n">gap_open</span><span class="o">=-</span><span class="mi">4</span><span class="p">,</span>
-                  <span class="n">gap_extend</span><span class="o">=-</span><span class="mi">1</span>
-              <span class="p">)</span>
-<span class="go">Bio.Align.AffineGapScoreModel{Int64}:</span>
-<span class="go">       match = 5</span>
-<span class="go">    mismatch = -4</span>
-<span class="go">    gap_open = -4</span>
-<span class="go">  gap_extend = -1</span>
-
-<span class="gp">julia&gt;</span> <span class="n">pairalign</span><span class="p">(</span><span class="n">problem</span><span class="p">,</span> <span class="n">dna</span><span class="s">&quot;CGGATTA&quot;</span><span class="p">,</span> <span class="n">dna</span><span class="s">&quot;GGTTTAC&quot;</span><span class="p">,</span> <span class="n">scoremodel</span><span class="p">)</span>
-<span class="go">Bio.Align.PairwiseAlignmentResult{Int64,Bio.Seq.BioSequence{Bio.Seq.DNAAlphabet{4}},Bio.Seq.BioSequence{Bio.Seq.DNAAlphabet{4}}}:</span>
-<span class="go">  score: 11</span>
-<span class="go">  seq: 1 CGGATTA- 7</span>
-<span class="go">          || |||</span>
-<span class="go">  ref: 0 -GGTTTAC 7</span>
-</pre></div>
-
-
-<p><code>pairalign</code> takes an alignment type as its first argument, then two sequences to align, and score (or cost) model. Alignment type is one of the following four types:</p>
-<ul>
-<li><code>GlobalAlignment</code>: global-to-global alignment</li>
-<li><code>SemiGlobalAlignment</code>: local-to-global alignment</li>
-<li><code>LocalAlignment</code>: local-to-local alignment</li>
-<li><code>OverlapAlignment</code>: end-free alignment</li>
-</ul>
-<p>For scoring model, <code>AffineGapScoreModel</code> is currently supported. It imposes an <strong>affine gap penalty</strong> for insertions and deletions: <code>gap_open + k * gap_extend</code> for a consecutive insertion/deletion of length <code>k</code>. The affine gap penalty is flexible enough to create a constant and linear scoring model. Setting <code>gap_extend = 0</code> or <code>gap_open = 0</code>, they are equivalent to the constant or linear gap penalty, respectively. The first argument of <code>AffineGapScoreModel</code> can be a substitution matrix like <code>AffineGapScoreModel(BLOSUM62, gap_open=-10, gap_extend=-1)</code>. For details on substitution matrices, see the <a href="./#Substitution-matrices-1">Substitution matrices</a> section.</p>
-<p>Alignment type can also be a distance of two sequences:</p>
-<ul>
-<li><code>EditDistance</code></li>
-<li><code>LevenshteinDistance</code></li>
-<li><code>HammingDistance</code></li>
-</ul>
-<p>In this alignment, <code>CostModel</code> is used instead of <code>AffineGapScoreModel</code> to define cost of substitution, insertion, and deletion:</p>
-<div class="codehilite"><pre><span></span><span class="gp">julia&gt;</span> <span class="n">costmodel</span> <span class="o">=</span> <span class="n">CostModel</span><span class="p">(</span><span class="n">match</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">mismatch</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">insertion</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">deletion</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
-
-<span class="gp">julia&gt;</span> <span class="n">pairalign</span><span class="p">(</span><span class="n">EditDistance</span><span class="p">(),</span> <span class="s">&quot;abcd&quot;</span><span class="p">,</span> <span class="s">&quot;adcde&quot;</span><span class="p">,</span> <span class="n">costmodel</span><span class="p">)</span>
-<span class="go">Bio.Align.PairwiseAlignmentResult{Int64,String,String}:</span>
-<span class="go">  distance: 2</span>
-<span class="go">  seq: 1 abcd- 4</span>
-<span class="go">         | ||</span>
-<span class="go">  ref: 1 adcde 5</span>
-</pre></div>
-
-
-<p><a id='Operations-on-pairwise-alignment-1'></a></p>
-<h3 id="operations-on-pairwise-alignment">Operations on pairwise alignment</h3>
-<p><code>pairalign</code> returns a <code>PairwiseAlignmentResult</code> object and some accessors are provided for it.</p>
-<p><a id='BioAlignments.score' href='#BioAlignments.score'>#</a>
-<strong><code>BioAlignments.score</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>score(alignment_result)
-</pre></div>
-
-
-<p>Return score of alignment.</p>
-<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/2154672e6a03456d87579e8c39135156b2929a4e/src/pairwise/result.jl#L33-L37' class='documenter-source'>source</a><br></p>
-<p><a id='BioCore.distance' href='#BioCore.distance'>#</a>
-<strong><code>BioCore.distance</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>distance(alignment_result)
-</pre></div>
-
-
-<p>Retrun distance of alignment.</p>
-<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/2154672e6a03456d87579e8c39135156b2929a4e/src/pairwise/result.jl#L40-L44' class='documenter-source'>source</a><br></p>
-<p><a id='BioAlignments.hasalignment' href='#BioAlignments.hasalignment'>#</a>
-<strong><code>BioAlignments.hasalignment</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>hasalignment(alignment_result)
-</pre></div>
-
-
-<p>Check if alignment is stored or not.</p>
-<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/2154672e6a03456d87579e8c39135156b2929a4e/src/pairwise/result.jl#L48-L52' class='documenter-source'>source</a><br></p>
-<p><a id='BioAlignments.alignment' href='#BioAlignments.alignment'>#</a>
-<strong><code>BioAlignments.alignment</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>alignment(alignment_result)
-</pre></div>
-
-
-<p>Return alignment if any.</p>
-<p>See also: <code>hasalignment</code></p>
-<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/2154672e6a03456d87579e8c39135156b2929a4e/src/pairwise/result.jl#L55-L61' class='documenter-source'>source</a><br></p>
-<p>Pairwise alignment also implements some useful operations on it.</p>
-<p><a id='BioAlignments.count_matches' href='#BioAlignments.count_matches'>#</a>
-<strong><code>BioAlignments.count_matches</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>count_matches(aln)
-</pre></div>
-
-
-<p>Count the number of matching positions.</p>
-<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/2154672e6a03456d87579e8c39135156b2929a4e/src/pairwise/alignment.jl#L84-L88' class='documenter-source'>source</a><br></p>
-<p><a id='BioAlignments.count_mismatches' href='#BioAlignments.count_mismatches'>#</a>
-<strong><code>BioAlignments.count_mismatches</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>count_mismatches(aln)
-</pre></div>
-
-
-<p>Count the number of mismatching positions.</p>
-<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/2154672e6a03456d87579e8c39135156b2929a4e/src/pairwise/alignment.jl#L91-L95' class='documenter-source'>source</a><br></p>
-<p><a id='BioAlignments.count_insertions' href='#BioAlignments.count_insertions'>#</a>
-<strong><code>BioAlignments.count_insertions</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>count_insertions(aln)
-</pre></div>
-
-
-<p>Count the number of inserting positions.</p>
-<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/2154672e6a03456d87579e8c39135156b2929a4e/src/pairwise/alignment.jl#L98-L102' class='documenter-source'>source</a><br></p>
-<p><a id='BioAlignments.count_deletions' href='#BioAlignments.count_deletions'>#</a>
-<strong><code>BioAlignments.count_deletions</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>count_deletions(aln)
-</pre></div>
-
-
-<p>Count the number of deleting positions.</p>
-<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/2154672e6a03456d87579e8c39135156b2929a4e/src/pairwise/alignment.jl#L105-L109' class='documenter-source'>source</a><br></p>
-<p><a id='BioAlignments.count_aligned' href='#BioAlignments.count_aligned'>#</a>
-<strong><code>BioAlignments.count_aligned</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>count_aligned(aln)
-</pre></div>
-
-
-<p>Count the number of aligned positions.</p>
-<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/2154672e6a03456d87579e8c39135156b2929a4e/src/pairwise/alignment.jl#L112-L116' class='documenter-source'>source</a><br></p>
-<p>The example below shows a use case of these operations:</p>
-<div class="codehilite"><pre><span></span><span class="gp">julia&gt;</span> <span class="n">s1</span> <span class="o">=</span> <span class="n">dna</span><span class="s">&quot;CCTAGGAGGG&quot;</span><span class="p">;</span>
-
-<span class="gp">julia&gt;</span> <span class="n">s2</span> <span class="o">=</span> <span class="n">dna</span><span class="s">&quot;ACCTGGTATGATAGCG&quot;</span><span class="p">;</span>
-
-<span class="gp">julia&gt;</span> <span class="n">scoremodel</span> <span class="o">=</span> <span class="n">AffineGapScoreModel</span><span class="p">(</span><span class="n">EDNAFULL</span><span class="p">,</span> <span class="n">gap_open</span><span class="o">=-</span><span class="mi">5</span><span class="p">,</span> <span class="n">gap_extend</span><span class="o">=-</span><span class="mi">1</span><span class="p">);</span>
-
-<span class="gp">julia&gt;</span> <span class="n">res</span> <span class="o">=</span> <span class="n">pairalign</span><span class="p">(</span><span class="n">GlobalAlignment</span><span class="p">(),</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">scoremodel</span><span class="p">)</span>  <span class="c"># run pairwise alignment</span>
-<span class="go">Bio.Align.PairwiseAlignmentResult{Int64,Bio.Seq.BioSequence{Bio.Seq.DNAAlphabet{4}},Bio.Seq.BioSequence{Bio.Seq.DNAAlphabet{4}}}:</span>
-<span class="go">  score: 13</span>
-<span class="go">  seq:  0 -CCTAGG------AGGG 10</span>
-<span class="go">           ||| ||      || |</span>
-<span class="go">  ref:  1 ACCT-GGTATGATAGCG 16</span>
-
-
-<span class="gp">julia&gt;</span> <span class="n">score</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>  <span class="c"># get the achieved score of this alignment</span>
-<span class="go">13</span>
-
-<span class="gp">julia&gt;</span> <span class="n">aln</span> <span class="o">=</span> <span class="n">alignment</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
-<span class="go">PairwiseAlignment{Bio.Seq.BioSequence{Bio.Seq.DNAAlphabet{4}},Bio.Seq.BioSequence{Bio.Seq.DNAAlphabet{4}}}:</span>
-<span class="go">  seq:  0 -CCTAGG------AGGG 10</span>
-<span class="go">           ||| ||      || |</span>
-<span class="go">  ref:  1 ACCT-GGTATGATAGCG 16</span>
-
-
-<span class="gp">julia&gt;</span> <span class="n">count_matches</span><span class="p">(</span><span class="n">aln</span><span class="p">)</span>
-<span class="go">8</span>
-
-<span class="gp">julia&gt;</span> <span class="n">count_mismatches</span><span class="p">(</span><span class="n">aln</span><span class="p">)</span>
-<span class="go">1</span>
-
-<span class="gp">julia&gt;</span> <span class="n">count_insertions</span><span class="p">(</span><span class="n">aln</span><span class="p">)</span>
-<span class="go">1</span>
-
-<span class="gp">julia&gt;</span> <span class="n">count_deletions</span><span class="p">(</span><span class="n">aln</span><span class="p">)</span>
-<span class="go">7</span>
-
-<span class="gp">julia&gt;</span> <span class="n">count_aligned</span><span class="p">(</span><span class="n">aln</span><span class="p">)</span>
-<span class="go">17</span>
-
-<span class="gp">julia&gt;</span> <span class="n">collect</span><span class="p">(</span><span class="n">aln</span><span class="p">)</span>  <span class="c"># pairwise alignment is iterable</span>
-<span class="go">17-element Array{Tuple{Bio.Seq.DNA,Bio.Seq.DNA},1}:</span>
-<span class="go"> (-,A)</span>
-<span class="go"> (C,C)</span>
-<span class="go"> (C,C)</span>
-<span class="go"> (T,T)</span>
-<span class="go"> (A,-)</span>
-<span class="go"> (G,G)</span>
-<span class="go"> (G,G)</span>
-<span class="go"> (-,T)</span>
-<span class="go"> (-,A)</span>
-<span class="go"> (-,T)</span>
-<span class="go"> (-,G)</span>
-<span class="go"> (-,A)</span>
-<span class="go"> (-,T)</span>
-<span class="go"> (A,A)</span>
-<span class="go"> (G,G)</span>
-<span class="go"> (G,C)</span>
-<span class="go"> (G,G)</span>
-
-<span class="gp">julia&gt;</span> <span class="n">DNASequence</span><span class="p">([</span><span class="n">x</span> <span class="k">for</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="kp">in</span> <span class="n">aln</span><span class="p">])</span>  <span class="c"># create aligned `s1` with gaps</span>
-<span class="go">17nt DNA Sequence:</span>
-<span class="go">-CCTAGG------AGGG</span>
-
-<span class="gp">julia&gt;</span> <span class="n">DNASequence</span><span class="p">([</span><span class="n">y</span> <span class="k">for</span> <span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="kp">in</span> <span class="n">aln</span><span class="p">])</span>  <span class="c"># create aligned `s2` with gaps</span>
-<span class="go">17nt DNA Sequence:</span>
-<span class="go">ACCT-GGTATGATAGCG</span>
-</pre></div>
-
-
-<p><a id='Substitution-matrices-1'></a></p>
-<h2 id="substitution-matrices">Substitution matrices</h2>
-<p>A substitution matrix is a function of substitution score (or cost) from one symbol to other. Substitution value of <code>submat</code> from <code>x</code> to <code>y</code> can be obtained by writing <code>submat[x,y]</code>. In <code>Bio.Align</code>, <code>SubstitutionMatrix</code> and <code>DichotomousSubstitutionMatrix</code> are two distinct types representing substitution matrices.</p>
-<p><code>SubstitutionMatrix</code> is a general substitution matrix type that is a thin wrapper of regular matrix.</p>
-<p>Some common substitution matrices are provided. For DNA and RNA, <code>EDNAFULL</code> is defined:</p>
-<div class="codehilite"><pre><span></span><span class="gp">julia&gt;</span> <span class="n">EDNAFULL</span>
-<span class="go">Bio.Align.SubstitutionMatrix{Bio.Seq.DNA,Int64}:</span>
-<span class="go">     A  C  G  T  M  R  W  S  Y  K  V  H  D  B  N</span>
-<span class="go">  A  5 -4 -4 -4  1  1  1 -4 -4 -4 -1 -1 -1 -4 -2</span>
-<span class="go">  C -4  5 -4 -4  1 -4 -4  1  1 -4 -1 -1 -4 -1 -2</span>
-<span class="go">  G -4 -4  5 -4 -4  1 -4  1 -4  1 -1 -4 -1 -1 -2</span>
-<span class="go">  T -4 -4 -4  5 -4 -4  1 -4  1  1 -4 -1 -1 -1 -2</span>
-<span class="go">  M  1  1 -4 -4 -1 -2 -2 -2 -2 -4 -1 -1 -3 -3 -1</span>
-<span class="go">  R  1 -4  1 -4 -2 -1 -2 -2 -4 -2 -1 -3 -1 -3 -1</span>
-<span class="go">  W  1 -4 -4  1 -2 -2 -1 -4 -2 -2 -3 -1 -1 -3 -1</span>
-<span class="go">  S -4  1  1 -4 -2 -2 -4 -1 -2 -2 -1 -3 -3 -1 -1</span>
-<span class="go">  Y -4  1 -4  1 -2 -4 -2 -2 -1 -2 -3 -1 -3 -1 -1</span>
-<span class="go">  K -4 -4  1  1 -4 -2 -2 -2 -2 -1 -3 -3 -1 -1 -1</span>
-<span class="go">  V -1 -1 -1 -4 -1 -1 -3 -1 -3 -3 -1 -2 -2 -2 -1</span>
-<span class="go">  H -1 -1 -4 -1 -1 -3 -1 -3 -1 -3 -2 -1 -2 -2 -1</span>
-<span class="go">  D -1 -4 -1 -1 -3 -1 -1 -3 -3 -1 -2 -2 -1 -2 -1</span>
-<span class="go">  B -4 -1 -1 -1 -3 -3 -3 -1 -1 -1 -2 -2 -2 -1 -1</span>
-<span class="go">  N -2 -2 -2 -2 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1</span>
-<span class="go">(underlined values are default ones)</span>
-</pre></div>
-
-
-<p>For amino acids, PAM (Point Accepted Mutation) and BLOSUM (BLOcks SUbstitution Matrix) matrices are defined:</p>
-<div class="codehilite"><pre><span></span><span class="gp">julia&gt;</span> <span class="n">BLOSUM62</span>
-<span class="go">Bio.Align.SubstitutionMatrix{Bio.Seq.AminoAcid,Int64}:</span>
-<span class="go">     A  R  N  D  C  Q  E  G  H  I  L  K  M  F  P  S  T  W  Y  V  O  U  B  J  Z  X  *</span>
-<span class="go">  A  4 -1 -2 -2  0 -1 -1  0 -2 -1 -1 -1 -1 -2 -1  1  0 -3 -2  0  0̲  0̲ -2  0̲ -1  0 -4</span>
-<span class="go">  R -1  5  0 -2 -3  1  0 -2  0 -3 -2  2 -1 -3 -2 -1 -1 -3 -2 -3  0̲  0̲ -1  0̲  0 -1 -4</span>
-<span class="go">  N -2  0  6  1 -3  0  0  0  1 -3 -3  0 -2 -3 -2  1  0 -4 -2 -3  0̲  0̲  3  0̲  0 -1 -4</span>
-<span class="go">  D -2 -2  1  6 -3  0  2 -1 -1 -3 -4 -1 -3 -3 -1  0 -1 -4 -3 -3  0̲  0̲  4  0̲  1 -1 -4</span>
-<span class="go">  C  0 -3 -3 -3  9 -3 -4 -3 -3 -1 -1 -3 -1 -2 -3 -1 -1 -2 -2 -1  0̲  0̲ -3  0̲ -3 -2 -4</span>
-<span class="go">  Q -1  1  0  0 -3  5  2 -2  0 -3 -2  1  0 -3 -1  0 -1 -2 -1 -2  0̲  0̲  0  0̲  3 -1 -4</span>
-<span class="go">  E -1  0  0  2 -4  2  5 -2  0 -3 -3  1 -2 -3 -1  0 -1 -3 -2 -2  0̲  0̲  1  0̲  4 -1 -4</span>
-<span class="go">  G  0 -2  0 -1 -3 -2 -2  6 -2 -4 -4 -2 -3 -3 -2  0 -2 -2 -3 -3  0̲  0̲ -1  0̲ -2 -1 -4</span>
-<span class="go">  H -2  0  1 -1 -3  0  0 -2  8 -3 -3 -1 -2 -1 -2 -1 -2 -2  2 -3  0̲  0̲  0  0̲  0 -1 -4</span>
-<span class="go">  I -1 -3 -3 -3 -1 -3 -3 -4 -3  4  2 -3  1  0 -3 -2 -1 -3 -1  3  0̲  0̲ -3  0̲ -3 -1 -4</span>
-<span class="go">  L -1 -2 -3 -4 -1 -2 -3 -4 -3  2  4 -2  2  0 -3 -2 -1 -2 -1  1  0̲  0̲ -4  0̲ -3 -1 -4</span>
-<span class="go">  K -1  2  0 -1 -3  1  1 -2 -1 -3 -2  5 -1 -3 -1  0 -1 -3 -2 -2  0̲  0̲  0  0̲  1 -1 -4</span>
-<span class="go">  M -1 -1 -2 -3 -1  0 -2 -3 -2  1  2 -1  5  0 -2 -1 -1 -1 -1  1  0̲  0̲ -3  0̲ -1 -1 -4</span>
-<span class="go">  F -2 -3 -3 -3 -2 -3 -3 -3 -1  0  0 -3  0  6 -4 -2 -2  1  3 -1  0̲  0̲ -3  0̲ -3 -1 -4</span>
-<span class="go">  P -1 -2 -2 -1 -3 -1 -1 -2 -2 -3 -3 -1 -2 -4  7 -1 -1 -4 -3 -2  0̲  0̲ -2  0̲ -1 -2 -4</span>
-<span class="go">  S  1 -1  1  0 -1  0  0  0 -1 -2 -2  0 -1 -2 -1  4  1 -3 -2 -2  0̲  0̲  0  0̲  0  0 -4</span>
-<span class="go">  T  0 -1  0 -1 -1 -1 -1 -2 -2 -1 -1 -1 -1 -2 -1  1  5 -2 -2  0  0̲  0̲ -1  0̲ -1  0 -4</span>
-<span class="go">  W -3 -3 -4 -4 -2 -2 -3 -2 -2 -3 -2 -3 -1  1 -4 -3 -2 11  2 -3  0̲  0̲ -4  0̲ -3 -2 -4</span>
-<span class="go">  Y -2 -2 -2 -3 -2 -1 -2 -3  2 -1 -1 -2 -1  3 -3 -2 -2  2  7 -1  0̲  0̲ -3  0̲ -2 -1 -4</span>
-<span class="go">  V  0 -3 -3 -3 -1 -2 -2 -3 -3  3  1 -2  1 -1 -2 -2  0 -3 -1  4  0̲  0̲ -3  0̲ -2 -1 -4</span>
-<span class="go">  O  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲</span>
-<span class="go">  U  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲</span>
-<span class="go">  B -2 -1  3  4 -3  0  1 -1  0 -3 -4  0 -3 -3 -2  0 -1 -4 -3 -3  0̲  0̲  4  0̲  1 -1 -4</span>
-<span class="go">  J  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲  0̲</span>
-<span class="go">  Z -1  0  0  1 -3  3  4 -2  0 -3 -3  1 -1 -3 -1  0 -1 -3 -2 -2  0̲  0̲  1  0̲  4 -1 -4</span>
-<span class="go">  X  0 -1 -1 -1 -2 -1 -1 -1 -1 -1 -1 -1 -1 -1 -2  0  0 -2 -1 -1  0̲  0̲ -1  0̲ -1 -1 -4</span>
-<span class="go">  * -4 -4 -4 -4 -4 -4 -4 -4 -4 -4 -4 -4 -4 -4 -4 -4 -4 -4 -4 -4  0̲  0̲ -4  0̲ -4 -4  1</span>
-<span class="go">(underlined values are default ones)</span>
-</pre></div>
-
-
-<table>
-<thead>
-<tr>
-<th align="left">Matrix</th>
-<th align="left">Constants</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">PAM</td>
-<td align="left"><code>PAM30</code>, <code>PAM70</code>, <code>PAM250</code></td>
-</tr>
-<tr>
-<td align="left">BLOSUM</td>
-<td align="left"><code>BLOSUM45</code>, <code>BLOSUM50</code>, <code>BLOSUM62</code>, <code>BLOSUM80</code>, <code>BLOSUM90</code></td>
-</tr>
-</tbody>
-</table>
-<p>These matrices are downloaded from: <a href="ftp://ftp.ncbi.nih.gov/blast/matrices/">ftp://ftp.ncbi.nih.gov/blast/matrices/</a>.</p>
-<p><code>SubstitutionMatrix</code> can be modified like a regular matrix:</p>
-<div class="codehilite"><pre><span></span><span class="gp">julia&gt;</span> <span class="n">mysubmat</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">BLOSUM62</span><span class="p">);</span>  <span class="c"># create a copy</span>
-
-<span class="gp">julia&gt;</span> <span class="n">mysubmat</span><span class="p">[</span><span class="n">AA_A</span><span class="p">,</span><span class="n">AA_R</span><span class="p">]</span>  <span class="c"># score of AA_A =&gt; AA_R substitution is -1</span>
-<span class="go">-1</span>
-
-<span class="gp">julia&gt;</span> <span class="n">mysubmat</span><span class="p">[</span><span class="n">AA_A</span><span class="p">,</span><span class="n">AA_R</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">3</span>  <span class="c"># set the score to -3</span>
-<span class="go">-3</span>
-
-<span class="gp">julia&gt;</span> <span class="n">mysubmat</span><span class="p">[</span><span class="n">AA_A</span><span class="p">,</span><span class="n">AA_R</span><span class="p">]</span>  <span class="c"># the score is modified</span>
-<span class="go">-3</span>
-</pre></div>
-
-
-<p>Make sure to create a copy of the original matrix when you create a matrix from a predefined matrix. In the above case, <code>BLOSUM62</code> is shared in the whole program and modification on it will affect any result that uses <code>BLOSUM62</code>.</p>
-<p><code>DichotomousSubstitutionMatrix</code> is a specialized matrix for matching or mismatching substitution.  This is a preferable choice when performance is more important than flexibility because looking up score is faster than <code>SubstitutionMatrix</code>.</p>
-<div class="codehilite"><pre><span></span><span class="gp">julia&gt;</span> <span class="n">submat</span> <span class="o">=</span> <span class="n">DichotomousSubstitutionMatrix</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-<span class="go">Bio.Align.DichotomousSubstitutionMatrix{Int64}:</span>
-<span class="go">     match =  1</span>
-<span class="go">  mismatch = -1</span>
-
-<span class="gp">julia&gt;</span> <span class="n">submat</span><span class="p">[</span><span class="sc">&#39;A&#39;</span><span class="p">,</span><span class="sc">&#39;A&#39;</span><span class="p">]</span>  <span class="c"># match</span>
-<span class="go">1</span>
-
-<span class="gp">julia&gt;</span> <span class="n">submat</span><span class="p">[</span><span class="sc">&#39;A&#39;</span><span class="p">,</span><span class="sc">&#39;B&#39;</span><span class="p">]</span>  <span class="c"># mismatch</span>
-<span class="go">-1</span>
-</pre></div>
-
-
+<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/8c2600694f28ef00ad2edf1ae535df83385124e9/src/alignment.jl#L124-L130' class='documenter-source'>source</a><br></p>
 <p><a id='Alignment-file-formats-for-high-throughput-sequencing-1'></a></p>
 <h2 id="alignment-file-formats-for-high-throughput-sequencing">Alignment file formats for high-throughput sequencing</h2>
 <p>High-throughput sequencing (HTS) technologies generate a large amount of data in the form of a large number of nucleotide sequencing reads. One of the most common tasks in bioinformatics is to align these reads against known reference genomes, chromosomes, or contigs. The <code>Bio.Align</code> module provides several data formats commonly used for this kind of task.</p>
@@ -1134,13 +785,13 @@ reference: AGGGTGGCATTTATCAG---ACGTTTCGAGAC
           </a>
         
         
-          <a href="../io/bam/" title="SAM" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../pairalign/" title="Pairwise alignment" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                SAM
+                Pairwise alignment
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
@@ -1174,7 +825,7 @@ reference: AGGGTGGCATTTATCAG---ACGTTTCGAGAC
       
     </div>
     
-      <script src="../assets/javascripts/application-b30566c560.js"></script>
+      <script src="../assets/javascripts/application-c35428f87f.js"></script>
       
       
       <script>app.initialize({url:{base:".."}})</script>
