@@ -19,6 +19,10 @@ function GenomicFeatures.eachoverlap(reader::Reader, interval::Interval)
     return GenomicFeatures.eachoverlap(reader, interval.seqname, interval.first:interval.last)
 end
 
+function GenomicFeatures.eachoverlap(reader::Reader, interval)
+    return GenomicFeatures.eachoverlap(reader, convert(Interval, interval))
+end
+
 function GenomicFeatures.eachoverlap(reader::Reader, refname::AbstractString, interval::UnitRange)
     return OverlapIterator(reader, String(refname), interval)
 end

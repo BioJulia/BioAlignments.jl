@@ -108,7 +108,34 @@ overlapping the query interval:
 reader = open(BAM.Reader, "SRR1238088.sort.bam", index="SRR1238088.sort.bam.bai")
 for record in eachoverlap(reader, "Chr2", 10000:11000)
     # `record` is a BAM.Record object
-    # Do something...
+    # ...
+end
+close(reader)
+```
+
+`eachoverlap` also supports `Interval` type definded in
+[BioAlignments.jl](https://github.com/BioJulia/BioAlignments.jl).
+
+```julia
+# Load GFF3 module.
+using GenomicFeatures
+
+# Load genomic features from a GFF3 file.
+features = open(collect, GFF3.Reader, "TAIR10_GFF3_genes.gff")
+
+# Keep mRNA features.
+filter!(x -> GFF3.featuretype(x) == "mRNA", features)
+
+# Load BAM module.
+using BioAlignments
+
+# Open a BAM file and iterate over records overlapping mRNA transcripts.
+reader = open(BAM.Reader, "SRR1238088.sort.bam", index="SRR1238088.sort.bam.bai")
+for feature in features
+    for record in eachoverlap(reader, feature)
+        # `record` overlaps `feature`.
+        # ...
+    end
 end
 close(reader)
 ```
