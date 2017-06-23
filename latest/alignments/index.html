@@ -262,33 +262,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#alignment-file-formats-for-high-throughput-sequencing" title="Alignment file formats for high-throughput sequencing" class="md-nav__link">
-    Alignment file formats for high-throughput sequencing
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#sam-and-bam-file-formats" title="SAM and BAM file formats" class="md-nav__link">
-    SAM and BAM file formats
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#performance-tips" title="Performance tips" class="md-nav__link">
-    Performance tips
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
       
       
     </ul>
@@ -315,15 +288,27 @@
       
 
 
+  <li class="md-nav__item">
+    <a href="../hts-files/" title="High-throughput sequencing" class="md-nav__link">
+      High-throughput sequencing
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
     
-    <label class="md-nav__link" for="nav-4">
+    <label class="md-nav__link" for="nav-5">
       IO
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-4">
+      <label class="md-nav__title" for="nav-5">
         IO
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -409,33 +394,6 @@
   <a href="#operating-on-alignments" title="Operating on alignments" class="md-nav__link">
     Operating on alignments
   </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#alignment-file-formats-for-high-throughput-sequencing" title="Alignment file formats for high-throughput sequencing" class="md-nav__link">
-    Alignment file formats for high-throughput sequencing
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#sam-and-bam-file-formats" title="SAM and BAM file formats" class="md-nav__link">
-    SAM and BAM file formats
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#performance-tips" title="Performance tips" class="md-nav__link">
-    Performance tips
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -647,7 +605,7 @@ ACGTAT
 
 
 <p>Map a position from sequence to reference.</p>
-<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/8c2600694f28ef00ad2edf1ae535df83385124e9/src/alignment.jl#L88-L92' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/c54bb87fd5f68020c10a6bf49c8ea8db211d660c/src/alignment.jl#L88-L92' class='documenter-source'>source</a><br></p>
 <p><a id='BioAlignments.ref2seq' href='#BioAlignments.ref2seq'>#</a>
 <strong><code>BioAlignments.ref2seq</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>ref2seq(aln, i)
@@ -655,7 +613,7 @@ ACGTAT
 
 
 <p>Map a position from reference to sequence.</p>
-<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/8c2600694f28ef00ad2edf1ae535df83385124e9/src/alignment.jl#L106-L110' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/c54bb87fd5f68020c10a6bf49c8ea8db211d660c/src/alignment.jl#L106-L110' class='documenter-source'>source</a><br></p>
 <p><a id='BioAlignments.cigar' href='#BioAlignments.cigar'>#</a>
 <strong><code>BioAlignments.cigar</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>cigar(aln::Alignment)
@@ -664,94 +622,7 @@ ACGTAT
 
 <p>Make a CIGAR string encoding of <code>aln</code>.</p>
 <p>This is not entirely lossless as it discards the alignments start positions.</p>
-<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/8c2600694f28ef00ad2edf1ae535df83385124e9/src/alignment.jl#L124-L130' class='documenter-source'>source</a><br></p>
-<p><a id='Alignment-file-formats-for-high-throughput-sequencing-1'></a></p>
-<h2 id="alignment-file-formats-for-high-throughput-sequencing">Alignment file formats for high-throughput sequencing</h2>
-<p>High-throughput sequencing (HTS) technologies generate a large amount of data in the form of a large number of nucleotide sequencing reads. One of the most common tasks in bioinformatics is to align these reads against known reference genomes, chromosomes, or contigs. The <code>Bio.Align</code> module provides several data formats commonly used for this kind of task.</p>
-<p><a id='SAM-and-BAM-file-formats-1'></a></p>
-<h3 id="sam-and-bam-file-formats">SAM and BAM file formats</h3>
-<p>SAM and BAM are the most popular file formats and have the same reading and writing interface as all other formats in Bio.jl (see <a href="../@ref">Reading and writing data</a> section). A typical code iterating over all records in a file looks like below:</p>
-<div class="codehilite"><pre><span></span><span class="c"># import the SAM and BAM module</span>
-<span class="k">using</span> <span class="n">Bio</span><span class="o">.</span><span class="n">Align</span>
-
-<span class="c"># open a BAM file</span>
-<span class="n">reader</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="n">BAM</span><span class="o">.</span><span class="n">Reader</span><span class="p">,</span> <span class="s">&quot;data.bam&quot;</span><span class="p">)</span>
-
-<span class="c"># iterate over BAM records</span>
-<span class="k">for</span> <span class="n">record</span> <span class="kp">in</span> <span class="n">reader</span>
-    <span class="c"># `record` is a BAM.Record object</span>
-    <span class="k">if</span> <span class="n">BAM</span><span class="o">.</span><span class="n">ismapped</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
-        <span class="c"># print mapped position</span>
-        <span class="n">println</span><span class="p">(</span><span class="n">BAM</span><span class="o">.</span><span class="n">refname</span><span class="p">(</span><span class="n">record</span><span class="p">),</span> <span class="sc">&#39;:&#39;</span><span class="p">,</span> <span class="n">BAM</span><span class="o">.</span><span class="n">position</span><span class="p">(</span><span class="n">record</span><span class="p">))</span>
-    <span class="k">end</span>
-<span class="k">end</span>
-
-<span class="c"># close the BAM file</span>
-<span class="n">close</span><span class="p">(</span><span class="n">reader</span><span class="p">)</span>
-</pre></div>
-
-
-<p>Accessor functions are defined in <code>SAM</code> and <code>BAM</code> modules.  Lists of these functions to <code>SAM.Record</code> and <code>BAM.Record</code> are described in <a href="../io/sam/#SAM-1">SAM</a> and <a href="../io/bam/#BAM-1">BAM</a> sections, respectively.</p>
-<p><code>SAM.Reader</code> and <code>BAM.Reader</code> implement the <code>header</code> function, which returns a <code>SAM.Header</code> object. This is conceptually a sequence of <code>SAM.MetaInfo</code> objects corresponding to header lines that start with '@' markers. To select <code>SAM.MetaInfo</code> records with a specific tag, you can use the <code>find</code> function:</p>
-<div class="codehilite"><pre><span></span><span class="gp">julia&gt;</span> <span class="n">reader</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="n">SAM</span><span class="o">.</span><span class="n">Reader</span><span class="p">,</span> <span class="s">&quot;data.sam&quot;</span><span class="p">);</span>
-
-<span class="gp">julia&gt;</span> <span class="n">find</span><span class="p">(</span><span class="n">header</span><span class="p">(</span><span class="n">reader</span><span class="p">),</span> <span class="s">&quot;SQ&quot;</span><span class="p">)</span>
-<span class="go">7-element Array{Bio.Align.SAM.MetaInfo,1}:</span>
-<span class="go"> Bio.Align.SAM.MetaInfo:</span>
-<span class="go">    tag: SQ</span>
-<span class="go">  value: SN=Chr1 LN=30427671</span>
-<span class="go"> Bio.Align.SAM.MetaInfo:</span>
-<span class="go">    tag: SQ</span>
-<span class="go">  value: SN=Chr2 LN=19698289</span>
-<span class="go"> Bio.Align.SAM.MetaInfo:</span>
-<span class="go">    tag: SQ</span>
-<span class="go">  value: SN=Chr3 LN=23459830</span>
-<span class="go"> Bio.Align.SAM.MetaInfo:</span>
-<span class="go">    tag: SQ</span>
-<span class="go">  value: SN=Chr4 LN=18585056</span>
-<span class="go"> Bio.Align.SAM.MetaInfo:</span>
-<span class="go">    tag: SQ</span>
-<span class="go">  value: SN=Chr5 LN=26975502</span>
-<span class="go"> Bio.Align.SAM.MetaInfo:</span>
-<span class="go">    tag: SQ</span>
-<span class="go">  value: SN=chloroplast LN=154478</span>
-<span class="go"> Bio.Align.SAM.MetaInfo:</span>
-<span class="go">    tag: SQ</span>
-<span class="go">  value: SN=mitochondria LN=366924</span>
-</pre></div>
-
-
-<p>A <code>SAM.MetaInfo</code> object can be created as follows:</p>
-<div class="codehilite"><pre><span></span><span class="gp">julia&gt;</span> <span class="n">SAM</span><span class="o">.</span><span class="n">MetaInfo</span><span class="p">(</span><span class="s">&quot;SQ&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s">&quot;SN&quot;</span> <span class="o">=&gt;</span> <span class="s">&quot;chr1&quot;</span><span class="p">,</span> <span class="s">&quot;LN&quot;</span> <span class="o">=&gt;</span> <span class="mi">1234</span><span class="p">])</span>
-<span class="go">Bio.Align.SAM.MetaInfo:</span>
-<span class="go">    tag: SQ</span>
-<span class="go">  value: SN=chr1 LN=1234</span>
-
-<span class="gp">julia&gt;</span> <span class="n">SAM</span><span class="o">.</span><span class="n">MetaInfo</span><span class="p">(</span><span class="s">&quot;CO&quot;</span><span class="p">,</span> <span class="s">&quot;comment&quot;</span><span class="p">)</span>
-<span class="go">Bio.Align.SAM.MetaInfo:</span>
-<span class="go">    tag: CO</span>
-<span class="go">  value: comment</span>
-</pre></div>
-
-
-<p><a id='Performance-tips-1'></a></p>
-<h3 id="performance-tips">Performance tips</h3>
-<p>The size of a BAM file is often extremely large. The iterator interface mentioned above allocates an object for each record and that may be a bottleneck of reading data from a BAM file. In-place reading reuses a preallocated object for every record and less memory allocation happens in reading:</p>
-<div class="codehilite"><pre><span></span><span class="n">reader</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="n">BAM</span><span class="o">.</span><span class="n">Reader</span><span class="p">,</span> <span class="s">&quot;data.bam&quot;</span><span class="p">)</span>
-<span class="n">record</span> <span class="o">=</span> <span class="n">BAM</span><span class="o">.</span><span class="n">Record</span><span class="p">()</span>
-<span class="k">while</span> <span class="o">!</span><span class="n">eof</span><span class="p">(</span><span class="n">reader</span><span class="p">)</span>
-    <span class="n">read!</span><span class="p">(</span><span class="n">reader</span><span class="p">,</span> <span class="n">record</span><span class="p">)</span>
-    <span class="c"># do something</span>
-<span class="k">end</span>
-</pre></div>
-
-
-<p>Accessing optional fields will results in type instability in Julia, which has a significant negative impact on performance. If the user knows the type of a value in advance, specifying it as a type annotation will alleviate the problem:</p>
-<div class="codehilite"><pre><span></span><span class="k">for</span> <span class="n">record</span> <span class="kp">in</span> <span class="n">open</span><span class="p">(</span><span class="n">BAM</span><span class="o">.</span><span class="n">Reader</span><span class="p">,</span> <span class="s">&quot;data.bam&quot;</span><span class="p">)</span>
-    <span class="n">nm</span> <span class="o">=</span> <span class="n">record</span><span class="p">[</span><span class="s">&quot;NM&quot;</span><span class="p">]</span><span class="o">::</span><span class="kt">UInt8</span>
-    <span class="c"># do something</span>
-<span class="k">end</span>
-</pre></div>
+<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/c54bb87fd5f68020c10a6bf49c8ea8db211d660c/src/alignment.jl#L124-L130' class='documenter-source'>source</a><br></p>
                 
                   
                 
