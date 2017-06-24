@@ -49,8 +49,6 @@ function ensureroom!(nw::BandedNeedlemanWunsch, m, n, lower, upper)
     return nw
 end
 
-Base.max(x) = x
-
 # Generate a code block that updates the current score and trace.
 # For example, `@update e f g` generates:
 #     # update the current score
