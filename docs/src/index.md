@@ -1,15 +1,25 @@
-BioAlignments.jl
-================
+# BioAlignments.jl
 
-Description
------------
+[![Latest Release](https://img.shields.io/github/release/BioJulia/BioAlignments.jl.svg)](https://github.com/BioJulia/BioAlignments.jl/releases/latest)
+[![BioAlignments](http://pkg.julialang.org/badges/BioAlignments_0.5.svg)](http://pkg.julialang.org/?pkg=BioAlignments)
+[![BioAlignments](http://pkg.julialang.org/badges/BioAlignments_0.6.svg)](http://pkg.julialang.org/?pkg=BioAlignments)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/BioJulia/BioAlignments.jl/blob/master/LICENSE)
+[![Docs Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://biojulia.github.io/BioAlignments.jl/stable)
+[![Docs Latest](https://img.shields.io/badge/docs-latest-blue.svg)](https://biojulia.github.io/BioAlignments.jl/latest/)
+![BioJulia maintainer: bicycle1885](https://img.shields.io/badge/BioJulia%20Maintainer-bicycle1885-orange.svg)
+![BioJulia maintainer: Ward9250](https://img.shields.io/badge/BioJulia%20Maintainer-Ward9250-orange.svg)
 
-BioAlignments.jl provides alignment algorithms, data structures, and
-I/O tools for SAM and BAM file formats.
+**Development builds:**
+[![Build Status](https://travis-ci.org/BioJulia/BioAlignments.jl.svg?branch=master)](https://travis-ci.org/BioJulia/BioAlignments.jl)
+[![Build status](https://ci.appveyor.com/api/projects/status/klkynmkr1tgd30gq/branch/master?svg=true)](https://ci.appveyor.com/project/Ward9250/bioalignments-jl/branch/master)
+[![codecov.io](http://codecov.io/github/BioJulia/BioAlignments.jl/coverage.svg?branch=master)](http://codecov.io/github/BioJulia/BioAlignments.jl?branch=master)
 
+## Description
 
-Installation
-------------
+BioAlignments.jl provides alignment algorithms, data structures, and I/O tools
+for SAM and BAM file formats.
+
+## Installation
 
 Install BioAlignments from the Julia REPL:
 
@@ -20,40 +30,14 @@ julia> Pkg.add("BioAlignments")
 If you are interested in the cutting edge of the development, please check out
 the master branch to try new features before release.
 
+## Contributing and Questions
 
-Usage
------
+We appreciate contributions from users including reporting bugs, fixing issues,
+improving performance and adding new features.
+Please go to the [contributing section of the documentation](biojulia.github.io/BioAlignments.jl/stable/contributing)
+for more information.
 
-BioAlignments.jl implements pairwise alignment algorithms. This is an example of
-globally aligning two amino acid sequences under an affine-gap scoding model:
-```julia
-using BioSequences
-using BioAlignments
-seq1 = aa"EPVTSHPKAVSPTETKPTEKGQHLPVSAPPKITQSLKAEASKDIAKLTCAVESSALCA"
-seq2 = aa"EPSHPKAVSPTETKPTPTEKVQHLPVSAPPKITQFLKAEASKEIAKLTCVVESSVLRA"
-model = AffineGapScoreModel(BLOSUM62, gap_open=-10, gap_extend=-1)
-align = pairalign(GlobalAlignment(), seq1, seq2, model)
-println(align)
-```
-
-    BioAlignments.PairwiseAlignmentResult{Int64,BioSequences.BioSequence{BioSequences.AminoAcidAlphabet},BioSequences.BioSequence{BioSequences.AminoAcidAlphabet}}:
-      score: 223
-      seq:  1 EPVTSHPKAVSPTETKPT--EKGQHLPVSAPPKITQSLKAEASKDIAKLTCAVESSALCA 58
-              ||  ||||||||||||||  || ||||||||||||| ||||||| |||||| |||| | |
-      ref:  1 EP--SHPKAVSPTETKPTPTEKVQHLPVSAPPKITQFLKAEASKEIAKLTCVVESSVLRA 58
-
-BioAlignments.jl also supports data formats for high-throughput sequencing
-technologies. The BAM file, one of the most commonly used file format to store
-aligned fragments, can be scanned as follows:
-```julia
-using BioAlignments
-open(BAM.Reader, "data.bam") do reader
-    for record in reader
-        @show BAM.refname(record)
-        @show BAM.position(record)
-    end
-end
-```
-
-    BAM.refname(record) = "CHROMOSOME_I"
-    BAM.position(record) = 2
+If you have a question about
+contributing or using this package, you are encouraged to use the
+[Bio category of the Julia discourse
+site](https://discourse.julialang.org/c/domain/bio).

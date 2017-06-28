@@ -37,9 +37,11 @@ markdown_extensions:
 # Page tree
 pages:
 - Home: index.md
+- Usage: usage.md
 - Alignments: alignments.md
 - Pairwise alignment: pairalign.md
 - High-throughput sequencing: hts-files.md
 - IO:
   - SAM: io/bam.md
   - BAM: io/sam.md
+- Contributing: contributing.md
