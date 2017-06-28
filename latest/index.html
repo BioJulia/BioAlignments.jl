@@ -231,8 +231,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#usage" title="Usage" class="md-nav__link">
-    Usage
+  <a href="#contributing-and-questions" title="Contributing and Questions" class="md-nav__link">
+    Contributing and Questions
   </a>
   
 </li>
@@ -243,6 +243,18 @@
   
 </nav>
     
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="usage/" title="Usage" class="md-nav__link">
+      Usage
+    </a>
   </li>
 
     
@@ -289,13 +301,13 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
     
-    <label class="md-nav__link" for="nav-5">
+    <label class="md-nav__link" for="nav-6">
       IO
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-5">
+      <label class="md-nav__title" for="nav-6">
         IO
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -327,6 +339,18 @@
         
       </ul>
     </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="contributing/" title="Contributing" class="md-nav__link">
+      Contributing
+    </a>
   </li>
 
     
@@ -365,8 +389,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#usage" title="Usage" class="md-nav__link">
-    Usage
+  <a href="#contributing-and-questions" title="Contributing and Questions" class="md-nav__link">
+    Contributing and Questions
   </a>
   
 </li>
@@ -390,6 +414,8 @@
                 
                 <p><a id='BioAlignments.jl-1'></a></p>
 <h1 id="bioalignmentsjl">BioAlignments.jl</h1>
+<p>[![Latest Release][release-img]][release-url] [![BioAlignments][juliapkg06-img]][juliapkg-url] [![BioAlignments][juliapkg06-img]][juliapkg-url] [![License][license-img]][license-url] [![Docs Stable][docs-stable-img]][docs-stable-url] [![Docs Latest][docs-latest-img]][docs-latest-url] <img alt="BioJulia maintainer: bicycle1885" src="https://img.shields.io/badge/BioJulia%20Maintainer-bicycle1885-orange.svg" /> <img alt="BioJulia maintainer: Ward9250" src="https://img.shields.io/badge/BioJulia%20Maintainer-Ward9250-orange.svg" /></p>
+<p><strong>Development builds:</strong> [![Build Status][travis-img]][travis-url] [![Build status][appveyor-img]][appveyor-url] [![codecov.io][codecov-img]][codecov-url]</p>
 <p><a id='Description-1'></a></p>
 <h2 id="description">Description</h2>
 <p>BioAlignments.jl provides alignment algorithms, data structures, and I/O tools for SAM and BAM file formats.</p>
@@ -401,41 +427,11 @@
 
 
 <p>If you are interested in the cutting edge of the development, please check out the master branch to try new features before release.</p>
-<p><a id='Usage-1'></a></p>
-<h2 id="usage">Usage</h2>
-<p>BioAlignments.jl implements pairwise alignment algorithms. This is an example of globally aligning two amino acid sequences under an affine-gap scoding model:</p>
-<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">BioSequences</span>
-<span class="k">using</span> <span class="n">BioAlignments</span>
-<span class="n">seq1</span> <span class="o">=</span> <span class="n">aa</span><span class="s">&quot;EPVTSHPKAVSPTETKPTEKGQHLPVSAPPKITQSLKAEASKDIAKLTCAVESSALCA&quot;</span>
-<span class="n">seq2</span> <span class="o">=</span> <span class="n">aa</span><span class="s">&quot;EPSHPKAVSPTETKPTPTEKVQHLPVSAPPKITQFLKAEASKEIAKLTCVVESSVLRA&quot;</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">AffineGapScoreModel</span><span class="p">(</span><span class="n">BLOSUM62</span><span class="p">,</span> <span class="n">gap_open</span><span class="o">=-</span><span class="mi">10</span><span class="p">,</span> <span class="n">gap_extend</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">align</span> <span class="o">=</span> <span class="n">pairalign</span><span class="p">(</span><span class="n">GlobalAlignment</span><span class="p">(),</span> <span class="n">seq1</span><span class="p">,</span> <span class="n">seq2</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
-<span class="n">println</span><span class="p">(</span><span class="n">align</span><span class="p">)</span>
-</pre></div>
-
-
-<div class="codehilite"><pre><span></span>BioAlignments.PairwiseAlignmentResult{Int64,BioSequences.BioSequence{BioSequences.AminoAcidAlphabet},BioSequences.BioSequence{BioSequences.AminoAcidAlphabet}}:
-  score: 223
-  seq:  1 EPVTSHPKAVSPTETKPT--EKGQHLPVSAPPKITQSLKAEASKDIAKLTCAVESSALCA 58
-          ||  ||||||||||||||  || ||||||||||||| ||||||| |||||| |||| | |
-  ref:  1 EP--SHPKAVSPTETKPTPTEKVQHLPVSAPPKITQFLKAEASKEIAKLTCVVESSVLRA 58
-</pre></div>
-
-
-<p>BioAlignments.jl also supports data formats for high-throughput sequencing technologies. The BAM file, one of the most commonly used file format to store aligned fragments, can be scanned as follows:</p>
-<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">BioAlignments</span>
-<span class="n">open</span><span class="p">(</span><span class="n">BAM</span><span class="o">.</span><span class="n">Reader</span><span class="p">,</span> <span class="s">&quot;data.bam&quot;</span><span class="p">)</span> <span class="k">do</span> <span class="n">reader</span>
-    <span class="k">for</span> <span class="n">record</span> <span class="kp">in</span> <span class="n">reader</span>
-        <span class="nd">@show</span> <span class="n">BAM</span><span class="o">.</span><span class="n">refname</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
-        <span class="nd">@show</span> <span class="n">BAM</span><span class="o">.</span><span class="n">position</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
-    <span class="k">end</span>
-<span class="k">end</span>
-</pre></div>
-
-
-<div class="codehilite"><pre><span></span>BAM.refname(record) = &quot;CHROMOSOME_I&quot;
-BAM.position(record) = 2
-</pre></div>
+<p><a id='Contributing-and-Questions-1'></a></p>
+<h2 id="contributing-and-questions">Contributing and Questions</h2>
+<p>We appreciate contributions from users including reporting bugs, fixing issues, improving performance and adding new features. Please go to the <a href="./biojulia.github.io/BioAlignments.jl/stable/contributing">contributing section of the documentation</a> for more information.</p>
+<p>If you have a question about contributing or using this package, you are encouraged to use the <a href="https://discourse.julialang.org/c/domain/bio">Bio category of the Julia discourse site</a>.</p>
+<p>[release-img]: https://img.shields.io/github/release/BioJulia/BioAlignments.jl.svg [release-url]: https://github.com/BioJulia/BioAlignments.jl/releases/latest [juliapkg05-img]: http://pkg.julialang.org/badges/BioAlignments_0.5.svg [juliapkg06-img]: http://pkg.julialang.org/badges/BioAlignments_0.6.svg [juliapkg-url]: http://pkg.julialang.org/?pkg=BioAlignments [license-img]: https://img.shields.io/badge/license-MIT-green.svg [license-url]: https://github.com/BioJulia/BioAlignments.jl/blob/master/LICENSE [docs-stable-img]: https://img.shields.io/badge/docs-stable-blue.svg [docs-stable-url]: https://biojulia.github.io/BioAlignments.jl/stable [docs-latest-img]: https://img.shields.io/badge/docs-latest-blue.svg [docs-latest-url]: https://biojulia.github.io/BioAlignments.jl/latest/ [travis-img]: https://travis-ci.org/BioJulia/BioAlignments.jl.svg?branch=master [travis-url]: https://travis-ci.org/BioJulia/BioAlignments.jl [appveyor-img]: https://ci.appveyor.com/api/projects/status/klkynmkr1tgd30gq/branch/master?svg=true [appveyor-url]: https://ci.appveyor.com/project/Ward9250/bioalignments-jl/branch/master [codecov-img]: http://codecov.io/github/BioJulia/BioAlignments.jl/coverage.svg?branch=master [codecov-url]: http://codecov.io/github/BioJulia/BioAlignments.jl?branch=master</p>
                 
                   
                 
@@ -455,13 +451,13 @@ BAM.position(record) = 2
       <nav class="md-footer-nav__inner md-grid">
         
         
-          <a href="alignments/" title="Alignments" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="usage/" title="Usage" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Alignments
+                Usage
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

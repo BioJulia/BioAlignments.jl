@@ -4,7 +4,15 @@
     
     <url>
      <loc>https://biojulia.github.io/BioAlignments.jl//</loc>
-     <lastmod>2017-06-24</lastmod>
+     <lastmod>2017-06-28</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>https://biojulia.github.io/BioAlignments.jl//usage/</loc>
+     <lastmod>2017-06-28</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -12,7 +20,7 @@
     
     <url>
      <loc>https://biojulia.github.io/BioAlignments.jl//alignments/</loc>
-     <lastmod>2017-06-24</lastmod>
+     <lastmod>2017-06-28</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -20,7 +28,7 @@
     
     <url>
      <loc>https://biojulia.github.io/BioAlignments.jl//pairalign/</loc>
-     <lastmod>2017-06-24</lastmod>
+     <lastmod>2017-06-28</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -28,7 +36,7 @@
     
     <url>
      <loc>https://biojulia.github.io/BioAlignments.jl//hts-files/</loc>
-     <lastmod>2017-06-24</lastmod>
+     <lastmod>2017-06-28</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -37,16 +45,24 @@
         
     <url>
      <loc>https://biojulia.github.io/BioAlignments.jl//io/bam/</loc>
-     <lastmod>2017-06-24</lastmod>
+     <lastmod>2017-06-28</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>https://biojulia.github.io/BioAlignments.jl//io/sam/</loc>
-     <lastmod>2017-06-24</lastmod>
+     <lastmod>2017-06-28</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
+    
+
+    
+    <url>
+     <loc>https://biojulia.github.io/BioAlignments.jl//contributing/</loc>
+     <lastmod>2017-06-28</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
     
 
 </urlset>
