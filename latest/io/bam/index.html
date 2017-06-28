@@ -446,7 +446,7 @@
 <li><code>input</code>: data source</li>
 <li><code>index=nothing</code>: filepath to a random access index (currently <em>bai</em> is Supported)</li>
 </ul>
-<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/457be14259fde83f4343395b2cbb8e7fb700272d/src/bam/reader.jl#L4-L12' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/9d0806336965f4793bcbc9e1b34df6640046bb4c/src/bam/reader.jl#L4-L12' class='documenter-source'>source</a><br></p>
 <p><a id='BioAlignments.BAM.header' href='#BioAlignments.BAM.header'>#</a>
 <strong><code>BioAlignments.BAM.header</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span><span class="nt">header</span><span class="o">(</span><span class="nt">reader</span><span class="p">::</span><span class="nd">Reader</span><span class="o">;</span> <span class="nt">fillSQ</span><span class="p">::</span><span class="nd">Bool</span><span class="o">=</span><span class="nt">false</span><span class="o">)</span><span class="p">::</span><span class="nd">SAM</span><span class="p">.</span><span class="nc">Header</span>
@@ -455,7 +455,7 @@
 
 <p>Get the header of <code>reader</code>.</p>
 <p>If <code>fillSQ</code> is <code>true</code>, this function fills missing "SQ" metainfo in the header.</p>
-<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/457be14259fde83f4343395b2cbb8e7fb700272d/src/bam/reader.jl#L48-L54' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/9d0806336965f4793bcbc9e1b34df6640046bb4c/src/bam/reader.jl#L48-L54' class='documenter-source'>source</a><br></p>
 <p><a id='BioAlignments.BAM.Writer' href='#BioAlignments.BAM.Writer'>#</a>
 <strong><code>BioAlignments.BAM.Writer</code></strong> &mdash; <em>Type</em>.</p>
 <div class="codehilite"><pre><span></span>BAM.Writer(output::BGZFStream, header::SAM.Header)
@@ -468,7 +468,7 @@
 <li><code>output</code>: data sink</li>
 <li><code>header</code>: SAM header object</li>
 </ul>
-<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/457be14259fde83f4343395b2cbb8e7fb700272d/src/bam/writer.jl#L4-L12' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/9d0806336965f4793bcbc9e1b34df6640046bb4c/src/bam/writer.jl#L4-L12' class='documenter-source'>source</a><br></p>
 <p><a id='BioAlignments.BAM.Record' href='#BioAlignments.BAM.Record'>#</a>
 <strong><code>BioAlignments.BAM.Record</code></strong> &mdash; <em>Type</em>.</p>
 <div class="codehilite"><pre><span></span>BAM.Record()
@@ -476,7 +476,7 @@
 
 
 <p>Create an unfilled BAM record.</p>
-<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/457be14259fde83f4343395b2cbb8e7fb700272d/src/bam/record.jl#L4-L8' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/9d0806336965f4793bcbc9e1b34df6640046bb4c/src/bam/record.jl#L4-L8' class='documenter-source'>source</a><br></p>
 <p><a id='BioAlignments.BAM.flag' href='#BioAlignments.BAM.flag'>#</a>
 <strong><code>BioAlignments.BAM.flag</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>flag(record::Record)::UInt16
@@ -484,7 +484,7 @@
 
 
 <p>Get the bitwise flag of <code>record</code>.</p>
-<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/457be14259fde83f4343395b2cbb8e7fb700272d/src/bam/record.jl#L96-L100' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/9d0806336965f4793bcbc9e1b34df6640046bb4c/src/bam/record.jl#L96-L100' class='documenter-source'>source</a><br></p>
 <p><a id='BioAlignments.BAM.ismapped' href='#BioAlignments.BAM.ismapped'>#</a>
 <strong><code>BioAlignments.BAM.ismapped</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>ismapped(record::Record)::Bool
@@ -492,7 +492,7 @@
 
 
 <p>Test if <code>record</code> is mapped.</p>
-<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/457be14259fde83f4343395b2cbb8e7fb700272d/src/bam/record.jl#L110-L114' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/9d0806336965f4793bcbc9e1b34df6640046bb4c/src/bam/record.jl#L110-L114' class='documenter-source'>source</a><br></p>
 <p><a id='BioAlignments.BAM.isprimary' href='#BioAlignments.BAM.isprimary'>#</a>
 <strong><code>BioAlignments.BAM.isprimary</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>isprimary(record::Record)::Bool
@@ -501,7 +501,7 @@
 
 <p>Test if <code>record</code> is a primary line of the read.</p>
 <p>This is equivalent to <code>flag(record) &amp; 0x900 == 0</code>.</p>
-<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/457be14259fde83f4343395b2cbb8e7fb700272d/src/bam/record.jl#L119-L125' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/9d0806336965f4793bcbc9e1b34df6640046bb4c/src/bam/record.jl#L119-L125' class='documenter-source'>source</a><br></p>
 <p><a id='BioAlignments.BAM.refid' href='#BioAlignments.BAM.refid'>#</a>
 <strong><code>BioAlignments.BAM.refid</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>refid(record::Record)::Int
@@ -511,7 +511,7 @@
 <p>Get the reference sequence ID of <code>record</code>.</p>
 <p>The ID is 1-based (i.e. the first sequence is 1) and is 0 for a record without a mapping position.</p>
 <p>See also: <code>BAM.rname</code></p>
-<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/457be14259fde83f4343395b2cbb8e7fb700272d/src/bam/record.jl#L130-L138' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/9d0806336965f4793bcbc9e1b34df6640046bb4c/src/bam/record.jl#L130-L138' class='documenter-source'>source</a><br></p>
 <p><a id='BioAlignments.BAM.refname' href='#BioAlignments.BAM.refname'>#</a>
 <strong><code>BioAlignments.BAM.refname</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>refname(record::Record)::String
@@ -520,7 +520,7 @@
 
 <p>Get the reference sequence name of <code>record</code>.</p>
 <p>See also: <code>BAM.refid</code></p>
-<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/457be14259fde83f4343395b2cbb8e7fb700272d/src/bam/record.jl#L148-L154' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/9d0806336965f4793bcbc9e1b34df6640046bb4c/src/bam/record.jl#L148-L154' class='documenter-source'>source</a><br></p>
 <p><a id='BioAlignments.BAM.position' href='#BioAlignments.BAM.position'>#</a>
 <strong><code>BioAlignments.BAM.position</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>position(record::Record)::Int
@@ -528,7 +528,7 @@
 
 
 <p>Get the 1-based leftmost mapping position of <code>record</code>.</p>
-<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/457be14259fde83f4343395b2cbb8e7fb700272d/src/bam/record.jl#L170-L174' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/9d0806336965f4793bcbc9e1b34df6640046bb4c/src/bam/record.jl#L170-L174' class='documenter-source'>source</a><br></p>
 <p><a id='BioAlignments.BAM.rightposition' href='#BioAlignments.BAM.rightposition'>#</a>
 <strong><code>BioAlignments.BAM.rightposition</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>rightposition(record::Record)::Int
@@ -536,7 +536,7 @@
 
 
 <p>Get the 1-based rightmost mapping position of <code>record</code>.</p>
-<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/457be14259fde83f4343395b2cbb8e7fb700272d/src/bam/record.jl#L184-L188' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/9d0806336965f4793bcbc9e1b34df6640046bb4c/src/bam/record.jl#L184-L188' class='documenter-source'>source</a><br></p>
 <p><a id='BioAlignments.BAM.isnextmapped' href='#BioAlignments.BAM.isnextmapped'>#</a>
 <strong><code>BioAlignments.BAM.isnextmapped</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>isnextmapped(record::Record)::Bool
@@ -544,7 +544,7 @@
 
 
 <p>Test if the mate/next read of <code>record</code> is mapped.</p>
-<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/457be14259fde83f4343395b2cbb8e7fb700272d/src/bam/record.jl#L198-L202' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/9d0806336965f4793bcbc9e1b34df6640046bb4c/src/bam/record.jl#L198-L202' class='documenter-source'>source</a><br></p>
 <p><a id='BioAlignments.BAM.nextrefid' href='#BioAlignments.BAM.nextrefid'>#</a>
 <strong><code>BioAlignments.BAM.nextrefid</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>nextrefid(record::Record)::Int
@@ -552,7 +552,7 @@
 
 
 <p>Get the next/mate reference sequence ID of <code>record</code>.</p>
-<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/457be14259fde83f4343395b2cbb8e7fb700272d/src/bam/record.jl#L207-L211' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/9d0806336965f4793bcbc9e1b34df6640046bb4c/src/bam/record.jl#L207-L211' class='documenter-source'>source</a><br></p>
 <p><a id='BioAlignments.BAM.nextrefname' href='#BioAlignments.BAM.nextrefname'>#</a>
 <strong><code>BioAlignments.BAM.nextrefname</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>nextrefname(record::Record)::String
@@ -560,7 +560,7 @@
 
 
 <p>Get the reference name of the mate/next read of <code>record</code>.</p>
-<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/457be14259fde83f4343395b2cbb8e7fb700272d/src/bam/record.jl#L221-L225' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/9d0806336965f4793bcbc9e1b34df6640046bb4c/src/bam/record.jl#L221-L225' class='documenter-source'>source</a><br></p>
 <p><a id='BioAlignments.BAM.nextposition' href='#BioAlignments.BAM.nextposition'>#</a>
 <strong><code>BioAlignments.BAM.nextposition</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>nextposition(record::Record)::Int
@@ -568,7 +568,7 @@
 
 
 <p>Get the 1-based leftmost mapping position of the next/mate read of <code>record</code>.</p>
-<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/457be14259fde83f4343395b2cbb8e7fb700272d/src/bam/record.jl#L241-L245' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/9d0806336965f4793bcbc9e1b34df6640046bb4c/src/bam/record.jl#L241-L245' class='documenter-source'>source</a><br></p>
 <p><a id='BioAlignments.BAM.mappingquality' href='#BioAlignments.BAM.mappingquality'>#</a>
 <strong><code>BioAlignments.BAM.mappingquality</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>mappingquality(record::Record)::UInt8
@@ -576,7 +576,7 @@
 
 
 <p>Get the mapping quality of <code>record</code>.</p>
-<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/457be14259fde83f4343395b2cbb8e7fb700272d/src/bam/record.jl#L255-L259' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/9d0806336965f4793bcbc9e1b34df6640046bb4c/src/bam/record.jl#L255-L259' class='documenter-source'>source</a><br></p>
 <p><a id='BioAlignments.BAM.cigar' href='#BioAlignments.BAM.cigar'>#</a>
 <strong><code>BioAlignments.BAM.cigar</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>cigar(record::Record)::String
@@ -585,7 +585,7 @@
 
 <p>Get the CIGAR string of <code>record</code>.</p>
 <p>See also <code>BAM.cigar_rle</code>.</p>
-<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/457be14259fde83f4343395b2cbb8e7fb700272d/src/bam/record.jl#L268-L274' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/9d0806336965f4793bcbc9e1b34df6640046bb4c/src/bam/record.jl#L268-L274' class='documenter-source'>source</a><br></p>
 <p><a id='BioAlignments.BAM.cigar_rle' href='#BioAlignments.BAM.cigar_rle'>#</a>
 <strong><code>BioAlignments.BAM.cigar_rle</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>cigar_rle(record::Record)::Tuple{Vector{BioAlignments.Operation},Vector{Int}}
@@ -594,7 +594,7 @@
 
 <p>Get a run-length encoded tuple <code>(ops, lens)</code> of the CIGAR string in <code>record</code>.</p>
 <p>See also <code>BAM.cigar</code>.</p>
-<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/457be14259fde83f4343395b2cbb8e7fb700272d/src/bam/record.jl#L283-L289' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/9d0806336965f4793bcbc9e1b34df6640046bb4c/src/bam/record.jl#L283-L289' class='documenter-source'>source</a><br></p>
 <p><a id='BioAlignments.BAM.alignment' href='#BioAlignments.BAM.alignment'>#</a>
 <strong><code>BioAlignments.BAM.alignment</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>alignment(record::Record)::BioAlignments.Alignment
@@ -602,7 +602,7 @@
 
 
 <p>Get the alignment of <code>record</code>.</p>
-<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/457be14259fde83f4343395b2cbb8e7fb700272d/src/bam/record.jl#L304-L308' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/9d0806336965f4793bcbc9e1b34df6640046bb4c/src/bam/record.jl#L304-L308' class='documenter-source'>source</a><br></p>
 <p><a id='BioAlignments.BAM.alignlength' href='#BioAlignments.BAM.alignlength'>#</a>
 <strong><code>BioAlignments.BAM.alignlength</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>alignlength(record::Record)::Int
@@ -610,7 +610,7 @@
 
 
 <p>Get the alignment length of <code>record</code>.</p>
-<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/457be14259fde83f4343395b2cbb8e7fb700272d/src/bam/record.jl#L337-L341' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/9d0806336965f4793bcbc9e1b34df6640046bb4c/src/bam/record.jl#L337-L341' class='documenter-source'>source</a><br></p>
 <p><a id='BioAlignments.BAM.tempname' href='#BioAlignments.BAM.tempname'>#</a>
 <strong><code>BioAlignments.BAM.tempname</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>tempname(record::Record)::String
@@ -618,7 +618,7 @@
 
 
 <p>Get the query template name of <code>record</code>.</p>
-<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/457be14259fde83f4343395b2cbb8e7fb700272d/src/bam/record.jl#L355-L359' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/9d0806336965f4793bcbc9e1b34df6640046bb4c/src/bam/record.jl#L355-L359' class='documenter-source'>source</a><br></p>
 <p><a id='BioAlignments.BAM.templength' href='#BioAlignments.BAM.templength'>#</a>
 <strong><code>BioAlignments.BAM.templength</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>templength(record::Record)::Int
@@ -626,7 +626,7 @@
 
 
 <p>Get the template length of <code>record</code>.</p>
-<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/457be14259fde83f4343395b2cbb8e7fb700272d/src/bam/record.jl#L370-L374' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/9d0806336965f4793bcbc9e1b34df6640046bb4c/src/bam/record.jl#L370-L374' class='documenter-source'>source</a><br></p>
 <p><a id='BioAlignments.BAM.sequence' href='#BioAlignments.BAM.sequence'>#</a>
 <strong><code>BioAlignments.BAM.sequence</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>sequence(record::Record)::BioSequences.DNASequence
@@ -634,7 +634,7 @@
 
 
 <p>Get the segment sequence of <code>record</code>.</p>
-<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/457be14259fde83f4343395b2cbb8e7fb700272d/src/bam/record.jl#L384-L388' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/9d0806336965f4793bcbc9e1b34df6640046bb4c/src/bam/record.jl#L384-L388' class='documenter-source'>source</a><br></p>
 <p><a id='BioAlignments.BAM.seqlength' href='#BioAlignments.BAM.seqlength'>#</a>
 <strong><code>BioAlignments.BAM.seqlength</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>seqlength(record::Record)::Int
@@ -642,7 +642,7 @@
 
 
 <p>Get the sequence length of <code>record</code>.</p>
-<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/457be14259fde83f4343395b2cbb8e7fb700272d/src/bam/record.jl#L406-L410' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/9d0806336965f4793bcbc9e1b34df6640046bb4c/src/bam/record.jl#L406-L410' class='documenter-source'>source</a><br></p>
 <p><a id='BioAlignments.BAM.quality' href='#BioAlignments.BAM.quality'>#</a>
 <strong><code>BioAlignments.BAM.quality</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>quality(record::Record)::Vector{UInt8}
@@ -650,7 +650,7 @@
 
 
 <p>Get the base quality of  <code>record</code>.</p>
-<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/457be14259fde83f4343395b2cbb8e7fb700272d/src/bam/record.jl#L420-L424' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/9d0806336965f4793bcbc9e1b34df6640046bb4c/src/bam/record.jl#L420-L424' class='documenter-source'>source</a><br></p>
 <p><a id='BioAlignments.BAM.auxdata' href='#BioAlignments.BAM.auxdata'>#</a>
 <strong><code>BioAlignments.BAM.auxdata</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>auxdata(record::Record)::BAM.AuxData
@@ -658,7 +658,7 @@
 
 
 <p>Get the auxiliary data of <code>record</code>.</p>
-<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/457be14259fde83f4343395b2cbb8e7fb700272d/src/bam/record.jl#L436-L440' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/9d0806336965f4793bcbc9e1b34df6640046bb4c/src/bam/record.jl#L436-L440' class='documenter-source'>source</a><br></p>
                 
                   
                 
