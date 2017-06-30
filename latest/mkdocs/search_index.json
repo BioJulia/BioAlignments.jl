@@ -2,12 +2,12 @@
     "docs": [
         {
             "location": "/", 
-            "text": "BioAlignments.jl\n\n\n \n \n \n \n \n \n \n\n\nDevelopment builds:\n \n \n \n\n\n\n\nDescription\n\n\nBioAlignments.jl provides alignment algorithms, data structures, and I/O tools for SAM and BAM file formats.\n\n\n\n\nInstallation\n\n\nInstall BioAlignments from the Julia REPL:\n\n\njulia\n \nPkg\n.\nadd\n(\nBioAlignments\n)\n\n\n\n\n\n\nIf you are interested in the cutting edge of the development, please check out the master branch to try new features before release.\n\n\n\n\nContributing and Questions\n\n\nWe appreciate contributions from users including reporting bugs, fixing issues, improving performance and adding new features. Please go to the \ncontributing section of the documentation\n for more information.\n\n\nIf you have a question about contributing or using this package, you are encouraged to use the \nBio category of the Julia discourse site\n.", 
+            "text": "BioAlignments.jl\n\n\nLatest release:\n\n\n \n \n \n \n \n \n\n\nDevelopment status:\n\n\n \n \n \n\n\n\n\nDescription\n\n\nBioAlignments.jl provides alignment algorithms, data structures, and I/O tools for SAM and BAM file formats.\n\n\n\n\nInstallation\n\n\nInstall BioAlignments from the Julia REPL:\n\n\njulia\n \nPkg\n.\nadd\n(\nBioAlignments\n)\n\n\n\n\n\n\nIf you are interested in the cutting edge of the development, please check out the master branch to try new features before release.\n\n\n\n\nContributing and Questions\n\n\nWe appreciate contributions from users including reporting bugs, fixing issues, improving performance and adding new features. Please go to the \ncontributing section of the documentation\n for more information.\n\n\nIf you have a question about contributing or using this package, you are encouraged to use the \nBio category of the Julia discourse site\n.", 
             "title": "Home"
         }, 
         {
             "location": "/#bioalignmentsjl", 
-            "text": "Development builds:", 
+            "text": "Latest release:               Development status:", 
             "title": "BioAlignments.jl"
         }, 
         {
