@@ -1,18 +1,21 @@
 # BioAlignments.jl
 
+**Latest release:**
+
 [![Latest Release][release-img]][release-url]
 [![BioAlignments][juliapkg06-img]][juliapkg-url]
 [![BioAlignments][juliapkg06-img]][juliapkg-url]
 [![License][license-img]][license-url]
 [![Docs Stable][docs-stable-img]][docs-stable-url]
-[![Docs Latest][docs-latest-img]][docs-latest-url]
 ![BioJulia maintainer: bicycle1885](https://img.shields.io/badge/BioJulia%20Maintainer-bicycle1885-orange.svg)
 ![BioJulia maintainer: Ward9250](https://img.shields.io/badge/BioJulia%20Maintainer-Ward9250-orange.svg)
 
-**Development builds:**
+**Development status:**
+
 [![Build Status][travis-img]][travis-url]
 [![Build status][appveyor-img]][appveyor-url]
 [![codecov.io][codecov-img]][codecov-url]
+[![Docs Latest][docs-latest-img]][docs-latest-url]
 
 ## Description
 
