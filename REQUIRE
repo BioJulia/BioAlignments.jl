@@ -1,10 +1,10 @@
-julia 0.5
-Automa
+julia 0.6
+Automa 0.3
+BGZFStreams 0.1
 BioCore 1.0
 BioSequences 0.5
 BioSymbols 1.0
-BufferedStreams
-BGZFStreams
+BufferedStreams 0.3
 Compat 0.17
 GenomicFeatures 0.1
 IntervalTrees 0.2
