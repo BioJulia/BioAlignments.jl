@@ -1,7 +1,7 @@
 # SAM Meta-Information
 # ====================
 
-type MetaInfo
+mutable struct MetaInfo
     # data and filled range
     data::Vector{UInt8}
     filled::UnitRange{Int}

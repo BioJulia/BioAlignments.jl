@@ -9,7 +9,7 @@
 """
 Pairwise alignment
 """
-type PairwiseAlignment{S1,S2}
+mutable struct PairwiseAlignment{S1,S2}
     a::AlignedSequence{S1}
     b::S2
 end

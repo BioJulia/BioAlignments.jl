@@ -13,7 +13,7 @@
 """
 Supertype of score model.
 """
-@compat abstract type AbstractScoreModel{T<:Real} end
+abstract type AbstractScoreModel{T<:Real} end
 
 """
     AffineGapScoreModel(submat, gap_open, gap_extend)
@@ -45,7 +45,7 @@ Example
 
 See also: `SubstitutionMatrix`, `pairalign`, `CostModel`
 """
-type AffineGapScoreModel{T} <: AbstractScoreModel{T}
+mutable struct AffineGapScoreModel{T} <: AbstractScoreModel{T}
     submat::AbstractSubstitutionMatrix{T}
     gap_open::T
     gap_extend::T
@@ -123,7 +123,7 @@ end
 """
 Supertype of cost model.
 """
-@compat abstract type AbstractCostModel{T} end
+abstract type AbstractCostModel{T} end
 
 """
     CostModel(submat, insertion, deletion)
@@ -151,7 +151,7 @@ Example
 
 See also: `SubstitutionMatrix`, `pairalign`, `AffineGapScoreModel`
 """
-type CostModel{T} <: AbstractCostModel{T}
+mutable struct CostModel{T} <: AbstractCostModel{T}
     submat::AbstractSubstitutionMatrix{T}
     insertion::T
     deletion::T

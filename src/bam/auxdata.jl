@@ -1,7 +1,7 @@
 # BAM Auxiliary Data
 # ==================
 
-immutable AuxData <: Associative{String,Any}
+struct AuxData <: Associative{String,Any}
     data::Vector{UInt8}
 end
 

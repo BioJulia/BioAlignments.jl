@@ -13,12 +13,12 @@ The required method:
 
 * `Base.getindex(submat, x, y)`: substitution score/cost from `x` to `y`
 """
-@compat abstract type AbstractSubstitutionMatrix{S<:Real} end
+abstract type AbstractSubstitutionMatrix{S<:Real} end
 
 """
 Substitution matrix.
 """
-immutable SubstitutionMatrix{T,S} <: AbstractSubstitutionMatrix{S}
+struct SubstitutionMatrix{T,S} <: AbstractSubstitutionMatrix{S}
     # square substitution matrix
     data::Matrix{S}
     # score is defined or not
@@ -148,7 +148,7 @@ end
 """
 Dichotomous substitution matrix.
 """
-immutable DichotomousSubstitutionMatrix{S} <: AbstractSubstitutionMatrix{S}
+struct DichotomousSubstitutionMatrix{S} <: AbstractSubstitutionMatrix{S}
     match::S
     mismatch::S
 end

@@ -4,7 +4,6 @@ using BioSymbols
 import BGZFStreams: BGZFStream
 import BioCore.Exceptions: MissingFieldException
 import BioSequences: @dna_str
-import Compat: take!
 import GenomicFeatures
 import YAML
 

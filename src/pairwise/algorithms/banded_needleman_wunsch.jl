@@ -10,7 +10,7 @@
 # This file is a part of BioJulia.
 # License is MIT: https://github.com/BioJulia/Bio.jl/blob/master/LICENSE.md
 
-type BandedNeedlemanWunsch{T<:Union{Signed,AbstractFloat}}
+mutable struct BandedNeedlemanWunsch{T<:Union{Signed,AbstractFloat}}
     trace::Matrix{Trace}
     H::Vector{T}
     E::Vector{T}

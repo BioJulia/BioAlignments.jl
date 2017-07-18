@@ -1,7 +1,7 @@
 # SAM Header
 # ==========
 
-immutable Header
+struct Header
     metainfo::Vector{MetaInfo}
 end
 

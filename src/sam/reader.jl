@@ -1,7 +1,7 @@
 # SAM Reader
 # =========
 
-type Reader <: Bio.IO.AbstractReader
+mutable struct Reader <: Bio.IO.AbstractReader
     state::Bio.Ragel.State
     header::Header
 

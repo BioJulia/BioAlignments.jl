@@ -15,7 +15,7 @@ It stores the position values as Int types and the alignment operation is stored
 as a type `Operation`, these are defined in the file `operations.jl` and loaded
 into BioAlignments namespace as a series of global constants.
 """
-immutable AlignmentAnchor
+struct AlignmentAnchor
     seqpos::Int
     refpos::Int
     op::Operation

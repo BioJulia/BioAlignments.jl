@@ -9,7 +9,7 @@
 """
 Result of pairwise alignment
 """
-type PairwiseAlignmentResult{T,S1,S2}
+mutable struct PairwiseAlignmentResult{T,S1,S2}
     # alignment score/distance
     value::T
     isscore::Bool
