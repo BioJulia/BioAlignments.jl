@@ -50,7 +50,7 @@ mutable struct AffineGapScoreModel{T} <: AbstractScoreModel{T}
     gap_open::T
     gap_extend::T
 
-    function (::Type{AffineGapScoreModel{T}}){T}(submat::AbstractSubstitutionMatrix{T}, gap_open::T, gap_extend::T)
+    function AffineGapScoreModel{T}(submat::AbstractSubstitutionMatrix{T}, gap_open::T, gap_extend::T) where T
         @assert gap_open ≤ 0 "gap_open should be non-positive"
         @assert gap_extend ≤ 0 "gap_extend should be non-positive"
         return new{T}(submat, gap_open, gap_extend)
@@ -156,7 +156,7 @@ mutable struct CostModel{T} <: AbstractCostModel{T}
     insertion::T
     deletion::T
 
-    function (::Type{CostModel{T}}){T}(submat, insertion, deletion)
+    function CostModel{T}(submat, insertion, deletion) where T
         @assert insertion ≥ 0 "insertion should be non-negative"
         @assert deletion ≥ 0 " deletion should be non-negative"
         return new{T}(submat, insertion, deletion)

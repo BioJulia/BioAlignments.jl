@@ -17,9 +17,9 @@ mutable struct BandedNeedlemanWunsch{T<:Union{Signed,AbstractFloat}}
     lower::Int
     upper::Int
 
-    function (::Type{BandedNeedlemanWunsch{T}}){T}(
+    function BandedNeedlemanWunsch{T}(
             m::Integer, n::Integer,
-            lower::Integer, upper::Integer)
+            lower::Integer, upper::Integer) where T
         lower = min(lower, m)
         upper = min(upper, n)
         width = lower + upper + 1
@@ -29,7 +29,7 @@ mutable struct BandedNeedlemanWunsch{T<:Union{Signed,AbstractFloat}}
         return new{T}(trace, H, E, lower, upper)
     end
 
-    function (::Type{BandedNeedlemanWunsch{T}}){T}()
+    function BandedNeedlemanWunsch{T}() where T
         return BandedNeedlemanWunsch{T}(0, 0, 0, 0)
     end
 end

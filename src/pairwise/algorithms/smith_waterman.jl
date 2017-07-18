@@ -11,7 +11,7 @@ mutable struct SmithWaterman{T<:Union{Signed,AbstractFloat}}
     H::Vector{T}
     E::Vector{T}
 
-    function (::Type{SmithWaterman{T}}){T}(m::Integer, n::Integer)
+    function SmithWaterman{T}(m::Integer, n::Integer) where T
         trace = Matrix{Trace}(m + 1, n + 1)
         fill!(trace, 0xff)
         H = Vector{T}(m + 1)
@@ -19,7 +19,7 @@ mutable struct SmithWaterman{T<:Union{Signed,AbstractFloat}}
         return new{T}(trace, H, E)
     end
 
-    function (::Type{SmithWaterman{T}}){T}()
+    function SmithWaterman{T}() where T
         return SmithWaterman{T}(0, 0)
     end
 end

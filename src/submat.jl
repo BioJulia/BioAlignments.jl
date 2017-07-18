@@ -24,7 +24,7 @@ struct SubstitutionMatrix{T,S} <: AbstractSubstitutionMatrix{S}
     # score is defined or not
     defined::BitMatrix
 
-    function (::Type{SubstitutionMatrix{T,S}}){T,S}(data::Matrix{S}, defined::BitMatrix)
+    function SubstitutionMatrix{T,S}(data::Matrix{S}, defined::BitMatrix) where {T,S}
         @assert size(data) == size(defined)
         @assert size(data, 1) == size(data, 2) == length(BioSymbols.alphabet(T)) - 1
         return new{T,S}(data, defined)
