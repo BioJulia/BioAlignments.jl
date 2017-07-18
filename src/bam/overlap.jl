@@ -46,6 +46,7 @@ mutable struct OverlapIteratorState
 end
 
 function Base.start(iter::OverlapIterator)
+    iter.reader.stream = BGZFStreams.BGZFStream(get(iter.reader.filepath))
     refindex = findfirst(iter.reader.refseqnames, iter.refname)
     if refindex == 0
         throw(ArgumentError("sequence name $(iter.refname) is not found in the header"))

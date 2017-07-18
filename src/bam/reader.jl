@@ -17,6 +17,7 @@ mutable struct Reader{T} <: Bio.IO.AbstractReader
     refseqnames::Vector{String}
     refseqlens::Vector{Int}
     index::Nullable{BAI}
+    filepath::Nullable{String}
 end
 
 function Base.eltype{T}(::Type{Reader{T}})
@@ -37,6 +38,22 @@ function Reader(input::IO; index=nothing)
     end
     reader = init_bam_reader(input)
     reader.index = index
+    return reader
+end
+
+function Reader(filepath::AbstractString; index=:auto)
+    if isa(index, Symbol)
+        if index == :auto
+            index = findbai(filepath)
+        else
+            throw(ArgumentError("invalid index: ':$(index)'"))
+        end
+    elseif isa(index, AbstractString)
+        index = BAI(index)
+    end
+    reader = init_bam_reader(open(filepath))
+    reader.index = index
+    reader.filepath = filepath
     return reader
 end
 
@@ -128,7 +145,8 @@ function init_bam_reader(input::BGZFStreams.BGZFStream)
         voffset,
         refseqnames,
         refseqlens,
-        Nullable{BAI}())
+        Nullable{BAI}(),
+        Nullable{String}())
 end
 
 function init_bam_reader(input::IO)
