@@ -1,7 +1,7 @@
 # BAM Overlap
 # ===========
 
-immutable OverlapIterator{T}
+struct OverlapIterator{T}
     reader::Reader{T}
     refname::String
     interval::UnitRange{Int}
@@ -31,7 +31,7 @@ end
 # Iterator
 # --------
 
-type OverlapIteratorState
+mutable struct OverlapIteratorState
     # reference index
     refindex::Int
 

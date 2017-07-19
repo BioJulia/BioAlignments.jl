@@ -10,7 +10,7 @@ Create a data writer of the SAM file format.
 * `output`: data sink
 * `header=Header()`: SAM header object
 """
-type Writer <: Bio.IO.AbstractWriter
+mutable struct Writer <: Bio.IO.AbstractWriter
     stream::IO
 
     function Writer(output::IO, header::Header=Header())

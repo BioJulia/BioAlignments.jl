@@ -10,7 +10,6 @@ import BioCore.Exceptions: missingerror
 import BioCore.RecordHelper: unsafe_parse_decimal
 import BioCore: BioCore, isfilled
 import BioSequences
-import Compat: take!
 import BufferedStreams
 
 # FIXME

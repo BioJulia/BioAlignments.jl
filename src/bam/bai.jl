@@ -7,7 +7,7 @@
 # License is MIT: https://github.com/BioJulia/Bio.jl/blob/master/LICENSE.md
 
 # An index type for the BAM file format.
-type BAI
+struct BAI
     # BGZF file index
     index::GenomicFeatures.Indexes.BGZFIndex
 

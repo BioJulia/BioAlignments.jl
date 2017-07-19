@@ -13,18 +13,18 @@ The required method:
 
 * `Base.getindex(submat, x, y)`: substitution score/cost from `x` to `y`
 """
-@compat abstract type AbstractSubstitutionMatrix{S<:Real} end
+abstract type AbstractSubstitutionMatrix{S<:Real} end
 
 """
 Substitution matrix.
 """
-immutable SubstitutionMatrix{T,S} <: AbstractSubstitutionMatrix{S}
+struct SubstitutionMatrix{T,S} <: AbstractSubstitutionMatrix{S}
     # square substitution matrix
     data::Matrix{S}
     # score is defined or not
     defined::BitMatrix
 
-    function (::Type{SubstitutionMatrix{T,S}}){T,S}(data::Matrix{S}, defined::BitMatrix)
+    function SubstitutionMatrix{T,S}(data::Matrix{S}, defined::BitMatrix) where {T,S}
         @assert size(data) == size(defined)
         @assert size(data, 1) == size(data, 2) == length(BioSymbols.alphabet(T)) - 1
         return new{T,S}(data, defined)
@@ -148,7 +148,7 @@ end
 """
 Dichotomous substitution matrix.
 """
-immutable DichotomousSubstitutionMatrix{S} <: AbstractSubstitutionMatrix{S}
+struct DichotomousSubstitutionMatrix{S} <: AbstractSubstitutionMatrix{S}
     match::S
     mismatch::S
 end

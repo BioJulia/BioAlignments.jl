@@ -9,7 +9,7 @@
 """
 Result of pairwise alignment
 """
-type PairwiseAlignmentResult{T,S1,S2}
+mutable struct PairwiseAlignmentResult{T,S1,S2}
     # alignment score/distance
     value::T
     isscore::Bool
@@ -21,7 +21,7 @@ function PairwiseAlignmentResult(value, isscore, seq, ref)
                                    Nullable(PairwiseAlignment(seq, ref)))
 end
 
-function (::Type{PairwiseAlignmentResult{S1,S2}}){S1,S2}(value, isscore)
+function PairwiseAlignmentResult{S1,S2}(value, isscore) where {S1,S2}
     return PairwiseAlignmentResult(value, isscore,
                                    Nullable{PairwiseAlignment{S1,S2}}())
 end

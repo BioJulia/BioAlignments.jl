@@ -10,16 +10,16 @@
 # This file is a part of BioJulia.
 # License is MIT: https://github.com/BioJulia/Bio.jl/blob/master/LICENSE.md
 
-type BandedNeedlemanWunsch{T<:Union{Signed,AbstractFloat}}
+mutable struct BandedNeedlemanWunsch{T<:Union{Signed,AbstractFloat}}
     trace::Matrix{Trace}
     H::Vector{T}
     E::Vector{T}
     lower::Int
     upper::Int
 
-    function (::Type{BandedNeedlemanWunsch{T}}){T}(
+    function BandedNeedlemanWunsch{T}(
             m::Integer, n::Integer,
-            lower::Integer, upper::Integer)
+            lower::Integer, upper::Integer) where T
         lower = min(lower, m)
         upper = min(upper, n)
         width = lower + upper + 1
@@ -29,7 +29,7 @@ type BandedNeedlemanWunsch{T<:Union{Signed,AbstractFloat}}
         return new{T}(trace, H, E, lower, upper)
     end
 
-    function (::Type{BandedNeedlemanWunsch{T}}){T}()
+    function BandedNeedlemanWunsch{T}() where T
         return BandedNeedlemanWunsch{T}(0, 0, 0, 0)
     end
 end

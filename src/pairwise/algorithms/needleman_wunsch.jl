@@ -6,12 +6,12 @@
 # This file is a part of BioJulia.
 # License is MIT: https://github.com/BioJulia/Bio.jl/blob/master/LICENSE.md
 
-type NeedlemanWunsch{T<:Union{Signed,AbstractFloat}}
+mutable struct NeedlemanWunsch{T<:Union{Signed,AbstractFloat}}
     trace::Matrix{Trace}
     H::Vector{T}
     E::Vector{T}
 
-    function (::Type{NeedlemanWunsch{T}}){T}(m::Integer, n::Integer)
+    function NeedlemanWunsch{T}(m::Integer, n::Integer) where T
         trace = Matrix{Trace}(m + 1, n + 1)
         fill!(trace, 0xff)
         H = Vector{T}(m + 1)
@@ -19,7 +19,7 @@ type NeedlemanWunsch{T<:Union{Signed,AbstractFloat}}
         return new{T}(trace, H, E)
     end
 
-    function (::Type{NeedlemanWunsch{T}}){T}()
+    function NeedlemanWunsch{T}() where T
         return NeedlemanWunsch{T}(0, 0)
     end
 end

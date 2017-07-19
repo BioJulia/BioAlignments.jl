@@ -6,30 +6,30 @@
 # This file is a part of BioJulia.
 # License is MIT: https://github.com/BioJulia/Bio.jl/blob/master/LICENSE.md
 
-@compat abstract type AbstractAlignment end
+abstract type AbstractAlignment end
 
 
 # Alignments
 # ----------
 
 """Global-global alignment with end gap penalties."""
-immutable GlobalAlignment <: AbstractAlignment end
+struct GlobalAlignment <: AbstractAlignment end
 
 """Global-local alignment."""
-immutable SemiGlobalAlignment <: AbstractAlignment end
+struct SemiGlobalAlignment <: AbstractAlignment end
 
 """Global-global alignment without end gap penalties."""
-immutable OverlapAlignment <: AbstractAlignment end
+struct OverlapAlignment <: AbstractAlignment end
 
 """Local-local alignment."""
-immutable LocalAlignment <: AbstractAlignment end
+struct LocalAlignment <: AbstractAlignment end
 
 
 # Distances
 # ---------
 
 """Edit distance."""
-immutable EditDistance <: AbstractAlignment end
+struct EditDistance <: AbstractAlignment end
 
 """
 Levenshtein distance.
@@ -37,7 +37,7 @@ Levenshtein distance.
 A special case of `EditDistance` with the costs of mismatch, insertion, and
 deletion are 1.
 """
-immutable LevenshteinDistance <: AbstractAlignment end
+struct LevenshteinDistance <: AbstractAlignment end
 
 """
 Hamming distance.
@@ -45,4 +45,4 @@ Hamming distance.
 A special case of `EditDistance` with the costs of insertion and deletion are
 infinitely large.
 """
-immutable HammingDistance <: AbstractAlignment end
+struct HammingDistance <: AbstractAlignment end
