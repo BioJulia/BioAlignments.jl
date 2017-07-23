@@ -15,6 +15,7 @@ intervals = open(GFF3.Reader, gff3file) do reader
     return intervals
 end
 intervals = intervals[1:1000]
+
 f = transcript_depth2
 println(sum(map(sum, f(bamfile, intervals))))
 out = STDOUT
