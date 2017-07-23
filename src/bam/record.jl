@@ -86,7 +86,17 @@ function Base.show(io::IO, record::Record)
 end
 
 function Base.read!(reader::Reader, record::Record)
-    return _read!(reader, record)
+    unsafe_read(
+        reader.input,
+        pointer_from_objref(record),
+        FIXED_FIELDS_BYTES)
+    dsize = data_size(record)
+    if length(record.data) < dsize
+        resize!(record.data, dsize)
+    end
+    unsafe_read(reader.input, pointer(record.data), dsize)
+    record.reader = reader
+    return record
 end
 
 
