@@ -91,7 +91,7 @@ function Base.eltype{T}(::Type{Reader{T}})
 end
 
 function Bio.IO.stream(reader::Reader)
-    return reader.stream
+    return reader.input
 end
 
 function Base.show(io::IO, reader::Reader)

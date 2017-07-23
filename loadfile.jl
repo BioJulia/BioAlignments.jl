@@ -24,7 +24,6 @@
         ret = map(intervals) do interval
             return compute_cov(reader, interval)
         end
-        close(reader)
         return ret
     end
 
@@ -32,7 +31,6 @@
         pmap(intervals) do interval
             reader = BAM.Reader(bamfile)
             cov = compute_cov(reader, interval)
-            close(reader)
             return cov
         end
     end
@@ -42,7 +40,6 @@
         ret = pmap(intervals, batch_size=batchsize) do interval
             return compute_cov(reader, interval)
         end
-        close(reader)
         return ret
     end
 end
