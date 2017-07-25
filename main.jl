@@ -1,30 +1,68 @@
-using GenomicFeatures
+@everywhere begin
+    using BioAlignments
+    using GenomicFeatures
 
-include("loadfile.jl")
+    # The main algorithm.
+    function compute_depth(reader, interval)
+        range = interval.first:interval.last
+        depth = zeros(Int, length(range))
+        for record in eachoverlap(reader, interval)
+            if !BAM.ismapped(record) || !BAM.isprimary(record)
+                continue
+            end
+            aln = BAM.alignment(record)
+            for i in 1:BAM.seqlength(record)
+                j, op = seq2ref(aln, i)
+                if ismatchop(op) && j in range
+                    @inbounds depth[j - first(range) + 1] += 1
+                end
+            end
+        end
+        return depth
+    end
+end
+
+# Sequential computation.
+function transcript_depth0(bamfile, intervals)
+    reader = BAM.Reader(bamfile)
+    return map(intervals) do interval
+        return compute_depth(reader, interval)
+    end
+end
+
+# Parallel computation using pmap (open BAM.Reader inside the closure).
+function transcript_depth1(bamfile, intervals, batchsize)
+    pmap(intervals, batch_size=batchsize) do interval
+        reader = BAM.Reader(bamfile)
+        return compute_depth(reader, interval)
+    end
+end
+
+# Parallel computation using pmap (open BAM.Reader outside the closure).
+function transcript_depth2(bamfile, intervals, batchsize)
+    reader = BAM.Reader(bamfile)
+    return pmap(intervals, batch_size=batchsize) do interval
+        return compute_depth(reader, interval)
+    end
+end
 
 bamfile = expanduser("./data/SRR1238088.sort.bam")
 gff3file = expanduser("./data/TAIR10_GFF3_genes.gff")
-chrom = "Chr1"
-intervals = open(GFF3.Reader, gff3file) do reader
-    intervals = Interval{GFF3.Record}[]
-    for record in reader
-        if GFF3.seqid(record) == chrom && GFF3.featuretype(record) == "mRNA"
-            push!(intervals, Interval(record))
-        end
-    end
-    return intervals
-end
-intervals = intervals[1:1000]
+intervals = collect(Interval, Iterators.filter(r->GFF3.seqid(r)=="Chr1" && GFF3.featuretype(r)=="gene", GFF3.Reader(open(gff3file))))
 
-f = transcript_depth2
-println(sum(map(sum, f(bamfile, intervals))))
-out = STDOUT
-println(out, "--- start benchmarking ---")
-for batchsize in [1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50]
-    @show batchsize
-    for i in 1:3
-        gc()
-        println(out, @elapsed f(bamfile, intervals, batchsize))
-    end
+using DocOpt
+args = docopt("Usage: main.jl [--batch_size=<n>] <function>")
+batch_size = args["--batch_size"]
+if batch_size == nothing
+    batch_size = 30
+else
+    batch_size = parse(Int, batch_size)
 end
-println(out, "--- finish benchmarking ---")
+f = eval(parse(args["<function>"]))
+func = () -> f == transcript_depth0 ? f(bamfile, intervals) : f(bamfile, intervals, batch_size)
+
+println(STDERR, sum(map(sum, func())))
+for i in 1:3
+    gc()
+    println(@elapsed func())
+end
