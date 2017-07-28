@@ -33,6 +33,11 @@ function BAI(input::IO)
     return read_bai(input)
 end
 
+function findbai(filepath::AbstractString)
+    baipath = string(filepath, ".bai")
+    return isfile(baipath) ? Nullable(BAI(baipath)) : Nullable{BAI}()
+end
+
 # Read a BAI object from `input`.
 function read_bai(input::IO)
     # check magic bytes
