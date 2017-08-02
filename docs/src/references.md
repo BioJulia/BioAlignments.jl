@@ -17,6 +17,9 @@ OP_SEQ_MATCH
 OP_SEQ_MISMATCH
 OP_BACK
 OP_START
+ismatchop
+isinsertop
+isdeleteop
 ```
 
 Alignments

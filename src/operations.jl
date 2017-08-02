@@ -57,15 +57,29 @@ end
 
 const OP_MAX_VALID = OP_START
 
-# classify operations
+"""
+    ismatchop(op::Operation)
+
+Test if `op` is a match operation (i.e. `op ∈ (OP_MATCH, OP_SEQ_MATCH, OP_SEQ_MISMATCH)`).
+"""
 function ismatchop(op::Operation)
     return op == OP_MATCH || op == OP_SEQ_MATCH || op == OP_SEQ_MISMATCH
 end
 
+"""
+    isinsertop(op::Operation)
+
+Test if `op` is a insertion operation (i.e. `op ∈ (OP_INSERT, OP_SOFT_CLIP, OP_HARD_CLIP)`).
+"""
 function isinsertop(op::Operation)
     return op == OP_INSERT || op == OP_SOFT_CLIP || op == OP_HARD_CLIP
 end
 
+"""
+    isdeleteop(op::Operation)
+
+Test if `op` is a deletion operation (i.e. `op ∈ (OP_DELETE, OP_SKIP)`).
+"""
 function isdeleteop(op::Operation)
     return op == OP_DELETE || op == OP_SKIP
 end
