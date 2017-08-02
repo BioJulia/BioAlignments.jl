@@ -44,4 +44,5 @@ pages:
 - IO:
   - SAM: io/bam.md
   - BAM: io/sam.md
+- References: references.md
 - Contributing: contributing.md
