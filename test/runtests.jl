@@ -387,11 +387,26 @@ end
         myblosum[AA_O,AA_R] = -3
         @test myblosum[AA_O,AA_R] === -3
 
+        @test convert(Matrix, BioAlignments.load_submat(AminoAcid, "BLOSUM62")) == convert(Matrix, BLOSUM62)
+
         submat = SubstitutionMatrix(DNA, rand(Float64, 15, 15))
         @test isa(submat, SubstitutionMatrix{DNA,Float64})
 
+        submat = SubstitutionMatrix(
+            Dict((DNA_A, DNA_T) => 5, (DNA_T, DNA_A) => 4),
+            default_match=0,
+            default_mismatch=-1)
+        @test submat[DNA_A,DNA_T] === 5
+        @test submat[DNA_T,DNA_A] === 4
+        @test submat[DNA_A,DNA_A] === 0
+        @test submat[DNA_A,DNA_G] === -1
+
         submat = DichotomousSubstitutionMatrix(5, -4)
         @test isa(submat, DichotomousSubstitutionMatrix{Int})
+        @test sprint(show, submat) == """
+        BioAlignments.DichotomousSubstitutionMatrix{Int64}:
+             match =  5
+          mismatch = -4"""
         submat = convert(SubstitutionMatrix{DNA,Int}, submat)
         @test submat[DNA_A,DNA_A] ===  5
         @test submat[DNA_C,DNA_C] ===  5
