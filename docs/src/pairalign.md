@@ -55,27 +55,7 @@ Bio.Align.PairwiseAlignmentResult{Int64,String,String}:
 
 ### Operations on pairwise alignment
 
-`pairalign` returns a `PairwiseAlignmentResult` object and some accessors are
-provided for it.
-
-```@docs
-score
-distance
-hasalignment
-alignment
-```
-
-Pairwise alignment also implements some useful operations on it.
-
-```@docs
-count_matches
-count_mismatches
-count_insertions
-count_deletions
-count_aligned
-```
-
-The example below shows a use case of these operations:
+The example below shows a use case of some operations:
 ```jlcon
 julia> s1 = dna"CCTAGGAGGG";
 
