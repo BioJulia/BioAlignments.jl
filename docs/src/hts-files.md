@@ -7,39 +7,39 @@ Overview
 High-throughput sequencing (HTS) technologies generate a large amount of data in
 the form of a large number of nucleotide sequencing reads. One of the most
 common tasks in bioinformatics is to align these reads against known reference
-genomes, chromosomes, or contigs. The `BioAlignments` module provides several
-data formats commonly used for this kind of task.
+genomes, chromosomes, or contigs. BioAlignments.jl provides several data formats
+commonly used for this kind of task.
 
 
 SAM and BAM file formats
 ------------------------
 
-SAM and BAM are the most popular file formats and have the same reading and
-writing interface as all other formats in Bio.jl. A typical code iterating over
-all records in a file looks like below:
+BioAlignments.jl offers high-performance tools for SAM and BAM file formats,
+which are the most popular file formats.  A typical code iterating over all
+records in a file looks like below:
 ```julia
-# import the SAM and BAM module
+# Import the SAM and BAM module.
 using BioAlignments
 
-# open a BAM file
+# Open a BAM file.
 reader = open(BAM.Reader, "data.bam")
 
-# iterate over BAM records
+# Iterate over BAM records.
 for record in reader
-    # `record` is a BAM.Record object
+    # `record` is a BAM.Record object.
     if BAM.ismapped(record)
-        # print mapped position
+        # Print the mapped position.
         println(BAM.refname(record), ':', BAM.position(record))
     end
 end
 
-# close the BAM file
+# Close the BAM file.
 close(reader)
 ```
 
 Accessor functions are defined in `SAM` and `BAM` modules.  Lists of these
-functions to `SAM.Record` and `BAM.Record` are described in [SAM formatted
-files](@ref) and [BAM formatted files](@ref) sections, respectively.
+functions to `SAM.Record` and `BAM.Record` are described in the [SAM](@ref) and
+[BAM](@ref) sections, respectively.
 
 `SAM.Reader` and `BAM.Reader` implement the `header` function, which returns a
 `SAM.Header` object. This is conceptually a sequence of `SAM.MetaInfo` objects
@@ -113,8 +113,8 @@ end
 close(reader)
 ```
 
-`eachoverlap` also supports `Interval` type definded in
-[BioAlignments.jl](https://github.com/BioJulia/BioAlignments.jl).
+`eachoverlap` also supports `Interval` type defined in
+[GenomicFeatures.jl](https://github.com/BioJulia/GenomicFeatures.jl).
 
 ```julia
 # Load GFF3 module.
