@@ -92,7 +92,7 @@ julia> score(res)  # get the achieved score of this alignment
 13
 
 julia> aln = alignment(res)
-PairwiseAlignment{BioSequences.BioSequence{BioSequences.DNAAlphabet{4}},BioSequences.BioSequence{BioSequences.DNAAlphabet{4}}}:
+BioAlignments.PairwiseAlignment{BioSequences.BioSequence{BioSequences.DNAAlphabet{4}},BioSequences.BioSequence{BioSequences.DNAAlphabet{4}}}:
   seq:  0 -CCTAGG------AGGG 10
            ||| ||      || |
   ref:  1 ACCT-GGTATGATAGCG 16
