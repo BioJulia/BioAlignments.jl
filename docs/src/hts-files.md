@@ -113,7 +113,7 @@ end
 close(reader)
 ```
 
-`eachoverlap` also supports `Interval` type defined in
+`eachoverlap` also accepts the `Interval` type defined in
 [GenomicFeatures.jl](https://github.com/BioJulia/GenomicFeatures.jl).
 
 ```julia
