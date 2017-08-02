@@ -150,12 +150,16 @@ end
 # Printers
 # --------
 
-function Base.show{S1,S2}(io::IO, aln::PairwiseAlignment{S1,S2})
-    println(io, "PairwiseAlignment{", S1, ",", S2, "}:")
+function Base.show(io::IO, aln::PairwiseAlignment)
+    println(io, summary(aln), ':')
     print(io, aln)
 end
 
-function Base.print(io::IO, aln::PairwiseAlignment, width::Integer=60)
+function Base.print(io::IO, aln::PairwiseAlignment)
+    print_pairwise_alignment(io, aln)
+end
+
+function print_pairwise_alignment(io::IO, aln::PairwiseAlignment; width::Integer=60)
     seq = aln.a.seq
     ref = aln.b
     anchors = aln.a.aln.anchors

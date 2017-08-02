@@ -3,7 +3,7 @@ using BioAlignments
 using BioSymbols
 import BGZFStreams: BGZFStream
 import BioCore.Exceptions: MissingFieldException
-import BioSequences: @dna_str
+import BioSequences: @dna_str, @aa_str
 import GenomicFeatures
 import YAML
 
@@ -994,6 +994,46 @@ end
             @test_throws Exception pairalign(HammingDistance(), "ACGT", "ACG")
             @test_throws Exception pairalign(HammingDistance(), "ACG", "ACGT")
         end
+    end
+
+    @testset "Print" begin
+        seq1 = aa"EPVTSHPKAVSPTETKPTEKGQHLPVSAPPKITQSLKAEASKDIAKLTCAVESSALCA"
+        seq2 = aa"EPSHPKAVSPTETKRCPTEKVQHLPVSAPPKITQFLKAEASKEIAKLTCVVESSVLRA"
+        model = AffineGapScoreModel(BLOSUM62, gap_open=-10, gap_extend=-1)
+        aln = alignment(pairalign(GlobalAlignment(), seq1, seq2, model))
+        @test sprint(show, aln) ==
+        """
+        BioAlignments.PairwiseAlignment{BioSequences.BioSequence{BioSequences.AminoAcidAlphabet},BioSequences.BioSequence{BioSequences.AminoAcidAlphabet}}:
+          seq:  1 EPVTSHPKAVSPTETK--PTEKGQHLPVSAPPKITQSLKAEASKDIAKLTCAVESSALCA 58
+                  ||  ||||||||||||  |||| ||||||||||||| ||||||| |||||| |||| | |
+          ref:  1 EP--SHPKAVSPTETKRCPTEKVQHLPVSAPPKITQFLKAEASKEIAKLTCVVESSVLRA 58
+        """
+        @test sprint(print, aln) ==
+        """
+          seq:  1 EPVTSHPKAVSPTETK--PTEKGQHLPVSAPPKITQSLKAEASKDIAKLTCAVESSALCA 58
+                  ||  ||||||||||||  |||| ||||||||||||| ||||||| |||||| |||| | |
+          ref:  1 EP--SHPKAVSPTETKRCPTEKVQHLPVSAPPKITQFLKAEASKEIAKLTCVVESSVLRA 58
+        """
+        buf = IOBuffer()
+        BioAlignments.print_pairwise_alignment(buf, aln, width=50)
+        @test String(take!(buf)) ==
+        """
+          seq:  1 EPVTSHPKAVSPTETK--PTEKGQHLPVSAPPKITQSLKAEASKDIAKLT 48
+                  ||  ||||||||||||  |||| ||||||||||||| ||||||| |||||
+          ref:  1 EP--SHPKAVSPTETKRCPTEKVQHLPVSAPPKITQFLKAEASKEIAKLT 48
+
+          seq: 49 CAVESSALCA 58
+                  | |||| | |
+          ref: 49 CVVESSVLRA 58
+        """
+        # Result from EMBOSS Needle:
+        # EMBOSS_001         1 EPVTSHPKAVSPTETK--PTEKGQHLPVSAPPKITQSLKAEASKDIAKLT     48
+        #                      ||  ||||||||||||  ||||.|||||||||||||.|||||||:|||||
+        # EMBOSS_001         1 EP--SHPKAVSPTETKRCPTEKVQHLPVSAPPKITQFLKAEASKEIAKLT     48
+        #
+        # EMBOSS_001        49 CAVESSALCA     58
+        #                      |.||||.|.|
+        # EMBOSS_001        49 CVVESSVLRA     58
     end
 end
 
