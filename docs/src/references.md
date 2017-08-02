@@ -26,6 +26,7 @@ Alignments
 ----------
 
 ```@docs
+AlignmentAnchor
 Alignment
 Alignment(::Vector{AlignmentAnchor}, ::Bool)
 Alignment(::AbstractString, ::Int, ::Int)
@@ -168,4 +169,6 @@ BAM.sequence
 BAM.seqlength
 BAM.quality
 BAM.auxdata
+
+BAM.BAI
 ```
