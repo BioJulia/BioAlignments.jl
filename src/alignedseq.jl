@@ -60,16 +60,12 @@ function AlignedSequence(seq::BioSequences.Sequence, seqpos::Integer,
     return AlignedSequence(newseq, anchors)
 end
 
-"""
-First position in the reference sequence.
-"""
+# First position in the reference sequence.
 function IntervalTrees.first(alnseq::AlignedSequence)
     return alnseq.aln.firstref
 end
 
-"""
-Last position in the reference sequence.
-"""
+# Last position in the reference sequence.
 function IntervalTrees.last(alnseq::AlignedSequence)
     return alnseq.aln.lastref
 end
