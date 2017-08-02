@@ -97,19 +97,41 @@ end
 
 @testset "Alignments" begin
     @testset "Operations" begin
-        @testset "Constructors and Conversions" begin
-            ops = Set(BioAlignments.char_to_op)
-            for op in ops
-                if op != BioAlignments.OP_INVALID
-                    @test Operation(Char(op)) == op
-                end
-            end
-            @test_throws Exception Char(BioAlignments.OP_INVALID)
-            @test_throws Exception Operation('m')
-            @test_throws Exception Operation('7')
-            @test_throws Exception Operation('A')
-            @test_throws Exception Operation('\n')
+        for (char, op) in [
+                ('M', OP_MATCH),
+                ('I', OP_INSERT),
+                ('D', OP_DELETE),
+                ('N', OP_SKIP),
+                ('S', OP_SOFT_CLIP),
+                ('H', OP_HARD_CLIP),
+                ('P', OP_PAD),
+                ('=', OP_SEQ_MATCH),
+                ('X', OP_SEQ_MISMATCH),
+                ('B', OP_BACK),
+                ('0', OP_START)]
+            @test convert(Operation, char) === op
+            @test convert(Char, op) === char
+            @test sprint(print, op) == string(char)
         end
+        @test_throws ArgumentError convert(Operation, 'm')
+        @test_throws ArgumentError convert(Operation, '7')
+        @test_throws ArgumentError convert(Operation, 'A')
+        @test_throws ArgumentError convert(Char, reinterpret(Operation, reinterpret(UInt8, OP_START)+UInt8(1)))
+        @test_throws ArgumentError convert(Char, BioAlignments.OP_INVALID)
+
+        # Test the Base.show method.
+        @test sprint(show, OP_MATCH)        == "OP_MATCH"
+        @test sprint(show, OP_INSERT)       == "OP_INSERT"
+        @test sprint(show, OP_DELETE)       == "OP_DELETE"
+        @test sprint(show, OP_SKIP)         == "OP_SKIP"
+        @test sprint(show, OP_SOFT_CLIP)    == "OP_SOFT_CLIP"
+        @test sprint(show, OP_HARD_CLIP)    == "OP_HARD_CLIP"
+        @test sprint(show, OP_PAD)          == "OP_PAD"
+        @test sprint(show, OP_SEQ_MATCH)    == "OP_SEQ_MATCH"
+        @test sprint(show, OP_SEQ_MISMATCH) == "OP_SEQ_MISMATCH"
+        @test sprint(show, OP_BACK)         == "OP_BACK"
+        @test sprint(show, OP_START)        == "OP_START"
+        @test sprint(show, BioAlignments.OP_INVALID) == "Invalid Operation"
     end
 
     @testset "AlignmentAnchor" begin

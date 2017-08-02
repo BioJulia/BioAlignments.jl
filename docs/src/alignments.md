@@ -1,5 +1,5 @@
-Sequence Alignments
-===================
+Alignments
+==========
 
 ```@meta
 CurrentModule = BioAlignments
@@ -9,17 +9,26 @@ DocTestSetup = quote
 end
 ```
 
-The `BioAlignments` module contains tools for computing and working with
-sequence alignments.
+Overview
+--------
+
+Types related to alignment representation introduced in this chapter are
+indispensable concepts to use this package. Specifically, `Alignment`,
+`AlignmentAnchor` and `Operation` are the most fundamental types of this
+package to represent an alignment of two sequences.
 
 
-## Representing alignments
+Representing alignments
+-----------------------
 
 The `Alignment` type can represent a wide variety of global or local sequence
-alignments while facilitating efficient coordinate transformation.  Alignment
+alignments while facilitating efficient coordinate transformation.  Alignments
 are always relative to a possibly unspecified reference sequence and represent a
 series of [edit operations](https://en.wikipedia.org/wiki/Edit_distance)
-performed on that reference to transform it to the query sequence.
+performed on that reference to transform it to the query sequence. An edit
+operation is, for example, matching, insertion, or deletion.  All operations
+defined in BioAlignments.jl are described in the [Alignment operations](@ref)
+section.
 
 To represent an alignment we use a series of "anchors" stored in the
 `AlignmentAnchor` type. Anchors are form of run-length encoding alignment
@@ -27,12 +36,16 @@ operations, but rather than store an operation along with a length, we store the
 end-point of that operation in both reference and query coordinates.
 
 ```julia
-immutable AlignmentAnchor
+struct AlignmentAnchor
     seqpos::Int
     refpos::Int
     op::Operation
 end
 ```
+
+The next figure shows a schematic representation of an alignment object.
+
+![Alignment representation](assets/alignment.svg)
 
 Every alignment starts with a special `OP_START` operation which is used to give
 the position in the reference and query prior to the start of the alignment, or
@@ -57,7 +70,7 @@ Using anchors we would represent this as the following series of anchors:
     AlignmentAnchor(12, 17, OP_INSERT),
     AlignmentAnchor(15, 20, OP_MATCH),
     AlignmentAnchor(15, 23, OP_DELETE),
-    AlignmentAnchor(19, 27, OP_MATCH)
+    AlignmentAnchor(19, 27, OP_MATCH),
 ]
 ```
 
@@ -76,7 +89,8 @@ BioAlignments.Alignment:
 ```
 
 
-### Operations
+Alignment operations
+--------------------
 
 Alignment operations follow closely from those used in the [SAM/BAM
 format](https://samtools.github.io/hts-specs/SAMv1.pdf) and are stored in the
@@ -96,8 +110,26 @@ format](https://samtools.github.io/hts-specs/SAMv1.pdf) and are stored in the
 | `OP_BACK`            | special            | not currently supported, but present for SAM/BAM compatibility                  |
 | `OP_START`           | special            | indicate the start of an alignment within the reference and query sequence      |
 
+Each operation has its own one-letter representation, which is the same as those
+defined in the SAM file format.
 
-## Aligned sequence
+```jldoctest
+julia> convert(Operation, 'M')  # Char => Operation
+OP_MATCH
+
+julia> convert(Char, OP_MATCH)  # Operation => Char
+'M': ASCII/Unicode U+004d (category Lu: Letter, uppercase)
+
+julia> ismatchop(OP_MATCH)
+true
+
+```
+
+See the [Operations](@ref) section in the references for more details.
+
+
+Aligned sequences
+-----------------
 
 A sequence aligned to another sequence is represented by the `AlignedSequence`
 type, which is a pair of the aligned sequence and an `Alignment` object.

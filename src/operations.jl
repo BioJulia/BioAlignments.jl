@@ -18,8 +18,8 @@ primitive type Operation 8 end
 Base.convert(::Type{Operation}, op::UInt8) = reinterpret(Operation, op)
 Base.convert(::Type{UInt8}, op::Operation) = reinterpret(UInt8, op)
 
-Base.convert{T<:Unsigned}(::Type{Operation}, op::T) = Operation(UInt8(op))
-Base.convert{T<:Unsigned}(::Type{T}, op::Operation) = T(UInt8(op))
+Base.convert(::Type{Operation}, op::Integer) = Operation(UInt8(op))
+Base.convert(::Type{T}, op::Operation) where T<:Integer = T(UInt8(op))
 
 
 # Operation encoding definitions
@@ -33,6 +33,9 @@ const char_to_op = fill(OP_INVALID, 128)
 
 # Lookup table for conversion from Operation to Char.
 const op_to_char = fill('\0', 11)
+
+# Lookup table for showing operations as constants.
+const op_to_symbol = fill(Symbol(""), 11)
 
 # Define operations.
 for (name, char, doc, code) in [
@@ -52,10 +55,15 @@ for (name, char, doc, code) in [
         @doc $(string("`'", char, "'`: ", doc)) const $(sym) = convert(Operation, $(code))
         char_to_op[$(Int(char)+1)] = $(sym)
         op_to_char[$(code+1)] = $(char)
+        op_to_symbol[$(code+1)] = $(Expr(:quote, sym))
     end
 end
 
 const OP_MAX_VALID = OP_START
+
+function Base.isvalid(op::Operation)
+    return reinterpret(UInt8, op) ≤ reinterpret(UInt8, OP_START)
+end
 
 """
     ismatchop(op::Operation)
@@ -88,17 +96,27 @@ function Base.convert(::Type{Operation}, c::Char)
     i = convert(Int, c)
     @inbounds op = i < 128 ? char_to_op[i+1] : OP_INVALID
     if op == OP_INVALID
-        error("Invalid alignment operation '$(c)'")
+        throw(ArgumentError("invalid alignment operation character '$(c)'"))
     end
     return op
 end
 
 function Base.convert(::Type{Char}, op::Operation)
-    @assert op != OP_INVALID error("Alignment operation is not valid.")
+    if !isvalid(op)
+        throw(ArgumentError("invalid alignment operation"))
+    end
     return op_to_char[convert(UInt8, op) + 1]
 end
 
-function Base.show(io::IO, op::Operation)
+function Base.print(io::IO, op::Operation)
     write(io, convert(Char, op))
     return
+end
+
+function Base.show(io::IO, op::Operation)
+    if isvalid(op)
+        print(io, op_to_symbol[Int(op)+1])
+    else
+        print(io, "Invalid Operation")
+    end
 end
