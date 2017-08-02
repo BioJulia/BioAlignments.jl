@@ -221,6 +221,9 @@ end
         @test ref2seq(alnseq,  9) == ( 4, OP_DELETE)
         @test ref2seq(alnseq, 10) == ( 4, OP_DELETE)
         @test ref2seq(alnseq, 23) == (15, OP_DELETE)
+        @test sprint(show, alnseq) == """
+        ·············---··········
+        TGGC----ATCATTTAACG---CAAG"""
 
         seq = dna"ACGG--TGAAAGGT"
         ref = dna"-CGGGGA----TTT"
@@ -237,6 +240,9 @@ end
              AlignmentAnchor(11, 8, 'X')
              AlignmentAnchor(12, 9, '=')
         ]
+        @test sprint(show, alnseq) == """
+        -······----···
+        ACGG--TGAAAGGT"""
     end
 end
 
@@ -411,6 +417,9 @@ end
             @test affinegap.gap_extend == -1
             @test typeof(affinegap) == AffineGapScoreModel{Int}
         end
+        @test_throws ArgumentError AffineGapScoreModel(BLOSUM62)
+        @test_throws ArgumentError AffineGapScoreModel(BLOSUM62, gap_open=-10)
+        @test_throws ArgumentError AffineGapScoreModel(BLOSUM62, gap_extend=-1)
 
         # matrix
         submat = SubstitutionMatrix(DNA, rand(Float64, 15, 15))
@@ -426,6 +435,13 @@ end
         @test affinegap.gap_open == -5
         @test affinegap.gap_extend == -2
         @test typeof(affinegap) == AffineGapScoreModel{Int}
+        @test sprint(show, affinegap) == """
+        BioAlignments.AffineGapScoreModel{Int64}:
+               match = 3
+            mismatch = -3
+            gap_open = -5
+          gap_extend = -2"""
+
     end
 
     @testset "CostModel" begin
@@ -436,6 +452,8 @@ end
             @test cost.deletion == 6
             @test typeof(cost) == CostModel{Int}
         end
+        @test_throws ArgumentError CostModel(submat, insertion=5)
+        @test_throws ArgumentError CostModel(submat, deletion=5)
 
         cost = CostModel(match=0, mismatch=3, insertion=5, deletion=6)
         @test cost.insertion == 5

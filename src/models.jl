@@ -69,7 +69,7 @@ function AffineGapScoreModel{T}(submat::AbstractSubstitutionMatrix{T}; gaps...)
     elseif haskey(gaps, :gap_open_penalty)
         gap_open = -gaps[:gap_open_penalty]
     else
-        error("gap_open or gap_open_penalty argument should be passed")
+        throw(ArgumentError("gap_open or gap_open_penalty argument should be passed"))
     end
 
     if haskey(gaps, :gap_extend)
@@ -77,7 +77,7 @@ function AffineGapScoreModel{T}(submat::AbstractSubstitutionMatrix{T}; gaps...)
     elseif haskey(gaps, :gap_extend_penalty)
         gap_extend = -gaps[:gap_extend_penalty]
     else
-        error("gap_extend or gap_extend_penalty argument should be passed")
+        throw(ArgumentError("gap_extend or gap_extend_penalty argument should be passed"))
     end
 
     return AffineGapScoreModel(submat, T(gap_open), T(gap_extend))
@@ -172,12 +172,12 @@ function CostModel{T}(submat::AbstractSubstitutionMatrix{T}; indels...)
     if haskey(indels, :insertion)
         insertion = indels[:insertion]
     else
-        error("insertion should be passed")
+        throw(ArgumentError("insertion should be passed"))
     end
     if haskey(indels, :deletion)
         deletion = indels[:deletion]
     else
-        error("deletion should be passed")
+        throw(ArgumentError("deletion should be passed"))
     end
     return CostModel(submat, insertion, deletion)
 end
