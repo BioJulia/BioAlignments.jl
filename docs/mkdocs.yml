@@ -38,7 +38,7 @@ markdown_extensions:
 pages:
 - Home: index.md
 - Usage: usage.md
-- Alignments: alignments.md
+- Alignment representation: alignments.md
 - Pairwise alignment: pairalign.md
 - High-throughput sequencing: hts-files.md
 - IO:

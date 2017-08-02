@@ -101,11 +101,11 @@ function Base.show(io::IO, aln::Alignment)
 end
 
 """
-    seq2ref(aln, i)
+    seq2ref(aln::Alignment, i::Integer)::Tuple{Int,Operation}
 
-Map a position from sequence to reference.
+Map a position `i` from sequence to reference.
 """
-function seq2ref(aln::Alignment, i::Integer)
+function seq2ref(aln::Alignment, i::Integer)::Tuple{Int,Operation}
     idx = findanchor(aln, i, Val{true})
     if idx == 0
         throw(ArgumentError("invalid sequence position: $i"))
@@ -119,11 +119,11 @@ function seq2ref(aln::Alignment, i::Integer)
 end
 
 """
-    ref2seq(aln, i)
+    ref2seq(aln::Alignment, i::Integer)::Tuple{Int,Operation}
 
-Map a position from reference to sequence.
+Map a position `i` from reference to sequence.
 """
-function ref2seq(aln::Alignment, i::Integer)
+function ref2seq(aln::Alignment, i::Integer)::Tuple{Int,Operation}
     idx = findanchor(aln, i, Val{false})
     if idx == 0
         throw(ArgumentError("invalid reference position: $i"))

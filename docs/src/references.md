@@ -30,9 +30,9 @@ AlignmentAnchor
 Alignment
 Alignment(::Vector{AlignmentAnchor}, ::Bool)
 Alignment(::AbstractString, ::Int, ::Int)
-seq2ref
-ref2seq
-cigar
+seq2ref(::Alignment, ::Integer)
+ref2seq(::Alignment, ::Integer)
+cigar(::Alignment)
 ```
 
 Substitution matrices
@@ -81,6 +81,8 @@ score
 distance
 alignment
 hasalignment
+seq2ref(::PairwiseAlignment, ::Integer)
+ref2seq(::PairwiseAlignment, ::Integer)
 ```
 
 I/O

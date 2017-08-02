@@ -9,19 +9,26 @@ DocTestSetup = quote
 end
 ```
 
+
 Overview
 --------
 
 Pairwise alignment is a sequence alignment between two sequences.
 BioAlignments.jl implements several pairwise alignment algorithms that maximize
-alignment score or minimize alignment cost.
+alignment score or minimize alignment cost. If you are interested in handling
+the results of pairwise alignments, it is highly recommended to read the
+[Alignment representation](@ref) chapter in advance to get used to the alignment
+representation.
 
-Generally, a pairwise alignment problem has two factors: an alignment type and a
-score/cost model. The alignment type specifies the alignment range (e.g. global,
-local, etc.) and the score/cost model specifies parameters of the alignment
-operations.
 
-`pairalign` is a funtion to run alignment, which is exported from the
+Alignment types and scoring models
+----------------------------------
+
+A pairwise alignment problem has two factors: an alignment type and a score/cost
+model. The alignment type specifies the alignment range (e.g. global, local,
+etc.) and the score/cost model specifies parameters of the alignment operations.
+
+`pairalign` is a function to run alignment, which is exported from the
 `BioAlignments` module.  It takes an alignment type as its first argument, then
 two sequences to align, and finally a score model. Currently, the following four
 types of alignments are supported:
@@ -61,7 +68,9 @@ BioAlignments.PairwiseAlignmentResult{Int64,String,String}:
 
 ```
 
-### Operations on pairwise alignment
+
+Operations on pairwise alignment
+--------------------------------
 
 The example below shows a use case of some operations:
 ```jldoctest
@@ -134,7 +143,9 @@ ACCT-GGTATGATAGCG
 
 ```
 
-## Substitution matrix types
+
+Substitution matrix types
+-------------------------
 
 A substitution matrix is a function of substitution score (or cost) from one
 symbol to other. Substitution value of `submat` from `x` to `y` can be obtained

@@ -1,5 +1,5 @@
-Alignments
-==========
+Alignment representation
+========================
 
 ```@meta
 CurrentModule = BioAlignments
