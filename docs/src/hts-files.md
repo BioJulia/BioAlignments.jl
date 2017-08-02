@@ -38,8 +38,8 @@ close(reader)
 ```
 
 Accessor functions are defined in `SAM` and `BAM` modules.  Lists of these
-functions to `SAM.Record` and `BAM.Record` are described in [SAM](@ref) and
-[BAM](@ref) sections, respectively.
+functions to `SAM.Record` and `BAM.Record` are described in [SAM formatted
+files](@ref) and [BAM formatted files](@ref) sections, respectively.
 
 `SAM.Reader` and `BAM.Reader` implement the `header` function, which returns a
 `SAM.Header` object. This is conceptually a sequence of `SAM.MetaInfo` objects

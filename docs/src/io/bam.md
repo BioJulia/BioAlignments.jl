@@ -1,10 +1,10 @@
-BAM
-===
+BAM formatted files
+===================
 
 Description
 -----------
 
-BAM is a binary counterpart of the [SAM](@ref) file format.
+BAM is a binary counterpart of [SAM formatted files](@ref).
 
 * Reader type: `BAM.Reader`
 * Writer type: `BAM.Writer`

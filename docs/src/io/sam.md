@@ -1,5 +1,5 @@
-SAM
-===
+SAM formatted files
+===================
 
 Description
 -----------

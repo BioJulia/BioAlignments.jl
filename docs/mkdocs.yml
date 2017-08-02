@@ -42,7 +42,7 @@ pages:
 - Pairwise alignment: pairalign.md
 - High-throughput sequencing: hts-files.md
 - IO:
-  - SAM: io/bam.md
-  - BAM: io/sam.md
+  - SAM formatted files: io/sam.md
+  - BAM formatted files: io/bam.md
 - References: references.md
 - Contributing: contributing.md

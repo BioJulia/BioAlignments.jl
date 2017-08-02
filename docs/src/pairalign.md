@@ -31,7 +31,7 @@ flexible enough to create a constant and linear scoring model. Setting
 linear gap penalty, respectively.
 The first argument of `AffineGapScoreModel` can be a substitution matrix like
 `AffineGapScoreModel(BLOSUM62, gap_open=-10, gap_extend=-1)`. For details on
-substitution matrices, see the [Substitution matrices](@ref) section.
+substitution matrices, see the [Substitution matrix types](@ref) section.
 
 Alignment type can also be a distance of two sequences:
 
@@ -126,12 +126,12 @@ ACCT-GGTATGATAGCG
 
 ```
 
-## Substitution matrices
+## Substitution matrix types
 
 A substitution matrix is a function of substitution score (or cost) from one
 symbol to other. Substitution value of `submat` from `x` to `y` can be obtained
 by writing `submat[x,y]`.
-In `Bio.Align`, `SubstitutionMatrix` and `DichotomousSubstitutionMatrix` are two
+In BioAlignments.jl, `SubstitutionMatrix` and `DichotomousSubstitutionMatrix` are two
 distinct types representing substitution matrices.
 
 `SubstitutionMatrix` is a general substitution matrix type that is a thin
