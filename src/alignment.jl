@@ -6,11 +6,20 @@
 # This file is a part of BioJulia.
 # License is MIT: https://github.com/BioJulia/Bio.jl/blob/master/LICENSE.md
 
+"""
+Alignment of two sequences.
+"""
 struct Alignment
     anchors::Vector{AlignmentAnchor}
     firstref::Int
     lastref::Int
 
+    # https://github.com/JuliaLang/julia/issues/16730
+    @doc """
+        Alignment(anchors::Vector{AlignmentAnchor}, check=true)
+
+    Create an alignment object from a sequence of alignment anchors.
+    """ ->
     function Alignment(anchors::Vector{AlignmentAnchor}, check::Bool=true)
         # optionally check coherence of the anchors
         if check
@@ -38,7 +47,13 @@ struct Alignment
     end
 end
 
-# Make an alignment object from a CIGAR string.
+"""
+    Alignment(cigar::AbstractString, seqpos=1, refpos=1)
+
+Make an alignment object from a CIGAR string.
+
+`seqpos` and `refpos` specify the starting positions of two sequences.
+"""
 function Alignment(cigar::AbstractString, seqpos::Int=1, refpos::Int=1)
     # path starts prior to the first aligned position pair
     seqpos -= 1

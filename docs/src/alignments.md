@@ -145,14 +145,3 @@ julia> AlignedSequence(seq, ref)
 ACGT--AAT--
 
 ```
-
-
-## Operating on alignments
-
-```@docs
-first
-last
-seq2ref
-ref2seq
-cigar
-```
