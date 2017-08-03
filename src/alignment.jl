@@ -6,11 +6,20 @@
 # This file is a part of BioJulia.
 # License is MIT: https://github.com/BioJulia/Bio.jl/blob/master/LICENSE.md
 
+"""
+Alignment of two sequences.
+"""
 struct Alignment
     anchors::Vector{AlignmentAnchor}
     firstref::Int
     lastref::Int
 
+    # https://github.com/JuliaLang/julia/issues/16730
+    @doc """
+        Alignment(anchors::Vector{AlignmentAnchor}, check=true)
+
+    Create an alignment object from a sequence of alignment anchors.
+    """ ->
     function Alignment(anchors::Vector{AlignmentAnchor}, check::Bool=true)
         # optionally check coherence of the anchors
         if check
@@ -38,7 +47,13 @@ struct Alignment
     end
 end
 
-# Make an alignment object from a CIGAR string.
+"""
+    Alignment(cigar::AbstractString, seqpos=1, refpos=1)
+
+Make an alignment object from a CIGAR string.
+
+`seqpos` and `refpos` specify the starting positions of two sequences.
+"""
 function Alignment(cigar::AbstractString, seqpos::Int=1, refpos::Int=1)
     # path starts prior to the first aligned position pair
     seqpos -= 1
@@ -86,11 +101,11 @@ function Base.show(io::IO, aln::Alignment)
 end
 
 """
-    seq2ref(aln, i)
+    seq2ref(aln::Alignment, i::Integer)::Tuple{Int,Operation}
 
-Map a position from sequence to reference.
+Map a position `i` from sequence to reference.
 """
-function seq2ref(aln::Alignment, i::Integer)
+function seq2ref(aln::Alignment, i::Integer)::Tuple{Int,Operation}
     idx = findanchor(aln, i, Val{true})
     if idx == 0
         throw(ArgumentError("invalid sequence position: $i"))
@@ -104,11 +119,11 @@ function seq2ref(aln::Alignment, i::Integer)
 end
 
 """
-    ref2seq(aln, i)
+    ref2seq(aln::Alignment, i::Integer)::Tuple{Int,Operation}
 
-Map a position from reference to sequence.
+Map a position `i` from reference to sequence.
 """
-function ref2seq(aln::Alignment, i::Integer)
+function ref2seq(aln::Alignment, i::Integer)::Tuple{Int,Operation}
     idx = findanchor(aln, i, Val{false})
     if idx == 0
         throw(ArgumentError("invalid reference position: $i"))

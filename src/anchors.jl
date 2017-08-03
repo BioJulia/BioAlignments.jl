@@ -7,13 +7,7 @@
 # License is MIT: https://github.com/BioJulia/Bio.jl/blob/master/LICENSE.md
 
 """
-A type to store the operation enocded in an alignment (CIGAR Operations).
-Also stores the position in the alignment view of the sequences, and the
-corresponding position in the unaltered source sequence (nucleotide or protein).
-
-It stores the position values as Int types and the alignment operation is stored
-as a type `Operation`, these are defined in the file `operations.jl` and loaded
-into BioAlignments namespace as a series of global constants.
+Alignment operation with anchoring positions.
 """
 struct AlignmentAnchor
     seqpos::Int

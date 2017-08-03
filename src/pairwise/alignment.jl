@@ -128,24 +128,38 @@ function count_aligned(aln::PairwiseAlignment)
     return n
 end
 
-function ref2seq(aln::PairwiseAlignment, i::Integer)
-    return ref2seq(aln.a, i)
+"""
+    seq2ref(aln::PairwiseAlignment, i::Integer)::Tuple{Int,Operation}
+
+Map a position `i` from the first sequence to the second.
+"""
+function seq2ref(aln::PairwiseAlignment, i::Integer)::Tuple{Int,Operation}
+    return seq2ref(aln.a, i)
 end
 
-function seq2ref(aln::PairwiseAlignment, i::Integer)
-    return seq2ref(aln.a, i)
+"""
+    ref2seq(aln::PairwiseAlignment, i::Integer)::Tuple{Int,Operation}
+
+Map a position `i` from the second sequence to the first.
+"""
+function ref2seq(aln::PairwiseAlignment, i::Integer)::Tuple{Int,Operation}
+    return ref2seq(aln.a, i)
 end
 
 
 # Printers
 # --------
 
-function Base.show{S1,S2}(io::IO, aln::PairwiseAlignment{S1,S2})
-    println(io, "PairwiseAlignment{", S1, ",", S2, "}:")
+function Base.show(io::IO, aln::PairwiseAlignment)
+    println(io, summary(aln), ':')
     print(io, aln)
 end
 
-function Base.print(io::IO, aln::PairwiseAlignment, width::Integer=60)
+function Base.print(io::IO, aln::PairwiseAlignment)
+    print_pairwise_alignment(io, aln)
+end
+
+function print_pairwise_alignment(io::IO, aln::PairwiseAlignment; width::Integer=60)
     seq = aln.a.seq
     ref = aln.b
     anchors = aln.a.aln.anchors

@@ -3,7 +3,7 @@ using BioAlignments
 using BioSymbols
 import BGZFStreams: BGZFStream
 import BioCore.Exceptions: MissingFieldException
-import BioSequences: @dna_str
+import BioSequences: @dna_str, @aa_str
 import GenomicFeatures
 import YAML
 
@@ -97,19 +97,41 @@ end
 
 @testset "Alignments" begin
     @testset "Operations" begin
-        @testset "Constructors and Conversions" begin
-            ops = Set(BioAlignments.char_to_op)
-            for op in ops
-                if op != BioAlignments.OP_INVALID
-                    @test Operation(Char(op)) == op
-                end
-            end
-            @test_throws Exception Char(BioAlignments.OP_INVALID)
-            @test_throws Exception Operation('m')
-            @test_throws Exception Operation('7')
-            @test_throws Exception Operation('A')
-            @test_throws Exception Operation('\n')
+        for (char, op) in [
+                ('M', OP_MATCH),
+                ('I', OP_INSERT),
+                ('D', OP_DELETE),
+                ('N', OP_SKIP),
+                ('S', OP_SOFT_CLIP),
+                ('H', OP_HARD_CLIP),
+                ('P', OP_PAD),
+                ('=', OP_SEQ_MATCH),
+                ('X', OP_SEQ_MISMATCH),
+                ('B', OP_BACK),
+                ('0', OP_START)]
+            @test convert(Operation, char) === op
+            @test convert(Char, op) === char
+            @test sprint(print, op) == string(char)
         end
+        @test_throws ArgumentError convert(Operation, 'm')
+        @test_throws ArgumentError convert(Operation, '7')
+        @test_throws ArgumentError convert(Operation, 'A')
+        @test_throws ArgumentError convert(Char, reinterpret(Operation, reinterpret(UInt8, OP_START)+UInt8(1)))
+        @test_throws ArgumentError convert(Char, BioAlignments.OP_INVALID)
+
+        # Test the Base.show method.
+        @test sprint(show, OP_MATCH)        == "OP_MATCH"
+        @test sprint(show, OP_INSERT)       == "OP_INSERT"
+        @test sprint(show, OP_DELETE)       == "OP_DELETE"
+        @test sprint(show, OP_SKIP)         == "OP_SKIP"
+        @test sprint(show, OP_SOFT_CLIP)    == "OP_SOFT_CLIP"
+        @test sprint(show, OP_HARD_CLIP)    == "OP_HARD_CLIP"
+        @test sprint(show, OP_PAD)          == "OP_PAD"
+        @test sprint(show, OP_SEQ_MATCH)    == "OP_SEQ_MATCH"
+        @test sprint(show, OP_SEQ_MISMATCH) == "OP_SEQ_MISMATCH"
+        @test sprint(show, OP_BACK)         == "OP_BACK"
+        @test sprint(show, OP_START)        == "OP_START"
+        @test sprint(show, BioAlignments.OP_INVALID) == "Invalid Operation"
     end
 
     @testset "AlignmentAnchor" begin
@@ -199,6 +221,9 @@ end
         @test ref2seq(alnseq,  9) == ( 4, OP_DELETE)
         @test ref2seq(alnseq, 10) == ( 4, OP_DELETE)
         @test ref2seq(alnseq, 23) == (15, OP_DELETE)
+        @test sprint(show, alnseq) == """
+        ·············---··········
+        TGGC----ATCATTTAACG---CAAG"""
 
         seq = dna"ACGG--TGAAAGGT"
         ref = dna"-CGGGGA----TTT"
@@ -215,6 +240,9 @@ end
              AlignmentAnchor(11, 8, 'X')
              AlignmentAnchor(12, 9, '=')
         ]
+        @test sprint(show, alnseq) == """
+        -······----···
+        ACGG--TGAAAGGT"""
     end
 end
 
@@ -359,11 +387,26 @@ end
         myblosum[AA_O,AA_R] = -3
         @test myblosum[AA_O,AA_R] === -3
 
+        @test convert(Matrix, BioAlignments.load_submat(AminoAcid, "BLOSUM62")) == convert(Matrix, BLOSUM62)
+
         submat = SubstitutionMatrix(DNA, rand(Float64, 15, 15))
         @test isa(submat, SubstitutionMatrix{DNA,Float64})
 
+        submat = SubstitutionMatrix(
+            Dict((DNA_A, DNA_T) => 5, (DNA_T, DNA_A) => 4),
+            default_match=0,
+            default_mismatch=-1)
+        @test submat[DNA_A,DNA_T] === 5
+        @test submat[DNA_T,DNA_A] === 4
+        @test submat[DNA_A,DNA_A] === 0
+        @test submat[DNA_A,DNA_G] === -1
+
         submat = DichotomousSubstitutionMatrix(5, -4)
         @test isa(submat, DichotomousSubstitutionMatrix{Int})
+        @test sprint(show, submat) == """
+        BioAlignments.DichotomousSubstitutionMatrix{Int64}:
+             match =  5
+          mismatch = -4"""
         submat = convert(SubstitutionMatrix{DNA,Int}, submat)
         @test submat[DNA_A,DNA_A] ===  5
         @test submat[DNA_C,DNA_C] ===  5
@@ -389,6 +432,9 @@ end
             @test affinegap.gap_extend == -1
             @test typeof(affinegap) == AffineGapScoreModel{Int}
         end
+        @test_throws ArgumentError AffineGapScoreModel(BLOSUM62)
+        @test_throws ArgumentError AffineGapScoreModel(BLOSUM62, gap_open=-10)
+        @test_throws ArgumentError AffineGapScoreModel(BLOSUM62, gap_extend=-1)
 
         # matrix
         submat = SubstitutionMatrix(DNA, rand(Float64, 15, 15))
@@ -404,6 +450,13 @@ end
         @test affinegap.gap_open == -5
         @test affinegap.gap_extend == -2
         @test typeof(affinegap) == AffineGapScoreModel{Int}
+        @test sprint(show, affinegap) == """
+        BioAlignments.AffineGapScoreModel{Int64}:
+               match = 3
+            mismatch = -3
+            gap_open = -5
+          gap_extend = -2"""
+
     end
 
     @testset "CostModel" begin
@@ -414,6 +467,8 @@ end
             @test cost.deletion == 6
             @test typeof(cost) == CostModel{Int}
         end
+        @test_throws ArgumentError CostModel(submat, insertion=5)
+        @test_throws ArgumentError CostModel(submat, deletion=5)
 
         cost = CostModel(match=0, mismatch=3, insertion=5, deletion=6)
         @test cost.insertion == 5
@@ -939,6 +994,46 @@ end
             @test_throws Exception pairalign(HammingDistance(), "ACGT", "ACG")
             @test_throws Exception pairalign(HammingDistance(), "ACG", "ACGT")
         end
+    end
+
+    @testset "Print" begin
+        seq1 = aa"EPVTSHPKAVSPTETKPTEKGQHLPVSAPPKITQSLKAEASKDIAKLTCAVESSALCA"
+        seq2 = aa"EPSHPKAVSPTETKRCPTEKVQHLPVSAPPKITQFLKAEASKEIAKLTCVVESSVLRA"
+        model = AffineGapScoreModel(BLOSUM62, gap_open=-10, gap_extend=-1)
+        aln = alignment(pairalign(GlobalAlignment(), seq1, seq2, model))
+        @test sprint(show, aln) ==
+        """
+        BioAlignments.PairwiseAlignment{BioSequences.BioSequence{BioSequences.AminoAcidAlphabet},BioSequences.BioSequence{BioSequences.AminoAcidAlphabet}}:
+          seq:  1 EPVTSHPKAVSPTETK--PTEKGQHLPVSAPPKITQSLKAEASKDIAKLTCAVESSALCA 58
+                  ||  ||||||||||||  |||| ||||||||||||| ||||||| |||||| |||| | |
+          ref:  1 EP--SHPKAVSPTETKRCPTEKVQHLPVSAPPKITQFLKAEASKEIAKLTCVVESSVLRA 58
+        """
+        @test sprint(print, aln) ==
+        """
+          seq:  1 EPVTSHPKAVSPTETK--PTEKGQHLPVSAPPKITQSLKAEASKDIAKLTCAVESSALCA 58
+                  ||  ||||||||||||  |||| ||||||||||||| ||||||| |||||| |||| | |
+          ref:  1 EP--SHPKAVSPTETKRCPTEKVQHLPVSAPPKITQFLKAEASKEIAKLTCVVESSVLRA 58
+        """
+        buf = IOBuffer()
+        BioAlignments.print_pairwise_alignment(buf, aln, width=50)
+        @test String(take!(buf)) ==
+        """
+          seq:  1 EPVTSHPKAVSPTETK--PTEKGQHLPVSAPPKITQSLKAEASKDIAKLT 48
+                  ||  ||||||||||||  |||| ||||||||||||| ||||||| |||||
+          ref:  1 EP--SHPKAVSPTETKRCPTEKVQHLPVSAPPKITQFLKAEASKEIAKLT 48
+
+          seq: 49 CAVESSALCA 58
+                  | |||| | |
+          ref: 49 CVVESSVLRA 58
+        """
+        # Result from EMBOSS Needle:
+        # EMBOSS_001         1 EPVTSHPKAVSPTETK--PTEKGQHLPVSAPPKITQSLKAEASKDIAKLT     48
+        #                      ||  ||||||||||||  ||||.|||||||||||||.|||||||:|||||
+        # EMBOSS_001         1 EP--SHPKAVSPTETKRCPTEKVQHLPVSAPPKITQFLKAEASKEIAKLT     48
+        #
+        # EMBOSS_001        49 CAVESSALCA     58
+        #                      |.||||.|.|
+        # EMBOSS_001        49 CVVESSVLRA     58
     end
 end
 

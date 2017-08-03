@@ -216,12 +216,29 @@ function parse_ncbi_submat{T}(::Type{T}, filepath)
     return SubstitutionMatrix(scores, default_match=0, default_mismatch=0)
 end
 
+"EDNAFULL (or NUC4.4) substitution matrix"
 const EDNAFULL = load_submat(BioSymbols.DNA, "NUC.4.4")
+
+"PAM30 substitution matrix"
 const PAM30    = load_submat(BioSymbols.AminoAcid, "PAM30")
+
+"PAM70 substitution matrix"
 const PAM70    = load_submat(BioSymbols.AminoAcid, "PAM70")
+
+"PAM250 substitution matrix"
 const PAM250   = load_submat(BioSymbols.AminoAcid, "PAM250")
+
+"BLOSUM45 substitution matrix"
 const BLOSUM45 = load_submat(BioSymbols.AminoAcid, "BLOSUM45")
+
+"BLOSUM50 substitution matrix"
 const BLOSUM50 = load_submat(BioSymbols.AminoAcid, "BLOSUM50")
+
+"BLOSUM62 substitution matrix"
 const BLOSUM62 = load_submat(BioSymbols.AminoAcid, "BLOSUM62")
+
+"BLOSUM80 substitution matrix"
 const BLOSUM80 = load_submat(BioSymbols.AminoAcid, "BLOSUM80")
+
+"BLOSUM90 substitution matrix"
 const BLOSUM90 = load_submat(BioSymbols.AminoAcid, "BLOSUM90")

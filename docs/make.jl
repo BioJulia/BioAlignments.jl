@@ -1,8 +1,9 @@
 using Documenter, BioAlignments
 
-makedocs()
+makedocs(
+    modules=[BioAlignments])
 deploydocs(
     deps=Deps.pip("mkdocs", "pygments", "mkdocs-material"),
     repo="github.com/BioJulia/BioAlignments.jl.git",
-    julia="0.5",
+    julia="0.6",
     osname="linux")
