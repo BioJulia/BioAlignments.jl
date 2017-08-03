@@ -18,18 +18,18 @@
       
         <link rel="shortcut icon" href="../assets/images/favicon.png">
       
-      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.7.4">
+      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.8.0">
     
     
       
-        <title>Alignments - BioAlignments.jl</title>
+        <title>Alignment representation - BioAlignments.jl</title>
       
     
     
       <script src="../assets/javascripts/modernizr-1df76c4e58.js"></script>
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/application-769c285a91.css">
+      <link rel="stylesheet" href="../assets/stylesheets/application-bfecc7305d.css">
       
     
     
@@ -83,7 +83,7 @@
             
               
             
-            Alignments
+            Alignment representation
           
         </span>
       </div>
@@ -91,17 +91,17 @@
         
           <label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
           
-<div class="md-search" data-md-component="search">
+<div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="search"></label>
   <div class="md-search__inner">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" required placeholder="Search" accesskey="s" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query">
+      <input type="text" class="md-search__input" name="query" required placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query">
       <label class="md-icon md-search__icon" for="search"></label>
       <button type="reset" class="md-icon md-search__icon" data-md-component="reset">close</button>
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="result" data-md-lang-search="">
+        <div class="md-search-result" data-md-component="result" data-md-lang-search="" data-md-lang-tokenizer="[\s\-]+">
           <div class="md-search-result__meta" data-md-lang-result-none="No matching documents" data-md-lang-result-one="1 matching document" data-md-lang-result-other="# matching documents">
             Type to start searching
           </div>
@@ -200,18 +200,6 @@
       
       
 
-
-  <li class="md-nav__item">
-    <a href="../usage/" title="Usage" class="md-nav__link">
-      Usage
-    </a>
-  </li>
-
-    
-      
-      
-      
-
   
 
 
@@ -223,11 +211,11 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="toc">
-        Alignments
+        Alignment representation
       </label>
     
-    <a href="./" title="Alignments" class="md-nav__link md-nav__link--active">
-      Alignments
+    <a href="./" title="Alignment representation" class="md-nav__link md-nav__link--active">
+      Alignment representation
     </a>
     
       
@@ -241,35 +229,29 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#overview" title="Overview" class="md-nav__link">
+    Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#representing-alignments" title="Representing alignments" class="md-nav__link">
     Representing alignments
   </a>
   
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#operations" title="Operations" class="md-nav__link">
-    Operations
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
-  <a href="#aligned-sequence" title="Aligned sequence" class="md-nav__link">
-    Aligned sequence
+  <a href="#alignment-operations" title="Alignment operations" class="md-nav__link">
+    Alignment operations
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#operating-on-alignments" title="Operating on alignments" class="md-nav__link">
-    Operating on alignments
+  <a href="#aligned-sequences" title="Aligned sequences" class="md-nav__link">
+    Aligned sequences
   </a>
   
 </li>
@@ -312,46 +294,10 @@
       
 
 
-  <li class="md-nav__item md-nav__item--nested">
-    
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
-    
-    <label class="md-nav__link" for="nav-6">
-      IO
-    </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-6">
-        IO
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
-          
-          
-          
-
-
   <li class="md-nav__item">
-    <a href="../io/bam/" title="SAM" class="md-nav__link">
-      SAM
+    <a href="../references/" title="References" class="md-nav__link">
+      References
     </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../io/sam/" title="BAM" class="md-nav__link">
-      BAM
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
   </li>
 
     
@@ -388,35 +334,29 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#overview" title="Overview" class="md-nav__link">
+    Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#representing-alignments" title="Representing alignments" class="md-nav__link">
     Representing alignments
   </a>
   
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#operations" title="Operations" class="md-nav__link">
-    Operations
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
-  <a href="#aligned-sequence" title="Aligned sequence" class="md-nav__link">
-    Aligned sequence
+  <a href="#alignment-operations" title="Alignment operations" class="md-nav__link">
+    Alignment operations
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#operating-on-alignments" title="Operating on alignments" class="md-nav__link">
-    Operating on alignments
+  <a href="#aligned-sequences" title="Aligned sequences" class="md-nav__link">
+    Aligned sequences
   </a>
   
 </li>
@@ -438,14 +378,16 @@
                   <a href="https://github.com/BioJulia/BioAlignments.jl/edit/master/docs/alignments.md" title="Edit this page" class="md-icon md-content__icon">edit</a>
                 
                 
-                <p><a id='Sequence-Alignments-1'></a></p>
-<h1 id="sequence-alignments">Sequence Alignments</h1>
-<p>The <code>BioAlignments</code> module contains tools for computing and working with sequence alignments.</p>
+                <p><a id='Alignment-representation-1'></a></p>
+<h1 id="alignment-representation">Alignment representation</h1>
+<p><a id='Overview-1'></a></p>
+<h2 id="overview">Overview</h2>
+<p>Types related to alignment representation introduced in this chapter are indispensable concepts to use this package. Specifically, <code>Alignment</code>, <code>AlignmentAnchor</code> and <code>Operation</code> are the most fundamental types of this package to represent an alignment of two sequences.</p>
 <p><a id='Representing-alignments-1'></a></p>
 <h2 id="representing-alignments">Representing alignments</h2>
-<p>The <code>Alignment</code> type can represent a wide variety of global or local sequence alignments while facilitating efficient coordinate transformation.  Alignment are always relative to a possibly unspecified reference sequence and represent a series of <a href="https://en.wikipedia.org/wiki/Edit_distance">edit operations</a> performed on that reference to transform it to the query sequence.</p>
+<p>The <code>Alignment</code> type can represent a wide variety of global or local sequence alignments while facilitating efficient coordinate transformation.  Alignments are always relative to a possibly unspecified reference sequence and represent a series of <a href="https://en.wikipedia.org/wiki/Edit_distance">edit operations</a> performed on that reference to transform it to the query sequence. An edit operation is, for example, matching, insertion, or deletion.  All operations defined in BioAlignments.jl are described in the <a href="./#Alignment-operations-1">Alignment operations</a> section.</p>
 <p>To represent an alignment we use a series of "anchors" stored in the <code>AlignmentAnchor</code> type. Anchors are form of run-length encoding alignment operations, but rather than store an operation along with a length, we store the end-point of that operation in both reference and query coordinates.</p>
-<div class="codehilite"><pre><span></span><span class="k">immutable</span> <span class="n">AlignmentAnchor</span>
+<div class="codehilite"><pre><span></span><span class="n">struct</span> <span class="n">AlignmentAnchor</span>
     <span class="n">seqpos</span><span class="o">::</span><span class="kt">Int</span>
     <span class="n">refpos</span><span class="o">::</span><span class="kt">Int</span>
     <span class="n">op</span><span class="o">::</span><span class="n">Operation</span>
@@ -453,6 +395,8 @@
 </pre></div>
 
 
+<p>The next figure shows a schematic representation of an alignment object.</p>
+<p><img alt="Alignment representation" src="../assets/alignment.svg" /></p>
 <p>Every alignment starts with a special <code>OP_START</code> operation which is used to give the position in the reference and query prior to the start of the alignment, or 0, if the alignment starts at position 1.</p>
 <p>For example, consider the following alignment:</p>
 <div class="codehilite"><pre><span></span>              0   4        9  12 15     19
@@ -473,7 +417,7 @@ reference: AGGGTGGCATTTATCAG---ACGTTTCGAGAC
     <span class="n">AlignmentAnchor</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="n">OP_INSERT</span><span class="p">),</span>
     <span class="n">AlignmentAnchor</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">OP_MATCH</span><span class="p">),</span>
     <span class="n">AlignmentAnchor</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="n">OP_DELETE</span><span class="p">),</span>
-    <span class="n">AlignmentAnchor</span><span class="p">(</span><span class="mi">19</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="n">OP_MATCH</span><span class="p">)</span>
+    <span class="n">AlignmentAnchor</span><span class="p">(</span><span class="mi">19</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="n">OP_MATCH</span><span class="p">),</span>
 <span class="p">]</span>
 </pre></div>
 
@@ -492,8 +436,8 @@ BioAlignments.Alignment:
 </pre></div>
 
 
-<p><a id='Operations-1'></a></p>
-<h3 id="operations">Operations</h3>
+<p><a id='Alignment-operations-1'></a></p>
+<h2 id="alignment-operations">Alignment operations</h2>
 <p>Alignment operations follow closely from those used in the <a href="https://samtools.github.io/hts-specs/SAMv1.pdf">SAM/BAM format</a> and are stored in the <code>Operation</code> bitstype.</p>
 <table>
 <thead>
@@ -561,8 +505,21 @@ BioAlignments.Alignment:
 </tr>
 </tbody>
 </table>
-<p><a id='Aligned-sequence-1'></a></p>
-<h2 id="aligned-sequence">Aligned sequence</h2>
+<p>Each operation has its own one-letter representation, which is the same as those defined in the SAM file format.</p>
+<div class="codehilite"><pre><span></span>julia&gt; convert(Operation, &#39;M&#39;)  # Char =&gt; Operation
+OP_MATCH
+
+julia&gt; convert(Char, OP_MATCH)  # Operation =&gt; Char
+&#39;M&#39;: ASCII/Unicode U+004d (category Lu: Letter, uppercase)
+
+julia&gt; ismatchop(OP_MATCH)
+true
+</pre></div>
+
+
+<p>See the <a href="../references/#Operations-1">Operations</a> section in the references for more details.</p>
+<p><a id='Aligned-sequences-1'></a></p>
+<h2 id="aligned-sequences">Aligned sequences</h2>
 <p>A sequence aligned to another sequence is represented by the <code>AlignedSequence</code> type, which is a pair of the aligned sequence and an <code>Alignment</code> object.</p>
 <p>The following example creates an aligned sequence object from a sequence and an alignment:</p>
 <div class="codehilite"><pre><span></span>julia&gt; AlignedSequence(  # pass an Alignment object
@@ -602,51 +559,6 @@ ACGTAT
 <span class="go">········-··</span>
 <span class="go">ACGT--AAT--</span>
 </pre></div>
-
-
-<p><a id='Operating-on-alignments-1'></a></p>
-<h2 id="operating-on-alignments">Operating on alignments</h2>
-<p><a id='Base.first' href='#Base.first'>#</a>
-<strong><code>Base.first</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>first(coll)
-</pre></div>
-
-
-<p>Get the first element of an iterable collection. Returns the start point of a <a href="../:obj:Range"><code>Range</code></a> even if it is empty.</p>
-<p><a target='_blank' href='https://github.com/JuliaLang/julia/tree/f4c6c9d4bbbd9587d84494e314f692c15ff1f9c0/base/docs/helpdb/Base.jl#L5773-L5778' class='documenter-source'>source</a><br></p>
-<p><a id='Base.last' href='#Base.last'>#</a>
-<strong><code>Base.last</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>last(coll)
-</pre></div>
-
-
-<p>Get the last element of an ordered collection, if it can be computed in O(1) time. This is accomplished by calling <a href="../:func:endof"><code>endof</code></a> to get the last index. Returns the end point of a <a href="../:obj:Range"><code>Range</code></a> even if it is empty.</p>
-<p><a target='_blank' href='https://github.com/JuliaLang/julia/tree/f4c6c9d4bbbd9587d84494e314f692c15ff1f9c0/base/docs/helpdb/Base.jl#L889-L895' class='documenter-source'>source</a><br></p>
-<p><a id='BioAlignments.seq2ref' href='#BioAlignments.seq2ref'>#</a>
-<strong><code>BioAlignments.seq2ref</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>seq2ref(aln, i)
-</pre></div>
-
-
-<p>Map a position from sequence to reference.</p>
-<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/d06c829b229388c494de7c5ce4dea7b99635928b/src/alignment.jl#L88-L92' class='documenter-source'>source</a><br></p>
-<p><a id='BioAlignments.ref2seq' href='#BioAlignments.ref2seq'>#</a>
-<strong><code>BioAlignments.ref2seq</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>ref2seq(aln, i)
-</pre></div>
-
-
-<p>Map a position from reference to sequence.</p>
-<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/d06c829b229388c494de7c5ce4dea7b99635928b/src/alignment.jl#L106-L110' class='documenter-source'>source</a><br></p>
-<p><a id='BioAlignments.cigar' href='#BioAlignments.cigar'>#</a>
-<strong><code>BioAlignments.cigar</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>cigar(aln::Alignment)
-</pre></div>
-
-
-<p>Make a CIGAR string encoding of <code>aln</code>.</p>
-<p>This is not entirely lossless as it discards the alignments start positions.</p>
-<p><a target='_blank' href='https://github.com/BioJulia/BioAlignments.jl/tree/d06c829b229388c494de7c5ce4dea7b99635928b/src/alignment.jl#L124-L130' class='documenter-source'>source</a><br></p>
                 
                   
                 
@@ -665,7 +577,7 @@ ACGTAT
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../usage/" title="Usage" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href=".." title="Home" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -674,7 +586,7 @@ ACGTAT
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Usage
+                Home
               </span>
             </div>
           </a>
@@ -720,7 +632,7 @@ ACGTAT
       
     </div>
     
-      <script src="../assets/javascripts/application-c35428f87f.js"></script>
+      <script src="../assets/javascripts/application-1d6ee6ee6c.js"></script>
       
       
       <script>app.initialize({url:{base:".."}})</script>

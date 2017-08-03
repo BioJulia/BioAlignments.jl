@@ -18,7 +18,7 @@
       
         <link rel="shortcut icon" href="../assets/images/favicon.png">
       
-      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.7.4">
+      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.8.0">
     
     
       
@@ -29,7 +29,7 @@
       <script src="../assets/javascripts/modernizr-1df76c4e58.js"></script>
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/application-769c285a91.css">
+      <link rel="stylesheet" href="../assets/stylesheets/application-bfecc7305d.css">
       
     
     
@@ -91,17 +91,17 @@
         
           <label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
           
-<div class="md-search" data-md-component="search">
+<div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="search"></label>
   <div class="md-search__inner">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" required placeholder="Search" accesskey="s" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query">
+      <input type="text" class="md-search__input" name="query" required placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query">
       <label class="md-icon md-search__icon" for="search"></label>
       <button type="reset" class="md-icon md-search__icon" data-md-component="reset">close</button>
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="result" data-md-lang-search="">
+        <div class="md-search-result" data-md-component="result" data-md-lang-search="" data-md-lang-tokenizer="[\s\-]+">
           <div class="md-search-result__meta" data-md-lang-result-none="No matching documents" data-md-lang-result-one="1 matching document" data-md-lang-result-other="# matching documents">
             Type to start searching
           </div>
@@ -202,20 +202,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../usage/" title="Usage" class="md-nav__link">
-      Usage
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="../alignments/" title="Alignments" class="md-nav__link">
-      Alignments
+    <a href="../alignments/" title="Alignment representation" class="md-nav__link">
+      Alignment representation
     </a>
   </li>
 
@@ -306,46 +294,10 @@
       
 
 
-  <li class="md-nav__item md-nav__item--nested">
-    
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
-    
-    <label class="md-nav__link" for="nav-6">
-      IO
-    </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-6">
-        IO
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
-          
-          
-          
-
-
   <li class="md-nav__item">
-    <a href="../io/bam/" title="SAM" class="md-nav__link">
-      SAM
+    <a href="../references/" title="References" class="md-nav__link">
+      References
     </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../io/sam/" title="BAM" class="md-nav__link">
-      BAM
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
   </li>
 
     
@@ -430,31 +382,31 @@
 <h1 id="high-throughput-sequencing">High-throughput Sequencing</h1>
 <p><a id='Overview-1'></a></p>
 <h2 id="overview">Overview</h2>
-<p>High-throughput sequencing (HTS) technologies generate a large amount of data in the form of a large number of nucleotide sequencing reads. One of the most common tasks in bioinformatics is to align these reads against known reference genomes, chromosomes, or contigs. The <code>BioAlignments</code> module provides several data formats commonly used for this kind of task.</p>
+<p>High-throughput sequencing (HTS) technologies generate a large amount of data in the form of a large number of nucleotide sequencing reads. One of the most common tasks in bioinformatics is to align these reads against known reference genomes, chromosomes, or contigs. BioAlignments.jl provides several data formats commonly used for this kind of task.</p>
 <p><a id='SAM-and-BAM-file-formats-1'></a></p>
 <h2 id="sam-and-bam-file-formats">SAM and BAM file formats</h2>
-<p>SAM and BAM are the most popular file formats and have the same reading and writing interface as all other formats in Bio.jl. A typical code iterating over all records in a file looks like below:</p>
-<div class="codehilite"><pre><span></span><span class="c"># import the SAM and BAM module</span>
+<p>BioAlignments.jl offers high-performance tools for SAM and BAM file formats, which are the most popular file formats.  A typical code iterating over all records in a file looks like below:</p>
+<div class="codehilite"><pre><span></span><span class="c"># Import the SAM and BAM module.</span>
 <span class="k">using</span> <span class="n">BioAlignments</span>
 
-<span class="c"># open a BAM file</span>
+<span class="c"># Open a BAM file.</span>
 <span class="n">reader</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="n">BAM</span><span class="o">.</span><span class="n">Reader</span><span class="p">,</span> <span class="s">&quot;data.bam&quot;</span><span class="p">)</span>
 
-<span class="c"># iterate over BAM records</span>
+<span class="c"># Iterate over BAM records.</span>
 <span class="k">for</span> <span class="n">record</span> <span class="kp">in</span> <span class="n">reader</span>
-    <span class="c"># `record` is a BAM.Record object</span>
+    <span class="c"># `record` is a BAM.Record object.</span>
     <span class="k">if</span> <span class="n">BAM</span><span class="o">.</span><span class="n">ismapped</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
-        <span class="c"># print mapped position</span>
+        <span class="c"># Print the mapped position.</span>
         <span class="n">println</span><span class="p">(</span><span class="n">BAM</span><span class="o">.</span><span class="n">refname</span><span class="p">(</span><span class="n">record</span><span class="p">),</span> <span class="sc">&#39;:&#39;</span><span class="p">,</span> <span class="n">BAM</span><span class="o">.</span><span class="n">position</span><span class="p">(</span><span class="n">record</span><span class="p">))</span>
     <span class="k">end</span>
 <span class="k">end</span>
 
-<span class="c"># close the BAM file</span>
+<span class="c"># Close the BAM file.</span>
 <span class="n">close</span><span class="p">(</span><span class="n">reader</span><span class="p">)</span>
 </pre></div>
 
 
-<p>Accessor functions are defined in <code>SAM</code> and <code>BAM</code> modules.  Lists of these functions to <code>SAM.Record</code> and <code>BAM.Record</code> are described in <a href="../io/sam/#SAM-1">SAM</a> and <a href="../io/bam/#BAM-1">BAM</a> sections, respectively.</p>
+<p>Accessor functions are defined in <code>SAM</code> and <code>BAM</code> modules.  Lists of these functions to <code>SAM.Record</code> and <code>BAM.Record</code> are described in the <a href="../references/#SAM-1">SAM</a> and <a href="../references/#BAM-1">BAM</a> sections, respectively.</p>
 <p><code>SAM.Reader</code> and <code>BAM.Reader</code> implement the <code>header</code> function, which returns a <code>SAM.Header</code> object. This is conceptually a sequence of <code>SAM.MetaInfo</code> objects corresponding to header lines that start with '@' markers. To select <code>SAM.MetaInfo</code> records with a specific tag, you can use the <code>find</code> function:</p>
 <div class="codehilite"><pre><span></span><span class="gp">julia&gt;</span> <span class="n">reader</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="n">SAM</span><span class="o">.</span><span class="n">Reader</span><span class="p">,</span> <span class="s">&quot;data.sam&quot;</span><span class="p">);</span>
 
@@ -516,7 +468,7 @@
 </pre></div>
 
 
-<p><code>eachoverlap</code> also supports <code>Interval</code> type definded in <a href="https://github.com/BioJulia/BioAlignments.jl">BioAlignments.jl</a>.</p>
+<p><code>eachoverlap</code> also accepts the <code>Interval</code> type defined in <a href="https://github.com/BioJulia/GenomicFeatures.jl">GenomicFeatures.jl</a>.</p>
 <div class="codehilite"><pre><span></span><span class="c"># Load GFF3 module.</span>
 <span class="k">using</span> <span class="n">GenomicFeatures</span>
 
@@ -592,13 +544,13 @@
           </a>
         
         
-          <a href="../io/bam/" title="SAM" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../references/" title="References" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                SAM
+                References
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
@@ -632,7 +584,7 @@
       
     </div>
     
-      <script src="../assets/javascripts/application-c35428f87f.js"></script>
+      <script src="../assets/javascripts/application-1d6ee6ee6c.js"></script>
       
       
       <script>app.initialize({url:{base:".."}})</script>
