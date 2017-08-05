@@ -6,7 +6,7 @@
 # This file is a part of BioJulia.
 # License is MIT: https://github.com/BioJulia/Bio.jl/blob/master/LICENSE.md
 
-function hamming_distance{T}(::Type{T}, a, b)
+function hamming_distance(::Type{T}, a, b) where T
     m = length(a)
     @assert m == length(b)
     anchors = [AlignmentAnchor(0, 0, OP_START)]

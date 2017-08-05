@@ -70,7 +70,7 @@ end
 # Printer
 # -------
 
-function Base.show{T,S1,S2}(io::IO, aln::PairwiseAlignmentResult{T,S1,S2})
+function Base.show(io::IO, aln::PairwiseAlignmentResult{T,S1,S2}) where {T,S1,S2}
     println(io, summary(aln), ':')
     if aln.isscore
         print(io, "  score: ", aln.value)

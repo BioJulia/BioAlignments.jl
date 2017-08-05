@@ -57,11 +57,11 @@ mutable struct AffineGapScoreModel{T} <: AbstractScoreModel{T}
     end
 end
 
-function AffineGapScoreModel{T}(submat::AbstractSubstitutionMatrix{T}, gap_open, gap_extend)
+function AffineGapScoreModel(submat::AbstractSubstitutionMatrix{T}, gap_open, gap_extend) where T
     return AffineGapScoreModel{T}(submat, T(gap_open), T(gap_extend))
 end
 
-function AffineGapScoreModel{T}(submat::AbstractSubstitutionMatrix{T}; gaps...)
+function AffineGapScoreModel(submat::AbstractSubstitutionMatrix{T}; gaps...) where T
     gaps = Dict(gaps)
 
     if haskey(gaps, :gap_open)
@@ -83,11 +83,11 @@ function AffineGapScoreModel{T}(submat::AbstractSubstitutionMatrix{T}; gaps...)
     return AffineGapScoreModel(submat, T(gap_open), T(gap_extend))
 end
 
-function AffineGapScoreModel{T}(submat::AbstractMatrix{T}, gap_open, gap_extend)
+function AffineGapScoreModel(submat::AbstractMatrix{T}, gap_open, gap_extend) where T
     return AffineGapScoreModel(SubstitutionMatrix(submat), gap_open, gap_extend)
 end
 
-function AffineGapScoreModel{T}(submat::AbstractMatrix{T}; gaps...)
+function AffineGapScoreModel(submat::AbstractMatrix{T}; gaps...) where T
     return AffineGapScoreModel(SubstitutionMatrix(submat); gaps...)
 end
 
@@ -163,11 +163,11 @@ mutable struct CostModel{T} <: AbstractCostModel{T}
     end
 end
 
-function CostModel{T}(submat::AbstractSubstitutionMatrix{T}, insertion, deletion)
+function CostModel(submat::AbstractSubstitutionMatrix{T}, insertion, deletion) where T
     return CostModel{T}(submat, insertion, deletion)
 end
 
-function CostModel{T}(submat::AbstractSubstitutionMatrix{T}; indels...)
+function CostModel(submat::AbstractSubstitutionMatrix{T}; indels...) where T
     indels = Dict(indels)
     if haskey(indels, :insertion)
         insertion = indels[:insertion]
@@ -182,11 +182,11 @@ function CostModel{T}(submat::AbstractSubstitutionMatrix{T}; indels...)
     return CostModel(submat, insertion, deletion)
 end
 
-function CostModel{T}(submat::AbstractMatrix{T}, insertion, deletion)
+function CostModel(submat::AbstractMatrix{T}, insertion, deletion) where T
     return CostModel(SubstitutionMatrix(submat), insertion, deletion)
 end
 
-function CostModel{T}(submat::AbstractMatrix{T}; indels...)
+function CostModel(submat::AbstractMatrix{T}; indels...) where T
     return CostModel(SubstitutionMatrix(submat); indels...)
 end
 

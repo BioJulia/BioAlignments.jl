@@ -203,7 +203,7 @@ function check_alignment_anchors(anchors)
 end
 
 # find the index of the first anchor that satisfies `i ≤ pos`
-@generated function findanchor{isseq}(aln::Alignment, i::Integer, ::Type{Val{isseq}})
+@generated function findanchor(aln::Alignment, i::Integer, ::Type{Val{isseq}}) where isseq
     pos = isseq ? :seqpos : :refpos
     quote
         anchors = aln.anchors

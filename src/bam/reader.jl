@@ -19,7 +19,7 @@ mutable struct Reader{T} <: Bio.IO.AbstractReader
     index::Nullable{BAI}
 end
 
-function Base.eltype{T}(::Type{Reader{T}})
+function Base.eltype(::Type{Reader{T}}) where T
     return Record
 end
 

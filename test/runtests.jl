@@ -248,7 +248,7 @@ end
 
 
 # generate test cases from two aligned sequences
-function alnscore{S,T}(::Type{S}, affinegap::AffineGapScoreModel{T}, alnstr::AbstractString, clip::Bool)
+function alnscore(::Type{S}, affinegap::AffineGapScoreModel{T}, alnstr::AbstractString, clip::Bool) where {S,T}
     gap_open = affinegap.gap_open
     gap_extend = affinegap.gap_extend
     lines = split(chomp(alnstr), '\n')
@@ -293,11 +293,11 @@ function alnscore{S,T}(::Type{S}, affinegap::AffineGapScoreModel{T}, alnstr::Abs
     return sa, sb, score, clip ? string(a[start:stop], '\n', b[start:stop]) : string(a, '\n', b)
 end
 
-function alnscore{T}(affinegap::AffineGapScoreModel{T}, alnstr::AbstractString; clip=true)
+function alnscore(affinegap::AffineGapScoreModel, alnstr::AbstractString; clip=true)
     return alnscore(AbstractString, affinegap, alnstr, clip)
 end
 
-function alndistance{S,T}(::Type{S}, cost::CostModel{T}, alnstr::AbstractString)
+function alndistance(::Type{S}, cost::CostModel{T}, alnstr::AbstractString) where {S,T}
     lines = split(chomp(alnstr), '\n')
     @assert length(lines) == 2
     a, b = lines
@@ -316,7 +316,7 @@ function alndistance{S,T}(::Type{S}, cost::CostModel{T}, alnstr::AbstractString)
     return S(replace(a, r"\s|-", "")), S(replace(b, r"\s|-", "")), dist
 end
 
-function alndistance{T}(cost::CostModel{T}, alnstr::AbstractString)
+function alndistance(cost::CostModel, alnstr::AbstractString)
     return alndistance(AbstractString, cost, alnstr)
 end
 

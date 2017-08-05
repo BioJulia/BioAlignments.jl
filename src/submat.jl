@@ -32,11 +32,11 @@ struct SubstitutionMatrix{T,S} <: AbstractSubstitutionMatrix{S}
 
 end
 
-function SubstitutionMatrix{T,S}(::Type{T},
-                                 submat::AbstractMatrix{S},
-                                 defined::AbstractMatrix{Bool},
-                                 default_match::S,
-                                 default_mismatch::S)
+function SubstitutionMatrix(::Type{T},
+                            submat::AbstractMatrix{S},
+                            defined::AbstractMatrix{Bool},
+                            default_match::S,
+                            default_mismatch::S) where {T,S}
     alpha = alphabet_without_gap(T)
     n = length(alpha)
     data = Matrix{S}(n, n)
@@ -52,16 +52,16 @@ function SubstitutionMatrix{T,S}(::Type{T},
     return SubstitutionMatrix{T,S}(data, copy(defined))
 end
 
-function SubstitutionMatrix{T,S}(::Type{T},
-                                 submat::AbstractMatrix{S},
-                                 # assume scores of all substitutions are defined
-                                 defined=trues(size(submat));
-                                 default_match=S(0), default_mismatch=S(0))
+function SubstitutionMatrix(::Type{T},
+                            submat::AbstractMatrix{S},
+                            # assume scores of all substitutions are defined
+                            defined=trues(size(submat));
+                            default_match=S(0), default_mismatch=S(0)) where {T,S}
     return SubstitutionMatrix(T, submat, defined, default_match, default_mismatch)
 end
 
-function SubstitutionMatrix{T,S}(scores::Associative{Tuple{T,T},S};
-                                 default_match=S(0), default_mismatch=S(0))
+function SubstitutionMatrix(scores::Associative{Tuple{T,T},S};
+                            default_match=S(0), default_mismatch=S(0)) where {T,S}
     n = length(BioSymbols.alphabet(T)) - 1
     submat = Matrix{S}(n, n)
     defined = falses(n, n)
@@ -76,13 +76,13 @@ end
 
 Base.convert(::Type{Matrix}, submat::SubstitutionMatrix) = copy(submat.data)
 
-@inline function Base.getindex{T}(submat::SubstitutionMatrix{T}, x, y)
+@inline function Base.getindex(submat::SubstitutionMatrix{T}, x, y) where T
     i = index(convert(T, x))
     j = index(convert(T, y))
     return submat.data[i,j]
 end
 
-function Base.setindex!{T}(submat::SubstitutionMatrix{T}, val, x, y)
+function Base.setindex!(submat::SubstitutionMatrix{T}, val, x, y) where T
     i = index(convert(T, x))
     j = index(convert(T, y))
     submat.data[i,j] = val
@@ -90,14 +90,14 @@ function Base.setindex!{T}(submat::SubstitutionMatrix{T}, val, x, y)
     return submat
 end
 
-function Base.copy{T,S}(submat::SubstitutionMatrix{T,S})
+function Base.copy(submat::SubstitutionMatrix{T,S}) where {T,S}
     return SubstitutionMatrix{T,S}(copy(submat.data), copy(submat.defined))
 end
 
 Base.minimum(submat::SubstitutionMatrix) = minimum(submat.data)
 Base.maximum(submat::SubstitutionMatrix) = maximum(submat.data)
 
-function Base.show{T,S}(io::IO, submat::SubstitutionMatrix{T,S})
+function Base.show(io::IO, submat::SubstitutionMatrix{T,S}) where {T,S}
     alpha = alphabet_without_gap(T)
     n = length(alpha)
     mat = Matrix{String}(n, n)
@@ -130,7 +130,7 @@ end
 underline(s) = join([string(c, '\U0332') for c in s])
 
 # Return a vector of all symbols of `T` except the gap symbol.
-function alphabet_without_gap{T}(::Type{T})
+function alphabet_without_gap(::Type{T}) where T
     return filter!(x -> x != BioSymbols.gap(T), collect(BioSymbols.alphabet(T)))
 end
 
@@ -158,8 +158,8 @@ function DichotomousSubstitutionMatrix(match::Real, mismatch::Real)
     return DichotomousSubstitutionMatrix{typ}(match, mismatch)
 end
 
-function Base.convert{T,S}(::Type{SubstitutionMatrix{T,S}},
-                           submat::DichotomousSubstitutionMatrix)
+function Base.convert(::Type{SubstitutionMatrix{T,S}},
+                      submat::DichotomousSubstitutionMatrix) where {T,S}
     n = length(BioSymbols.alphabet(T)) - 1
     data = Matrix{S}(n, n)
     fill!(data, submat.mismatch)
@@ -185,11 +185,11 @@ end
 # Predefined Substitution Matrices
 # --------------------------------
 
-function load_submat{T}(::Type{T}, name)
+function load_submat(::Type{T}, name) where T
     return parse_ncbi_submat(T, joinpath(dirname(@__FILE__), "data", "submat", name))
 end
 
-function parse_ncbi_submat{T}(::Type{T}, filepath)
+function parse_ncbi_submat(::Type{T}, filepath) where T
     scores = Dict{Tuple{T,T},Int}()
     cols = T[]
     open(filepath) do io

@@ -7,11 +7,11 @@ struct OverlapIterator{T}
     interval::UnitRange{Int}
 end
 
-function Base.iteratorsize{T}(::Type{OverlapIterator{T}})
+function Base.iteratorsize(::Type{OverlapIterator{T}}) where T
     return Base.SizeUnknown()
 end
 
-function Base.eltype{T}(::Type{OverlapIterator{T}})
+function Base.eltype(::Type{OverlapIterator{T}}) where T
     return Record
 end
 

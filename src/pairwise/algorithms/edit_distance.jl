@@ -1,4 +1,4 @@
-function edit_distance{T}(a, b, submat::AbstractSubstitutionMatrix{T}, insertion_cost::T, deletion_cost::T)
+function edit_distance(a, b, submat::AbstractSubstitutionMatrix{T}, insertion_cost::T, deletion_cost::T) where T
     m = length(a)
     n = length(b)
     trace = Matrix{Trace}(m + 1, n + 1)

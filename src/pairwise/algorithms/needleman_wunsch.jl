@@ -76,7 +76,7 @@ end
 # a: ----ACCA---ATGTG---
 # b: AAATACGATTGATGAGGGT
 
-function run!{T}(
+function run!(
         nw::NeedlemanWunsch{T},
         a, b,
         submat::AbstractSubstitutionMatrix{T},
@@ -93,7 +93,7 @@ function run!{T}(
         middle_gap_open_b::T,
         middle_gap_extend_b::T,
         end_gap_open_b::T,
-        end_gap_extend_b::T)
+        end_gap_extend_b::T) where T
 
     m = length(a)
     n = length(b)
