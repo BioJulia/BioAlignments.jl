@@ -34,14 +34,14 @@ function ensureroom!(sw::SmithWaterman, m, n)
     return sw
 end
 
-function run!{T}(
+function run!(
         sw::SmithWaterman{T},
         a, b,
         submat::AbstractSubstitutionMatrix{T},
         gap_open_a::T,
         gap_extend_a::T,
         gap_open_b::T,
-        gap_extend_b::T)
+        gap_extend_b::T) where T
 
     m = length(a)
     n = length(b)
@@ -107,7 +107,7 @@ function run!{T}(
     return best_score, best_endpos
 end
 
-function run!{T}(sw::SmithWaterman{T}, a, b, submat, gap_open, gap_extend)
+function run!(sw::SmithWaterman{T}, a, b, submat, gap_open, gap_extend) where T
     return run!(sw, a, b, submat, gap_open, gap_extend, gap_open, gap_extend)
 end
 

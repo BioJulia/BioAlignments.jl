@@ -75,9 +75,11 @@ See also: `AffineGapScoreModel`, `CostModel`
 """
 function pairalign end
 
-function pairalign{S1,S2,T}(::GlobalAlignment, a::S1, b::S2, score::AffineGapScoreModel{T};
-                          score_only::Bool=false,
-                          banded::Bool=false, lower_offset::Int=0, upper_offset::Int=0)
+function pairalign(::GlobalAlignment, a::S1, b::S2, score::AffineGapScoreModel{T};
+                   score_only::Bool=false,
+                   banded::Bool=false,
+                   lower_offset::Int=0,
+                   upper_offset::Int=0) where {S1,S2,T}
     m = length(a)
     n = length(b)
     if banded
@@ -108,8 +110,8 @@ function pairalign{S1,S2,T}(::GlobalAlignment, a::S1, b::S2, score::AffineGapSco
     end
 end
 
-function pairalign{S1,S2,T}(::SemiGlobalAlignment, a::S1, b::S2, score::AffineGapScoreModel{T};
-                            score_only::Bool=false)
+function pairalign(::SemiGlobalAlignment, a::S1, b::S2, score::AffineGapScoreModel{T};
+                   score_only::Bool=false) where {S1,S2,T}
     m = length(a)
     n = length(b)
     nw = NeedlemanWunsch{T}(m, n)
@@ -127,8 +129,8 @@ function pairalign{S1,S2,T}(::SemiGlobalAlignment, a::S1, b::S2, score::AffineGa
     end
 end
 
-function pairalign{S1,S2,T}(::OverlapAlignment, a::S1, b::S2, score::AffineGapScoreModel{T};
-                            score_only::Bool=false)
+function pairalign(::OverlapAlignment, a::S1, b::S2, score::AffineGapScoreModel{T};
+                   score_only::Bool=false) where {S1,S2,T}
     m = length(a)
     n = length(b)
     nw = NeedlemanWunsch{T}(m, n)
@@ -144,8 +146,8 @@ function pairalign{S1,S2,T}(::OverlapAlignment, a::S1, b::S2, score::AffineGapSc
     end
 end
 
-function pairalign{S1,S2,T}(::LocalAlignment, a::S1, b::S2, score::AffineGapScoreModel{T};
-                          score_only::Bool=false)
+function pairalign(::LocalAlignment, a::S1, b::S2, score::AffineGapScoreModel{T};
+                   score_only::Bool=false) where {S1,S2,T}
     sw = SmithWaterman{T}(length(a), length(b))
     score, endpos = run!(sw, a, b, score.submat, score.gap_open, score.gap_extend)
     if score_only
@@ -156,8 +158,8 @@ function pairalign{S1,S2,T}(::LocalAlignment, a::S1, b::S2, score::AffineGapScor
     end
 end
 
-function pairalign{S1,S2}(::EditDistance, a::S1, b::S2, cost::CostModel;
-                          distance_only::Bool=false)
+function pairalign(::EditDistance, a::S1, b::S2, cost::CostModel;
+                   distance_only::Bool=false) where {S1,S2}
     dist, trace, endpos = edit_distance(a, b, cost.submat, cost.insertion, cost.deletion)
     if distance_only
         return PairwiseAlignmentResult{S1,S2}(dist, false)
@@ -167,8 +169,8 @@ function pairalign{S1,S2}(::EditDistance, a::S1, b::S2, cost::CostModel;
     end
 end
 
-function pairalign{S1,S2}(::LevenshteinDistance, a::S1, b::S2;
-                          distance_only::Bool=false)
+function pairalign(::LevenshteinDistance, a::S1, b::S2;
+                   distance_only::Bool=false) where {S1,S2}
     unitcost = CostModel(
         DichotomousSubstitutionMatrix{Int}(0, 1),
         insertion=1,
@@ -177,8 +179,8 @@ function pairalign{S1,S2}(::LevenshteinDistance, a::S1, b::S2;
     return pairalign(EditDistance(), a, b, unitcost, distance_only=distance_only)
 end
 
-function pairalign{S1,S2}(::HammingDistance, a::S1, b::S2;
-                          distance_only::Bool=false)
+function pairalign(::HammingDistance, a::S1, b::S2;
+                   distance_only::Bool=false) where {S1,S2}
     dist, anchors = hamming_distance(Int, a, b)
     if distance_only
         return PairwiseAlignmentResult{S1,S2}(dist, false)

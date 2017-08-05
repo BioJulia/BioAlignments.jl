@@ -11,8 +11,8 @@ struct AlignedSequence{S}
     aln::Alignment
 end
 
-function AlignedSequence{S}(seq::S, anchors::Vector{AlignmentAnchor},
-                            check::Bool=true)
+function AlignedSequence(seq, anchors::Vector{AlignmentAnchor},
+                         check::Bool=true)
     return AlignedSequence(seq, Alignment(anchors, check))
 end
 

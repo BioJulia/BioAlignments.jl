@@ -84,7 +84,7 @@ function loadauxtype(data::Vector{UInt8}, p::Int)
     end
 end
 
-function loadauxvalue{T}(data::Vector{UInt8}, p::Int, ::Type{T})
+function loadauxvalue(data::Vector{UInt8}, p::Int, ::Type{T}) where T
     return p + sizeof(T), unsafe_load(Ptr{T}(pointer(data, p)))
 end
 
@@ -92,7 +92,7 @@ function loadauxvalue(data::Vector{UInt8}, p::Int, ::Type{Char})
     return p + 1, Char(unsafe_load(pointer(data, p)))
 end
 
-function loadauxvalue{T}(data::Vector{UInt8}, p::Int, ::Type{Vector{T}})
+function loadauxvalue(data::Vector{UInt8}, p::Int, ::Type{Vector{T}}) where T
     n = unsafe_load(Ptr{Int32}(pointer(data, p)))
     p += 4
     xs = Vector{T}(n)
