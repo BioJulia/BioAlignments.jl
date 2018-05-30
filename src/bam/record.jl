@@ -290,16 +290,32 @@ See also `BAM.cigar`.
 function cigar_rle(record::Record)
     checkfilled(record)
     offset = seqname_length(record)
-    ops = BioAlignments.Operation[]
-    lens = Int[]
-    for i in offset+1:4:offset+n_cigar_op(record)*4
-        x = unsafe_load(Ptr{UInt32}(pointer(record.data, i)))
-        op = BioAlignments.Operation(x & 0x0f)
+    ops, lens = extract_cigar_rle(record.data, offset, n_cigar_op(record))
+    return ops, lens
+end
+
+function extract_cigar_rle(data::Vector{UInt8}, offset, n)
+    ops = Vector{BioAlignments.Operation}()
+    lens = Vector{Int}()
+    for i in offset + 1:4:offset + n * 4
+        x = unsafe_load(Ptr{UInt32}(pointer(data, i)))
+        op = BioAlignments.Operation(x & 0x0F)
         push!(ops, op)
         push!(lens, x >> 4)
     end
     return ops, lens
 end
+
+#=
+function _is_large_cigar(record::Record)
+    if n_cigar_op(record) != 2
+        return false
+    end
+    offset = seqname_length(record)
+    firstop
+
+end
+=#
 
 """
     alignment(record::Record)::BioAlignments.Alignment
