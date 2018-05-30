@@ -145,6 +145,16 @@ function hasrefid(record::Record)
     return isfilled(record)
 end
 
+function checked_refid(record::Record)
+    id = refid(record)
+    if id == 0
+        throw(ArgumentError("record is not mapped"))
+    elseif !isdefined(record, :reader)
+        throw(ArgumentError("reader is not defined"))
+    end
+    return id
+end
+
 """
     refname(record::Record)::String
 
@@ -154,13 +164,14 @@ See also: `BAM.refid`
 """
 function refname(record::Record)::String
     checkfilled(record)
-    id = refid(record)
-    if id == 0
-        throw(ArgumentError("record is not mapped"))
-    elseif !isdefined(record, :reader)
-        throw(ArgumentError("reader is not defined"))
-    end
+    id = checked_refid(record)
     return record.reader.refseqnames[id]
+end
+
+function reflen(record::Record)::Int
+    checkfilled(record)
+    id = checked_refid(record)
+    return record.reader.refseqlens[id]
 end
 
 function hasrefname(record::Record)
@@ -290,7 +301,12 @@ See also `BAM.cigar`.
 function cigar_rle(record::Record)
     checkfilled(record)
     offset = seqname_length(record)
-    ops, lens = extract_cigar_rle(record.data, offset, n_cigar_op(record))
+    nops = n_cigar_op(record)
+    ops, lens = extract_cigar_rle(record.data, offset, nops)
+    if nops == 2 && (ops[1] == OP_SOFT_CLIP && lens[1] == seqlen(record)) && (ops[2] == OP_HARD_CLIP && lens[2] == reflen(record))
+        # Then this record is a "long-cigar" record and the true cigar string
+        # needs to be fetched from the CG tag.
+    end
     return ops, lens
 end
 
