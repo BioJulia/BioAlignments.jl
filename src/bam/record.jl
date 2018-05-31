@@ -303,10 +303,6 @@ function cigar_rle(record::Record)
     offset = seqname_length(record)
     nops = n_cigar_op(record)
     ops, lens = extract_cigar_rle(record.data, offset, nops)
-    if nops == 2 && (ops[1] == OP_SOFT_CLIP && lens[1] == seqlen(record)) && (ops[2] == OP_HARD_CLIP && lens[2] == reflen(record))
-        # Then this record is a "long-cigar" record and the true cigar string
-        # needs to be fetched from the CG tag.
-    end
     return ops, lens
 end
 
