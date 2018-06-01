@@ -318,16 +318,31 @@ function extract_cigar_rle(data::Vector{UInt8}, offset, n)
     return ops, lens
 end
 
-#=
-function _is_large_cigar(record::Record)
-    if n_cigar_op(record) != 2
-        return false
+function find_true_cigar(record::Record)::Tuple{Int, Int}
+    nops = n_cigar_op(record)
+    cigaridx = seqname_length(record) + 1
+    if nops != 2
+        return cigaridx, nops
     end
-    offset = seqname_length(record)
-    firstop
-
+    x = unsafe_load(Ptr{UInt32}(pointer(record.data, cigaridx)))
+    if x != UInt32(seqlength(record) << 4 | 4)
+        return cigaridx, nops
+    end
+    tagidx = findauxtag(record.data, auxdata_position(record), UInt8('C'), UInt8('G'))
+    if tagidx == 0
+        return cigaridx, nops
+    end
+    # Tag exists, validate type is BI.
+    typ = unsafe_load(Ptr{UInt16}(pointer(record.data, tagidx += 2)))
+    if typ != (UInt16('I') << 8 | UInt16('B'))
+        return cigaridx, nops
+    end
+    # If got this far, the CG tag is valid and contains the cigar.
+    # Get the true n_cigar_ops, and then
+    nops = UInt32(unsafe_load(Ptr{Int32}(pointer(record.data, tagidx += 2))))
+    tagidx += 4
+    return tagidx, nops
 end
-=#
 
 """
     alignment(record::Record)::BioAlignments.Alignment
