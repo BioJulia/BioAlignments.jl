@@ -300,7 +300,7 @@ See also `BAM.cigar`.
 """
 function cigar_rle(record::Record)
     checkfilled(record)
-    offset = seqname_length(record)
+    offset = seqname_length(record) + 1
     nops = n_cigar_op(record)
     ops, lens = extract_cigar_rle(record.data, offset, nops)
     return ops, lens
@@ -309,7 +309,7 @@ end
 function extract_cigar_rle(data::Vector{UInt8}, offset, n)
     ops = Vector{BioAlignments.Operation}()
     lens = Vector{Int}()
-    for i in offset + 1:4:offset + n * 4
+    for i in offset:4:offset + (n - 1) * 4
         x = unsafe_load(Ptr{UInt32}(pointer(data, i)))
         op = BioAlignments.Operation(x & 0x0F)
         push!(ops, op)
