@@ -495,7 +495,7 @@ end
     @testset "count_<ops>" begin
         # anchors are derived from an alignment:
         #   seq: ACG---TGCAGAATTT
-        #        |     || || ||  
+        #        |     || || ||
         #   ref: AAAATTTGAAGTAT--
         a = dna"ACGTGCAGAATTT"
         b = dna"AAAATTTGAAGTAT"
@@ -856,13 +856,13 @@ end
                 """)
 
                 testaln("""
-                 ACGT  
+                 ACGT
                 AACGTTT
                  ^^^^
                 """)
 
                 testaln("""
-                  AC-GT  
+                  AC-GT
                 AAACTGTTT
                 """)
             end
@@ -1265,6 +1265,7 @@ end
         read!(reader, record)
         @test BAM.ismapped(record)
         @test BAM.isprimary(record)
+        @test ! BAM.ispositivestrand(record)
         @test BAM.refname(record) == "CHROMOSOME_I"
         @test BAM.refid(record) === 1
         @test BAM.hasnextrefid(record)
