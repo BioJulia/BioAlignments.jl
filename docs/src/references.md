@@ -152,6 +152,7 @@ BAM.Record
 BAM.flag
 BAM.ismapped
 BAM.isprimary
+BAM.ispositivestrand
 BAM.refid
 BAM.refname
 BAM.position

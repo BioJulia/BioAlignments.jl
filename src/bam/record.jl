@@ -128,6 +128,17 @@ function isprimary(record::Record)::Bool
 end
 
 """
+    ispositivestrand(record::Record)::Bool
+
+Test if `record` is aligned to the positive strand.
+
+This is equivalent to `flag(record) & 0x10 == 0`.
+"""
+function ispositivestrand(record::Record)::Bool
+    flag(record) & 0x10 == 0
+end
+
+"""
     refid(record::Record)::Int
 
 Get the reference sequence ID of `record`.
