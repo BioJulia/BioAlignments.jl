@@ -328,9 +328,12 @@ function extract_cigar_rle(data::Vector{UInt8}, offset, n)
     return ops, lens
 end
 
-function find_true_cigar(record::Record)::Tuple{Int, Int}
-    nops = n_cigar_op_field(record)
-    cigaridx = seqname_length(record) + 1
+function find_cigar_field(record::Record)
+    return seqname_length(record) + 1, n_cigar_op_field(record)
+end
+
+function find_cigar(record::Record)::Tuple{Int, Int}
+    cigaridx, nops = find_cigar_field(record)
     if nops != 2
         return cigaridx, nops
     end
