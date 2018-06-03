@@ -276,6 +276,16 @@ function hasmappingquality(record::Record)
     return isfilled(record)
 end
 
+# Return the number of CIGAR operations in the cigar BAM field.
+function n_cigar_op_field(record::Record)
+    return record.flag_nc & 0xFFFF
+end
+
+# Return the number of CIGAR operations.
+function n_cigar_op(record::Record)
+    return record.flag_nc & 0xffff
+end
+
 """
     cigar(record::Record)::String
 
@@ -301,7 +311,7 @@ See also `BAM.cigar`.
 function cigar_rle(record::Record)
     checkfilled(record)
     offset = seqname_length(record) + 1
-    nops = n_cigar_op(record)
+    nops = n_cigar_op_field(record)
     ops, lens = extract_cigar_rle(record.data, offset, nops)
     return ops, lens
 end
@@ -319,7 +329,7 @@ function extract_cigar_rle(data::Vector{UInt8}, offset, n)
 end
 
 function find_true_cigar(record::Record)::Tuple{Int, Int}
-    nops = n_cigar_op(record)
+    nops = n_cigar_op_field(record)
     cigaridx = seqname_length(record) + 1
     if nops != 2
         return cigaridx, nops
@@ -385,7 +395,7 @@ Get the alignment length of `record`.
 function alignlength(record::Record)::Int
     offset = seqname_length(record)
     length::Int = 0
-    for i in offset+1:4:offset+n_cigar_op(record)*4
+    for i in offset+1:4:offset+n_cigar_op_field(record)*4
         x = unsafe_load(Ptr{UInt32}(pointer(record.data, i)))
         op = BioAlignments.Operation(x & 0x0f)
         if BioAlignments.ismatchop(op) || BioAlignments.isdeleteop(op)
@@ -433,7 +443,7 @@ function sequence(record::Record)::BioSequences.DNASequence
     checkfilled(record)
     seqlen = seqlength(record)
     data = Vector{UInt64}(cld(seqlen, 16))
-    src::Ptr{UInt64} = pointer(record.data, seqname_length(record) + n_cigar_op(record) * 4 + 1)
+    src::Ptr{UInt64} = pointer(record.data, seqname_length(record) + n_cigar_op_field(record) * 4 + 1)
     for i in 1:endof(data)
         # copy data flipping high and low nybble
         x = unsafe_load(src, i)
@@ -468,7 +478,7 @@ Get the base quality of  `record`.
 function quality(record::Record)::Vector{UInt8}
     checkfilled(record)
     seqlen = seqlength(record)
-    offset = seqname_length(record) + n_cigar_op(record) * 4 + cld(seqlen, 2)
+    offset = seqname_length(record) + n_cigar_op_field(record) * 4 + cld(seqlen, 2)
     return [reinterpret(Int8, record.data[i+offset]) for i in 1:seqlen]
 end
 
@@ -569,15 +579,10 @@ end
 
 function auxdata_position(record::Record)
     seqlen = seqlength(record)
-    return seqname_length(record) + n_cigar_op(record) * 4 + cld(seqlen, 2) + seqlen + 1
+    return seqname_length(record) + n_cigar_op_field(record) * 4 + cld(seqlen, 2) + seqlen + 1
 end
 
 # Return the length of the read name.
 function seqname_length(record::Record)
     return record.bin_mq_nl & 0xff
-end
-
-# Return the number of CIGAR operations.
-function n_cigar_op(record::Record)
-    return record.flag_nc & 0xffff
 end
