@@ -301,6 +301,14 @@ function cigar(record::Record)::String
     return String(take!(buf))
 end
 
+function cigar_field(record::Record)::String
+    buf = IOBuffer()
+    for (op, len) in zip(cigar_field_rle(record)...)
+        print(buf, len, Char(op))
+    end
+    return String(take!(buf))
+end
+
 """
     cigar_rle(record::Record)::Tuple{Vector{BioAlignments.Operation},Vector{Int}}
 
@@ -310,9 +318,15 @@ See also `BAM.cigar`.
 """
 function cigar_rle(record::Record)
     checkfilled(record)
-    offset = seqname_length(record) + 1
-    nops = n_cigar_op_field(record)
-    ops, lens = extract_cigar_rle(record.data, offset, nops)
+    idx, nops = cigar_position(record)
+    ops, lens = extract_cigar_rle(record.data, idx, nops)
+    return ops, lens
+end
+
+function cigar_field_rle(record::Record)
+    checkfilled(record)
+    idx, nops = cigar_field_position(record)
+    ops, lens = extract_cigar_rle(record.data, idx, nops)
     return ops, lens
 end
 
@@ -328,12 +342,12 @@ function extract_cigar_rle(data::Vector{UInt8}, offset, n)
     return ops, lens
 end
 
-function find_cigar_field(record::Record)
+function cigar_field_position(record::Record)
     return seqname_length(record) + 1, n_cigar_op_field(record)
 end
 
-function find_cigar(record::Record)::Tuple{Int, Int}
-    cigaridx, nops = find_cigar_field(record)
+function cigar_position(record::Record)::Tuple{Int, Int}
+    cigaridx, nops = cigar_field_position(record)
     if nops != 2
         return cigaridx, nops
     end
@@ -351,7 +365,7 @@ function find_cigar(record::Record)::Tuple{Int, Int}
         return cigaridx, nops
     end
     # If got this far, the CG tag is valid and contains the cigar.
-    # Get the true n_cigar_ops, and then
+    # Get the true n_cigar_ops, and return it and the idx of the first
     nops = UInt32(unsafe_load(Ptr{Int32}(pointer(record.data, tagidx += 2))))
     tagidx += 4
     return tagidx, nops
@@ -398,7 +412,7 @@ Get the alignment length of `record`.
 function alignlength(record::Record)::Int
     offset = seqname_length(record)
     length::Int = 0
-    for i in offset+1:4:offset+n_cigar_op_field(record)*4
+    for i in offset + 1:4:offset + n_cigar_op_field(record) * 4
         x = unsafe_load(Ptr{UInt32}(pointer(record.data, i)))
         op = BioAlignments.Operation(x & 0x0f)
         if BioAlignments.ismatchop(op) || BioAlignments.isdeleteop(op)
