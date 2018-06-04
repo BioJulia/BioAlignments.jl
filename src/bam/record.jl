@@ -291,7 +291,21 @@ end
 
 Get the CIGAR string of `record`.
 
-See also `BAM.cigar_rle`.
+In the BAM specification, records have a specific field called `cigar`.
+This field typically stores the cigar of the record.
+However, this is not always true, sometimes the true cigar is very long,
+and due to  some constraints of the BAM format, the actual cigar string is
+stored in an extra tag: `CG:B,I`.
+This method will check for this and will always provide you with the true
+cigar string.
+
+If you have a record that stores the true cigar in a `CG:B,I` tag, but you still
+want to access the pseudo-cigar in the `cigar` field of the BAM record, then you
+can use the `cigar_field` method instead of this one. `cigar_field` does no
+checking for `CG:B,I` tags and will always return a string of the contents of
+the `cigar` field of the BAM spec.
+
+See also `BAM.cigar_rle` and `BAM.cigar_field`.
 """
 function cigar(record::Record)::String
     buf = IOBuffer()
