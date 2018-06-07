@@ -168,6 +168,11 @@ function refname(record::Record)::String
     return record.reader.refseqnames[id]
 end
 
+"""
+    reflen(record::Record)::Int
+
+Get the length of the reference sequence this record applies to.
+"""
 function reflen(record::Record)::Int
     checkfilled(record)
     id = checked_refid(record)
@@ -291,33 +296,26 @@ end
 
 Get the CIGAR string of `record`.
 
-In the BAM specification, records have a specific field called `cigar`.
-This field typically stores the cigar of the record.
+Note that in the BAM specification, the field called `cigar` typically stores
+the cigar string of the record.
 However, this is not always true, sometimes the true cigar is very long,
 and due to  some constraints of the BAM format, the actual cigar string is
-stored in an extra tag: `CG:B,I`.
-This method will check for this and will always provide you with the true
-cigar string.
+stored in an extra tag: `CG:B,I`, and the `cigar` field stores a pseudo-cigar
+string.
+
+Calling this method on a record with a long cigar string, will always yield the
+true cigar string, because this is probably what you want, the vast majority of
+the time.
 
 If you have a record that stores the true cigar in a `CG:B,I` tag, but you still
-want to access the pseudo-cigar in the `cigar` field of the BAM record, then you
-can use the `cigar_field` method instead of this one. `cigar_field` does no
-checking for `CG:B,I` tags and will always return a string of the contents of
-the `cigar` field of the BAM spec.
+want to access the pseudo-cigar that is stored in the `cigar` field of the BAM
+record, then you can use the `BAM.cigar_field` method instead of this one.
 
-See also `BAM.cigar_rle` and `BAM.cigar_field`.
+See also `BAM.cigar_rle`, `BAM.cigar_field`, and `BAM.cigar_field_rle`.
 """
 function cigar(record::Record)::String
     buf = IOBuffer()
     for (op, len) in zip(cigar_rle(record)...)
-        print(buf, len, Char(op))
-    end
-    return String(take!(buf))
-end
-
-function cigar_field(record::Record)::String
-    buf = IOBuffer()
-    for (op, len) in zip(cigar_field_rle(record)...)
         print(buf, len, Char(op))
     end
     return String(take!(buf))
@@ -328,7 +326,22 @@ end
 
 Get a run-length encoded tuple `(ops, lens)` of the CIGAR string in `record`.
 
-See also `BAM.cigar`.
+Note that in the BAM specification, the field called `cigar` typically stores
+the cigar string of the record.
+However, this is not always true, sometimes the true cigar is very long,
+and due to  some constraints of the BAM format, the actual cigar string is
+stored in an extra tag: `CG:B,I`, and the `cigar` field stores a pseudo-cigar
+string.
+
+Calling this method on a record with a long cigar string, will always yield the
+true cigar string, because this is probably what you want, the vast majority of
+the time.
+
+If you have a record that stores the true cigar in a `CG:B,I` tag, but you still
+want to access the pseudo-cigar that is stored in the `cigar` field of the BAM
+record, then you can use the `BAM.cigar_field_rle` method instead of this one.
+
+See also `BAM.cigar`, `BAM.cigar_field`, `BAM.cigar_field_rle`.
 """
 function cigar_rle(record::Record)
     checkfilled(record)
@@ -337,6 +350,52 @@ function cigar_rle(record::Record)
     return ops, lens
 end
 
+"""
+    cigar_field(record::Record)::String
+
+Get the string from the `cigar` field of a BAM `record`.
+
+Note that in the BAM specification, the field called `cigar` typically stores
+the cigar string of the record.
+However, this is not always true, sometimes the true cigar is very long,
+and due to  some constraints of the BAM format, the actual cigar string is
+stored in an extra tag: `CG:B,I`, and the `cigar` field stores a pseudo-cigar
+string.
+
+Calling this method on a record with a long cigar string, will not yield the
+true cigar string, but a pseudo cigar string, which is useful in some
+situations, but it is probably not what you want. To guarantee that you get the
+true cigar string, use the `BAM.cigar` method.
+
+See also `BAM.cigar_field_rle`, `BAM.cigar`, `BAM.cigar_rle`.
+"""
+function cigar_field(record::Record)::String
+    buf = IOBuffer()
+    for (op, len) in zip(cigar_field_rle(record)...)
+        print(buf, len, Char(op))
+    end
+    return String(take!(buf))
+end
+
+"""
+    cigar_field_rle(record::Record)::Tuple{Vector{BioAlignments.Operation},Vector{Int}}
+
+Get a run-length encoded tuple `(ops, lens)` of the `cigar` field in `record`.
+
+Note that in the BAM specification, the field called `cigar` typically stores
+the cigar string of the record.
+However, this is not always true, sometimes the true cigar is very long,
+and due to  some constraints of the BAM format, the actual cigar string is
+stored in an extra tag: `CG:B,I`, and the `cigar` field stores a pseudo-cigar
+string.
+
+Calling this method on a record with a long cigar string, will not yield the
+true cigar string, but a pseudo cigar string, which is useful in some
+situations, but it is probably not what you want. To guarantee that you get the
+true cigar string, use the `BAM.cigar_rle` method.
+
+See also `BAM.cigar_field`, `BAM.cigar`, `BAM.cigar_rle`.
+"""
 function cigar_field_rle(record::Record)
     checkfilled(record)
     idx, nops = cigar_field_position(record)
