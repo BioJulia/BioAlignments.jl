@@ -495,7 +495,7 @@ end
     @testset "count_<ops>" begin
         # anchors are derived from an alignment:
         #   seq: ACG---TGCAGAATTT
-        #        |     || || ||
+        #        |     || || ||  
         #   ref: AAAATTTGAAGTAT--
         a = dna"ACGTGCAGAATTT"
         b = dna"AAAATTTGAAGTAT"
@@ -856,13 +856,13 @@ end
                 """)
 
                 testaln("""
-                 ACGT
+                 ACGT  
                 AACGTTT
                  ^^^^
                 """)
 
                 testaln("""
-                  AC-GT
+                  AC-GT  
                 AAACTGTTT
                 """)
             end
