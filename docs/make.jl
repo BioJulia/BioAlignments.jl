@@ -7,7 +7,9 @@ makedocs(
         "Home" => "index.md",
         "Alignment representation" => "alignments.md",
         "Pairwise alignment" => "pairalign.md",
-        "High-throughput sequencing" => "hts-files.md",
+        "IO" => [
+            "SAM and BAM" => "hts-files.md"
+        ],
         "References" => "references.md",
         "Contributing" => "contributing.md"
     ],
