@@ -1265,6 +1265,7 @@ end
         read!(reader, record)
         @test BAM.ismapped(record)
         @test BAM.isprimary(record)
+        @test ! BAM.ispositivestrand(record)
         @test BAM.refname(record) == "CHROMOSOME_I"
         @test BAM.refid(record) === 1
         @test BAM.hasnextrefid(record)
