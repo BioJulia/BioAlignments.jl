@@ -45,25 +45,25 @@ contributing or using this package, you are encouraged to use the
 [Bio category of the Julia discourse
 site](https://discourse.julialang.org/c/domain/bio).
 
-[release-img]: https://img.shields.io/github/release/BioJulia/BioAlignments.jl.svg
+[release-img]: https://img.shields.io/github/release/BioJulia/BioAlignments.jl.svg?style=flat-square
 [release-url]: https://github.com/BioJulia/BioAlignments.jl/releases/latest
-[license-img]: https://img.shields.io/badge/license-MIT-green.svg
+[license-img]: https://img.shields.io/badge/license-MIT-green.svg?style=flat-square
 [license-url]: https://github.com/BioJulia/BioAlignments.jl/blob/master/LICENSE
-[docs-stable-img]: https://img.shields.io/badge/docs-stable-blue.svg
+[docs-stable-img]: https://img.shields.io/badge/docs-stable-blue.svg?style=flat-square
 [docs-stable-url]: https://biojulia.github.io/BioAlignments.jl/stable
-[docs-latest-img]: https://img.shields.io/badge/docs-latest-blue.svg
+[docs-latest-img]: https://img.shields.io/badge/docs-latest-blue.svg?style=flat-square
 [docs-latest-url]: https://biojulia.github.io/BioAlignments.jl/latest/
-[lifecycle-experimental]: https://img.shields.io/badge/lifecycle-experimental-orange.svg
-[lifecycle-maturing]: https://img.shields.io/badge/lifecycle-maturing-blue.svg
-[lifecycle-stable]: https://img.shields.io/badge/lifecycle-stable-brightgreen.svg
-[lifecycle-retired]: https://img.shields.io/badge/lifecycle-retired-orange.svg
-[lifecycle-archived]: https://img.shields.io/badge/lifecycle-archived-red.svg
-[lifecycle-dormant]: https://img.shields.io/badge/lifecycle-dormant-blue.svg
-[lifecycle-questioning]: https://img.shields.io/badge/lifecycle-questioning-blue.svg
-[juliapkg06-img]: http://pkg.julialang.org/badges/BioAlignments_0.6.svg
-[juliapkg07-img]: http://pkg.julialang.org/badges/BioAlignments_0.7.svg
+[lifecycle-experimental]: https://img.shields.io/badge/lifecycle-experimental-orange.svg?style=flat-square
+[lifecycle-maturing]: https://img.shields.io/badge/lifecycle-maturing-blue.svg?style=flat-square
+[lifecycle-stable]: https://img.shields.io/badge/lifecycle-stable-brightgreen.svg?style=flat-square
+[lifecycle-retired]: https://img.shields.io/badge/lifecycle-retired-orange.svg?style=flat-square
+[lifecycle-archived]: https://img.shields.io/badge/lifecycle-archived-red.svg?style=flat-square
+[lifecycle-dormant]: https://img.shields.io/badge/lifecycle-dormant-blue.svg?style=flat-square
+[lifecycle-questioning]: https://img.shields.io/badge/lifecycle-questioning-blue.svg?style=flat-square
+[juliapkg06-img]: http://pkg.julialang.org/badges/BioAlignments_0.6.svg?style=flat-square
+[juliapkg07-img]: http://pkg.julialang.org/badges/BioAlignments_0.7.svg?style=flat-square
 [juliapkg-url]: http://pkg.julialang.org/?pkg=BioAlignments
-[travis-img]: https://img.shields.io/travis/BioJulia/BioAlignments.jl/master.svg?label=Linux+/+macOS
+[travis-img]: https://img.shields.io/travis/BioJulia/BioAlignments.jl/master.svg?label=Linux+/+macOS&style=flat-square
 [travis-url]: https://travis-ci.org/BioJulia/BioAlignments.jl
 [appveyor-img]: https://ci.appveyor.com/api/projects/status/klkynmkr1tgd30gq/branch/master?svg=true
 [appveyor-url]: https://ci.appveyor.com/project/Ward9250/bioalignments-jl/branch/master
