@@ -9,7 +9,7 @@
 
 ## Description
 
-BioAlignments.jl provides alignment algorithms, data structures, and I/O tools
+BioAlignments provides alignment algorithms, data structures, and I/O tools
 for SAM and BAM file formats.
 
 ## Installation
@@ -27,7 +27,7 @@ the master branch to try new features before release.
 
 ## Testing
 
-BioAlignments.jl is tested against julia `0.6` and current `0.7-dev` on Linux,
+BioAlignments is tested against julia `0.6` and current `0.7-dev` on Linux,
 OS X, and Windows.
 
 | **Latest release** | **Latest build status** |
@@ -38,13 +38,13 @@ OS X, and Windows.
 
 We appreciate contributions from users including reporting bugs, fixing issues,
 improving performance and adding new features.
-Please go to the [contributing section of the documentation](biojulia.net/Contributing/latest)
-for more information.
 
-If you have a question about
-contributing or using this package, you are encouraged to use the
-[Bio category of the Julia discourse
-site](https://discourse.julialang.org/c/domain/bio).
+Take a look at the [CONTRIBUTING](CONTRIBUTING.md) file provided with this
+package for detailed contributor and maintainer guidelines.
+
+If you have a question about contributing or using this package, come on over
+and chat to us on [Discord][discord-url], or you can try the
+[Bio category of the Julia discourse site](https://discourse.julialang.org/c/domain/bio).
 
 [release-img]:            https://img.shields.io/github/release/BioJulia/BioAlignments.jl.svg?style=flat-square
 [release-url]:            https://github.com/BioJulia/BioAlignments.jl/releases/latest
