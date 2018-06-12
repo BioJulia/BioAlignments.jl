@@ -3,6 +3,7 @@ using BioAlignments
 using BioSymbols
 import BGZFStreams: BGZFStream
 import BioCore.Exceptions: MissingFieldException
+import BioCore.Testing.get_bio_fmt_specimens
 import BioSequences: @dna_str, @aa_str
 import GenomicFeatures
 import YAML
@@ -1037,19 +1038,8 @@ end
     end
 end
 
-function get_bio_fmt_specimens(commit="3140ef6110bb309703ffde564ce705eeb80607d4")
-    path = joinpath(dirname(@__FILE__), "BioFmtSpecimens")
-    if !isdir(path)
-        run(`git clone https://github.com/BioJulia/BioFmtSpecimens.git $(path)`)
-    end
-    cd(path) do
-        run(`git checkout $(commit)`)
-    end
-    return path
-end
-
 @testset "SAM" begin
-    samdir = joinpath(get_bio_fmt_specimens(), "SAM")
+    samdir = joinpath(get_bio_fmt_specimens("master", false, true), "SAM")
 
     @testset "MetaInfo" begin
         metainfo = SAM.MetaInfo()
@@ -1209,7 +1199,7 @@ end
 end
 
 @testset "BAM" begin
-    bamdir = joinpath(get_bio_fmt_specimens(), "BAM")
+    bamdir = joinpath(get_bio_fmt_specimens("master", false), "BAM")
 
     @testset "AuxData" begin
         auxdata = BAM.AuxData(UInt8[])
