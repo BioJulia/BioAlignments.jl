@@ -496,7 +496,7 @@ end
     @testset "count_<ops>" begin
         # anchors are derived from an alignment:
         #   seq: ACG---TGCAGAATTT
-        #        |     || || ||  
+        #        |     || || ||
         #   ref: AAAATTTGAAGTAT--
         a = dna"ACGTGCAGAATTT"
         b = dna"AAAATTTGAAGTAT"
@@ -1301,6 +1301,21 @@ end
         # IOStream
         @test length(collect(BAM.Reader(open(joinpath(bamdir, "ce#1.bam"))))) == 1
         @test length(collect(BAM.Reader(open(joinpath(bamdir, "ce#2.bam"))))) == 2
+    end
+
+    @testset "Read long CIGARs" begin
+        function check_cigar_identity(rec::BAM.Record)
+            cigar = BAM.cigar(rec)
+            field = BAM.cigar_field(rec)
+            return cigar == field
+        end
+
+        reader = open(BAM.Reader, joinpath(bamdir, "cigar-64k.bam"))
+        rec = BAM.Record()
+        read!(reader, rec)
+        read!(reader, rec)
+        @test length(BAM.cigar_rle(rec)[1]) == 72091
+        @test length(BAM.cigar_field_rle(rec)[1]) == 2
     end
 
     function compare_records(xs, ys)
