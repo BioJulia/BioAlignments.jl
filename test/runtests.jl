@@ -1304,18 +1304,33 @@ end
     end
 
     @testset "Read long CIGARs" begin
-        function check_cigar_identity(rec::BAM.Record)
+        function get_cigar_lens(rec::BAM.Record)
+            cigar_ops, cigar_n = BAM.cigar_rle(rec)
+            field_ops, field_n = BAM.cigar_field_rle(rec)
+            cigar_l = length(cigar_ops)
+            field_l = length(field_ops)
+            return cigar_l, field_l
+        end
+    
+        function check_cigar_vs_field(rec::BAM.Record)
             cigar = BAM.cigar(rec)
             field = BAM.cigar_field(rec)
-            return cigar == field
+            cigar_l, field_l = get_cigar_lens(rec)
+            return cigar != field && cigar_l != field_l
+        end
+        
+        function check_cigar_lens(rec::BAM.Record, field_len, cigar_len)
+            cigar_l, field_l = get_cigar_lens(rec)
+            return cigar_l == cigar_len && field_l == field_len
         end
 
         reader = open(BAM.Reader, joinpath(bamdir, "cigar-64k.bam"))
         rec = BAM.Record()
         read!(reader, rec)
+        @test !check_cigar_vs_field(rec)
         read!(reader, rec)
-        @test length(BAM.cigar_rle(rec)[1]) == 72091
-        @test length(BAM.cigar_field_rle(rec)[1]) == 2
+        @test check_cigar_vs_field(rec)
+        @test check_cigar_lens(rec, 2, 72091)
     end
 
     function compare_records(xs, ys)
