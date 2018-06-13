@@ -156,6 +156,16 @@ function hasrefid(record::Record)
     return isfilled(record)
 end
 
+function checked_refid(record::Record)
+    id = refid(record)
+    if id == 0
+        throw(ArgumentError("record is not mapped"))
+    elseif !isdefined(record, :reader)
+        throw(ArgumentError("reader is not defined"))
+    end
+    return id
+end
+
 """
     refname(record::Record)::String
 
@@ -165,13 +175,19 @@ See also: `BAM.refid`
 """
 function refname(record::Record)::String
     checkfilled(record)
-    id = refid(record)
-    if id == 0
-        throw(ArgumentError("record is not mapped"))
-    elseif !isdefined(record, :reader)
-        throw(ArgumentError("reader is not defined"))
-    end
+    id = checked_refid(record)
     return record.reader.refseqnames[id]
+end
+
+"""
+    reflen(record::Record)::Int
+
+Get the length of the reference sequence this record applies to.
+"""
+function reflen(record::Record)::Int
+    checkfilled(record)
+    id = checked_refid(record)
+    return record.reader.refseqlens[id]
 end
 
 function hasrefname(record::Record)
@@ -277,39 +293,126 @@ function hasmappingquality(record::Record)
 end
 
 """
+    n_cigar_op(record::Record, checkCG::Bool = true)
+
+Return the number of operations in the CIGAR string of `record`.
+
+Note that in the BAM specification, the field called `cigar` typically stores
+the cigar string of the record.
+However, this is not always true, sometimes the true cigar is very long,
+and due to  some constraints of the BAM format, the actual cigar string is
+stored in an extra tag: `CG:B,I`, and the `cigar` field stores a pseudo-cigar
+string.
+
+Calling this method with `checkCG` set to `true` (default) this method will
+always yield the number of operations in the true cigar string, because this is
+probably what you want, the vast majority of the time.
+
+If you have a record that stores the true cigar in a `CG:B,I` tag, but you still
+want to get the number of operations in the `cigar` field of the BAM record,
+then set `checkCG` to `false`.
+"""
+function n_cigar_op(record::Record, checkCG::Bool = true)
+    return cigar_position(record, checkCG)[2]
+end
+
+"""
     cigar(record::Record)::String
 
 Get the CIGAR string of `record`.
 
+Note that in the BAM specification, the field called `cigar` typically stores
+the cigar string of the record.
+However, this is not always true, sometimes the true cigar is very long,
+and due to  some constraints of the BAM format, the actual cigar string is
+stored in an extra tag: `CG:B,I`, and the `cigar` field stores a pseudo-cigar
+string.
+
+Calling this method with `checkCG` set to `true` (default) this method will
+always yield the true cigar string, because this is probably what you want
+the vast majority of the time.
+
+If you have a record that stores the true cigar in a `CG:B,I` tag, but you still
+want to access the pseudo-cigar that is stored in the `cigar` field of the BAM
+record, then you can set checkCG to `false`.
+
 See also `BAM.cigar_rle`.
 """
-function cigar(record::Record)::String
+function cigar(record::Record, checkCG::Bool = true)::String
     buf = IOBuffer()
-    for (op, len) in zip(cigar_rle(record)...)
+    for (op, len) in zip(cigar_rle(record, checkCG)...)
         print(buf, len, Char(op))
     end
     return String(take!(buf))
 end
 
 """
-    cigar_rle(record::Record)::Tuple{Vector{BioAlignments.Operation},Vector{Int}}
+    cigar_rle(record::Record, checkCG::Bool = true)::Tuple{Vector{BioAlignments.Operation},Vector{Int}}
 
 Get a run-length encoded tuple `(ops, lens)` of the CIGAR string in `record`.
 
+Note that in the BAM specification, the field called `cigar` typically stores
+the cigar string of the record.
+However, this is not always true, sometimes the true cigar is very long,
+and due to  some constraints of the BAM format, the actual cigar string is
+stored in an extra tag: `CG:B,I`, and the `cigar` field stores a pseudo-cigar
+string.
+
+Calling this method with `checkCG` set to `true` (default) this method will
+always yield the true cigar string, because this is probably what you want
+the vast majority of the time.
+
+If you have a record that stores the true cigar in a `CG:B,I` tag, but you still
+want to access the pseudo-cigar that is stored in the `cigar` field of the BAM
+record, then you can set checkCG to `false`.
+
 See also `BAM.cigar`.
 """
-function cigar_rle(record::Record)
+function cigar_rle(record::Record, checkCG::Bool = true)::Tuple{Vector{BioAlignments.Operation},Vector{Int}}
     checkfilled(record)
-    offset = seqname_length(record)
-    ops = BioAlignments.Operation[]
-    lens = Int[]
-    for i in offset+1:4:offset+n_cigar_op(record)*4
-        x = unsafe_load(Ptr{UInt32}(pointer(record.data, i)))
-        op = BioAlignments.Operation(x & 0x0f)
+    idx, nops = cigar_position(record, checkCG)
+    ops, lens = extract_cigar_rle(record.data, idx, nops)
+    return ops, lens
+end
+
+function extract_cigar_rle(data::Vector{UInt8}, offset, n)
+    ops = Vector{BioAlignments.Operation}()
+    lens = Vector{Int}()
+    for i in offset:4:offset + (n - 1) * 4
+        x = unsafe_load(Ptr{UInt32}(pointer(data, i)))
+        op = BioAlignments.Operation(x & 0x0F)
         push!(ops, op)
         push!(lens, x >> 4)
     end
     return ops, lens
+end
+
+function cigar_position(record::Record, checkCG::Bool = true)::Tuple{Int, Int}
+    cigaridx, nops = seqname_length(record) + 1, record.flag_nc & 0xFFFF
+    if !checkCG
+        return cigaridx, nops
+    end
+    if nops != 2
+        return cigaridx, nops
+    end
+    x = unsafe_load(Ptr{UInt32}(pointer(record.data, cigaridx)))
+    if x != UInt32(seqlength(record) << 4 | 4)
+        return cigaridx, nops
+    end
+    tagidx = findauxtag(record.data, auxdata_position(record), UInt8('C'), UInt8('G'))
+    if tagidx == 0
+        return cigaridx, nops
+    end
+    # Tag exists, validate type is BI.
+    typ = unsafe_load(Ptr{UInt16}(pointer(record.data, tagidx += 2)))
+    if typ != (UInt16('I') << 8 | UInt16('B'))
+        return cigaridx, nops
+    end
+    # If got this far, the CG tag is valid and contains the cigar.
+    # Get the true n_cigar_ops, and return it and the idx of the first
+    nops = UInt32(unsafe_load(Ptr{Int32}(pointer(record.data, tagidx += 2))))
+    tagidx += 4
+    return tagidx, nops
 end
 
 """
@@ -353,9 +456,9 @@ Get the alignment length of `record`.
 function alignlength(record::Record)::Int
     offset = seqname_length(record)
     length::Int = 0
-    for i in offset+1:4:offset+n_cigar_op(record)*4
+    for i in offset + 1:4:offset + n_cigar_op(record, false) * 4
         x = unsafe_load(Ptr{UInt32}(pointer(record.data, i)))
-        op = BioAlignments.Operation(x & 0x0f)
+        op = BioAlignments.Operation(x & 0x0F)
         if BioAlignments.ismatchop(op) || BioAlignments.isdeleteop(op)
             length += x >> 4
         end
@@ -401,7 +504,7 @@ function sequence(record::Record)::BioSequences.DNASequence
     checkfilled(record)
     seqlen = seqlength(record)
     data = Vector{UInt64}(cld(seqlen, 16))
-    src::Ptr{UInt64} = pointer(record.data, seqname_length(record) + n_cigar_op(record) * 4 + 1)
+    src::Ptr{UInt64} = pointer(record.data, seqname_length(record) + n_cigar_op(record, false) * 4 + 1)
     for i in 1:endof(data)
         # copy data flipping high and low nybble
         x = unsafe_load(src, i)
@@ -436,7 +539,7 @@ Get the base quality of  `record`.
 function quality(record::Record)::Vector{UInt8}
     checkfilled(record)
     seqlen = seqlength(record)
-    offset = seqname_length(record) + n_cigar_op(record) * 4 + cld(seqlen, 2)
+    offset = seqname_length(record) + n_cigar_op(record, false) * 4 + cld(seqlen, 2)
     return [reinterpret(Int8, record.data[i+offset]) for i in 1:seqlen]
 end
 
@@ -537,15 +640,10 @@ end
 
 function auxdata_position(record::Record)
     seqlen = seqlength(record)
-    return seqname_length(record) + n_cigar_op(record) * 4 + cld(seqlen, 2) + seqlen + 1
+    return seqname_length(record) + n_cigar_op(record, false) * 4 + cld(seqlen, 2) + seqlen + 1
 end
 
 # Return the length of the read name.
 function seqname_length(record::Record)
     return record.bin_mq_nl & 0xff
-end
-
-# Return the number of CIGAR operations.
-function n_cigar_op(record::Record)
-    return record.flag_nc & 0xffff
 end

@@ -1,8 +1,6 @@
-References
-==========
+# API Reference 
 
-Operations
-----------
+## Operations
 
 ```@docs
 Operation
@@ -22,8 +20,7 @@ isinsertop
 isdeleteop
 ```
 
-Alignments
-----------
+## Alignments
 
 ```@docs
 AlignmentAnchor
@@ -35,8 +32,7 @@ ref2seq(::Alignment, ::Integer)
 cigar(::Alignment)
 ```
 
-Substitution matrices
----------------------
+## Substitution matrices
 
 ```@docs
 AbstractSubstitutionMatrix
@@ -53,8 +49,7 @@ BLOSUM80
 BLOSUM90
 ```
 
-Pairwise alignments
--------------------
+## Pairwise alignments
 
 ```@docs
 PairwiseAlignment
@@ -85,8 +80,7 @@ seq2ref(::PairwiseAlignment, ::Integer)
 ref2seq(::PairwiseAlignment, ::Integer)
 ```
 
-I/O
----
+## I/O
 
 ### SAM
 
