@@ -3,6 +3,7 @@ using BioAlignments
 using BioSymbols
 import BGZFStreams: BGZFStream
 import BioCore.Exceptions: MissingFieldException
+import BioCore.Testing.get_bio_fmt_specimens
 import BioSequences: @dna_str, @aa_str
 import GenomicFeatures
 import YAML
@@ -495,7 +496,7 @@ end
     @testset "count_<ops>" begin
         # anchors are derived from an alignment:
         #   seq: ACG---TGCAGAATTT
-        #        |     || || ||  
+        #        |     || || ||
         #   ref: AAAATTTGAAGTAT--
         a = dna"ACGTGCAGAATTT"
         b = dna"AAAATTTGAAGTAT"
@@ -1037,19 +1038,8 @@ end
     end
 end
 
-function get_bio_fmt_specimens(commit="3140ef6110bb309703ffde564ce705eeb80607d4")
-    path = joinpath(dirname(@__FILE__), "BioFmtSpecimens")
-    if !isdir(path)
-        run(`git clone https://github.com/BioJulia/BioFmtSpecimens.git $(path)`)
-    end
-    cd(path) do
-        run(`git checkout $(commit)`)
-    end
-    return path
-end
-
 @testset "SAM" begin
-    samdir = joinpath(get_bio_fmt_specimens(), "SAM")
+    samdir = joinpath(get_bio_fmt_specimens("master", false, true), "SAM")
 
     @testset "MetaInfo" begin
         metainfo = SAM.MetaInfo()
@@ -1209,7 +1199,7 @@ end
 end
 
 @testset "BAM" begin
-    bamdir = joinpath(get_bio_fmt_specimens(), "BAM")
+    bamdir = joinpath(get_bio_fmt_specimens("master", false), "BAM")
 
     @testset "AuxData" begin
         auxdata = BAM.AuxData(UInt8[])
@@ -1312,6 +1302,36 @@ end
         # IOStream
         @test length(collect(BAM.Reader(open(joinpath(bamdir, "ce#1.bam"))))) == 1
         @test length(collect(BAM.Reader(open(joinpath(bamdir, "ce#2.bam"))))) == 2
+    end
+
+    @testset "Read long CIGARs" begin
+        function get_cigar_lens(rec::BAM.Record)
+            cigar_ops, cigar_n = BAM.cigar_rle(rec)
+            field_ops, field_n = BAM.cigar_rle(rec, false)
+            cigar_l = length(cigar_ops)
+            field_l = length(field_ops)
+            return cigar_l, field_l
+        end
+    
+        function check_cigar_vs_field(rec::BAM.Record)
+            cigar = BAM.cigar(rec)
+            field = BAM.cigar(rec, false)
+            cigar_l, field_l = get_cigar_lens(rec)
+            return cigar != field && cigar_l != field_l
+        end
+        
+        function check_cigar_lens(rec::BAM.Record, field_len, cigar_len)
+            cigar_l, field_l = get_cigar_lens(rec)
+            return cigar_l == cigar_len && field_l == field_len
+        end
+
+        reader = open(BAM.Reader, joinpath(bamdir, "cigar-64k.bam"))
+        rec = BAM.Record()
+        read!(reader, rec)
+        @test !check_cigar_vs_field(rec)
+        read!(reader, rec)
+        @test check_cigar_vs_field(rec)
+        @test check_cigar_lens(rec, 2, 72091)
     end
 
     function compare_records(xs, ys)

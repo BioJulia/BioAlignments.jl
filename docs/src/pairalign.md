@@ -1,5 +1,4 @@
-Pairwise alignment
-==================
+# Pairwise alignment
 
 ```@meta
 CurrentModule = BioAlignments
@@ -9,9 +8,7 @@ DocTestSetup = quote
 end
 ```
 
-
-Overview
---------
+## Overview
 
 Pairwise alignment is a sequence alignment between two sequences.
 BioAlignments.jl implements several pairwise alignment algorithms that maximize
@@ -20,9 +17,7 @@ the results of pairwise alignments, it is highly recommended to read the
 [Alignment representation](@ref) chapter in advance to get used to the alignment
 representation.
 
-
-Alignment types and scoring models
-----------------------------------
+## Alignment types and scoring models
 
 A pairwise alignment problem has two factors: an alignment type and a score/cost
 model. The alignment type specifies the alignment range (e.g. global, local,
@@ -68,9 +63,7 @@ BioAlignments.PairwiseAlignmentResult{Int64,String,String}:
 
 ```
 
-
-Operations on pairwise alignment
---------------------------------
+## Operations on pairwise alignment
 
 The example below shows a use case of some operations:
 ```jldoctest
@@ -143,9 +136,7 @@ ACCT-GGTATGATAGCG
 
 ```
 
-
-Substitution matrix types
--------------------------
+## Substitution matrix types
 
 A substitution matrix is a function of substitution score (or cost) from one
 symbol to other. Substitution value of `submat` from `x` to `y` can be obtained
