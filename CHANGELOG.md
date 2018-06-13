@@ -9,10 +9,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Contributing files were added to this project.
 - A method called `BAM.ispositivestrand` is added to test for the relevant flag
   in BAM records. Thanks @phaverty :smile:
+- Support for records with CIGAR strings with >65535 op-codes has been added.
 
 ### Changed
-
-### Dependencies
+- Documentation has been updated and uses the Documenter.jl native html
+  generator.
 
 ## [0.2.0] - 2017-08-01
 ### Dependencies
