@@ -1306,7 +1306,7 @@ end
     @testset "Read long CIGARs" begin
         function get_cigar_lens(rec::BAM.Record)
             cigar_ops, cigar_n = BAM.cigar_rle(rec)
-            field_ops, field_n = BAM.cigar_field_rle(rec)
+            field_ops, field_n = BAM.cigar_rle(rec, false)
             cigar_l = length(cigar_ops)
             field_l = length(field_ops)
             return cigar_l, field_l
@@ -1314,7 +1314,7 @@ end
     
         function check_cigar_vs_field(rec::BAM.Record)
             cigar = BAM.cigar(rec)
-            field = BAM.cigar_field(rec)
+            field = BAM.cigar(rec, false)
             cigar_l, field_l = get_cigar_lens(rec)
             return cigar != field && cigar_l != field_l
         end

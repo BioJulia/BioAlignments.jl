@@ -281,14 +281,28 @@ function hasmappingquality(record::Record)
     return isfilled(record)
 end
 
-# Return the number of CIGAR operations in the cigar BAM field.
-function n_cigar_op_field(record::Record)
-    return record.flag_nc & 0xFFFF
-end
+"""
+    n_cigar_op(record::Record, checkCG::Bool = true)
 
-# Return the number of CIGAR operations.
-function n_cigar_op(record::Record)
-    return record.flag_nc & 0xffff
+Return the number of operations in the CIGAR string of `record`.
+
+Note that in the BAM specification, the field called `cigar` typically stores
+the cigar string of the record.
+However, this is not always true, sometimes the true cigar is very long,
+and due to  some constraints of the BAM format, the actual cigar string is
+stored in an extra tag: `CG:B,I`, and the `cigar` field stores a pseudo-cigar
+string.
+
+Calling this method with `checkCG` set to `true` (default) this method will
+always yield the number of operations in the true cigar string, because this is
+probably what you want, the vast majority of the time.
+
+If you have a record that stores the true cigar in a `CG:B,I` tag, but you still
+want to get the number of operations in the `cigar` field of the BAM record,
+then set `checkCG` to `false`.
+"""
+function n_cigar_op(record::Record, checkCG::Bool = true)
+    return cigar_position(record, checkCG)[2]
 end
 
 """
@@ -303,26 +317,26 @@ and due to  some constraints of the BAM format, the actual cigar string is
 stored in an extra tag: `CG:B,I`, and the `cigar` field stores a pseudo-cigar
 string.
 
-Calling this method on a record with a long cigar string, will always yield the
-true cigar string, because this is probably what you want, the vast majority of
-the time.
+Calling this method with `checkCG` set to `true` (default) this method will
+always yield the true cigar string, because this is probably what you want
+the vast majority of the time.
 
 If you have a record that stores the true cigar in a `CG:B,I` tag, but you still
 want to access the pseudo-cigar that is stored in the `cigar` field of the BAM
-record, then you can use the `BAM.cigar_field` method instead of this one.
+record, then you can set checkCG to `false`.
 
-See also `BAM.cigar_rle`, `BAM.cigar_field`, and `BAM.cigar_field_rle`.
+See also `BAM.cigar_rle`.
 """
-function cigar(record::Record)::String
+function cigar(record::Record, checkCG::Bool = true)::String
     buf = IOBuffer()
-    for (op, len) in zip(cigar_rle(record)...)
+    for (op, len) in zip(cigar_rle(record, checkCG)...)
         print(buf, len, Char(op))
     end
     return String(take!(buf))
 end
 
 """
-    cigar_rle(record::Record)::Tuple{Vector{BioAlignments.Operation},Vector{Int}}
+    cigar_rle(record::Record, checkCG::Bool = true)::Tuple{Vector{BioAlignments.Operation},Vector{Int}}
 
 Get a run-length encoded tuple `(ops, lens)` of the CIGAR string in `record`.
 
@@ -333,72 +347,19 @@ and due to  some constraints of the BAM format, the actual cigar string is
 stored in an extra tag: `CG:B,I`, and the `cigar` field stores a pseudo-cigar
 string.
 
-Calling this method on a record with a long cigar string, will always yield the
-true cigar string, because this is probably what you want, the vast majority of
-the time.
+Calling this method with `checkCG` set to `true` (default) this method will
+always yield the true cigar string, because this is probably what you want
+the vast majority of the time.
 
 If you have a record that stores the true cigar in a `CG:B,I` tag, but you still
 want to access the pseudo-cigar that is stored in the `cigar` field of the BAM
-record, then you can use the `BAM.cigar_field_rle` method instead of this one.
+record, then you can set checkCG to `false`.
 
-See also `BAM.cigar`, `BAM.cigar_field`, `BAM.cigar_field_rle`.
+See also `BAM.cigar`.
 """
-function cigar_rle(record::Record)
+function cigar_rle(record::Record, checkCG::Bool = true)::Tuple{Vector{BioAlignments.Operation},Vector{Int}}
     checkfilled(record)
-    idx, nops = cigar_position(record)
-    ops, lens = extract_cigar_rle(record.data, idx, nops)
-    return ops, lens
-end
-
-"""
-    cigar_field(record::Record)::String
-
-Get the string from the `cigar` field of a BAM `record`.
-
-Note that in the BAM specification, the field called `cigar` typically stores
-the cigar string of the record.
-However, this is not always true, sometimes the true cigar is very long,
-and due to  some constraints of the BAM format, the actual cigar string is
-stored in an extra tag: `CG:B,I`, and the `cigar` field stores a pseudo-cigar
-string.
-
-Calling this method on a record with a long cigar string, will not yield the
-true cigar string, but a pseudo cigar string, which is useful in some
-situations, but it is probably not what you want. To guarantee that you get the
-true cigar string, use the `BAM.cigar` method.
-
-See also `BAM.cigar_field_rle`, `BAM.cigar`, `BAM.cigar_rle`.
-"""
-function cigar_field(record::Record)::String
-    buf = IOBuffer()
-    for (op, len) in zip(cigar_field_rle(record)...)
-        print(buf, len, Char(op))
-    end
-    return String(take!(buf))
-end
-
-"""
-    cigar_field_rle(record::Record)::Tuple{Vector{BioAlignments.Operation},Vector{Int}}
-
-Get a run-length encoded tuple `(ops, lens)` of the `cigar` field in `record`.
-
-Note that in the BAM specification, the field called `cigar` typically stores
-the cigar string of the record.
-However, this is not always true, sometimes the true cigar is very long,
-and due to  some constraints of the BAM format, the actual cigar string is
-stored in an extra tag: `CG:B,I`, and the `cigar` field stores a pseudo-cigar
-string.
-
-Calling this method on a record with a long cigar string, will not yield the
-true cigar string, but a pseudo cigar string, which is useful in some
-situations, but it is probably not what you want. To guarantee that you get the
-true cigar string, use the `BAM.cigar_rle` method.
-
-See also `BAM.cigar_field`, `BAM.cigar`, `BAM.cigar_rle`.
-"""
-function cigar_field_rle(record::Record)
-    checkfilled(record)
-    idx, nops = cigar_field_position(record)
+    idx, nops = cigar_position(record, checkCG)
     ops, lens = extract_cigar_rle(record.data, idx, nops)
     return ops, lens
 end
@@ -415,12 +376,11 @@ function extract_cigar_rle(data::Vector{UInt8}, offset, n)
     return ops, lens
 end
 
-function cigar_field_position(record::Record)
-    return seqname_length(record) + 1, n_cigar_op_field(record)
-end
-
-function cigar_position(record::Record)::Tuple{Int, Int}
-    cigaridx, nops = cigar_field_position(record)
+function cigar_position(record::Record, checkCG::Bool = true)::Tuple{Int, Int}
+    cigaridx, nops = seqname_length(record) + 1, record.flag_nc & 0xFFFF
+    if !checkCG
+        return cigaridx, nops
+    end
     if nops != 2
         return cigaridx, nops
     end
@@ -485,9 +445,9 @@ Get the alignment length of `record`.
 function alignlength(record::Record)::Int
     offset = seqname_length(record)
     length::Int = 0
-    for i in offset + 1:4:offset + n_cigar_op_field(record) * 4
+    for i in offset + 1:4:offset + n_cigar_op(record, false) * 4
         x = unsafe_load(Ptr{UInt32}(pointer(record.data, i)))
-        op = BioAlignments.Operation(x & 0x0f)
+        op = BioAlignments.Operation(x & 0x0F)
         if BioAlignments.ismatchop(op) || BioAlignments.isdeleteop(op)
             length += x >> 4
         end
@@ -533,7 +493,7 @@ function sequence(record::Record)::BioSequences.DNASequence
     checkfilled(record)
     seqlen = seqlength(record)
     data = Vector{UInt64}(cld(seqlen, 16))
-    src::Ptr{UInt64} = pointer(record.data, seqname_length(record) + n_cigar_op_field(record) * 4 + 1)
+    src::Ptr{UInt64} = pointer(record.data, seqname_length(record) + n_cigar_op(record, false) * 4 + 1)
     for i in 1:endof(data)
         # copy data flipping high and low nybble
         x = unsafe_load(src, i)
@@ -568,7 +528,7 @@ Get the base quality of  `record`.
 function quality(record::Record)::Vector{UInt8}
     checkfilled(record)
     seqlen = seqlength(record)
-    offset = seqname_length(record) + n_cigar_op_field(record) * 4 + cld(seqlen, 2)
+    offset = seqname_length(record) + n_cigar_op(record, false) * 4 + cld(seqlen, 2)
     return [reinterpret(Int8, record.data[i+offset]) for i in 1:seqlen]
 end
 
@@ -669,7 +629,7 @@ end
 
 function auxdata_position(record::Record)
     seqlen = seqlength(record)
-    return seqname_length(record) + n_cigar_op_field(record) * 4 + cld(seqlen, 2) + seqlen + 1
+    return seqname_length(record) + n_cigar_op(record, false) * 4 + cld(seqlen, 2) + seqlen + 1
 end
 
 # Return the length of the read name.
