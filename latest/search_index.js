@@ -9,11 +9,11 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "index.html#BioAlignments.jl-1",
+    "location": "index.html#BioAlignments-1",
     "page": "Home",
-    "title": "BioAlignments.jl",
+    "title": "BioAlignments",
     "category": "section",
-    "text": "Latest release:(Image: Latest Release) (Image: BioAlignments) (Image: BioAlignments) (Image: License) (Image: Docs Stable) (Image: BioJulia maintainer: bicycle1885) (Image: BioJulia maintainer: Ward9250)Development status:(Image: Build Status) (Image: Build status) (Image: codecov.io) (Image: Docs Latest)"
+    "text": "[![latest release][release-img]][release-url] [![MIT license][license-img]][license-url] [![stable documentation][docs-stable-img]][docs-stable-url] [![latest documentation][docs-latest-img]][docs-latest-url] ![lifecycle][lifecycle-maturing] [![Chat on Discord][discord-img]][discord-url]"
 },
 
 {
@@ -21,7 +21,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Home",
     "title": "Description",
     "category": "section",
-    "text": "BioAlignments.jl provides alignment algorithms, data structures, and I/O tools for SAM and BAM file formats."
+    "text": "BioAlignments provides alignment algorithms, data structures, and I/O tools for SAM and BAM file formats."
 },
 
 {
@@ -29,7 +29,15 @@ var documenterSearchIndex = {"docs": [
     "page": "Home",
     "title": "Installation",
     "category": "section",
-    "text": "Install BioAlignments from the Julia REPL:julia> Pkg.add(\"BioAlignments\")If you are interested in the cutting edge of the development, please check out the master branch to try new features before release."
+    "text": "Install BioAlignments from the Julia REPL:using Pkg\nadd(\"BioAlignments\")\n#Pkg.add(\"BioAlignments\") for julia prior to v0.7If you are interested in the cutting edge of the development, please check out the master branch to try new features before release."
+},
+
+{
+    "location": "index.html#Testing-1",
+    "page": "Home",
+    "title": "Testing",
+    "category": "section",
+    "text": "BioAlignments is tested against julia 0.6 and current 0.7-dev on Linux, OS X, and Windows.Latest release Latest build status\n[![julia06][juliapkg06-img]][juliapkg-url] [![julia07][juliapkg07-img]][juliapkg-url] [![travis][travis-img]][travis-url] [![appveyor][appveyor-img]][appveyor-url] [![coverage][codecov-img]][codecov-url]"
 },
 
 {
@@ -37,7 +45,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Home",
     "title": "Contributing and Questions",
     "category": "section",
-    "text": "We appreciate contributions from users including reporting bugs, fixing issues, improving performance and adding new features. Please go to the contributing section of the documentation for more information.If you have a question about contributing or using this package, you are encouraged to use the Bio category of the Julia discourse site."
+    "text": "We appreciate contributions from users including reporting bugs, fixing issues, improving performance and adding new features.Take a look at the CONTRIBUTING file provided with this package for detailed contributor and maintainer guidelines.If you have a question about contributing or using this package, come on over and chat to us on [Discord][discord-url], or you can try the Bio category of the Julia discourse site.[release-img]:            https://img.shields.io/github/release/BioJulia/BioAlignments.jl.svg?style=flat-square [release-url]:            https://github.com/BioJulia/BioAlignments.jl/releases/latest [license-img]:            https://img.shields.io/badge/license-MIT-green.svg?style=flat-square [license-url]:            https://github.com/BioJulia/BioAlignments.jl/blob/master/LICENSE [docs-stable-img]:        https://img.shields.io/badge/docs-stable-blue.svg?style=flat-square [docs-stable-url]:        https://biojulia.github.io/BioAlignments.jl/stable [docs-latest-img]:        https://img.shields.io/badge/docs-latest-blue.svg?style=flat-square [docs-latest-url]:        https://biojulia.github.io/BioAlignments.jl/latest/ [lifecycle-experimental]: https://img.shields.io/badge/lifecycle-experimental-orange.svg?style=flat-square [lifecycle-maturing]:     https://img.shields.io/badge/lifecycle-maturing-blue.svg?style=flat-square [lifecycle-stable]:       https://img.shields.io/badge/lifecycle-stable-brightgreen.svg?style=flat-square [lifecycle-retired]:      https://img.shields.io/badge/lifecycle-retired-orange.svg?style=flat-square [lifecycle-archived]:     https://img.shields.io/badge/lifecycle-archived-red.svg?style=flat-square [lifecycle-dormant]:      https://img.shields.io/badge/lifecycle-dormant-blue.svg?style=flat-square [lifecycle-questioning]:  https://img.shields.io/badge/lifecycle-questioning-blue.svg?style=flat-square [discord-img]:            https://img.shields.io/badge/discord-chat-blue.svg?style=flat-square&logo=discord&colorB=%237289DA [discord-url]:            https://discord.gg/z73YNFz [juliapkg06-img]:         http://pkg.julialang.org/badges/BioAlignments_0.6.svg?style=flat-square [juliapkg07-img]:         http://pkg.julialang.org/badges/BioAlignments_0.7.svg?style=flat-square [juliapkg-url]:           http://pkg.julialang.org/?pkg=BioAlignments [travis-img]:             https://img.shields.io/travis/BioJulia/BioAlignments.jl/master.svg?label=Linux+/+macOS [travis-url]:             https://travis-ci.org/BioJulia/BioAlignments.jl [appveyor-img]:           https://ci.appveyor.com/api/projects/status/klkynmkr1tgd30gq/branch/master?svg=true [appveyor-url]:           https://ci.appveyor.com/project/Ward9250/bioalignments-jl/branch/master [codecov-img]:            http://codecov.io/github/BioJulia/BioAlignments.jl/coverage.svg?branch=master [codecov-url]:            http://codecov.io/github/BioJulia/BioAlignments.jl?branch=master"
 },
 
 {
@@ -145,67 +153,43 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "hts-files.html#High-throughput-Sequencing-1",
+    "location": "hts-files.html#SAM-and-BAM-1",
     "page": "SAM and BAM",
-    "title": "High-throughput Sequencing",
+    "title": "SAM and BAM",
     "category": "section",
     "text": ""
 },
 
 {
-    "location": "hts-files.html#Overview-1",
+    "location": "hts-files.html#Introduction-1",
     "page": "SAM and BAM",
-    "title": "Overview",
+    "title": "Introduction",
     "category": "section",
-    "text": "High-throughput sequencing (HTS) technologies generate a large amount of data in the form of a large number of nucleotide sequencing reads. One of the most common tasks in bioinformatics is to align these reads against known reference genomes, chromosomes, or contigs. BioAlignments.jl provides several data formats commonly used for this kind of task."
+    "text": "High-throughput sequencing (HTS) technologies generate a large amount of data in the form of a large number of nucleotide sequencing reads. One of the most common tasks in bioinformatics is to align these reads against known reference genomes, chromosomes, or contigs. BioAlignments provides several data formats commonly used for this kind of task.BioAlignments offers high-performance tools for SAM and BAM file formats, which are the most popular file formats.If you have questions about the SAM and BAM formats or any of the terminology used when discussing these formats, see the published [specification][samtools-spec], which is maintained by the [samtools group][samtools].A very very simple SAM file looks like the following:@HD VN:1.6 SO:coordinate\n@SQ SN:ref LN:45\nr001   99 ref  7 30 8M2I4M1D3M = 37  39 TTAGATAAAGGATACTG *\nr002    0 ref  9 30 3S6M1P1I4M *  0   0 AAAAGATAAGGATA    *\nr003    0 ref  9 30 5S6M       *  0   0 GCCTAAGCTAA       * SA:Z:ref,29,-,6H5M,17,0;\nr004    0 ref 16 30 6M14N5M    *  0   0 ATAGCTTCAGC       *\nr003 2064 ref 29 17 6H5M       *  0   0 TAGGC             * SA:Z:ref,9,+,5S6M,30,1;\nr001  147 ref 37 30 9M         =  7 -39 CAGCGGCAT         * NM:i:1Where the first two lines are part of the \"header\", and the following lines are \"records\". Each record describes how a read aligns to some reference sequence. Sometimes one record describes one read, but there are other cases like chimeric reads and split alignments, where multiple records apply to one read. In the example above, r003 is a chimeric read, and r004 is a split alignment, and r001 are mate pair reads. Again, we refer you to the official [specification][samtools-spec] for more details.A BAM file stores this same information but in a binary and compressible format that does not make for pretty printing here!"
 },
 
 {
-    "location": "hts-files.html#SAM-and-BAM-file-formats-1",
+    "location": "hts-files.html#Reading-SAM-and-BAM-files-1",
     "page": "SAM and BAM",
-    "title": "SAM and BAM file formats",
-    "category": "section",
-    "text": ""
-},
-
-{
-    "location": "hts-files.html#Description-1",
-    "page": "SAM and BAM",
-    "title": "Description",
-    "category": "section",
-    "text": "BioAlignments.jl offers high-performance tools for SAM and BAM file formats, which are the most popular file formats.If you have questions about the SAM and BAM formats or any of the terminology used when discussing these formats, see the published [specification][samtools-spec], which is maintained by the [samtools group][samtools].A very very simple SAM file looks like the following:@HD VN:1.6 SO:coordinate\n@SQ SN:ref LN:45\nr001   99 ref  7 30 8M2I4M1D3M = 37  39 TTAGATAAAGGATACTG *\nr002    0 ref  9 30 3S6M1P1I4M *  0   0 AAAAGATAAGGATA    *\nr003    0 ref  9 30 5S6M       *  0   0 GCCTAAGCTAA       * SA:Z:ref,29,-,6H5M,17,0;\nr004    0 ref 16 30 6M14N5M    *  0   0 ATAGCTTCAGC       *\nr003 2064 ref 29 17 6H5M       *  0   0 TAGGC             * SA:Z:ref,9,+,5S6M,30,1;\nr001  147 ref 37 30 9M         =  7 -39 CAGCGGCAT         * NM:i:1Where the first two lines are part of the \"header\", and the following lines are \"records\". Each record describes how a read aligns to some reference sequence. Sometimes one record describes one read, but there are other cases like chimeric reads and split alignments, where multiple records apply to one read. In the example above, r003 is a chimeric read, and r004 is a split alignment, and r001 are mate pair reads. Again, we refer you to the official [specification][samtools-spec] for more details.A BAM file stores this same information but in a binary and compressible format that does not make for pretty printing here!"
-},
-
-{
-    "location": "hts-files.html#Reading-files-1",
-    "page": "SAM and BAM",
-    "title": "Reading files",
+    "title": "Reading SAM and BAM files",
     "category": "section",
     "text": "A typical script iterating over all records in a file looks like below:using BioAlignments\n\n# Open a BAM file.\nreader = open(BAM.Reader, \"data.bam\")\n\n# Iterate over BAM records.\nfor record in reader\n    # `record` is a BAM.Record object.\n    if BAM.ismapped(record)\n        # Print the mapped position.\n        println(BAM.refname(record), \':\', BAM.position(record))\n    end\nend\n\n# Close the BAM file.\nclose(reader)The size of a BAM file is often extremely large. The iterator interface demonstrated above allocates an object for each record and that may be a bottleneck of reading data from a BAM file. In-place reading reuses a pre-allocated object for every record and less memory allocation happens in reading:reader = open(BAM.Reader, \"data.bam\")\nrecord = BAM.Record()\nwhile !eof(reader)\n    read!(reader, record)\n    # do something\nend"
 },
 
 {
-    "location": "hts-files.html#Headers-1",
+    "location": "hts-files.html#SAM-and-BAM-Headers-1",
     "page": "SAM and BAM",
-    "title": "Headers",
+    "title": "SAM and BAM Headers",
     "category": "section",
     "text": "Both SAM.Reader and BAM.Reader implement the header function, which returns a SAM.Header object. To extract certain information out of the headers, you can use the find method on the header to extract information according to SAM/BAM tag. Again we refer you to the [specification][samtools-spec] for full details of all the different tags that can occur in headers, and what they mean.Below is an example of extracting all the info about the reference sequences from the BAM header. In SAM/BAM, any description of a reference sequence is stored in the header, under a tag denoted SQ (think reference SeQuence!).julia> reader = open(SAM.Reader, \"data.sam\");\n\njulia> find(header(reader), \"SQ\")\n7-element Array{Bio.Align.SAM.MetaInfo,1}:\n Bio.Align.SAM.MetaInfo:\n    tag: SQ\n  value: SN=Chr1 LN=30427671\n Bio.Align.SAM.MetaInfo:\n    tag: SQ\n  value: SN=Chr2 LN=19698289\n Bio.Align.SAM.MetaInfo:\n    tag: SQ\n  value: SN=Chr3 LN=23459830\n Bio.Align.SAM.MetaInfo:\n    tag: SQ\n  value: SN=Chr4 LN=18585056\n Bio.Align.SAM.MetaInfo:\n    tag: SQ\n  value: SN=Chr5 LN=26975502\n Bio.Align.SAM.MetaInfo:\n    tag: SQ\n  value: SN=chloroplast LN=154478\n Bio.Align.SAM.MetaInfo:\n    tag: SQ\n  value: SN=mitochondria LN=366924\nIn the above we can see there were 7 sequences in the reference: 5 chromosomes, one chloroplast sequence, and one mitochondrial sequence."
 },
 
 {
-    "location": "hts-files.html#Records-1",
+    "location": "hts-files.html#SAM-and-BAM-Records-1",
     "page": "SAM and BAM",
-    "title": "Records",
+    "title": "SAM and BAM Records",
     "category": "section",
-    "text": ""
-},
-
-{
-    "location": "hts-files.html#Accessor-methods-1",
-    "page": "SAM and BAM",
-    "title": "Accessor methods",
-    "category": "section",
-    "text": "BioAlignments.jl supports the following accessors for SAM.Record types.BioAlignments.SAM.flag\nBioAlignments.SAM.ismapped\nBioAlignments.SAM.isprimary\nBioAlignments.SAM.refname\nBioAlignments.SAM.position\nBioAlignments.SAM.rightposition\nBioAlignments.SAM.isnextmapped\nBioAlignments.SAM.nextrefname\nBioAlignments.SAM.nextposition\nBioAlignments.SAM.mappingquality\nBioAlignments.SAM.cigar\nBioAlignments.SAM.alignment\nBioAlignments.SAM.alignlength\nBioAlignments.SAM.tempname\nBioAlignments.SAM.templength\nBioAlignments.SAM.sequence\nBioAlignments.SAM.seqlength\nBioAlignments.SAM.quality\nBioAlignments.SAM.auxdataBioAlignments.jl supports the following accessors for BAM.Record types.BioAlignments.BAM.flag\nBioAlignments.BAM.ismapped\nBioAlignments.BAM.isprimary\nBioAlignments.BAM.refid\nBioAlignments.BAM.refname\nBioAlignments.BAM.reflen\nBioAlignments.BAM.position\nBioAlignments.BAM.rightposition\nBioAlignments.BAM.isnextmapped\nBioAlignments.BAM.nextrefid\nBioAlignments.BAM.nextrefname\nBioAlignments.BAM.nextposition\nBioAlignments.BAM.mappingquality\nBioAlignments.BAM.cigar\nBioAlignments.BAM.alignment\nBioAlignments.BAM.alignlength\nBioAlignments.BAM.tempname\nBioAlignments.BAM.templength\nBioAlignments.BAM.sequence\nBioAlignments.BAM.seqlength\nBioAlignments.BAM.quality\nBioAlignments.BAM.auxdata"
+    "text": "BioAlignments supports the following accessors for SAM.Record types.BioAlignments.SAM.flag\nBioAlignments.SAM.ismapped\nBioAlignments.SAM.isprimary\nBioAlignments.SAM.refname\nBioAlignments.SAM.position\nBioAlignments.SAM.rightposition\nBioAlignments.SAM.isnextmapped\nBioAlignments.SAM.nextrefname\nBioAlignments.SAM.nextposition\nBioAlignments.SAM.mappingquality\nBioAlignments.SAM.cigar\nBioAlignments.SAM.alignment\nBioAlignments.SAM.alignlength\nBioAlignments.SAM.tempname\nBioAlignments.SAM.templength\nBioAlignments.SAM.sequence\nBioAlignments.SAM.seqlength\nBioAlignments.SAM.quality\nBioAlignments.SAM.auxdataBioAlignments supports the following accessors for BAM.Record types.BioAlignments.BAM.flag\nBioAlignments.BAM.ismapped\nBioAlignments.BAM.isprimary\nBioAlignments.BAM.refid\nBioAlignments.BAM.refname\nBioAlignments.BAM.reflen\nBioAlignments.BAM.position\nBioAlignments.BAM.rightposition\nBioAlignments.BAM.isnextmapped\nBioAlignments.BAM.nextrefid\nBioAlignments.BAM.nextrefname\nBioAlignments.BAM.nextposition\nBioAlignments.BAM.mappingquality\nBioAlignments.BAM.cigar\nBioAlignments.BAM.alignment\nBioAlignments.BAM.alignlength\nBioAlignments.BAM.tempname\nBioAlignments.BAM.templength\nBioAlignments.BAM.sequence\nBioAlignments.BAM.seqlength\nBioAlignments.BAM.quality\nBioAlignments.BAM.auxdata"
 },
 
 {
@@ -221,7 +205,7 @@ var documenterSearchIndex = {"docs": [
     "page": "SAM and BAM",
     "title": "Getting records in a range",
     "category": "section",
-    "text": "BioAlignments.jl supports the BAI index to fetch records in a specific range from a BAM file.  [Samtools][samtools] provides index subcommand to create an index file (.bai) from a sorted BAM file.$ samtools index -b SRR1238088.sort.bam\n$ ls SRR1238088.sort.bam*\nSRR1238088.sort.bam     SRR1238088.sort.bam.baieachoverlap(reader, chrom, range) returns an iterator of BAM records overlapping the query interval:reader = open(BAM.Reader, \"SRR1238088.sort.bam\", index=\"SRR1238088.sort.bam.bai\")\nfor record in eachoverlap(reader, \"Chr2\", 10000:11000)\n    # `record` is a BAM.Record object\n    # ...\nend\nclose(reader)"
+    "text": "BioAlignments supports the BAI index to fetch records in a specific range from a BAM file.  [Samtools][samtools] provides index subcommand to create an index file (.bai) from a sorted BAM file.$ samtools index -b SRR1238088.sort.bam\n$ ls SRR1238088.sort.bam*\nSRR1238088.sort.bam     SRR1238088.sort.bam.baieachoverlap(reader, chrom, range) returns an iterator of BAM records overlapping the query interval:reader = open(BAM.Reader, \"SRR1238088.sort.bam\", index=\"SRR1238088.sort.bam.bai\")\nfor record in eachoverlap(reader, \"Chr2\", 10000:11000)\n    # `record` is a BAM.Record object\n    # ...\nend\nclose(reader)"
 },
 
 {
@@ -249,9 +233,9 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "references.html#References-1",
+    "location": "references.html#API-Reference-1",
     "page": "References",
-    "title": "References",
+    "title": "API Reference",
     "category": "section",
     "text": ""
 },
@@ -1350,38 +1334,6 @@ var documenterSearchIndex = {"docs": [
     "title": "BAM",
     "category": "section",
     "text": "BAM.Reader\nBAM.header\n\nBAM.Writer\n\nBAM.Record\nBAM.flag\nBAM.ismapped\nBAM.isprimary\nBAM.ispositivestrand\nBAM.refid\nBAM.refname\nBAM.position\nBAM.rightposition\nBAM.isnextmapped\nBAM.nextrefid\nBAM.nextrefname\nBAM.nextposition\nBAM.mappingquality\nBAM.cigar\nBAM.cigar_rle\nBAM.alignment\nBAM.alignlength\nBAM.tempname\nBAM.templength\nBAM.sequence\nBAM.seqlength\nBAM.quality\nBAM.auxdata\n\nBAM.BAI"
-},
-
-{
-    "location": "contributing.html#",
-    "page": "Contributing",
-    "title": "Contributing",
-    "category": "page",
-    "text": ""
-},
-
-{
-    "location": "contributing.html#Contributing-1",
-    "page": "Contributing",
-    "title": "Contributing",
-    "category": "section",
-    "text": "We appreciate contributions from users including reporting bugs, fixing issues, improving performance and adding new features.If you have a question about contributing or using this package, you are encouraged to use the Bio category of the Julia discourse site.Detailed guidance for contributing to all BioJulia packages is provided at the BioJulia Contribution Documentation.Here we list specific details about contributing and maintainership pertaining specifically to the BioSequences.jl package."
-},
-
-{
-    "location": "contributing.html#Named-maintainers-1",
-    "page": "Contributing",
-    "title": "Named maintainers",
-    "category": "section",
-    "text": "The named maintainers of this package are Kenta Sato and Ben Ward. It is their responsibility to make final choices about pull requests and issues, although because of our community structure, you will find other maintainers assisting them."
-},
-
-{
-    "location": "contributing.html#Branching-model-1",
-    "page": "Contributing",
-    "title": "Branching model",
-    "category": "section",
-    "text": "The branching model used to develop and make releases of this package is the OneFlow model summarized in the BioJulia Contribution Documentation"
 },
 
 ]}
