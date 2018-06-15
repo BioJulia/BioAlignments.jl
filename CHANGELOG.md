@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [0.3.0] - 2018-06-15
 ### Added
 - Contributing files were added to this project.
 - A method called `BAM.ispositivestrand` is added to test for the relevant flag
@@ -25,6 +27,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - This initial release extracted the alignment utilities out from Bio.jl into
   this dedicated package.
 
-[Unreleased]: https://github.com/BioJulia/BioAlignments.jl/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/BioJulia/BioAlignments.jl/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/BioJulia/BioAlignments.jl/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/BioJulia/BioAlignments.jl/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/BioJulia/BioAlignments.jl/tree/v0.1.0
