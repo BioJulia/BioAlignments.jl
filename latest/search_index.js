@@ -13,7 +13,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Home",
     "title": "BioAlignments",
     "category": "section",
-    "text": "(Image: Latest release) (Image: MIT license) (Image: Stable documentation) (Image: Latest documentation) (Image: Lifecycle) (Image: Chat on Discord) (Image: Backers on Open Collective) (Image: Sponsors on Open Collective)"
+    "text": "(Image: Latest release) (Image: MIT license) (Image: Stable documentation) (Image: Latest documentation) (Image: Lifecycle) (Image: Chat on Discord)"
 },
 
 {
