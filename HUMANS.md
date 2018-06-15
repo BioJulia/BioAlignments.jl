@@ -1,6 +1,6 @@
 # The humans responsible for BioAlignments
 
-## BioAlignments.jl Maintainers
+## Maintainers
 - Ben J. Ward
   - GitHub: [BenJWard](https://github.com/BenJWard)
   - Email: ben.ward@earlham.ac.uk
