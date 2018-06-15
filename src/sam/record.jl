@@ -506,39 +506,39 @@ end
 # Bio Methods
 # -----------
 
-function Bio.isfilled(record::Record)
+function BioCore.isfilled(record::Record)
     return !isempty(record.filled)
 end
 
-function Bio.seqname(record::Record)
+function BioCore.seqname(record::Record)
     return tempname(record)
 end
 
-function Bio.hasseqname(record::Record)
+function BioCore.hasseqname(record::Record)
     return hastempname(record)
 end
 
-function Bio.sequence(record::Record)
+function BioCore.sequence(record::Record)
     return sequence(record)
 end
 
-function Bio.hassequence(record::Record)
+function BioCore.hassequence(record::Record)
     return hassequence(record)
 end
 
-function Bio.rightposition(record::Record)
+function BioCore.rightposition(record::Record)
     return rightposition(record)
 end
 
-function Bio.hasrightposition(record::Record)
+function BioCore.hasrightposition(record::Record)
     return hasrightposition(record)
 end
 
-function Bio.leftposition(record::Record)
+function BioCore.leftposition(record::Record)
     return position(record)
 end
 
-function Bio.hasleftposition(record::Record)
+function BioCore.hasleftposition(record::Record)
     return hasposition(record)
 end
 

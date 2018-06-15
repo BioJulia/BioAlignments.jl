@@ -9,9 +9,6 @@ import GenomicFeatures: GenomicFeatures, Interval
 import BioSequences
 import BioCore: BioCore, isfilled
 
-# FIXME
-const Bio = BioCore
-
 include("bai.jl")
 include("auxdata.jl")
 include("reader.jl")

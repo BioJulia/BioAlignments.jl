@@ -10,7 +10,7 @@ Create a data reader of the BAM file format.
 * `input`: data source
 * `index=nothing`: filepath to a random access index (currently *bai* is supported)
 """
-mutable struct Reader{T} <: Bio.IO.AbstractReader
+mutable struct Reader{T} <: BioCore.IO.AbstractReader
     stream::BGZFStreams.BGZFStream{T}
     header::SAM.Header
     start_offset::BGZFStreams.VirtualOffset
@@ -23,7 +23,7 @@ function Base.eltype(::Type{Reader{T}}) where T
     return Record
 end
 
-function Bio.IO.stream(reader::Reader)
+function BioCore.IO.stream(reader::Reader)
     return reader.stream
 end
 
@@ -66,7 +66,7 @@ function header(reader::Reader; fillSQ::Bool=false)::SAM.Header
     return header
 end
 
-function Bio.header(reader::Reader)
+function BioCore.header(reader::Reader)
     return header(reader)
 end
 

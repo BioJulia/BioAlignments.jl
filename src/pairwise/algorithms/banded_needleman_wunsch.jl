@@ -8,7 +8,7 @@
 # form a lower and upper bounded band in the dynamic programming matrix.
 #
 # This file is a part of BioJulia.
-# License is MIT: https://github.com/BioJulia/Bio.jl/blob/master/LICENSE.md
+# License is MIT: https://github.com/BioJulia/BioAlignments.jl/blob/master/LICENSE.md
 
 mutable struct BandedNeedlemanWunsch{T<:Union{Signed,AbstractFloat}}
     trace::Matrix{Trace}

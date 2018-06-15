@@ -12,9 +12,6 @@ import BioCore: BioCore, isfilled
 import BioSequences
 import BufferedStreams
 
-# FIXME
-const Bio = BioCore
-
 include("flags.jl")
 include("metainfo.jl")
 include("record.jl")
