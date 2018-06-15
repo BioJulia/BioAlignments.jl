@@ -6,8 +6,6 @@
 [![Latest documentation](https://img.shields.io/badge/docs-latest-blue.svg?style=flat-square)](https://biojulia.github.io/BioAlignments.jl/latest/)
 ![Lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg?style=flat-square)
 [![Chat on Discord](https://img.shields.io/badge/discord-chat-blue.svg?style=flat-square&logo=discord&colorB=%237289DA)](https://discord.gg/z73YNFz)
-[![Backers on Open Collective](oc-backers-img)](#backers)
-[![Sponsors on Open Collective](oc-sponsors-img)](#sponsors)
 
 
 ## Description
@@ -37,7 +35,7 @@ Linux, OS X, and Windows.
 
 | **Latest release** | **Latest build status** |
 |:------------------:|:-----------------------:|
-| [![julia06](http://pkg.julialang.org/badges/BioAlignments_0.6.svg)](http://pkg.julialang.org/?pkg=BioAlignments) [![julia07](http://pkg.julialang.org/badges/BioAlignments_0.7.svg)](http://pkg.julialang.org/?pkg=BioAlignments) | [![travis](https://img.shields.io/travis/BioJulia/BioAlignments.jl/master.svg?label=Linux+/+macOS)](https://travis-ci.org/BioJulia/BioAlignments.jl) [![appveyor](https://ci.appveyor.com/api/projects/status/klkynmkr1tgd30gq/branch/master?svg=true)](https://ci.appveyor.com/project/Ward9250/bioalignments-jl/branch/master) [![coverage](http://codecov.io/github/BioJulia/BioAlignments.jl/coverage.svg?branch=master)](http://codecov.io/github/BioJulia/BioAlignments.jl?branch=master) |
+| [![julia06](https://pkg.julialang.org/badges/BioAlignments_0.6.svg)](https://pkg.julialang.org/?pkg=BioAlignments) [![julia07](https://pkg.julialang.org/badges/BioAlignments_0.7.svg)](https://pkg.julialang.org/?pkg=BioAlignments) | [![travis](https://img.shields.io/travis/BioJulia/BioAlignments.jl/master.svg?label=Linux+/+macOS)](https://travis-ci.org/BioJulia/BioAlignments.jl) [![appveyor](https://ci.appveyor.com/api/projects/status/klkynmkr1tgd30gq/branch/master?svg=true)](https://ci.appveyor.com/project/Ward9250/bioalignments-jl/branch/master) [![coverage](https://codecov.io/github/BioJulia/BioAlignments.jl/coverage.svg?branch=master)](https://codecov.io/github/BioJulia/BioAlignments.jl?branch=master) |
 
 
 ## Contributing
