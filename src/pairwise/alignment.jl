@@ -58,7 +58,7 @@ function Base.next(aln::PairwiseAlignment, ij)
 end
 
 Base.length(aln::PairwiseAlignment) = count_aligned(aln)
-Base.eltype{S1,S2}(::Type{PairwiseAlignment{S1,S2}}) = Tuple{eltype(S1),eltype(S2)}
+Base.eltype(::Type{PairwiseAlignment{S1,S2}}) where {S1,S2} = Tuple{eltype(S1),eltype(S2)}
 
 """
     count(aln::PairwiseAlignment, target::Operation)
