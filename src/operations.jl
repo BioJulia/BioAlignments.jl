@@ -17,9 +17,11 @@ primitive type Operation 8 end
 
 Base.convert(::Type{Operation}, op::UInt8) = reinterpret(Operation, op)
 Base.convert(::Type{UInt8}, op::Operation) = reinterpret(UInt8, op)
+Operation(c::UInt8) = convert(Operation, c)
 
-Base.convert(::Type{Operation}, op::Integer) = Operation(UInt8(op))
-Base.convert(::Type{T}, op::Operation) where T<:Integer = T(UInt8(op))
+Base.convert(::Type{Operation}, op::Integer) = Operation(convert(UInt8, op))
+Base.convert(::Type{T}, op::Operation) where T<:Integer = T(convert(UInt8, op))
+Operation(c::Integer) = convert(Operation, UInt8(c))
 
 
 # Operation encoding definitions
@@ -101,6 +103,8 @@ function Base.convert(::Type{Operation}, c::Char)
     return op
 end
 
+Operation(c::Char) = convert(Operation, c)
+
 function Base.convert(::Type{Char}, op::Operation)
     if !isvalid(op)
         throw(ArgumentError("invalid alignment operation"))
@@ -115,7 +119,7 @@ end
 
 function Base.show(io::IO, op::Operation)
     if isvalid(op)
-        print(io, op_to_symbol[Int(op)+1])
+        print(io, op_to_symbol[convert(Int, op)+1])
     else
         print(io, "Invalid Operation")
     end

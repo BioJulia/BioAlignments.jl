@@ -71,7 +71,7 @@ function Record(str::AbstractString)
 end
 
 function Base.convert(::Type{Record}, str::AbstractString)
-    return Record(convert(Vector{UInt8}, str))
+    return Record(Vector{UInt8}(str))
 end
 
 function Base.show(io::IO, record::Record)
@@ -426,7 +426,7 @@ function quality(record::Record)::Vector{UInt8}
         missingerror(:quality)
     end
     qual = record.data[record.qual]
-    for i in 1:endof(qual)
+    for i in 1:lastindex(qual)
         @inbounds qual[i] -= 33
     end
     return qual
@@ -469,7 +469,7 @@ function Base.getindex(record::Record, tag::AbstractString)
     # data type
     typ = record.data[first(field)+3]
     lo = first(field) + 5
-    if i == endof(record.fields)
+    if i == lastindex(record.fields)
         hi = last(field)
     else
         hi = first(record.fields[i+1]) - 2

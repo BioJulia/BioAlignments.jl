@@ -183,13 +183,13 @@ const sam_metainfo_machine, sam_record_machine, sam_header_machine, sam_body_mac
 end)()
 
 const sam_metainfo_actions = Dict(
-    :metainfo_tag => :(record.tag = (mark1:p-1) - offset),
-    :metainfo_val => :(record.val = (mark1:p-1) - offset),
-    :metainfo_dict_key => :(push!(record.dictkey, (mark2:p-1) - offset)),
-    :metainfo_dict_val => :(push!(record.dictval, (mark2:p-1) - offset)),
+    :metainfo_tag => :(record.tag = (mark1:p-1) .- offset),
+    :metainfo_val => :(record.val = (mark1:p-1) .- offset),
+    :metainfo_dict_key => :(push!(record.dictkey, (mark2:p-1) .- offset)),
+    :metainfo_dict_val => :(push!(record.dictval, (mark2:p-1) .- offset)),
     :metainfo => quote
         BioCore.ReaderHelper.resize_and_copy!(record.data, data, offset+1:p-1)
-        record.filled = (offset+1:p-1) - offset
+        record.filled = (offset+1:p-1) .- offset
     end,
     :anchor => :(),
     :mark1  => :(mark1 = p),
@@ -209,7 +209,7 @@ eval(
         merge(sam_metainfo_actions, Dict(
             :metainfo => quote
                 BioCore.ReaderHelper.resize_and_copy!(record.data, data, BioCore.ReaderHelper.upanchor!(stream):p-1)
-                record.filled = (offset+1:p-1) - offset
+                record.filled = (offset+1:p-1) .- offset
                 @assert isfilled(record)
                 push!(reader.header.metainfo, record)
                 BioCore.ReaderHelper.ensure_margin!(stream)
@@ -225,21 +225,21 @@ eval(
         end))
 
 const sam_record_actions = Dict(
-    :record_qname => :(record.qname = (mark:p-1) - offset),
-    :record_flag  => :(record.flag  = (mark:p-1) - offset),
-    :record_rname => :(record.rname = (mark:p-1) - offset),
-    :record_pos   => :(record.pos   = (mark:p-1) - offset),
-    :record_mapq  => :(record.mapq  = (mark:p-1) - offset),
-    :record_cigar => :(record.cigar = (mark:p-1) - offset),
-    :record_rnext => :(record.rnext = (mark:p-1) - offset),
-    :record_pnext => :(record.pnext = (mark:p-1) - offset),
-    :record_tlen  => :(record.tlen  = (mark:p-1) - offset),
-    :record_seq   => :(record.seq   = (mark:p-1) - offset),
-    :record_qual  => :(record.qual  = (mark:p-1) - offset),
-    :record_field => :(push!(record.fields, (mark:p-1) - offset)),
+    :record_qname => :(record.qname = (mark:p-1) .- offset),
+    :record_flag  => :(record.flag  = (mark:p-1) .- offset),
+    :record_rname => :(record.rname = (mark:p-1) .- offset),
+    :record_pos   => :(record.pos   = (mark:p-1) .- offset),
+    :record_mapq  => :(record.mapq  = (mark:p-1) .- offset),
+    :record_cigar => :(record.cigar = (mark:p-1) .- offset),
+    :record_rnext => :(record.rnext = (mark:p-1) .- offset),
+    :record_pnext => :(record.pnext = (mark:p-1) .- offset),
+    :record_tlen  => :(record.tlen  = (mark:p-1) .- offset),
+    :record_seq   => :(record.seq   = (mark:p-1) .- offset),
+    :record_qual  => :(record.qual  = (mark:p-1) .- offset),
+    :record_field => :(push!(record.fields, (mark:p-1) .- offset)),
     :record       => quote
         BioCore.ReaderHelper.resize_and_copy!(record.data, data, 1:p-1)
-        record.filled = (offset+1:p-1) - offset
+        record.filled = (offset+1:p-1) .- offset
     end,
     :anchor       => :(),
     :mark         => :(mark = p))
@@ -257,7 +257,7 @@ eval(
         merge(sam_record_actions, Dict(
             :record    => quote
                 BioCore.ReaderHelper.resize_and_copy!(record.data, data, BioCore.ReaderHelper.upanchor!(stream):p-1)
-                record.filled = (offset+1:p-1) - offset
+                record.filled = (offset+1:p-1) .- offset
                 found_record = true
                 @escape
             end,

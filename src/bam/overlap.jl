@@ -7,7 +7,7 @@ struct OverlapIterator{T}
     interval::UnitRange{Int}
 end
 
-function Base.iteratorsize(::Type{OverlapIterator{T}}) where T
+function Base.IteratorSize(::Type{OverlapIterator{T}}) where T
     return Base.SizeUnknown()
 end
 
@@ -45,43 +45,39 @@ mutable struct OverlapIteratorState
     record::Record
 end
 
-function Base.start(iter::OverlapIterator)
-    refindex = findfirst(iter.reader.refseqnames, iter.refname)
+function Base.iterate(iter::OverlapIterator)
+    refindex = findfirst(isequal(iter.refname), iter.reader.refseqnames)
     if refindex == 0
         throw(ArgumentError("sequence name $(iter.refname) is not found in the header"))
     end
-    @assert !isnull(iter.reader.index)
-    chunks = GenomicFeatures.Indexes.overlapchunks(get(iter.reader.index).index, refindex, iter.interval)
+    @assert iter.reader.index !== nothing
+    chunks = GenomicFeatures.Indexes.overlapchunks(iter.reader.index.index, refindex, iter.interval)
     if !isempty(chunks)
         seek(iter.reader, first(chunks).start)
     end
-    return OverlapIteratorState(refindex, chunks, 1, Record())
+    state = OverlapIteratorState(refindex, chunks, 1, Record())
+    return iterate(iter, state)
 end
 
-function Base.done(iter::OverlapIterator, state)
-    while state.chunkid ≤ endof(state.chunks)
+function Base.iterate(iter::OverlapIterator, state)
+    while state.chunkid ≤ lastindex(state.chunks)
         chunk = state.chunks[state.chunkid]
         while BGZFStreams.virtualoffset(iter.reader.stream) < chunk.stop
             read!(iter.reader, state.record)
             c = compare_intervals(state.record, (state.refindex, iter.interval))
             if c == 0
-                # overlapping
-                return false
+                return copy(state.record), state
             elseif c > 0
                 # no more overlapping records in this chunk since records are sorted
                 break
             end
         end
         state.chunkid += 1
-        if state.chunkid ≤ endof(state.chunks)
+        if state.chunkid ≤ lastindex(state.chunks)
             seek(iter.reader, state.chunks[state.chunkid].start)
         end
     end
-    return true
-end
-
-function Base.next(::OverlapIterator, state)
-    return copy(state.record), state
+    return nothing
 end
 
 function compare_intervals(record::Record, interval::Tuple{Int,UnitRange{Int}})

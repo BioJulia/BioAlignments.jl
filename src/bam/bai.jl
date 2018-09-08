@@ -12,7 +12,7 @@ struct BAI
     index::GenomicFeatures.Indexes.BGZFIndex
 
     # number of unmapped reads
-    n_no_coors::Nullable{Int}
+    n_no_coors::Union{Nothing, Int}
 end
 
 """
@@ -48,9 +48,9 @@ function read_bai(input::IO)
     n_refs = read(input, Int32)
     index = GenomicFeatures.Indexes.read_bgzfindex(input, n_refs)
     if !eof(input)
-        n_no_coors = Nullable{Int}(read(input, UInt64))
+        n_no_coors = read(input, UInt64)
     else
-        n_no_coors = Nullable{Int}()
+        n_no_coors = nothing
     end
 
     return BAI(index, n_no_coors)

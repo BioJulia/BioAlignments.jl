@@ -90,6 +90,7 @@ import BioSequences
 import BioSymbols
 import GenomicFeatures: eachoverlap
 import IntervalTrees
+using LinearAlgebra: diagind
 
 include("operations.jl")
 include("anchors.jl")

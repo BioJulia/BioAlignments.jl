@@ -16,7 +16,7 @@ mutable struct Reader{T} <: BioCore.IO.AbstractReader
     start_offset::BGZFStreams.VirtualOffset
     refseqnames::Vector{String}
     refseqlens::Vector{Int}
-    index::Nullable{BAI}
+    index::Union{Nothing, BAI}
 end
 
 function Base.eltype(::Type{Reader{T}}) where T
@@ -55,7 +55,7 @@ If `fillSQ` is `true`, this function fills missing "SQ" metainfo in the header.
 function header(reader::Reader; fillSQ::Bool=false)::SAM.Header
     header = reader.header
     if fillSQ
-        if !isempty(find(reader.header, "SQ"))
+        if !isempty(findall(reader.header, "SQ"))
             throw(ArgumentError("SAM header already has SQ records"))
         end
         header = copy(header)
@@ -78,15 +78,10 @@ function Base.seekstart(reader::Reader)
     seek(reader.stream, reader.start_offset)
 end
 
-function Base.start(reader::Reader)
-    return Record()
-end
-
-function Base.done(reader::Reader, rec)
-    return eof(reader)
-end
-
-function Base.next(reader::Reader, rec)
+function Base.iterate(reader::Reader, rec=Record())
+    if eof(reader)
+        return nothing
+    end
     read!(reader, rec)
     return copy(rec), rec
 end
@@ -104,7 +99,7 @@ function init_bam_reader(input::BGZFStreams.BGZFStream)
 
     # SAM header
     textlen = read(input, Int32)
-    samreader = SAM.Reader(IOBuffer(read(input, UInt8, textlen)))
+    samreader = SAM.Reader(IOBuffer(read(input, textlen)))
 
     # reference sequences
     refseqnames = String[]
@@ -112,7 +107,7 @@ function init_bam_reader(input::BGZFStreams.BGZFStream)
     n_refs = read(input, Int32)
     for _ in 1:n_refs
         namelen = read(input, Int32)
-        data = read(input, UInt8, namelen)
+        data = read(input, namelen)
         seqname = unsafe_string(pointer(data))
         seqlen = read(input, Int32)
         push!(refseqnames, seqname)
@@ -128,7 +123,7 @@ function init_bam_reader(input::BGZFStreams.BGZFStream)
         voffset,
         refseqnames,
         refseqlens,
-        Nullable{BAI}())
+        nothing)
 end
 
 function init_bam_reader(input::IO)

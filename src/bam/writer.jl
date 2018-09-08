@@ -17,7 +17,7 @@ end
 function Writer(stream::BGZFStreams.BGZFStream, header::SAM.Header)
     refseqnames = String[]
     refseqlens = Int[]
-    for metainfo in find(header, "SQ")
+    for metainfo in findall(header, "SQ")
         push!(refseqnames, metainfo["SN"])
         push!(refseqlens, parse(Int, metainfo["LN"]))
     end

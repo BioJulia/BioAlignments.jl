@@ -155,7 +155,7 @@ function cigar(aln::Alignment)
     for i in 2:length(anchors)
         n = max(anchors[i].seqpos - anchors[i-1].seqpos,
                 anchors[i].refpos - anchors[i-1].refpos)
-        print(out, n, Char(anchors[i].op))
+        print(out, n, convert(Char, anchors[i].op))
     end
     return String(take!(out))
 end
@@ -171,7 +171,7 @@ function check_alignment_anchors(anchors)
         error("Alignments must begin with on OP_START anchor.")
     end
 
-    for i in 2:endof(anchors)
+    for i in 2:lastindex(anchors)
         if anchors[i].refpos < anchors[i-1].refpos ||
            anchors[i].seqpos < anchors[i-1].seqpos
             error("Alignment anchors must be sorted.")
@@ -208,7 +208,7 @@ end
     quote
         anchors = aln.anchors
         lo = 1
-        hi = endof(anchors)
+        hi = lastindex(anchors)
         if !(anchors[lo].$pos < i ≤ anchors[hi].$pos)
             return 0
         end

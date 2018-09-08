@@ -12,10 +12,10 @@ mutable struct SmithWaterman{T<:Union{Signed,AbstractFloat}}
     E::Vector{T}
 
     function SmithWaterman{T}(m::Integer, n::Integer) where T
-        trace = Matrix{Trace}(m + 1, n + 1)
+        trace = Matrix{Trace}(undef, (m + 1, n + 1))
         fill!(trace, 0xff)
-        H = Vector{T}(m + 1)
-        E = Vector{T}(m)
+        H = Vector{T}(undef, m + 1)
+        E = Vector{T}(undef, m)
         return new{T}(trace, H, E)
     end
 
@@ -27,7 +27,7 @@ end
 function ensureroom!(sw::SmithWaterman, m, n)
     if size(sw.trace, 1) < m + 1 || size(sw.trace, 2) < n + 1
         # TODO: resize the trace matrix if possible
-        sw.trace = Matrix{Trace}(m + 1, n + 1)
+        sw.trace = Matrix{Trace}(undef, (m + 1, n + 1))
         resize!(sw.H, m + 1)
         resize!(sw.E, m)
     end

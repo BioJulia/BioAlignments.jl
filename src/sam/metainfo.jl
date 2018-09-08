@@ -39,7 +39,7 @@ Create a SAM metainfo from `str`.
 
 """
 function MetaInfo(str::AbstractString)
-    return MetaInfo(convert(Vector{UInt8}, str))
+    return MetaInfo(Vector{UInt8}(str))
 end
 
 """
@@ -76,7 +76,7 @@ function MetaInfo(tag::AbstractString, value)
             throw(ArgumentError("value must be a string"))
         end
         write(buf, "@CO\t", value)
-    elseif ismatch(r"[A-Z][A-Z]", tag)
+    elseif occursin(r"[A-Z][A-Z]", tag)
         print(buf, '@', tag)
         for (key, val) in value
             print(buf, '\t', key, ':', val)

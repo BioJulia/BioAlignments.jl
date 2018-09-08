@@ -39,7 +39,7 @@ function SubstitutionMatrix(::Type{T},
                             default_mismatch::S) where {T,S}
     alpha = alphabet_without_gap(T)
     n = length(alpha)
-    data = Matrix{S}(n, n)
+    data = Matrix{S}(undef, (n, n))
     for x in alpha, y in alpha
         i = index(x)
         j = index(y)
@@ -60,10 +60,10 @@ function SubstitutionMatrix(::Type{T},
     return SubstitutionMatrix(T, submat, defined, default_match, default_mismatch)
 end
 
-function SubstitutionMatrix(scores::Associative{Tuple{T,T},S};
+function SubstitutionMatrix(scores::AbstractDict{Tuple{T,T},S};
                             default_match=S(0), default_mismatch=S(0)) where {T,S}
     n = length(BioSymbols.alphabet(T)) - 1
-    submat = Matrix{S}(n, n)
+    submat = Matrix{S}(undef, (n, n))
     defined = falses(n, n)
     for ((x, y), score) in scores
         i = index(x)
@@ -100,7 +100,7 @@ Base.maximum(submat::SubstitutionMatrix) = maximum(submat.data)
 function Base.show(io::IO, submat::SubstitutionMatrix{T,S}) where {T,S}
     alpha = alphabet_without_gap(T)
     n = length(alpha)
-    mat = Matrix{String}(n, n)
+    mat = Matrix{String}(undef, (n, n))
     for (i, x) in enumerate(alpha), (j, y) in enumerate(alpha)
         i′ = index(x)
         j′ = index(y)
@@ -161,9 +161,9 @@ end
 function Base.convert(::Type{SubstitutionMatrix{T,S}},
                       submat::DichotomousSubstitutionMatrix) where {T,S}
     n = length(BioSymbols.alphabet(T)) - 1
-    data = Matrix{S}(n, n)
+    data = Matrix{S}(undef, (n, n))
     fill!(data, submat.mismatch)
-    data[diagind(data)] = submat.match
+    data[diagind(data)] .= submat.match
     return SubstitutionMatrix{T,S}(data, trues(n, n))
 end
 
@@ -199,16 +199,16 @@ function parse_ncbi_submat(::Type{T}, filepath) where T
                 continue  # skip comments and empty lines
             end
             if isempty(cols)
-                for y in matchall(r"[A-Z*]", line)
-                    @assert length(y) == 1
-                    push!(cols, convert(T, first(y)))
+                for y in eachmatch(r"[A-Z*]", line)
+                    @assert length(y.match) == 1
+                    push!(cols, convert(T, first(y.match)))
                 end
             else
                 x = convert(T, first(line))
-                ss = matchall(r"-?\d+", line)
+                ss = collect(eachmatch(r"-?\d+", line))
                 @assert length(ss) == length(cols)
                 for (y, s) in zip(cols, ss)
-                    scores[(x, y)] = parse(Int, s)
+                    scores[(x, y)] = parse(Int, s.match)
                 end
             end
         end
