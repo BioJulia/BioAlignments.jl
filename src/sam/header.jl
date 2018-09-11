@@ -26,15 +26,10 @@ function Base.length(header::Header)
     return length(header.metainfo)
 end
 
-function Base.start(header::Header)
-    return 1
-end
-
-function Base.done(header::Header, i)
-    return i > length(header.metainfo)
-end
-
-function Base.next(header::Header, i)
+function Base.iterate(header::Header, i=1)
+    if i > length(header.metainfo)
+        return nothing
+    end
     return header.metainfo[i], i + 1
 end
 
@@ -43,12 +38,12 @@ end
 
 Find metainfo objects satisfying `SAM.tag(metainfo) == key`.
 """
-function Base.find(header::Header, key::AbstractString)::Vector{MetaInfo}
+function Base.findall(header::Header, key::AbstractString)::Vector{MetaInfo}
     return filter(m -> isequalkey(m, key), header.metainfo)
 end
 
-function Base.unshift!(header::Header, metainfo::MetaInfo)
-    unshift!(header.metainfo, metainfo)
+function Base.pushfirst!(header::Header, metainfo::MetaInfo)
+    pushfirst!(header.metainfo, metainfo)
     return header
 end
 

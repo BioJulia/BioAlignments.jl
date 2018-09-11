@@ -1,7 +1,7 @@
 # BAM Auxiliary Data
 # ==================
 
-struct AuxData <: Associative{String,Any}
+struct AuxData <: AbstractDict{String,Any}
     data::Vector{UInt8}
 end
 
@@ -21,15 +21,11 @@ function Base.length(aux::AuxData)
     return len
 end
 
-function Base.start(aux::AuxData)
-    return 1
-end
+function Base.iterate(aux::AuxData, pos=1)
+    if pos > length(aux.data)
+        return nothing
+    end
 
-function Base.done(aux::AuxData, pos)
-    return pos > length(aux.data)
-end
-
-function Base.next(aux::AuxData, pos)
     data = aux.data
     @label doit
     t1 = data[pos]
@@ -95,14 +91,14 @@ end
 function loadauxvalue(data::Vector{UInt8}, p::Int, ::Type{Vector{T}}) where T
     n = unsafe_load(Ptr{Int32}(pointer(data, p)))
     p += 4
-    xs = Vector{T}(n)
-    unsafe_copy!(pointer(xs), Ptr{T}(pointer(data, p)), n)
+    xs = Vector{T}(undef, n)
+    unsafe_copyto!(pointer(xs), Ptr{T}(pointer(data, p)), n)
     return p + n * sizeof(T), xs
 end
 
 function loadauxvalue(data::Vector{UInt8}, p::Int, ::Type{String})
     dataptr = pointer(data, p)
-    endptr = ccall(:memchr, Ptr{Void}, (Ptr{Void}, Cint, Csize_t),
+    endptr = ccall(:memchr, Ptr{Cvoid}, (Ptr{Cvoid}, Cint, Csize_t),
                    dataptr, '\0', length(data) - p + 1)
     q::Int = p + (endptr - dataptr) - 1
     return q + 2, String(data[p:q])

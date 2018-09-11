@@ -1,4 +1,4 @@
-using Base.Test
+using Test
 using BioAlignments
 using BioSymbols
 import BGZFStreams: BGZFStream
@@ -267,8 +267,8 @@ function alnscore(::Type{S}, affinegap::AffineGapScoreModel{T}, alnstr::Abstract
             stop += 1
         end
     elseif length(lines) == 3
-        start = search(lines[3], '^')
-        stop = rsearch(lines[3], '^')
+        start = findfirst(isequal('^'), lines[3])
+        stop = findlast(isequal('^'), lines[3])
     else
         error("invalid alignment string")
     end
@@ -289,13 +289,13 @@ function alnscore(::Type{S}, affinegap::AffineGapScoreModel{T}, alnstr::Abstract
             gap_extending_b = false
         end
     end
-    sa = S(replace(a, r"\s|-", ""))
-    sb = S(replace(b, r"\s|-", ""))
+    sa = S(replace(a, r"\s|-" => ""))
+    sb = S(replace(b, r"\s|-" => ""))
     return sa, sb, score, clip ? string(a[start:stop], '\n', b[start:stop]) : string(a, '\n', b)
 end
 
 function alnscore(affinegap::AffineGapScoreModel, alnstr::AbstractString; clip=true)
-    return alnscore(AbstractString, affinegap, alnstr, clip)
+    return alnscore(String, affinegap, alnstr, clip)
 end
 
 function alndistance(::Type{S}, cost::CostModel{T}, alnstr::AbstractString) where {S,T}
@@ -314,11 +314,11 @@ function alndistance(::Type{S}, cost::CostModel{T}, alnstr::AbstractString) wher
             dist += cost.submat[a[i],b[i]]
         end
     end
-    return S(replace(a, r"\s|-", "")), S(replace(b, r"\s|-", "")), dist
+    return S(replace(a, r"\s|-" => "")), S(replace(b, r"\s|-" => "")), dist
 end
 
 function alndistance(cost::CostModel, alnstr::AbstractString)
-    return alndistance(AbstractString, cost, alnstr)
+    return alndistance(String, cost, alnstr)
 end
 
 function alignedpair(alnres)
@@ -330,7 +330,7 @@ function alignedpair(alnres)
     print_seq(buf, a, anchors)
     println(buf)
     print_ref(buf, b, anchors)
-    return String(buf)
+    return String(take!(buf))
 end
 
 function print_seq(io, seq, anchors)
@@ -405,7 +405,7 @@ end
         submat = DichotomousSubstitutionMatrix(5, -4)
         @test isa(submat, DichotomousSubstitutionMatrix{Int})
         @test sprint(show, submat) == """
-        BioAlignments.DichotomousSubstitutionMatrix{Int64}:
+        DichotomousSubstitutionMatrix{Int64}:
              match =  5
           mismatch = -4"""
         submat = convert(SubstitutionMatrix{DNA,Int}, submat)
@@ -452,7 +452,7 @@ end
         @test affinegap.gap_extend == -2
         @test typeof(affinegap) == AffineGapScoreModel{Int}
         @test sprint(show, affinegap) == """
-        BioAlignments.AffineGapScoreModel{Int64}:
+        AffineGapScoreModel{Int64}:
                match = 3
             mismatch = -3
             gap_open = -5
@@ -1004,7 +1004,7 @@ end
         aln = alignment(pairalign(GlobalAlignment(), seq1, seq2, model))
         @test sprint(show, aln) ==
         """
-        BioAlignments.PairwiseAlignment{BioSequences.BioSequence{BioSequences.AminoAcidAlphabet},BioSequences.BioSequence{BioSequences.AminoAcidAlphabet}}:
+        PairwiseAlignment{BioSequences.BioSequence{BioSequences.AminoAcidAlphabet},BioSequences.BioSequence{BioSequences.AminoAcidAlphabet}}:
           seq:  1 EPVTSHPKAVSPTETK--PTEKGQHLPVSAPPKITQSLKAEASKDIAKLTCAVESSALCA 58
                   ||  ||||||||||||  |||| ||||||||||||| ||||||| |||||| |||| | |
           ref:  1 EP--SHPKAVSPTETKRCPTEKVQHLPVSAPPKITQFLKAEASKEIAKLTCVVESSVLRA 58
@@ -1044,12 +1044,12 @@ end
     @testset "MetaInfo" begin
         metainfo = SAM.MetaInfo()
         @test !isfilled(metainfo)
-        @test contains(repr(metainfo), "not filled")
+        @test occursin("not filled", repr(metainfo))
 
         metainfo = SAM.MetaInfo("CO", "some comment (parens)")
         @test isfilled(metainfo)
         @test string(metainfo) == "@CO\tsome comment (parens)"
-        @test contains(repr(metainfo), "CO")
+        @test occursin("CO", repr(metainfo))
         @test SAM.tag(metainfo) == "CO"
         @test SAM.value(metainfo) == "some comment (parens)"
         @test_throws ArgumentError keys(metainfo)
@@ -1058,7 +1058,7 @@ end
         metainfo = SAM.MetaInfo("HD", ["VN" => "1.0", "SO" => "coordinate"])
         @test isfilled(metainfo)
         @test string(metainfo) == "@HD\tVN:1.0\tSO:coordinate"
-        @test contains(repr(metainfo), "HD")
+        @test occursin("HD", repr(metainfo))
         @test SAM.tag(metainfo) == "HD"
         @test SAM.value(metainfo) == "VN:1.0\tSO:coordinate"
         @test keys(metainfo) == ["VN", "SO"]
@@ -1092,7 +1092,7 @@ end
 
         record = SAM.Record("r001\t99\tchr1\t7\t30\t8M2I4M1D3M\t=\t37\t39\tTTAGATAAAGGATACTG\t*")
         @test isfilled(record)
-        @test ismatch(r"^BioAlignments.SAM.Record:\n", repr(record))
+        @test occursin(r"^BioAlignments.SAM.Record:\n", repr(record))
         @test SAM.ismapped(record)
         @test SAM.isprimary(record)
         @test SAM.hastempname(record)
@@ -1126,7 +1126,7 @@ end
 
         # header
         h = header(reader)
-        @test string.(find(header(reader), "SQ")) == ["@SQ\tSN:CHROMOSOME_I\tLN:1009800"]
+        @test string.(findall(header(reader), "SQ")) == ["@SQ\tSN:CHROMOSOME_I\tLN:1009800"]
 
         # first record
         record = SAM.Record()
@@ -1361,14 +1361,14 @@ end
             filepath = joinpath(bamdir, specimen["filename"])
             mktemp() do path, _
                 # copy
-                if contains(get(specimen, "tags", ""), "bai")
+                if occursin("bai", get(specimen, "tags", ""))
                     reader = open(BAM.Reader, filepath, index=filepath * ".bai")
                 else
                     reader = open(BAM.Reader, filepath)
                 end
                 writer = BAM.Writer(
                     BGZFStream(path, "w"),
-                    BAM.header(reader, fillSQ=isempty(find(header(reader), "SQ"))))
+                    BAM.header(reader, fillSQ=isempty(findall(header(reader), "SQ"))))
                 records = BAM.Record[]
                 for record in reader
                     push!(records, record)

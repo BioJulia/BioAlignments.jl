@@ -12,10 +12,10 @@ mutable struct NeedlemanWunsch{T<:Union{Signed,AbstractFloat}}
     E::Vector{T}
 
     function NeedlemanWunsch{T}(m::Integer, n::Integer) where T
-        trace = Matrix{Trace}(m + 1, n + 1)
+        trace = Matrix{Trace}(undef, (m + 1, n + 1))
         fill!(trace, 0xff)
-        H = Vector{T}(m + 1)
-        E = Vector{T}(m)
+        H = Vector{T}(undef, m + 1)
+        E = Vector{T}(undef, m)
         return new{T}(trace, H, E)
     end
 
@@ -27,7 +27,7 @@ end
 function ensureroom!(nw::NeedlemanWunsch, m, n)
     if size(nw.trace, 1) < m + 1 || size(nw.trace, 2) < n + 1
         # TODO: resize the trace matrix if possible
-        nw.trace = Matrix{Trace}(m + 1, n + 1)
+        nw.trace = Matrix{Trace}(undef, (m + 1, n + 1))
         nw.H = resize!(nw.H, m + 1)
         nw.E = resize!(nw.E, m)
     end

@@ -13,17 +13,15 @@ mutable struct PairwiseAlignmentResult{T,S1,S2}
     # alignment score/distance
     value::T
     isscore::Bool
-    aln::Nullable{PairwiseAlignment{S1,S2}}
+    aln::Union{Nothing, PairwiseAlignment{S1,S2}}
 end
 
 function PairwiseAlignmentResult(value, isscore, seq, ref)
-    return PairwiseAlignmentResult(value, isscore,
-                                   Nullable(PairwiseAlignment(seq, ref)))
+    return PairwiseAlignmentResult(value, isscore, PairwiseAlignment(seq, ref))
 end
 
-function PairwiseAlignmentResult{S1,S2}(value, isscore) where {S1,S2}
-    return PairwiseAlignmentResult(value, isscore,
-                                   Nullable{PairwiseAlignment{S1,S2}}())
+function PairwiseAlignmentResult{S1,S2}(value::T, isscore) where {T,S1,S2}
+    return PairwiseAlignmentResult{T,S1,S2}(value, isscore, nothing)
 end
 
 
@@ -50,7 +48,7 @@ BioCore.distance(aln::PairwiseAlignmentResult) = aln.value
 
 Check if alignment is stored or not.
 """
-hasalignment(aln::PairwiseAlignmentResult) = !isnull(aln.aln)
+hasalignment(aln::PairwiseAlignmentResult) = aln.aln !== nothing
 
 """
     alignment(alignment_result)
@@ -63,7 +61,7 @@ function alignment(aln::PairwiseAlignmentResult)
     if !hasalignment(aln)
         throw(ArgumentError("alignment is not stored"))
     end
-    return get(aln.aln)
+    return aln.aln
 end
 
 

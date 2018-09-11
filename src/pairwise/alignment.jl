@@ -14,10 +14,12 @@ mutable struct PairwiseAlignment{S1,S2}
     b::S2
 end
 
-Base.start(aln::PairwiseAlignment) = (2, 1)
-Base.done(aln::PairwiseAlignment, ij) = ij[1] > endof(aln.a.aln.anchors)
-function Base.next(aln::PairwiseAlignment, ij)
+function Base.iterate(aln::PairwiseAlignment, ij=(2,1))
     i, j = ij
+    if i > lastindex(aln.a.aln.anchors)
+        return nothing
+    end
+
     anchors = aln.a.aln.anchors
     anchor = anchors[i]
     seq = aln.a.seq
@@ -68,7 +70,7 @@ Count the number of positions where the `target` operation is applied.
 function Base.count(aln::PairwiseAlignment, target::Operation)
     anchors = aln.a.aln.anchors
     n = 0
-    for i in 2:endof(anchors)
+    for i in 2:lastindex(anchors)
         op = anchors[i].op
         if op == target
             if ismatchop(op) || isinsertop(op)
@@ -117,7 +119,7 @@ Count the number of aligned positions.
 function count_aligned(aln::PairwiseAlignment)
     anchors = aln.a.aln.anchors
     n = 0
-    for i in 2:endof(anchors)
+    for i in 2:lastindex(anchors)
         op = anchors[i].op
         if ismatchop(op) || isinsertop(op)
             n += anchors[i].seqpos - anchors[i-1].seqpos
@@ -172,9 +174,10 @@ function print_pairwise_alignment(io::IO, aln::PairwiseAlignment; width::Integer
     seqbuf = IOBuffer()
     refbuf = IOBuffer()
     matbuf = IOBuffer()
-    s = start(aln)
-    while !done(aln, s)
-        (x, y), s = next(aln, s)
+    next_xy = iterate(aln)
+    while next_xy !== nothing
+        (x, y), s = next_xy
+        next_xy = iterate(aln ,s)
 
         i += 1
         if x != BioSymbols.gap(eltype(seq))
@@ -203,7 +206,7 @@ function print_pairwise_alignment(io::IO, aln::PairwiseAlignment; width::Integer
             println(io, String(take!(matbuf)))
             println(io, String(take!(refbuf)))
 
-            if !done(aln, s)
+            if next_xy !== nothing
                 println(io)
                 seek(seqbuf, 0)
                 seek(matbuf, 0)

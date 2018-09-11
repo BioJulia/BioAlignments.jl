@@ -23,9 +23,9 @@ mutable struct BandedNeedlemanWunsch{T<:Union{Signed,AbstractFloat}}
         lower = min(lower, m)
         upper = min(upper, n)
         width = lower + upper + 1
-        trace = Matrix{Trace}(width, n + 1)
-        H = Vector{T}(width)
-        E = Vector{T}(width)
+        trace = Matrix{Trace}(undef, (width, n + 1))
+        H = Vector{T}(undef, width)
+        E = Vector{T}(undef, width)
         return new{T}(trace, H, E, lower, upper)
     end
 
@@ -40,7 +40,7 @@ function ensureroom!(nw::BandedNeedlemanWunsch, m, n, lower, upper)
     width = lower + upper + 1
     if size(nw.trace, 1) < width || size(nw.trace, 2) < n + 1
         # TODO: resize the trace matrix if possible
-        nw.trace = Matrix{Trace}(width, n + 1)
+        nw.trace = Matrix{Trace}(undef, (width, n + 1))
         nw.H = resize!(nw.H, width)
         nw.E = resize!(nw.E, width)
     end

@@ -11,6 +11,7 @@ import BioCore.RecordHelper: unsafe_parse_decimal
 import BioCore: BioCore, isfilled
 import BioSequences
 import BufferedStreams
+using Printf: @sprintf
 
 include("flags.jl")
 include("metainfo.jl")

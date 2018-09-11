@@ -341,7 +341,7 @@ See also `BAM.cigar_rle`.
 function cigar(record::Record, checkCG::Bool = true)::String
     buf = IOBuffer()
     for (op, len) in zip(cigar_rle(record, checkCG)...)
-        print(buf, len, Char(op))
+        print(buf, len, convert(Char, op))
     end
     return String(take!(buf))
 end
@@ -503,9 +503,9 @@ Get the segment sequence of `record`.
 function sequence(record::Record)::BioSequences.DNASequence
     checkfilled(record)
     seqlen = seqlength(record)
-    data = Vector{UInt64}(cld(seqlen, 16))
+    data = Vector{UInt64}(undef, cld(seqlen, 16))
     src::Ptr{UInt64} = pointer(record.data, seqname_length(record) + n_cigar_op(record, false) * 4 + 1)
-    for i in 1:endof(data)
+    for i in 1:lastindex(data)
         # copy data flipping high and low nybble
         x = unsafe_load(src, i)
         data[i] = (x & 0x0f0f0f0f0f0f0f0f) << 4 | (x & 0xf0f0f0f0f0f0f0f0) >> 4
