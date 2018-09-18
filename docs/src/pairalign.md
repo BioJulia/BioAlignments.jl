@@ -55,7 +55,7 @@ cost of substitution, insertion, and deletion:
 julia> costmodel = CostModel(match=0, mismatch=1, insertion=1, deletion=1);
 
 julia> pairalign(EditDistance(), "abcd", "adcde", costmodel)
-BioAlignments.PairwiseAlignmentResult{Int64,String,String}:
+PairwiseAlignmentResult{Int64,String,String}:
   distance: 2
   seq: 1 abcd- 4
          | ||
@@ -74,7 +74,7 @@ julia> s2 = dna"ACCTGGTATGATAGCG";
 julia> scoremodel = AffineGapScoreModel(EDNAFULL, gap_open=-5, gap_extend=-1);
 
 julia> res = pairalign(GlobalAlignment(), s1, s2, scoremodel)  # run pairwise alignment
-BioAlignments.PairwiseAlignmentResult{Int64,BioSequences.BioSequence{BioSequences.DNAAlphabet{4}},BioSequences.BioSequence{BioSequences.DNAAlphabet{4}}}:
+PairwiseAlignmentResult{Int64,BioSequences.BioSequence{BioSequences.DNAAlphabet{4}},BioSequences.BioSequence{BioSequences.DNAAlphabet{4}}}:
   score: 13
   seq:  0 -CCTAGG------AGGG 10
            ||| ||      || |
@@ -85,7 +85,7 @@ julia> score(res)  # get the achieved score of this alignment
 13
 
 julia> aln = alignment(res)
-BioAlignments.PairwiseAlignment{BioSequences.BioSequence{BioSequences.DNAAlphabet{4}},BioSequences.BioSequence{BioSequences.DNAAlphabet{4}}}:
+PairwiseAlignment{BioSequences.BioSequence{BioSequences.DNAAlphabet{4}},BioSequences.BioSequence{BioSequences.DNAAlphabet{4}}}:
   seq:  0 -CCTAGG------AGGG 10
            ||| ||      || |
   ref:  1 ACCT-GGTATGATAGCG 16
@@ -152,7 +152,7 @@ defined:
 
 ```jldoctest
 julia> EDNAFULL
-BioAlignments.SubstitutionMatrix{BioSymbols.DNA,Int64}:
+SubstitutionMatrix{BioSymbols.DNA,Int64}:
      A  C  M  G  R  S  V  T  W  Y  H  K  D  B  N
   A  5 -4  1 -4  1 -4 -1 -4  1 -4 -1 -4 -1 -4 -2
   C -4  5  1 -4 -4  1 -1 -4 -4  1 -1 -4 -4 -1 -2
@@ -177,7 +177,7 @@ For amino acids, PAM (Point Accepted Mutation) and BLOSUM (BLOcks SUbstitution M
 
 ```jldoctest
 julia> BLOSUM62
-BioAlignments.SubstitutionMatrix{BioSymbols.AminoAcid,Int64}:
+SubstitutionMatrix{BioSymbols.AminoAcid,Int64}:
      A  R  N  D  C  Q  E  G  H  I  L  K  M  F  P  S  T  W  Y  V  O  U  B  J  Z  X  *
   A  4 -1 -2 -2  0 -1 -1  0 -2 -1 -1 -1 -1 -2 -1  1  0 -3 -2  0  0̲  0̲ -2  0̲ -1  0 -4
   R -1  5  0 -2 -3  1  0 -2  0 -3 -2  2 -1 -3 -2 -1 -1 -3 -2 -3  0̲  0̲ -1  0̲  0 -1 -4
@@ -244,7 +244,7 @@ important than flexibility because looking up score is faster than
 
 ```jldoctest
 julia> submat = DichotomousSubstitutionMatrix(1, -1)
-BioAlignments.DichotomousSubstitutionMatrix{Int64}:
+DichotomousSubstitutionMatrix{Int64}:
      match =  1
   mismatch = -1
 

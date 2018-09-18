@@ -291,19 +291,19 @@ For example, to create the following simple header:
 
 ```julia
 julia> a = SAM.MetaInfo("HD", ["VN" => 1.6, "SO" => "coordinate"])
-BioAlignments.SAM.MetaInfo:
+SAM.MetaInfo:
     tag: HD
   value: VN=1.6 SO=coordinate
 
 julia> b = SAM.MetaInfo("SQ", ["SN" => "ref", "LN" => 45])
-BioAlignments.SAM.MetaInfo:
+SAM.MetaInfo:
     tag: SQ
   value: SN=ref LN=45
 
 julia> h = SAM.Header([a, b])
-BioAlignments.SAM.Header(BioAlignments.SAM.MetaInfo[BioAlignments.SAM.MetaInfo:
+SAM.Header(SAM.MetaInfo[SAM.MetaInfo:
     tag: HD
-  value: VN=1.6 SO=coordinate, BioAlignments.SAM.MetaInfo:
+  value: VN=1.6 SO=coordinate, SAM.MetaInfo:
     tag: SQ
   value: SN=ref LN=45])
 
@@ -314,18 +314,18 @@ header and an `IO` type:
 
 ```julia
 julia> samw = SAM.Writer(open("my-data.sam", "w"), h)
-BioAlignments.SAM.Writer(IOStream(<file my-data.sam>))
+SAM.Writer(IOStream(<file my-data.sam>))
 
 ```
 
 To make a BAM Writer is slightly different, as you need to use a specific
-stream type from the [BGZFStreams](bgzfstreams) package:
+stream type from the [BGZFStreams][bgzfstreams] package:
 
 ```julia
 julia> using BGZFStreams
 
 julia> bamw = BAM.Writer(BGZFStream(open("my-data.bam", "w"), "w"))
-BioAlignments.BAM.Writer(BGZFStreams.BGZFStream{IOStream}(<mode=write>))
+BAM.Writer(BGZFStreams.BGZFStream{IOStream}(<mode=write>))
 
 ```
 

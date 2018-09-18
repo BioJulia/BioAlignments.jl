@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.0.0] - 2018-09-18
+### Added
+- Support for julia v0.7 / v1.0.
+
+### Removed
+- :exclamation: Support for julia v0.6 has been dropped. 
+
 ## [0.3.0] - 2018-06-15
 ### Added
 - Contributing files were added to this project.
@@ -27,7 +34,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - This initial release extracted the alignment utilities out from Bio.jl into
   this dedicated package.
 
-[Unreleased]: https://github.com/BioJulia/BioAlignments.jl/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/BioJulia/BioAlignments.jl/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/BioJulia/BioAlignments.jl/compare/v0.3.0...v1.0.0
 [0.3.0]: https://github.com/BioJulia/BioAlignments.jl/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/BioJulia/BioAlignments.jl/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/BioJulia/BioAlignments.jl/tree/v0.1.0

@@ -104,28 +104,29 @@ function Base.show(io::IO, submat::SubstitutionMatrix{T,S}) where {T,S}
     for (i, x) in enumerate(alpha), (j, y) in enumerate(alpha)
         i′ = index(x)
         j′ = index(y)
-        mat[i,j] = string(submat.data[i′,j′])
-        if !submat.defined[i′,j′]
-            mat[i,j] = underline(mat[i,j])
+        mat[i, j] = string(submat.data[i′, j′])
+        if !submat.defined[i′, j′]
+            mat[i, j] = underline(mat[i, j])
         end
     end
 
     # add rows and columns
     rows = map(string, alpha)
-    cols = vcat("", rows)
+    cols = vcat(" ", rows)
     mat = hcat(rows, mat)
     mat = vcat(reshape(cols, 1, length(cols)), mat)
 
     println(io, summary(submat), ':')
     width = maximum(map(x -> length(x), mat))
-    for i in 1:n+1
-        for j in 1:n+1
-            print(io, lpad(mat[i,j], width + 1))
+    for i in 1:n + 1
+        for j in 1:n + 1
+            print(io, lpad(mat[i, j], width + ifelse(last(mat[i, j]) == '\U0332', 2, 1)))
         end
         println(io)
     end
     print(io, "(underlined values are default ones)")
 end
+
 
 underline(s) = join([string(c, '\U0332') for c in s])
 

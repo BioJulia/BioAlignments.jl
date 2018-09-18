@@ -81,7 +81,7 @@ julia> Alignment([
            AlignmentAnchor(4,  8, OP_MATCH),
            AlignmentAnchor(4, 12, OP_DELETE)
        ])
-BioAlignments.Alignment:
+Alignment:
   aligned range:
     seq: 0-4
     ref: 4-12

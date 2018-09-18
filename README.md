@@ -30,8 +30,7 @@ check out the master branch to try new features before release.
 
 ## Testing
 
-BioAlignments is tested against julia `0.6` and current `0.7-dev` on
-Linux, OS X, and Windows.
+BioAlignments is tested against julia `0.7` and `1.X` on Linux, OS X, and Windows.
 
 | **Latest release** | **Latest build status** |
 |:------------------:|:-----------------------:|
