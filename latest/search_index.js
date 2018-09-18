@@ -9,9 +9,9 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "index.html#BioAlignments-1",
+    "location": "index.html#img-src\"./sticker.svg\"-width\"30%\"-align\"right\"-/-BioAlignments-1",
     "page": "Home",
-    "title": "BioAlignments",
+    "title": "<img src=\"./sticker.svg\" width=\"30%\" align=\"right\" /> BioAlignments",
     "category": "section",
     "text": "(Image: Latest release) (Image: MIT license) (Image: Stable documentation) (Image: Latest documentation) (Image: Lifecycle) (Image: Chat on Discord)"
 },
@@ -37,7 +37,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Home",
     "title": "Testing",
     "category": "section",
-    "text": "BioAlignments is tested against julia 0.6 and current 0.7-dev on Linux, OS X, and Windows.Latest release Latest build status\n(Image: julia06) (Image: julia07) (Image: travis) (Image: appveyor) (Image: coverage)"
+    "text": "BioAlignments is tested against julia 0.6 and current 0.7-dev on Linux, OS X, and Windows.Latest release Latest build status\n(Image: julia07) (Image: travis) (Image: appveyor) (Image: coverage)"
 },
 
 {
@@ -269,7 +269,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.Operation",
     "category": "type",
-    "text": "Alignment operation.\n\n\n\n"
+    "text": "Alignment operation.\n\n\n\n\n\n"
 },
 
 {
@@ -277,7 +277,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.OP_MATCH",
     "category": "constant",
-    "text": "\'M\': non-specific match\n\n\n\n"
+    "text": "\'M\': non-specific match\n\n\n\n\n\n"
 },
 
 {
@@ -285,7 +285,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.OP_INSERT",
     "category": "constant",
-    "text": "\'I\': insertion into reference sequence\n\n\n\n"
+    "text": "\'I\': insertion into reference sequence\n\n\n\n\n\n"
 },
 
 {
@@ -293,7 +293,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.OP_DELETE",
     "category": "constant",
-    "text": "\'D\': deletion from reference sequence\n\n\n\n"
+    "text": "\'D\': deletion from reference sequence\n\n\n\n\n\n"
 },
 
 {
@@ -301,7 +301,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.OP_SKIP",
     "category": "constant",
-    "text": "\'N\': (typically long) deletion from the reference, e.g. due to RNA splicing\n\n\n\n"
+    "text": "\'N\': (typically long) deletion from the reference, e.g. due to RNA splicing\n\n\n\n\n\n"
 },
 
 {
@@ -309,7 +309,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.OP_SOFT_CLIP",
     "category": "constant",
-    "text": "\'S\': sequence removed from the beginning or end of the query sequence but stored\n\n\n\n"
+    "text": "\'S\': sequence removed from the beginning or end of the query sequence but stored\n\n\n\n\n\n"
 },
 
 {
@@ -317,7 +317,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.OP_HARD_CLIP",
     "category": "constant",
-    "text": "\'H\': sequence removed from the beginning or end of the query sequence and not stored\n\n\n\n"
+    "text": "\'H\': sequence removed from the beginning or end of the query sequence and not stored\n\n\n\n\n\n"
 },
 
 {
@@ -325,7 +325,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.OP_PAD",
     "category": "constant",
-    "text": "\'P\': not currently supported, but present for SAM/BAM compatibility\n\n\n\n"
+    "text": "\'P\': not currently supported, but present for SAM/BAM compatibility\n\n\n\n\n\n"
 },
 
 {
@@ -333,7 +333,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.OP_SEQ_MATCH",
     "category": "constant",
-    "text": "\'=\': match operation with matching sequence positions\n\n\n\n"
+    "text": "\'=\': match operation with matching sequence positions\n\n\n\n\n\n"
 },
 
 {
@@ -341,7 +341,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.OP_SEQ_MISMATCH",
     "category": "constant",
-    "text": "\'X\': match operation with mismatching sequence positions\n\n\n\n"
+    "text": "\'X\': match operation with mismatching sequence positions\n\n\n\n\n\n"
 },
 
 {
@@ -349,7 +349,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.OP_BACK",
     "category": "constant",
-    "text": "\'B\': not currently supported, but present for SAM/BAM compatibility\n\n\n\n"
+    "text": "\'B\': not currently supported, but present for SAM/BAM compatibility\n\n\n\n\n\n"
 },
 
 {
@@ -357,7 +357,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.OP_START",
     "category": "constant",
-    "text": "\'0\': indicate the start of an alignment within the reference and query sequence\n\n\n\n"
+    "text": "\'0\': indicate the start of an alignment within the reference and query sequence\n\n\n\n\n\n"
 },
 
 {
@@ -365,7 +365,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.ismatchop",
     "category": "function",
-    "text": "ismatchop(op::Operation)\n\nTest if op is a match operation (i.e. op ∈ (OP_MATCH, OP_SEQ_MATCH, OP_SEQ_MISMATCH)).\n\n\n\n"
+    "text": "ismatchop(op::Operation)\n\nTest if op is a match operation (i.e. op ∈ (OP_MATCH, OP_SEQ_MATCH, OP_SEQ_MISMATCH)).\n\n\n\n\n\n"
 },
 
 {
@@ -373,7 +373,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.isinsertop",
     "category": "function",
-    "text": "isinsertop(op::Operation)\n\nTest if op is a insertion operation (i.e. op ∈ (OP_INSERT, OP_SOFT_CLIP, OP_HARD_CLIP)).\n\n\n\n"
+    "text": "isinsertop(op::Operation)\n\nTest if op is a insertion operation (i.e. op ∈ (OP_INSERT, OP_SOFT_CLIP, OP_HARD_CLIP)).\n\n\n\n\n\n"
 },
 
 {
@@ -381,7 +381,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.isdeleteop",
     "category": "function",
-    "text": "isdeleteop(op::Operation)\n\nTest if op is a deletion operation (i.e. op ∈ (OP_DELETE, OP_SKIP)).\n\n\n\n"
+    "text": "isdeleteop(op::Operation)\n\nTest if op is a deletion operation (i.e. op ∈ (OP_DELETE, OP_SKIP)).\n\n\n\n\n\n"
 },
 
 {
@@ -397,7 +397,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.AlignmentAnchor",
     "category": "type",
-    "text": "Alignment operation with anchoring positions.\n\n\n\n"
+    "text": "Alignment operation with anchoring positions.\n\n\n\n\n\n"
 },
 
 {
@@ -405,15 +405,15 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.Alignment",
     "category": "type",
-    "text": "Alignment of two sequences.\n\n\n\n"
+    "text": "Alignment of two sequences.\n\n\n\n\n\n"
 },
 
 {
-    "location": "references.html#BioAlignments.Alignment-Tuple{Array{BioAlignments.AlignmentAnchor,1},Bool}",
+    "location": "references.html#BioAlignments.Alignment-Tuple{Array{AlignmentAnchor,1},Bool}",
     "page": "API Reference",
     "title": "BioAlignments.Alignment",
     "category": "method",
-    "text": "Alignment(anchors::Vector{AlignmentAnchor}, check=true)\n\nCreate an alignment object from a sequence of alignment anchors.\n\n\n\n"
+    "text": "Alignment(anchors::Vector{AlignmentAnchor}, check=true)\n\nCreate an alignment object from a sequence of alignment anchors.\n\n\n\n\n\n"
 },
 
 {
@@ -421,31 +421,31 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.Alignment",
     "category": "method",
-    "text": "Alignment(cigar::AbstractString, seqpos=1, refpos=1)\n\nMake an alignment object from a CIGAR string.\n\nseqpos and refpos specify the starting positions of two sequences.\n\n\n\n"
+    "text": "Alignment(cigar::AbstractString, seqpos=1, refpos=1)\n\nMake an alignment object from a CIGAR string.\n\nseqpos and refpos specify the starting positions of two sequences.\n\n\n\n\n\n"
 },
 
 {
-    "location": "references.html#BioAlignments.seq2ref-Tuple{BioAlignments.Alignment,Integer}",
+    "location": "references.html#BioAlignments.seq2ref-Tuple{Alignment,Integer}",
     "page": "API Reference",
     "title": "BioAlignments.seq2ref",
     "category": "method",
-    "text": "seq2ref(aln::Alignment, i::Integer)::Tuple{Int,Operation}\n\nMap a position i from sequence to reference.\n\n\n\n"
+    "text": "seq2ref(aln::Alignment, i::Integer)::Tuple{Int,Operation}\n\nMap a position i from sequence to reference.\n\n\n\n\n\n"
 },
 
 {
-    "location": "references.html#BioAlignments.ref2seq-Tuple{BioAlignments.Alignment,Integer}",
+    "location": "references.html#BioAlignments.ref2seq-Tuple{Alignment,Integer}",
     "page": "API Reference",
     "title": "BioAlignments.ref2seq",
     "category": "method",
-    "text": "ref2seq(aln::Alignment, i::Integer)::Tuple{Int,Operation}\n\nMap a position i from reference to sequence.\n\n\n\n"
+    "text": "ref2seq(aln::Alignment, i::Integer)::Tuple{Int,Operation}\n\nMap a position i from reference to sequence.\n\n\n\n\n\n"
 },
 
 {
-    "location": "references.html#BioAlignments.cigar-Tuple{BioAlignments.Alignment}",
+    "location": "references.html#BioAlignments.cigar-Tuple{Alignment}",
     "page": "API Reference",
     "title": "BioAlignments.cigar",
     "category": "method",
-    "text": "cigar(aln::Alignment)\n\nMake a CIGAR string encoding of aln.\n\nThis is not entirely lossless as it discards the alignments start positions.\n\n\n\n"
+    "text": "cigar(aln::Alignment)\n\nMake a CIGAR string encoding of aln.\n\nThis is not entirely lossless as it discards the alignments start positions.\n\n\n\n\n\n"
 },
 
 {
@@ -461,7 +461,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.AbstractSubstitutionMatrix",
     "category": "type",
-    "text": "Supertype of substitution matrix.\n\nThe required method:\n\nBase.getindex(submat, x, y): substitution score/cost from x to y\n\n\n\n"
+    "text": "Supertype of substitution matrix.\n\nThe required method:\n\nBase.getindex(submat, x, y): substitution score/cost from x to y\n\n\n\n\n\n"
 },
 
 {
@@ -469,7 +469,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.SubstitutionMatrix",
     "category": "type",
-    "text": "Substitution matrix.\n\n\n\n"
+    "text": "Substitution matrix.\n\n\n\n\n\n"
 },
 
 {
@@ -477,7 +477,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.DichotomousSubstitutionMatrix",
     "category": "type",
-    "text": "Dichotomous substitution matrix.\n\n\n\n"
+    "text": "Dichotomous substitution matrix.\n\n\n\n\n\n"
 },
 
 {
@@ -485,7 +485,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.EDNAFULL",
     "category": "constant",
-    "text": "EDNAFULL (or NUC4.4) substitution matrix\n\n\n\n"
+    "text": "EDNAFULL (or NUC4.4) substitution matrix\n\n\n\n\n\n"
 },
 
 {
@@ -493,7 +493,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.PAM30",
     "category": "constant",
-    "text": "PAM30 substitution matrix\n\n\n\n"
+    "text": "PAM30 substitution matrix\n\n\n\n\n\n"
 },
 
 {
@@ -501,7 +501,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.PAM70",
     "category": "constant",
-    "text": "PAM70 substitution matrix\n\n\n\n"
+    "text": "PAM70 substitution matrix\n\n\n\n\n\n"
 },
 
 {
@@ -509,7 +509,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.PAM250",
     "category": "constant",
-    "text": "PAM250 substitution matrix\n\n\n\n"
+    "text": "PAM250 substitution matrix\n\n\n\n\n\n"
 },
 
 {
@@ -517,7 +517,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.BLOSUM45",
     "category": "constant",
-    "text": "BLOSUM45 substitution matrix\n\n\n\n"
+    "text": "BLOSUM45 substitution matrix\n\n\n\n\n\n"
 },
 
 {
@@ -525,7 +525,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.BLOSUM50",
     "category": "constant",
-    "text": "BLOSUM50 substitution matrix\n\n\n\n"
+    "text": "BLOSUM50 substitution matrix\n\n\n\n\n\n"
 },
 
 {
@@ -533,7 +533,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.BLOSUM62",
     "category": "constant",
-    "text": "BLOSUM62 substitution matrix\n\n\n\n"
+    "text": "BLOSUM62 substitution matrix\n\n\n\n\n\n"
 },
 
 {
@@ -541,7 +541,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.BLOSUM80",
     "category": "constant",
-    "text": "BLOSUM80 substitution matrix\n\n\n\n"
+    "text": "BLOSUM80 substitution matrix\n\n\n\n\n\n"
 },
 
 {
@@ -549,7 +549,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.BLOSUM90",
     "category": "constant",
-    "text": "BLOSUM90 substitution matrix\n\n\n\n"
+    "text": "BLOSUM90 substitution matrix\n\n\n\n\n\n"
 },
 
 {
@@ -565,15 +565,15 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.PairwiseAlignment",
     "category": "type",
-    "text": "Pairwise alignment\n\n\n\n"
+    "text": "Pairwise alignment\n\n\n\n\n\n"
 },
 
 {
-    "location": "references.html#Base.count-Tuple{BioAlignments.PairwiseAlignment,BioAlignments.Operation}",
+    "location": "references.html#Base.count-Tuple{PairwiseAlignment,Operation}",
     "page": "API Reference",
     "title": "Base.count",
     "category": "method",
-    "text": "count(aln::PairwiseAlignment, target::Operation)\n\nCount the number of positions where the target operation is applied.\n\n\n\n"
+    "text": "count(aln::PairwiseAlignment, target::Operation)\n\nCount the number of positions where the target operation is applied.\n\n\n\n\n\n"
 },
 
 {
@@ -581,7 +581,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.count_matches",
     "category": "function",
-    "text": "count_matches(aln)\n\nCount the number of matching positions.\n\n\n\n"
+    "text": "count_matches(aln)\n\nCount the number of matching positions.\n\n\n\n\n\n"
 },
 
 {
@@ -589,7 +589,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.count_mismatches",
     "category": "function",
-    "text": "count_mismatches(aln)\n\nCount the number of mismatching positions.\n\n\n\n"
+    "text": "count_mismatches(aln)\n\nCount the number of mismatching positions.\n\n\n\n\n\n"
 },
 
 {
@@ -597,7 +597,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.count_insertions",
     "category": "function",
-    "text": "count_insertions(aln)\n\nCount the number of inserting positions.\n\n\n\n"
+    "text": "count_insertions(aln)\n\nCount the number of inserting positions.\n\n\n\n\n\n"
 },
 
 {
@@ -605,7 +605,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.count_deletions",
     "category": "function",
-    "text": "count_deletions(aln)\n\nCount the number of deleting positions.\n\n\n\n"
+    "text": "count_deletions(aln)\n\nCount the number of deleting positions.\n\n\n\n\n\n"
 },
 
 {
@@ -613,7 +613,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.count_aligned",
     "category": "function",
-    "text": "count_aligned(aln)\n\nCount the number of aligned positions.\n\n\n\n"
+    "text": "count_aligned(aln)\n\nCount the number of aligned positions.\n\n\n\n\n\n"
 },
 
 {
@@ -621,7 +621,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.GlobalAlignment",
     "category": "type",
-    "text": "Global-global alignment with end gap penalties.\n\n\n\n"
+    "text": "Global-global alignment with end gap penalties.\n\n\n\n\n\n"
 },
 
 {
@@ -629,7 +629,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.SemiGlobalAlignment",
     "category": "type",
-    "text": "Global-local alignment.\n\n\n\n"
+    "text": "Global-local alignment.\n\n\n\n\n\n"
 },
 
 {
@@ -637,7 +637,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.OverlapAlignment",
     "category": "type",
-    "text": "Global-global alignment without end gap penalties.\n\n\n\n"
+    "text": "Global-global alignment without end gap penalties.\n\n\n\n\n\n"
 },
 
 {
@@ -645,7 +645,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.LocalAlignment",
     "category": "type",
-    "text": "Local-local alignment.\n\n\n\n"
+    "text": "Local-local alignment.\n\n\n\n\n\n"
 },
 
 {
@@ -653,7 +653,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.EditDistance",
     "category": "type",
-    "text": "Edit distance.\n\n\n\n"
+    "text": "Edit distance.\n\n\n\n\n\n"
 },
 
 {
@@ -661,7 +661,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.HammingDistance",
     "category": "type",
-    "text": "Hamming distance.\n\nA special case of EditDistance with the costs of insertion and deletion are infinitely large.\n\n\n\n"
+    "text": "Hamming distance.\n\nA special case of EditDistance with the costs of insertion and deletion are infinitely large.\n\n\n\n\n\n"
 },
 
 {
@@ -669,7 +669,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.LevenshteinDistance",
     "category": "type",
-    "text": "Levenshtein distance.\n\nA special case of EditDistance with the costs of mismatch, insertion, and deletion are 1.\n\n\n\n"
+    "text": "Levenshtein distance.\n\nA special case of EditDistance with the costs of mismatch, insertion, and deletion are 1.\n\n\n\n\n\n"
 },
 
 {
@@ -677,7 +677,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.AbstractScoreModel",
     "category": "type",
-    "text": "Supertype of score model.\n\n\n\n"
+    "text": "Supertype of score model.\n\n\n\n\n\n"
 },
 
 {
@@ -685,7 +685,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.AffineGapScoreModel",
     "category": "type",
-    "text": "AffineGapScoreModel(submat, gap_open, gap_extend)\nAffineGapScoreModel(submat, gap_open=, gap_extend=)\nAffineGapScoreModel(match=, mismatch=, gap_open=, gap_extend=)\n\nAffine gap scoring model.\n\nThis creates an affine gap scroing model object for alignment from a substitution matrix (submat), a gap opening score (gap_open), and a gap extending score (gap_extend). A consecutive gap of length k has a score of gap_open + gap_extend * k. Note that both of the gap scores should be non-positive.  As a shorthand of creating a dichotomous substitution matrix, you can write as, for example, AffineGapScoreModel(match=5, mismatch=-3, gap_open=-2, gap_extend=-1).\n\nExample\n\nusing BioSequences\nusing BioAlignments\n\n# create an affine gap scoring model from a predefined substitution\n# matrix and gap opening/extending scores.\naffinegap = AffineGapScoreModel(BLOSUM62, gap_open=-10, gap_extend=-1)\n\n# run global alignment between two amino acid sequenecs\npairalign(GlobalAlignment(), aa\"IDGAAGQQL\", aa\"IDGATGQL\", affinegap)\n\nSee also: SubstitutionMatrix, pairalign, CostModel\n\n\n\n"
+    "text": "AffineGapScoreModel(submat, gap_open, gap_extend)\nAffineGapScoreModel(submat, gap_open=, gap_extend=)\nAffineGapScoreModel(match=, mismatch=, gap_open=, gap_extend=)\n\nAffine gap scoring model.\n\nThis creates an affine gap scroing model object for alignment from a substitution matrix (submat), a gap opening score (gap_open), and a gap extending score (gap_extend). A consecutive gap of length k has a score of gap_open + gap_extend * k. Note that both of the gap scores should be non-positive.  As a shorthand of creating a dichotomous substitution matrix, you can write as, for example, AffineGapScoreModel(match=5, mismatch=-3, gap_open=-2, gap_extend=-1).\n\nExample\n\nusing BioSequences\nusing BioAlignments\n\n# create an affine gap scoring model from a predefined substitution\n# matrix and gap opening/extending scores.\naffinegap = AffineGapScoreModel(BLOSUM62, gap_open=-10, gap_extend=-1)\n\n# run global alignment between two amino acid sequenecs\npairalign(GlobalAlignment(), aa\"IDGAAGQQL\", aa\"IDGATGQL\", affinegap)\n\nSee also: SubstitutionMatrix, pairalign, CostModel\n\n\n\n\n\n"
 },
 
 {
@@ -693,7 +693,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.AbstractCostModel",
     "category": "type",
-    "text": "Supertype of cost model.\n\n\n\n"
+    "text": "Supertype of cost model.\n\n\n\n\n\n"
 },
 
 {
@@ -701,7 +701,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.CostModel",
     "category": "type",
-    "text": "CostModel(submat, insertion, deletion)\nCostModel(submat, insertion=, deletion=)\nCostModel(match=, mismatch=, insertion=, deletion=)\n\nCost model.\n\nThis creates a cost model object for alignment from substitution matrix (submat), an insertion cost (insertion), and a deletion cost (deletion). Note that both of the insertion and deletion costs should be non-negative.  As a shorthand of creating a dichotomous substitution matrix, you can write as, for example, CostModel(match=0, mismatch=1, insertion=2, deletion=2).\n\nExample\n\nusing BioAlignments\n\n# create a cost model from a substitution matrix and indel costs\ncost = CostModel(ones(128, 128) - eye(128), insertion=.5, deletion=.5)\n\n# run global alignment to minimize edit distance\npairalign(EditDistance(), \"intension\", \"execution\", cost)\n\nSee also: SubstitutionMatrix, pairalign, AffineGapScoreModel\n\n\n\n"
+    "text": "CostModel(submat, insertion, deletion)\nCostModel(submat, insertion=, deletion=)\nCostModel(match=, mismatch=, insertion=, deletion=)\n\nCost model.\n\nThis creates a cost model object for alignment from substitution matrix (submat), an insertion cost (insertion), and a deletion cost (deletion). Note that both of the insertion and deletion costs should be non-negative.  As a shorthand of creating a dichotomous substitution matrix, you can write as, for example, CostModel(match=0, mismatch=1, insertion=2, deletion=2).\n\nExample\n\nusing BioAlignments\n\n# create a cost model from a substitution matrix and indel costs\ncost = CostModel(ones(128, 128) - eye(128), insertion=.5, deletion=.5)\n\n# run global alignment to minimize edit distance\npairalign(EditDistance(), \"intension\", \"execution\", cost)\n\nSee also: SubstitutionMatrix, pairalign, AffineGapScoreModel\n\n\n\n\n\n"
 },
 
 {
@@ -709,7 +709,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.PairwiseAlignmentResult",
     "category": "type",
-    "text": "Result of pairwise alignment\n\n\n\n"
+    "text": "Result of pairwise alignment\n\n\n\n\n\n"
 },
 
 {
@@ -717,7 +717,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.pairalign",
     "category": "function",
-    "text": "pairalign(type, seq, ref, model, [options...])\n\nRun pairwise alignment between two sequences: seq and ref.\n\nAvailable types are:\n\nGlobalAlignment()\nLocalAlignment()\nSemiGlobalAlignment()\nOverlapAlignment()\nEditDistance()\nLevenshteinDistance()\nHammingDistance()\n\nGlobalAlignment, LocalAlignment, SemiGlobalAlignment, and OverlapAlignment are problem that maximizes alignment score between two sequences.  Therefore, model should be an instance of AbstractScoreModel (e.g. AffineGapScoreModel).\n\nEditDistance, LevenshteinDistance, and HammingDistance are problem that minimizes alignment cost between two sequences.  As for EditDistance, model should be an instance of AbstractCostModel (e.g. CostModel). LevenshteinDistance and HammingDistance have predefined a cost model, so users cannot specify a cost model for these alignment types.\n\nWhen you pass the score_only=true or distance_only=true option to pairalign, the result of pairwise alignment holds alignment score/distance only.  This may enable some algorithms to run faster than calculating full alignment result.  Other available options are documented for each alignemnt type.\n\nExample\n\nusing BioSequences\nusing BioAlignments\n\n# create affine gap scoring model\naffinegap = AffineGapScoreModel(\n    match=5,\n    mismatch=-4,\n    gap_open=-5,\n    gap_extend=-3\n)\n\n# run global alignment between two DNA sequences\npairalign(GlobalAlignment(), dna\"AGGTAG\", dna\"ATTG\", affinegap)\n\n# run local alignment between two DNA sequences\npairalign(LocalAlignment(), dna\"AGGTAG\", dna\"ATTG\", affinegap)\n\n# you cannot specify a cost model in LevenshteinDistance\npairalign(LevenshteinDistance(), dna\"AGGTAG\", dna\"ATTG\")\n\nSee also: AffineGapScoreModel, CostModel\n\n\n\n"
+    "text": "pairalign(type, seq, ref, model, [options...])\n\nRun pairwise alignment between two sequences: seq and ref.\n\nAvailable types are:\n\nGlobalAlignment()\nLocalAlignment()\nSemiGlobalAlignment()\nOverlapAlignment()\nEditDistance()\nLevenshteinDistance()\nHammingDistance()\n\nGlobalAlignment, LocalAlignment, SemiGlobalAlignment, and OverlapAlignment are problem that maximizes alignment score between two sequences.  Therefore, model should be an instance of AbstractScoreModel (e.g. AffineGapScoreModel).\n\nEditDistance, LevenshteinDistance, and HammingDistance are problem that minimizes alignment cost between two sequences.  As for EditDistance, model should be an instance of AbstractCostModel (e.g. CostModel). LevenshteinDistance and HammingDistance have predefined a cost model, so users cannot specify a cost model for these alignment types.\n\nWhen you pass the score_only=true or distance_only=true option to pairalign, the result of pairwise alignment holds alignment score/distance only.  This may enable some algorithms to run faster than calculating full alignment result.  Other available options are documented for each alignemnt type.\n\nExample\n\nusing BioSequences\nusing BioAlignments\n\n# create affine gap scoring model\naffinegap = AffineGapScoreModel(\n    match=5,\n    mismatch=-4,\n    gap_open=-5,\n    gap_extend=-3\n)\n\n# run global alignment between two DNA sequences\npairalign(GlobalAlignment(), dna\"AGGTAG\", dna\"ATTG\", affinegap)\n\n# run local alignment between two DNA sequences\npairalign(LocalAlignment(), dna\"AGGTAG\", dna\"ATTG\", affinegap)\n\n# you cannot specify a cost model in LevenshteinDistance\npairalign(LevenshteinDistance(), dna\"AGGTAG\", dna\"ATTG\")\n\nSee also: AffineGapScoreModel, CostModel\n\n\n\n\n\n"
 },
 
 {
@@ -725,7 +725,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.score",
     "category": "function",
-    "text": "score(alignment_result)\n\nReturn score of alignment.\n\n\n\n"
+    "text": "score(alignment_result)\n\nReturn score of alignment.\n\n\n\n\n\n"
 },
 
 {
@@ -733,7 +733,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioCore.distance",
     "category": "function",
-    "text": "distance(alignment_result)\n\nRetrun distance of alignment.\n\n\n\n"
+    "text": "distance(alignment_result)\n\nRetrun distance of alignment.\n\n\n\n\n\n"
 },
 
 {
@@ -741,7 +741,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.alignment",
     "category": "function",
-    "text": "alignment(alignment_result)\n\nReturn alignment if any.\n\nSee also: hasalignment\n\n\n\n"
+    "text": "alignment(alignment_result)\n\nReturn alignment if any.\n\nSee also: hasalignment\n\n\n\n\n\n"
 },
 
 {
@@ -749,23 +749,23 @@ var documenterSearchIndex = {"docs": [
     "page": "API Reference",
     "title": "BioAlignments.hasalignment",
     "category": "function",
-    "text": "hasalignment(alignment_result)\n\nCheck if alignment is stored or not.\n\n\n\n"
+    "text": "hasalignment(alignment_result)\n\nCheck if alignment is stored or not.\n\n\n\n\n\n"
 },
 
 {
-    "location": "references.html#BioAlignments.seq2ref-Tuple{BioAlignments.PairwiseAlignment,Integer}",
+    "location": "references.html#BioAlignments.seq2ref-Tuple{PairwiseAlignment,Integer}",
     "page": "API Reference",
     "title": "BioAlignments.seq2ref",
     "category": "method",
-    "text": "seq2ref(aln::PairwiseAlignment, i::Integer)::Tuple{Int,Operation}\n\nMap a position i from the first sequence to the second.\n\n\n\n"
+    "text": "seq2ref(aln::PairwiseAlignment, i::Integer)::Tuple{Int,Operation}\n\nMap a position i from the first sequence to the second.\n\n\n\n\n\n"
 },
 
 {
-    "location": "references.html#BioAlignments.ref2seq-Tuple{BioAlignments.PairwiseAlignment,Integer}",
+    "location": "references.html#BioAlignments.ref2seq-Tuple{PairwiseAlignment,Integer}",
     "page": "API Reference",
     "title": "BioAlignments.ref2seq",
     "category": "method",
-    "text": "ref2seq(aln::PairwiseAlignment, i::Integer)::Tuple{Int,Operation}\n\nMap a position i from the second sequence to the first.\n\n\n\n"
+    "text": "ref2seq(aln::PairwiseAlignment, i::Integer)::Tuple{Int,Operation}\n\nMap a position i from the second sequence to the first.\n\n\n\n\n\n"
 },
 
 {
@@ -785,571 +785,11 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "references.html#BioAlignments.SAM.Reader",
-    "page": "API Reference",
-    "title": "BioAlignments.SAM.Reader",
-    "category": "type",
-    "text": "SAM.Reader(input::IO)\n\nCreate a data reader of the SAM file format.\n\nArguments\n\ninput: data source\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.SAM.header",
-    "page": "API Reference",
-    "title": "BioAlignments.SAM.header",
-    "category": "function",
-    "text": "header(reader::Reader)::Header\n\nGet the header of reader.\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.SAM.Header",
-    "page": "API Reference",
-    "title": "BioAlignments.SAM.Header",
-    "category": "type",
-    "text": "SAM.Header()\n\nCreate an empty header.\n\n\n\n"
-},
-
-{
-    "location": "references.html#Base.find-Tuple{BioAlignments.SAM.Header,AbstractString}",
-    "page": "API Reference",
-    "title": "Base.find",
-    "category": "method",
-    "text": "find(header::Header, key::AbstractString)::Vector{MetaInfo}\n\nFind metainfo objects satisfying SAM.tag(metainfo) == key.\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.SAM.Writer",
-    "page": "API Reference",
-    "title": "BioAlignments.SAM.Writer",
-    "category": "type",
-    "text": "Writer(output::IO, header::Header=Header())\n\nCreate a data writer of the SAM file format.\n\nArguments\n\noutput: data sink\nheader=Header(): SAM header object\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.SAM.MetaInfo",
-    "page": "API Reference",
-    "title": "BioAlignments.SAM.MetaInfo",
-    "category": "type",
-    "text": "MetaInfo(str::AbstractString)\n\nCreate a SAM metainfo from str.\n\nExamples\n\njulia> SAM.MetaInfo(\"@CO	some comment\")\nBioAlignments.SAM.MetaInfo:\n    tag: CO\n  value: some comment\n\njulia> SAM.MetaInfo(\"@SQ	SN:chr1	LN:12345\")\nBioAlignments.SAM.MetaInfo:\n    tag: SQ\n  value: SN=chr1 LN=12345\n\n\n\nMetaInfo(tag::AbstractString, value)\n\nCreate a SAM metainfo with tag and value.\n\ntag is a two-byte ASCII string. If tag is \"CO\", value must be a string; otherwise, value is an iterable object with key and value pairs.\n\nExamples\n\njulia> SAM.MetaInfo(\"CO\", \"some comment\")\nBioAlignments.SAM.MetaInfo:\n    tag: CO\n  value: some comment\n\njulia> string(ans)\n\"@CO	some comment\"\n\njulia> SAM.MetaInfo(\"SQ\", [\"SN\" => \"chr1\", \"LN\" => 12345])\nBioAlignments.SAM.MetaInfo:\n    tag: SQ\n  value: SN=chr1 LN=12345\n\njulia> string(ans)\n\"@SQ	SN:chr1	LN:12345\"\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.SAM.iscomment",
-    "page": "API Reference",
-    "title": "BioAlignments.SAM.iscomment",
-    "category": "function",
-    "text": "iscomment(metainfo::MetaInfo)::Bool\n\nTest if metainfo is a comment (i.e. its tag is \"CO\").\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.SAM.tag",
-    "page": "API Reference",
-    "title": "BioAlignments.SAM.tag",
-    "category": "function",
-    "text": "tag(metainfo::MetaInfo)::String\n\nGet the tag of metainfo.\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.SAM.value",
-    "page": "API Reference",
-    "title": "BioAlignments.SAM.value",
-    "category": "function",
-    "text": "value(metainfo::MetaInfo)::String\n\nGet the value of metainfo as a string.\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.SAM.keyvalues",
-    "page": "API Reference",
-    "title": "BioAlignments.SAM.keyvalues",
-    "category": "function",
-    "text": "keyvalues(metainfo::MetaInfo)::Vector{Pair{String,String}}\n\nGet the values of metainfo as string pairs.\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.SAM.Record",
-    "page": "API Reference",
-    "title": "BioAlignments.SAM.Record",
-    "category": "type",
-    "text": "SAM.Record()\n\nCreate an unfilled SAM record.\n\n\n\nSAM.Record(data::Vector{UInt8})\n\nCreate a SAM record from data. This function verifies the format and indexes fields for accessors. Note that the ownership of data is transferred to a new record object.\n\n\n\nSAM.Record(str::AbstractString)\n\nCreate a SAM record from str. This function verifies the format and indexes fields for accessors.\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.SAM.flag",
-    "page": "API Reference",
-    "title": "BioAlignments.SAM.flag",
-    "category": "function",
-    "text": "flag(record::Record)::UInt16\n\nGet the bitwise flag of record.\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.SAM.ismapped",
-    "page": "API Reference",
-    "title": "BioAlignments.SAM.ismapped",
-    "category": "function",
-    "text": "ismapped(record::Record)::Bool\n\nTest if record is mapped.\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.SAM.isprimary",
-    "page": "API Reference",
-    "title": "BioAlignments.SAM.isprimary",
-    "category": "function",
-    "text": "isprimary(record::Record)::Bool\n\nTest if record is a primary line of the read.\n\nThis is equivalent to flag(record) & 0x900 == 0.\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.SAM.refname",
-    "page": "API Reference",
-    "title": "BioAlignments.SAM.refname",
-    "category": "function",
-    "text": "refname(record::Record)::String\n\nGet the reference sequence name of record.\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.SAM.position",
-    "page": "API Reference",
-    "title": "BioAlignments.SAM.position",
-    "category": "function",
-    "text": "position(record::Record)::Int\n\nGet the 1-based leftmost mapping position of record.\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.SAM.rightposition",
-    "page": "API Reference",
-    "title": "BioAlignments.SAM.rightposition",
-    "category": "function",
-    "text": "rightposition(record::Record)::Int\n\nGet the 1-based rightmost mapping position of record.\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.SAM.isnextmapped",
-    "page": "API Reference",
-    "title": "BioAlignments.SAM.isnextmapped",
-    "category": "function",
-    "text": "isnextmapped(record::Record)::Bool\n\nTest if the mate/next read of record is mapped.\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.SAM.nextrefname",
-    "page": "API Reference",
-    "title": "BioAlignments.SAM.nextrefname",
-    "category": "function",
-    "text": "nextrefname(record::Record)::String\n\nGet the reference name of the mate/next read of record.\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.SAM.nextposition",
-    "page": "API Reference",
-    "title": "BioAlignments.SAM.nextposition",
-    "category": "function",
-    "text": "nextposition(record::Record)::Int\n\nGet the position of the mate/next read of record.\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.SAM.mappingquality",
-    "page": "API Reference",
-    "title": "BioAlignments.SAM.mappingquality",
-    "category": "function",
-    "text": "mappingquality(record::Record)::UInt8\n\nGet the mapping quality of record.\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.SAM.cigar",
-    "page": "API Reference",
-    "title": "BioAlignments.SAM.cigar",
-    "category": "function",
-    "text": "cigar(record::Record)::String\n\nGet the CIGAR string of record.\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.SAM.alignment",
-    "page": "API Reference",
-    "title": "BioAlignments.SAM.alignment",
-    "category": "function",
-    "text": "alignment(record::Record)::BioAlignments.Alignment\n\nGet the alignment of record.\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.SAM.alignlength",
-    "page": "API Reference",
-    "title": "BioAlignments.SAM.alignlength",
-    "category": "function",
-    "text": "alignlength(record::Record)::Int\n\nGet the alignment length of record.\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.SAM.tempname",
-    "page": "API Reference",
-    "title": "BioAlignments.SAM.tempname",
-    "category": "function",
-    "text": "tempname(record::Record)::String\n\nGet the query template name of record.\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.SAM.templength",
-    "page": "API Reference",
-    "title": "BioAlignments.SAM.templength",
-    "category": "function",
-    "text": "templength(record::Record)::Int\n\nGet the template length of record.\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.SAM.sequence",
-    "page": "API Reference",
-    "title": "BioAlignments.SAM.sequence",
-    "category": "function",
-    "text": "sequence(record::Record)::BioSequences.DNASequence\n\nGet the segment sequence of record.\n\n\n\nsequence(::Type{String}, record::Record)::String\n\nGet the segment sequence of record as String.\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.SAM.seqlength",
-    "page": "API Reference",
-    "title": "BioAlignments.SAM.seqlength",
-    "category": "function",
-    "text": "seqlength(record::Record)::Int\n\nGet the sequence length of record.\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.SAM.quality",
-    "page": "API Reference",
-    "title": "BioAlignments.SAM.quality",
-    "category": "function",
-    "text": "quality(record::Record)::Vector{UInt8}\n\nGet the Phred-scaled base quality of record.\n\n\n\nquality(::Type{String}, record::Record)::String\n\nGet the ASCII-encoded base quality of record.\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.SAM.auxdata",
-    "page": "API Reference",
-    "title": "BioAlignments.SAM.auxdata",
-    "category": "function",
-    "text": "auxdata(record::Record)::Dict{String,Any}\n\nGet the auxiliary data (optional fields) of record.\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.SAM.FLAG_PAIRED",
-    "page": "API Reference",
-    "title": "BioAlignments.SAM.FLAG_PAIRED",
-    "category": "constant",
-    "text": "0x0001: the read is paired in sequencing, no matter whether it is mapped in a pair\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.SAM.FLAG_PROPER_PAIR",
-    "page": "API Reference",
-    "title": "BioAlignments.SAM.FLAG_PROPER_PAIR",
-    "category": "constant",
-    "text": "0x0002: the read is mapped in a proper pair\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.SAM.FLAG_UNMAP",
-    "page": "API Reference",
-    "title": "BioAlignments.SAM.FLAG_UNMAP",
-    "category": "constant",
-    "text": "0x0004: the read itself is unmapped; conflictive with SAM.FLAG_PROPER_PAIR\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.SAM.FLAG_MUNMAP",
-    "page": "API Reference",
-    "title": "BioAlignments.SAM.FLAG_MUNMAP",
-    "category": "constant",
-    "text": "0x0008: the mate is unmapped\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.SAM.FLAG_REVERSE",
-    "page": "API Reference",
-    "title": "BioAlignments.SAM.FLAG_REVERSE",
-    "category": "constant",
-    "text": "0x0010: the read is mapped to the reverse strand\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.SAM.FLAG_MREVERSE",
-    "page": "API Reference",
-    "title": "BioAlignments.SAM.FLAG_MREVERSE",
-    "category": "constant",
-    "text": "0x0020: the mate is mapped to the reverse strand\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.SAM.FLAG_READ1",
-    "page": "API Reference",
-    "title": "BioAlignments.SAM.FLAG_READ1",
-    "category": "constant",
-    "text": "0x0040: this is read1\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.SAM.FLAG_READ2",
-    "page": "API Reference",
-    "title": "BioAlignments.SAM.FLAG_READ2",
-    "category": "constant",
-    "text": "0x0080: this is read2\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.SAM.FLAG_SECONDARY",
-    "page": "API Reference",
-    "title": "BioAlignments.SAM.FLAG_SECONDARY",
-    "category": "constant",
-    "text": "0x0100: not primary alignment\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.SAM.FLAG_QCFAIL",
-    "page": "API Reference",
-    "title": "BioAlignments.SAM.FLAG_QCFAIL",
-    "category": "constant",
-    "text": "0x0200: QC failure\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.SAM.FLAG_DUP",
-    "page": "API Reference",
-    "title": "BioAlignments.SAM.FLAG_DUP",
-    "category": "constant",
-    "text": "0x0400: optical or PCR duplicate\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.SAM.FLAG_SUPPLEMENTARY",
-    "page": "API Reference",
-    "title": "BioAlignments.SAM.FLAG_SUPPLEMENTARY",
-    "category": "constant",
-    "text": "0x0800: supplementary alignment\n\n\n\n"
-},
-
-{
     "location": "references.html#SAM-1",
     "page": "API Reference",
     "title": "SAM",
     "category": "section",
     "text": "SAM.Reader\nSAM.header\n\nSAM.Header\nBase.find(header::SAM.Header, key::AbstractString)\n\nSAM.Writer\n\nSAM.MetaInfo\nSAM.iscomment\nSAM.tag\nSAM.value\nSAM.keyvalues\n\nSAM.Record\nSAM.flag\nSAM.ismapped\nSAM.isprimary\nSAM.refname\nSAM.position\nSAM.rightposition\nSAM.isnextmapped\nSAM.nextrefname\nSAM.nextposition\nSAM.mappingquality\nSAM.cigar\nSAM.alignment\nSAM.alignlength\nSAM.tempname\nSAM.templength\nSAM.sequence\nSAM.seqlength\nSAM.quality\nSAM.auxdata\n\nSAM.FLAG_PAIRED\nSAM.FLAG_PROPER_PAIR\nSAM.FLAG_UNMAP\nSAM.FLAG_MUNMAP\nSAM.FLAG_REVERSE\nSAM.FLAG_MREVERSE\nSAM.FLAG_READ1\nSAM.FLAG_READ2\nSAM.FLAG_SECONDARY\nSAM.FLAG_QCFAIL\nSAM.FLAG_DUP\nSAM.FLAG_SUPPLEMENTARY"
-},
-
-{
-    "location": "references.html#BioAlignments.BAM.Reader",
-    "page": "API Reference",
-    "title": "BioAlignments.BAM.Reader",
-    "category": "type",
-    "text": "BAM.Reader(input::IO; index=nothing)\n\nCreate a data reader of the BAM file format.\n\nArguments\n\ninput: data source\nindex=nothing: filepath to a random access index (currently bai is supported)\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.BAM.header",
-    "page": "API Reference",
-    "title": "BioAlignments.BAM.header",
-    "category": "function",
-    "text": "header(reader::Reader; fillSQ::Bool=false)::SAM.Header\n\nGet the header of reader.\n\nIf fillSQ is true, this function fills missing \"SQ\" metainfo in the header.\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.BAM.Writer",
-    "page": "API Reference",
-    "title": "BioAlignments.BAM.Writer",
-    "category": "type",
-    "text": "BAM.Writer(output::BGZFStream, header::SAM.Header)\n\nCreate a data writer of the BAM file format.\n\nArguments\n\noutput: data sink\nheader: SAM header object\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.BAM.Record",
-    "page": "API Reference",
-    "title": "BioAlignments.BAM.Record",
-    "category": "type",
-    "text": "BAM.Record()\n\nCreate an unfilled BAM record.\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.BAM.flag",
-    "page": "API Reference",
-    "title": "BioAlignments.BAM.flag",
-    "category": "function",
-    "text": "flag(record::Record)::UInt16\n\nGet the bitwise flag of record.\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.BAM.ismapped",
-    "page": "API Reference",
-    "title": "BioAlignments.BAM.ismapped",
-    "category": "function",
-    "text": "ismapped(record::Record)::Bool\n\nTest if record is mapped.\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.BAM.isprimary",
-    "page": "API Reference",
-    "title": "BioAlignments.BAM.isprimary",
-    "category": "function",
-    "text": "isprimary(record::Record)::Bool\n\nTest if record is a primary line of the read.\n\nThis is equivalent to flag(record) & 0x900 == 0.\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.BAM.ispositivestrand",
-    "page": "API Reference",
-    "title": "BioAlignments.BAM.ispositivestrand",
-    "category": "function",
-    "text": "ispositivestrand(record::Record)::Bool\n\nTest if record is aligned to the positive strand.\n\nThis is equivalent to flag(record) & 0x10 == 0.\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.BAM.refid",
-    "page": "API Reference",
-    "title": "BioAlignments.BAM.refid",
-    "category": "function",
-    "text": "refid(record::Record)::Int\n\nGet the reference sequence ID of record.\n\nThe ID is 1-based (i.e. the first sequence is 1) and is 0 for a record without a mapping position.\n\nSee also: BAM.rname\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.BAM.refname",
-    "page": "API Reference",
-    "title": "BioAlignments.BAM.refname",
-    "category": "function",
-    "text": "refname(record::Record)::String\n\nGet the reference sequence name of record.\n\nSee also: BAM.refid\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.BAM.position",
-    "page": "API Reference",
-    "title": "BioAlignments.BAM.position",
-    "category": "function",
-    "text": "position(record::Record)::Int\n\nGet the 1-based leftmost mapping position of record.\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.BAM.rightposition",
-    "page": "API Reference",
-    "title": "BioAlignments.BAM.rightposition",
-    "category": "function",
-    "text": "rightposition(record::Record)::Int\n\nGet the 1-based rightmost mapping position of record.\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.BAM.isnextmapped",
-    "page": "API Reference",
-    "title": "BioAlignments.BAM.isnextmapped",
-    "category": "function",
-    "text": "isnextmapped(record::Record)::Bool\n\nTest if the mate/next read of record is mapped.\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.BAM.nextrefid",
-    "page": "API Reference",
-    "title": "BioAlignments.BAM.nextrefid",
-    "category": "function",
-    "text": "nextrefid(record::Record)::Int\n\nGet the next/mate reference sequence ID of record.\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.BAM.nextrefname",
-    "page": "API Reference",
-    "title": "BioAlignments.BAM.nextrefname",
-    "category": "function",
-    "text": "nextrefname(record::Record)::String\n\nGet the reference name of the mate/next read of record.\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.BAM.nextposition",
-    "page": "API Reference",
-    "title": "BioAlignments.BAM.nextposition",
-    "category": "function",
-    "text": "nextposition(record::Record)::Int\n\nGet the 1-based leftmost mapping position of the next/mate read of record.\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.BAM.mappingquality",
-    "page": "API Reference",
-    "title": "BioAlignments.BAM.mappingquality",
-    "category": "function",
-    "text": "mappingquality(record::Record)::UInt8\n\nGet the mapping quality of record.\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.BAM.cigar",
-    "page": "API Reference",
-    "title": "BioAlignments.BAM.cigar",
-    "category": "function",
-    "text": "cigar(record::Record)::String\n\nGet the CIGAR string of record.\n\nNote that in the BAM specification, the field called cigar typically stores the cigar string of the record. However, this is not always true, sometimes the true cigar is very long, and due to  some constraints of the BAM format, the actual cigar string is stored in an extra tag: CG:B,I, and the cigar field stores a pseudo-cigar string.\n\nCalling this method with checkCG set to true (default) this method will always yield the true cigar string, because this is probably what you want the vast majority of the time.\n\nIf you have a record that stores the true cigar in a CG:B,I tag, but you still want to access the pseudo-cigar that is stored in the cigar field of the BAM record, then you can set checkCG to false.\n\nSee also BAM.cigar_rle.\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.BAM.cigar_rle",
-    "page": "API Reference",
-    "title": "BioAlignments.BAM.cigar_rle",
-    "category": "function",
-    "text": "cigar_rle(record::Record, checkCG::Bool = true)::Tuple{Vector{BioAlignments.Operation},Vector{Int}}\n\nGet a run-length encoded tuple (ops, lens) of the CIGAR string in record.\n\nNote that in the BAM specification, the field called cigar typically stores the cigar string of the record. However, this is not always true, sometimes the true cigar is very long, and due to  some constraints of the BAM format, the actual cigar string is stored in an extra tag: CG:B,I, and the cigar field stores a pseudo-cigar string.\n\nCalling this method with checkCG set to true (default) this method will always yield the true cigar string, because this is probably what you want the vast majority of the time.\n\nIf you have a record that stores the true cigar in a CG:B,I tag, but you still want to access the pseudo-cigar that is stored in the cigar field of the BAM record, then you can set checkCG to false.\n\nSee also BAM.cigar.\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.BAM.alignment",
-    "page": "API Reference",
-    "title": "BioAlignments.BAM.alignment",
-    "category": "function",
-    "text": "alignment(record::Record)::BioAlignments.Alignment\n\nGet the alignment of record.\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.BAM.alignlength",
-    "page": "API Reference",
-    "title": "BioAlignments.BAM.alignlength",
-    "category": "function",
-    "text": "alignlength(record::Record)::Int\n\nGet the alignment length of record.\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.BAM.tempname",
-    "page": "API Reference",
-    "title": "BioAlignments.BAM.tempname",
-    "category": "function",
-    "text": "tempname(record::Record)::String\n\nGet the query template name of record.\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.BAM.templength",
-    "page": "API Reference",
-    "title": "BioAlignments.BAM.templength",
-    "category": "function",
-    "text": "templength(record::Record)::Int\n\nGet the template length of record.\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.BAM.sequence",
-    "page": "API Reference",
-    "title": "BioAlignments.BAM.sequence",
-    "category": "function",
-    "text": "sequence(record::Record)::BioSequences.DNASequence\n\nGet the segment sequence of record.\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.BAM.seqlength",
-    "page": "API Reference",
-    "title": "BioAlignments.BAM.seqlength",
-    "category": "function",
-    "text": "seqlength(record::Record)::Int\n\nGet the sequence length of record.\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.BAM.quality",
-    "page": "API Reference",
-    "title": "BioAlignments.BAM.quality",
-    "category": "function",
-    "text": "quality(record::Record)::Vector{UInt8}\n\nGet the base quality of  record.\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.BAM.auxdata",
-    "page": "API Reference",
-    "title": "BioAlignments.BAM.auxdata",
-    "category": "function",
-    "text": "auxdata(record::Record)::BAM.AuxData\n\nGet the auxiliary data of record.\n\n\n\n"
-},
-
-{
-    "location": "references.html#BioAlignments.BAM.BAI",
-    "page": "API Reference",
-    "title": "BioAlignments.BAM.BAI",
-    "category": "type",
-    "text": "BAI(filename::AbstractString)\n\nLoad a BAI index from filename.\n\n\n\nBAI(input::IO)\n\nLoad a BAI index from input.\n\n\n\n"
 },
 
 {
