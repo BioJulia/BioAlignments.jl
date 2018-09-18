@@ -9,9 +9,9 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "index.html#img-src\"./sticker.svg\"-width\"30%\"-align\"right\"-/-BioAlignments-1",
+    "location": "index.html#BioAlignments-1",
     "page": "Home",
-    "title": "<img src=\"./sticker.svg\" width=\"30%\" align=\"right\" /> BioAlignments",
+    "title": "BioAlignments",
     "category": "section",
     "text": "(Image: Latest release) (Image: MIT license) (Image: Stable documentation) (Image: Latest documentation) (Image: Lifecycle) (Image: Chat on Discord)"
 },
