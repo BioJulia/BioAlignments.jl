@@ -120,26 +120,26 @@ for feature in features
 end
 close(reader)</code></pre><h2><a class="nav-anchor" id="Writing-files-1" href="#Writing-files-1">Writing files</a></h2><p>In order to write a BAM or SAM file, you must first create a <code>SAM.Header</code>.</p><p>A <code>SAM.Header</code> is constructed from a vector of <code>SAM.MetaInfo</code> objects.</p><p>For example, to create the following simple header:</p><pre><code class="language-none">@HD VN:1.6 SO:coordinate
 @SQ SN:ref LN:45</code></pre><pre><code class="language-julia">julia&gt; a = SAM.MetaInfo(&quot;HD&quot;, [&quot;VN&quot; =&gt; 1.6, &quot;SO&quot; =&gt; &quot;coordinate&quot;])
-BioAlignments.SAM.MetaInfo:
+SAM.MetaInfo:
     tag: HD
   value: VN=1.6 SO=coordinate
 
 julia&gt; b = SAM.MetaInfo(&quot;SQ&quot;, [&quot;SN&quot; =&gt; &quot;ref&quot;, &quot;LN&quot; =&gt; 45])
-BioAlignments.SAM.MetaInfo:
+SAM.MetaInfo:
     tag: SQ
   value: SN=ref LN=45
 
 julia&gt; h = SAM.Header([a, b])
-BioAlignments.SAM.Header(BioAlignments.SAM.MetaInfo[BioAlignments.SAM.MetaInfo:
+SAM.Header(SAM.MetaInfo[SAM.MetaInfo:
     tag: HD
-  value: VN=1.6 SO=coordinate, BioAlignments.SAM.MetaInfo:
+  value: VN=1.6 SO=coordinate, SAM.MetaInfo:
     tag: SQ
   value: SN=ref LN=45])
 </code></pre><p>Then to create the writer for a SAM file, construct a <code>SAM.Writer</code> using the header and an <code>IO</code> type:</p><pre><code class="language-julia">julia&gt; samw = SAM.Writer(open(&quot;my-data.sam&quot;, &quot;w&quot;), h)
-BioAlignments.SAM.Writer(IOStream(&lt;file my-data.sam&gt;))
-</code></pre><p>To make a BAM Writer is slightly different, as you need to use a specific stream type from the <a href="bgzfstreams">BGZFStreams</a> package:</p><pre><code class="language-julia">julia&gt; using BGZFStreams
+SAM.Writer(IOStream(&lt;file my-data.sam&gt;))
+</code></pre><p>To make a BAM Writer is slightly different, as you need to use a specific stream type from the [BGZFStreams][bgzfstreams] package:</p><pre><code class="language-julia">julia&gt; using BGZFStreams
 
 julia&gt; bamw = BAM.Writer(BGZFStream(open(&quot;my-data.bam&quot;, &quot;w&quot;), &quot;w&quot;))
-BioAlignments.BAM.Writer(BGZFStreams.BGZFStream{IOStream}(&lt;mode=write&gt;))
+BAM.Writer(BGZFStreams.BGZFStream{IOStream}(&lt;mode=write&gt;))
 </code></pre><p>Once you have a BAM or SAM writer, you can use the <code>write</code> method to write <code>BAM.Record</code>s or <code>SAM.Record</code>s to file:</p><pre><code class="language-julia">julia&gt; write(bamw, rec) # Here rec is a `BAM.Record`
 330780</code></pre><p>[samtools]:      https://samtools.github.io/ [samtools-spec]: https://samtools.github.io/hts-specs/SAMv1.pdf [samtags]:       https://samtools.github.io/hts-specs/SAMtags.pdf [bgzfstreams]:   https://github.com/BioJulia/BGZFStreams.jl</p><footer><hr/><a class="previous" href="pairalign.html"><span class="direction">Previous</span><span class="title">Pairwise alignment</span></a><a class="next" href="references.html"><span class="direction">Next</span><span class="title">API Reference</span></a></footer></article></body></html>
