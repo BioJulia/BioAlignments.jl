@@ -34,11 +34,14 @@ function Record(data::Vector{UInt8})
 end
 
 function Base.convert(::Type{Record}, data::Vector{UInt8})
+    length(data) < FIXED_FIELDS_BYTES && throw(ArgumentError("data too short"))
     record = Record()
-    unsafe_copy!(pointer_from_objref(record), pointer(data), FIXED_FIELDS_BYTES)
+    dst_pointer = Ptr{UInt8}(pointer_from_objref(record))
+    unsafe_copyto!(dst_pointer, pointer(data), FIXED_FIELDS_BYTES)
     dsize = data_size(record)
     resize!(record.data, dsize)
-    unsafe_copy!(pointer(record.data), pointer(data, FIXED_FIELDS_BYTES + 1), dsize)
+    length(data) < dsize + FIXED_FIELDS_BYTES && throw(ArgumentError("data too short"))
+    unsafe_copyto!(record.data, 1, data, FIXED_FIELDS_BYTES + 1, dsize)
     return record
 end
 
