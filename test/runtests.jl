@@ -856,16 +856,9 @@ end
                   ^^
                 """)
 
-                testaln("""
-                 ACGT  
-                AACGTTT
-                 ^^^^
-                """)
+                testaln(" ACGT  \nAACGTTT\n ^^^^  \n")
 
-                testaln("""
-                  AC-GT  
-                AAACTGTTT
-                """)
+                testaln("  AC-GT  \nAAACTGTTT\n")
             end
 
             @testset "no match" begin
@@ -1295,6 +1288,26 @@ end
         @test eof(reader)
         close(reader)
 
+        # Test conversion from byte array to record
+        dsize = BAM.data_size(record)
+        array = Vector{UInt8}(undef, BAM.FIXED_FIELDS_BYTES + dsize)
+        GC.@preserve array record begin
+            ptr = Ptr{UInt8}(pointer_from_objref(record))
+            unsafe_copyto!(pointer(array), ptr, BAM.FIXED_FIELDS_BYTES)
+            unsafe_copyto!(array, BAM.FIXED_FIELDS_BYTES + 1, record.data, 1, dsize)
+        end
+        new_record = convert(BAM.Record, array)
+        @test record.bin_mq_nl == new_record.bin_mq_nl
+        @test record.block_size == new_record.block_size
+        @test record.flag_nc == new_record.flag_nc
+        @test record.l_seq == new_record.l_seq
+        @test record.next_refid == new_record.next_refid
+        @test record.next_pos == new_record.next_pos
+        @test record.refid == new_record.refid
+        @test record.pos == new_record.pos
+        @test record.tlen == new_record.tlen
+        @test record.data == new_record.data
+
         # iterator
         @test length(collect(open(BAM.Reader, joinpath(bamdir, "ce#1.bam")))) == 1
         @test length(collect(open(BAM.Reader, joinpath(bamdir, "ce#2.bam")))) == 2
@@ -1312,14 +1325,14 @@ end
             field_l = length(field_ops)
             return cigar_l, field_l
         end
-    
+
         function check_cigar_vs_field(rec::BAM.Record)
             cigar = BAM.cigar(rec)
             field = BAM.cigar(rec, false)
             cigar_l, field_l = get_cigar_lens(rec)
             return cigar != field && cigar_l != field_l
         end
-        
+
         function check_cigar_lens(rec::BAM.Record, field_len, cigar_len)
             cigar_l, field_l = get_cigar_lens(rec)
             return cigar_l == cigar_len && field_l == field_len
