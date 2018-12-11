@@ -856,16 +856,9 @@ end
                   ^^
                 """)
 
-                testaln("""
-                 ACGT  
-                AACGTTT
-                 ^^^^
-                """)
+                testaln(" ACGT  \nAACGTTT\n ^^^^  ")
+                testaln("  AC-GT  \nAAACTGTTT")
 
-                testaln("""
-                  AC-GT  
-                AAACTGTTT
-                """)
             end
 
             @testset "no match" begin
@@ -1312,14 +1305,14 @@ end
             field_l = length(field_ops)
             return cigar_l, field_l
         end
-    
+
         function check_cigar_vs_field(rec::BAM.Record)
             cigar = BAM.cigar(rec)
             field = BAM.cigar(rec, false)
             cigar_l, field_l = get_cigar_lens(rec)
             return cigar != field && cigar_l != field_l
         end
-        
+
         function check_cigar_lens(rec::BAM.Record, field_len, cigar_len)
             cigar_l, field_l = get_cigar_lens(rec)
             return cigar_l == cigar_len && field_l == field_len
