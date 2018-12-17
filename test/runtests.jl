@@ -855,10 +855,8 @@ end
                 AGGT
                   ^^
                 """)
-
-                testaln(" ACGT  \nAACGTTT\n ^^^^  ")
-                testaln("  AC-GT  \nAAACTGTTT")
-
+                testaln(" ACGT  \nAACGTTT\n ^^^^  \n")
+                testaln("  AC-GT  \nAAACTGTTT\n")
             end
 
             @testset "no match" begin
@@ -1287,6 +1285,26 @@ end
         @test values(record) == [1, 5, 0, 1, -18, -18, "UU"]
         @test eof(reader)
         close(reader)
+
+        # Test conversion from byte array to record
+        dsize = BAM.data_size(record)
+        array = Vector{UInt8}(undef, BAM.FIXED_FIELDS_BYTES + dsize)
+        GC.@preserve array record begin
+            ptr = Ptr{UInt8}(pointer_from_objref(record))
+            unsafe_copyto!(pointer(array), ptr, BAM.FIXED_FIELDS_BYTES)
+            unsafe_copyto!(array, BAM.FIXED_FIELDS_BYTES + 1, record.data, 1, dsize)
+        end
+        new_record = convert(BAM.Record, array)
+        @test record.bin_mq_nl == new_record.bin_mq_nl
+        @test record.block_size == new_record.block_size
+        @test record.flag_nc == new_record.flag_nc
+        @test record.l_seq == new_record.l_seq
+        @test record.next_refid == new_record.next_refid
+        @test record.next_pos == new_record.next_pos
+        @test record.refid == new_record.refid
+        @test record.pos == new_record.pos
+        @test record.tlen == new_record.tlen
+        @test record.data == new_record.data
 
         # iterator
         @test length(collect(open(BAM.Reader, joinpath(bamdir, "ce#1.bam")))) == 1
