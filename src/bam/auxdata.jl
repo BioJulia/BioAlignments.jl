@@ -7,7 +7,7 @@ end
 
 function Base.getindex(aux::AuxData, tag::AbstractString)
     checkauxtag(tag)
-    return getauxvalue(aux.data, 1, UInt8(tag[1]), UInt8(tag[2]))
+    return getauxvalue(aux.data, 1, length(aux.data), UInt8(tag[1]), UInt8(tag[2]))
 end
 
 function Base.length(aux::AuxData)
@@ -48,8 +48,8 @@ function checkauxtag(tag::AbstractString)
     end
 end
 
-function getauxvalue(data::Vector{UInt8}, pos::Int, t1::UInt8, t2::UInt8)
-    pos = findauxtag(data, pos, t1, t2)
+function getauxvalue(data::Vector{UInt8}, start::Int, stop::Int, t1::UInt8, t2::UInt8)
+    pos = findauxtag(data, start, stop, t1, t2)
     if pos == 0
         throw(KeyError(String([t1, t2])))
     end
@@ -104,11 +104,12 @@ function loadauxvalue(data::Vector{UInt8}, p::Int, ::Type{String})
     return q + 2, String(data[p:q])
 end
 
-function findauxtag(data::Vector{UInt8}, pos::Int, t1::UInt8, t2::UInt8)
-    while pos ≤ length(data) && !(data[pos] == t1 && data[pos+1] == t2)
+function findauxtag(data::Vector{UInt8}, start::Int, stop::Int, t1::UInt8, t2::UInt8)
+    pos = start
+    while pos ≤ stop && !(data[pos] == t1 && data[pos+1] == t2)
         pos = next_tag_position(data, pos)
     end
-    if pos > length(data)
+    if pos > stop
         return 0
     else
         return pos

@@ -855,9 +855,7 @@ end
                 AGGT
                   ^^
                 """)
-
                 testaln(" ACGT  \nAACGTTT\n ^^^^  \n")
-
                 testaln("  AC-GT  \nAAACTGTTT\n")
             end
 

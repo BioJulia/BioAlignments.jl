@@ -402,7 +402,9 @@ function cigar_position(record::Record, checkCG::Bool = true)::Tuple{Int, Int}
     if x != UInt32(seqlength(record) << 4 | 4)
         return cigaridx, nops
     end
-    tagidx = findauxtag(record.data, auxdata_position(record), UInt8('C'), UInt8('G'))
+    start = auxdata_position(record)
+    stop = data_size(record)
+    tagidx = findauxtag(record.data, start, stop, UInt8('C'), UInt8('G'))
     if tagidx == 0
         return cigaridx, nops
     end
@@ -566,12 +568,16 @@ end
 
 function Base.getindex(record::Record, tag::AbstractString)
     checkauxtag(tag)
-    return getauxvalue(record.data, auxdata_position(record), UInt8(tag[1]), UInt8(tag[2]))
+    start = auxdata_position(record)
+    stop = data_size(record)
+    return getauxvalue(record.data, start, stop, UInt8(tag[1]), UInt8(tag[2]))
 end
 
 function Base.haskey(record::Record, tag::AbstractString)
     checkauxtag(tag)
-    return findauxtag(record.data, auxdata_position(record), UInt8(tag[1]), UInt8(tag[2])) > 0
+    start = auxdata_position(record)
+    stop = data_size(record)
+    return findauxtag(record.data, start, stop, UInt8(tag[1]), UInt8(tag[2])) > 0
 end
 
 function Base.keys(record::Record)
