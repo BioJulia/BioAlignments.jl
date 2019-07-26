@@ -537,15 +537,15 @@ function hasseqlength(record::Record)
 end
 
 """
-    quality(record::Record)::Vector{UInt8}
+    quality(record::Record)
 
-Get the base quality of  `record`.
+Get the base quality of `record`.
 """
-function quality(record::Record)::Vector{UInt8}
+function quality(record::Record)
     checkfilled(record)
     seqlen = seqlength(record)
     offset = seqname_length(record) + n_cigar_op(record, false) * 4 + cld(seqlen, 2)
-    return [reinterpret(Int8, record.data[i+offset]) for i in 1:seqlen]
+    return record.data[(1+offset):(seqlen+offset)]
 end
 
 function hasquality(record::Record)
