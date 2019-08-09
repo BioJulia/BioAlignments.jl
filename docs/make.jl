@@ -4,8 +4,11 @@ Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()
 using Documenter, BioAlignments
 
 makedocs(
-    format = :html,
+    format = Documenter.HTML(),
+    modules = [BioAlignments, BioAlignments.SAM, BioAlignments.BAM],
     sitename = "BioAlignments.jl",
+    doctest = false,
+    strict = false,
     pages = [
         "Home" => "index.md",
         "Alignment representation" => "alignments.md",
@@ -17,11 +20,9 @@ makedocs(
     ],
     authors = "Kenta Sato, Ben J. Ward, The BioJulia Organisation and other contributors."
 )
+
 deploydocs(
     repo = "github.com/BioJulia/BioAlignments.jl.git",
-    julia = "1.0",
-    osname = "linux",
-    target = "build",
     deps = nothing,
     make = nothing
 )
