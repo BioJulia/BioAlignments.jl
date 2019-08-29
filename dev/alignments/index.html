@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Alignment representation · BioAlignments.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="../assets/documenter.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link href="../assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><a href="../index.html"><img class="logo" src="../assets/logo.png" alt="BioAlignments.jl logo"/></a><h1>BioAlignments.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" id="search-form" action="../search/"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="../">Home</a></li><li class="current"><a class="toctext" href>Alignment representation</a><ul class="internal"><li><a class="toctext" href="#Overview-1">Overview</a></li><li><a class="toctext" href="#Representing-alignments-1">Representing alignments</a></li><li><a class="toctext" href="#Alignment-operations-1">Alignment operations</a></li><li><a class="toctext" href="#Aligned-sequences-1">Aligned sequences</a></li></ul></li><li><a class="toctext" href="../pairalign/">Pairwise alignment</a></li><li><a class="toctext" href="../references/">API Reference</a></li></ul></nav><article id="docs"><header><nav><ul><li><a href>Alignment representation</a></li></ul><a class="edit-page" href="https://github.com/BioJulia/BioAlignments.jl/blob/develop/docs/src/alignments.md"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>Alignment representation</span><a class="fa fa-bars" href="#"></a></div></header><h1><a class="nav-anchor" id="Alignment-representation-1" href="#Alignment-representation-1">Alignment representation</a></h1><h2><a class="nav-anchor" id="Overview-1" href="#Overview-1">Overview</a></h2><p>Types related to alignment representation introduced in this chapter are indispensable concepts to use this package. Specifically, <code>Alignment</code>, <code>AlignmentAnchor</code> and <code>Operation</code> are the most fundamental types of this package to represent an alignment of two sequences.</p><h2><a class="nav-anchor" id="Representing-alignments-1" href="#Representing-alignments-1">Representing alignments</a></h2><p>The <code>Alignment</code> type can represent a wide variety of global or local sequence alignments while facilitating efficient coordinate transformation.  Alignments are always relative to a possibly unspecified reference sequence and represent a series of <a href="https://en.wikipedia.org/wiki/Edit_distance">edit operations</a> performed on that reference to transform it to the query sequence. An edit operation is, for example, matching, insertion, or deletion.  All operations defined in BioAlignments.jl are described in the <a href="#Alignment-operations-1">Alignment operations</a> section.</p><p>To represent an alignment we use a series of &quot;anchors&quot; stored in the <code>AlignmentAnchor</code> type. Anchors are form of run-length encoding alignment operations, but rather than store an operation along with a length, we store the end-point of that operation in both reference and query coordinates.</p><pre><code class="language-julia">struct AlignmentAnchor
+    seqpos::Int
+    refpos::Int
+    op::Operation
+end</code></pre><p>The next figure shows a schematic representation of an alignment object.</p><p><img src="../assets/alignment.svg" alt="Alignment representation"/></p><p>Every alignment starts with a special <code>OP_START</code> operation which is used to give the position in the reference and query prior to the start of the alignment, or 0, if the alignment starts at position 1.</p><p>For example, consider the following alignment:</p><pre><code class="language-none">              0   4        9  12 15     19
+              |   |        |  |  |      |
+    query:     TGGC----ATCATTTAACG---CAAG
+reference: AGGGTGGCATTTATCAG---ACGTTTCGAGAC
+              |   |   |    |     |  |   |
+              4   8   12   17    20 23  27</code></pre><p>Using anchors we would represent this as the following series of anchors:</p><pre><code class="language-julia">[
+    AlignmentAnchor( 0,  4, OP_START),
+    AlignmentAnchor( 4,  8, OP_MATCH),
+    AlignmentAnchor( 4, 12, OP_DELETE),
+    AlignmentAnchor( 9, 17, OP_MATCH),
+    AlignmentAnchor(12, 17, OP_INSERT),
+    AlignmentAnchor(15, 20, OP_MATCH),
+    AlignmentAnchor(15, 23, OP_DELETE),
+    AlignmentAnchor(19, 27, OP_MATCH),
+]</code></pre><p>An <code>Alignment</code> object can be created from a series of anchors:</p><pre><code class="language-julia-repl">julia&gt; Alignment([
+           AlignmentAnchor(0,  4, OP_START),
+           AlignmentAnchor(4,  8, OP_MATCH),
+           AlignmentAnchor(4, 12, OP_DELETE)
+       ])
+Alignment:
+  aligned range:
+    seq: 0-4
+    ref: 4-12
+  CIGAR string: 4M4D</code></pre><h2><a class="nav-anchor" id="Alignment-operations-1" href="#Alignment-operations-1">Alignment operations</a></h2><p>Alignment operations follow closely from those used in the <a href="https://samtools.github.io/hts-specs/SAMv1.pdf">SAM/BAM format</a> and are stored in the <code>Operation</code> bitstype.</p><table><tr><th style="text-align: left">Operation</th><th style="text-align: left">Operation Type</th><th style="text-align: left">Description</th></tr><tr><td style="text-align: left"><code>OP_MATCH</code></td><td style="text-align: left">match</td><td style="text-align: left">non-specific match</td></tr><tr><td style="text-align: left"><code>OP_INSERT</code></td><td style="text-align: left">insert</td><td style="text-align: left">insertion into reference sequence</td></tr><tr><td style="text-align: left"><code>OP_DELETE</code></td><td style="text-align: left">delete</td><td style="text-align: left">deletion from reference sequence</td></tr><tr><td style="text-align: left"><code>OP_SKIP</code></td><td style="text-align: left">delete</td><td style="text-align: left">(typically long) deletion from the reference, e.g. due to RNA splicing</td></tr><tr><td style="text-align: left"><code>OP_SOFT_CLIP</code></td><td style="text-align: left">insert</td><td style="text-align: left">sequence removed from the beginning or end of the query sequence but stored</td></tr><tr><td style="text-align: left"><code>OP_HARD_CLIP</code></td><td style="text-align: left">insert</td><td style="text-align: left">sequence removed from the beginning or end of the query sequence and not stored</td></tr><tr><td style="text-align: left"><code>OP_PAD</code></td><td style="text-align: left">special</td><td style="text-align: left">not currently supported, but present for SAM/BAM compatibility</td></tr><tr><td style="text-align: left"><code>OP_SEQ_MATCH</code></td><td style="text-align: left">match</td><td style="text-align: left">match operation with matching sequence positions</td></tr><tr><td style="text-align: left"><code>OP_SEQ_MISMATCH</code></td><td style="text-align: left">match</td><td style="text-align: left">match operation with mismatching sequence positions</td></tr><tr><td style="text-align: left"><code>OP_BACK</code></td><td style="text-align: left">special</td><td style="text-align: left">not currently supported, but present for SAM/BAM compatibility</td></tr><tr><td style="text-align: left"><code>OP_START</code></td><td style="text-align: left">special</td><td style="text-align: left">indicate the start of an alignment within the reference and query sequence</td></tr></table><p>Each operation has its own one-letter representation, which is the same as those defined in the SAM file format.</p><pre><code class="language-julia-repl">julia&gt; convert(Operation, &#39;M&#39;)  # Char =&gt; Operation
+OP_MATCH
+
+julia&gt; convert(Char, OP_MATCH)  # Operation =&gt; Char
+&#39;M&#39;: ASCII/Unicode U+004d (category Lu: Letter, uppercase)
+
+julia&gt; ismatchop(OP_MATCH)
+true
+</code></pre><p>See the <a href="../references/#Operations-1">Operations</a> section in the references for more details.</p><h2><a class="nav-anchor" id="Aligned-sequences-1" href="#Aligned-sequences-1">Aligned sequences</a></h2><p>A sequence aligned to another sequence is represented by the <code>AlignedSequence</code> type, which is a pair of the aligned sequence and an <code>Alignment</code> object.</p><p>The following example creates an aligned sequence object from a sequence and an alignment:</p><pre><code class="language-julia-repl">julia&gt; AlignedSequence(  # pass an Alignment object
+           dna&quot;ACGTAT&quot;,
+           Alignment([
+               AlignmentAnchor(0, 0, OP_START),
+               AlignmentAnchor(3, 3, OP_MATCH),
+               AlignmentAnchor(6, 3, OP_INSERT)
+           ])
+       )
+···---
+ACGTAT
+
+julia&gt; AlignedSequence(  # or pass a vector of anchors
+           dna&quot;ACGTAT&quot;,
+           [
+               AlignmentAnchor(0, 0, OP_START),
+               AlignmentAnchor(3, 3, OP_MATCH),
+               AlignmentAnchor(6, 3, OP_INSERT)
+           ]
+       )
+···---
+ACGTAT
+</code></pre><p>If you already have an aligned sequence with gap symbols, it can be converted to an <code>AlignedSequence</code> object by passing a reference sequence with it:</p><pre><code class="language-jlcon">julia&gt; seq = dna&quot;ACGT--AAT--&quot;
+11nt DNA Sequence:
+ACGT--AAT--
+
+julia&gt; ref = dna&quot;ACGTTTAT-GG&quot;
+11nt DNA Sequence:
+ACGTTTAT-GG
+
+julia&gt; AlignedSequence(seq, ref)
+········-··
+ACGT--AAT--
+</code></pre><footer><hr/><a class="previous" href="../"><span class="direction">Previous</span><span class="title">Home</span></a><a class="next" href="../pairalign/"><span class="direction">Next</span><span class="title">Pairwise alignment</span></a></footer></article></body></html>
