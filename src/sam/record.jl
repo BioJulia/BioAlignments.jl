@@ -327,8 +327,8 @@ function alignlength(record::Record)::Int
             op = convert(BioAlignments.Operation, Char(c))
             if BioAlignments.ismatchop(op) || BioAlignments.isdeleteop(op)
                 ret += len
-                len = 0
             end
+            len = 0
         end
     end
     return ret
