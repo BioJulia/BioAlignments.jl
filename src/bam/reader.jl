@@ -114,7 +114,7 @@ function init_bam_reader(input::BGZFStreams.BGZFStream)
         push!(refseqlens, seqlen)
     end
 
-    voffset = isa(input.io, Pipe) ?
+    voffset = isa(input.io, Base.AbstractPipe) ?
         BGZFStreams.VirtualOffset(0, 0) :
         BGZFStreams.virtualoffset(input)
     return Reader(
