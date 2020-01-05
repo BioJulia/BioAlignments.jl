@@ -1149,6 +1149,10 @@ end
         @test eof(reader)
         close(reader)
 
+        # rightposition (also implicitly alignlength)
+        records = collect(open(SAM.Reader, joinpath(samdir, "ce#5b.sam")))
+        @test SAM.rightposition(records[6]) == rightposition(records[6]) == 83
+
         # iterator
         @test length(collect(open(SAM.Reader, joinpath(samdir, "ce#1.sam")))) == 1
         @test length(collect(open(SAM.Reader, joinpath(samdir, "ce#2.sam")))) == 2
@@ -1305,6 +1309,10 @@ end
         @test record.pos == new_record.pos
         @test record.tlen == new_record.tlen
         @test record.data == new_record.data
+
+        # rightposition (also implicitly alignlength)
+        records = collect(open(BAM.Reader, joinpath(bamdir, "ce#5b.bam")))
+        @test BAM.rightposition(records[6]) == rightposition(records[6]) == 83
 
         # iterator
         @test length(collect(open(BAM.Reader, joinpath(bamdir, "ce#1.bam")))) == 1
