@@ -42,10 +42,7 @@ BioAlignments is tested against julia `0.7` and `1.x` on Linux, OS X, and Window
 We appreciate contributions from users including reporting bugs, fixing
 issues, improving performance and adding new features.
 
-Take a look at the [CONTRIBUTING](https://github.com/BioJulia/BioAlignments.jl/blob/master/CONTRIBUTING.md) file provided with
-every BioJulia package package for detailed contributor and maintainer
-guidelines.
-
+Take a look at the [contributing files](https://github.com/BioJulia/Contributing) detailed contributor and maintainer guidelines, and code of conduct.
 
 ### Financial contributions
 
