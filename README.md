@@ -9,7 +9,7 @@
 
 
 ## Description
-BioAlignments provides alignment algorithms, data structures, and I/O tools for SAM and BAM file formats.
+BioAlignments provides alignment algorithms and data structures.
 
 ## Installation
 BioAlignments is made available to install through BioJulia's package registry.
