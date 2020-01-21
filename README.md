@@ -38,11 +38,13 @@ BioAlignments is tested against julia `0.7` and `1.X` on Linux, OS X, and Window
 
 
 ## Contributing
-
-We appreciate contributions from users including reporting bugs, fixing
-issues, improving performance and adding new features.
+We appreciate [contributions](https://github.com/BioJulia/BioAlignments.jl/graphs/contributors) from users including reporting bugs, fixing issues, improving performance and adding new features.
 
 Take a look at the [contributing files](https://github.com/BioJulia/Contributing) detailed contributor and maintainer guidelines, and code of conduct.
+
+### Special Thanks
+- Peter Haverty
+  - GitHub [phaverty](https://github.com/phaverty)
 
 ### Financial contributions
 
@@ -75,7 +77,6 @@ Your logo will show up here with a link to your website.
 [![](https://opencollective.com/biojulia/sponsor/7/avatar.svg)](https://opencollective.com/biojulia/sponsor/7/website)
 [![](https://opencollective.com/biojulia/sponsor/8/avatar.svg)](https://opencollective.com/biojulia/sponsor/8/website)
 [![](https://opencollective.com/biojulia/sponsor/9/avatar.svg)](https://opencollective.com/biojulia/sponsor/9/website)
-
 
 ## Questions?
 
