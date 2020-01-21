@@ -1,7 +1,7 @@
 name = "BioAlignments"
 uuid = "00701ae9-d1dc-5365-b64a-a3a3ebf5695e"
 authors = ["Kenta Sato <bicycle1885@gmail.com>", "Ben J. Ward <ward9250@gmail.com>"]
-version = "1.0.0"
+version = "1.0.1"
 
 [deps]
 Automa = "67c07d97-cdcb-5c2c-af73-a7f9c32a568b"
