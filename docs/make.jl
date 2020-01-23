@@ -15,9 +15,6 @@ makedocs(
         "Home" => "index.md",
         "Alignment representation" => "alignments.md",
         "Pairwise alignment" => "pairalign.md",
-        "IO" => [
-            "SAM and BAM" => "hts-files.md"
-        ],
         "API Reference" => "references.md"
     ],
     authors = replace(join(Pkg.TOML.parsefile("Project.toml")["authors"], ", "), r" <.*?>" => "" ) * ", The BioJulia Organisation, and other contributors."
