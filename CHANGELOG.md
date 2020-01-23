@@ -5,7 +5,20 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-## [1.0.1]
+
+### Added
+- BioJulia registry.
+
+### Changed
+- Migrated from BioCore to [BioGenerics](https://github.com/BioJulia/BioGenerics.jl/tree/v0.1.0).
+- Updated to use [BioSequences](https://github.com/BioJulia/BioSequences.jl/tree/v2.0.0) v2.
+- Updated CI.
+
+### Removed
+- :exclamation: BAM and SAM submodules were moved to [XAM.jl](https://github.com/BioJulia/XAM.jl).
+- :exclamation: Support for julia v0.7 and v1.0 was dropped.
+
+## [1.0.1] - 2020-01-24
 ### Added
 - Support for julia v1.1, v1.2, and v1.3.
 
