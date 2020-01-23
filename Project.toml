@@ -13,8 +13,8 @@ LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
 [compat]
 julia = "0.7,1"
 BioCore = "2"
-BioSequences = "1"
-BioSymbols = "3"
+BioSequences = "2"
+BioSymbols = "4"
 IntervalTrees = "1"
 
 [extras]

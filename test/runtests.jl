@@ -979,7 +979,7 @@ end
         aln = alignment(pairalign(GlobalAlignment(), seq1, seq2, model))
         @test sprint(show, aln) ==
         """
-        PairwiseAlignment{BioSequences.BioSequence{BioSequences.AminoAcidAlphabet},BioSequences.BioSequence{BioSequences.AminoAcidAlphabet}}:
+        PairwiseAlignment{BioSequences.LongSequence{BioSequences.AminoAcidAlphabet},BioSequences.LongSequence{BioSequences.AminoAcidAlphabet}}:
           seq:  1 EPVTSHPKAVSPTETK--PTEKGQHLPVSAPPKITQSLKAEASKDIAKLTCAVESSALCA 58
                   ||  ||||||||||||  |||| ||||||||||||| ||||||| |||||| |||| | |
           ref:  1 EP--SHPKAVSPTETKRCPTEKVQHLPVSAPPKITQFLKAEASKEIAKLTCVVESSVLRA 58

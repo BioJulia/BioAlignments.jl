@@ -16,12 +16,12 @@ function AlignedSequence(seq, anchors::Vector{AlignmentAnchor},
     return AlignedSequence(seq, Alignment(anchors, check))
 end
 
-function AlignedSequence(seq::BioSequences.Sequence, ref::BioSequences.Sequence)
+function AlignedSequence(seq::BioSequences.BioSequence, ref::BioSequences.BioSequence)
     return AlignedSequence(seq, 1, ref, 1)
 end
 
-function AlignedSequence(seq::BioSequences.Sequence, seqpos::Integer,
-                         ref::BioSequences.Sequence, refpos::Integer)
+function AlignedSequence(seq::BioSequences.BioSequence, seqpos::Integer,
+                         ref::BioSequences.BioSequence, refpos::Integer)
     if length(seq) != length(ref)
         throw(ArgumentError("two sequences must be the same length"))
     end
