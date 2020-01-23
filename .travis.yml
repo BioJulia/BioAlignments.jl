@@ -1,19 +1,24 @@
 ## Documentation: http://docs.travis-ci.com/user/languages/julia/
 language: julia
+
 os:
   - linux
   - osx
+
 julia:
   - 0.7
   - 1.0
+  - 1.1
+  - 1.2
+  - 1.3
   - nightly
+
 matrix:
   allow_failures:
       - julia: nightly
+
 notifications:
   email: false
+
 after_success:
-  # push coverage results to Codecov
-  - julia -e 'using Pkg; ps=Pkg.PackageSpec(name="Documenter", version="0.19"); Pkg.add(ps); Pkg.pin(ps); Pkg.add("Coverage"); Pkg.add("BioAlignments"); Pkg.add("BioSequences")'
-  - julia -e 'using Coverage; import BioAlignments; cd(dirname(dirname(pathof(BioAlignments)))); Codecov.submit(Codecov.process_folder())'
-  - julia --color=yes -e 'import BioAlignments; cd(dirname(dirname(pathof(BioAlignments)))); include(joinpath("docs", "make.jl"))'
+   - julia --project=coverage/ coverage/coverage.jl

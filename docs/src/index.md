@@ -1,71 +1,54 @@
 # BioAlignments
 
-[![Latest release](https://img.shields.io/github/release/BioJulia/BioAlignments.jl.svg?style=flat-square)](https://github.com/BioJulia/BioAlignments.jl/releases/latest)
-[![MIT license](https://img.shields.io/badge/license-MIT-green.svg?style=flat-square)](https://github.com/BioJulia/BioAlignments.jl/blob/master/LICENSE)
-[![Stable documentation](https://img.shields.io/badge/docs-stable-blue.svg?style=flat-square)](https://biojulia.github.io/BioAlignments.jl/stable)
-[![Latest documentation](https://img.shields.io/badge/docs-latest-blue.svg?style=flat-square)](https://biojulia.github.io/BioAlignments.jl/latest/)
-![Lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg?style=flat-square)
-[![Chat on Discord](https://img.shields.io/badge/discord-chat-blue.svg?style=flat-square&logo=discord&colorB=%237289DA)](https://discord.gg/z73YNFz)
+[![Latest release](https://img.shields.io/github/release/BioJulia/BioAlignments.jl.svg)](https://github.com/BioJulia/BioAlignments.jl/releases/latest)
+[![MIT license](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/BioJulia/BioAlignments.jl/blob/master/LICENSE)
+[![Stable documentation](https://img.shields.io/badge/docs-stable-blue.svg)](https://biojulia.github.io/BioAlignments.jl/stable)
+[![Latest documentation](https://img.shields.io/badge/docs-dev-blue.svg)](https://biojulia.github.io/BioAlignments.jl/dev)
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![Gitter](https://badges.gitter.im/BioJulia/BioAlignments.jl.svg)](https://gitter.im/BioJulia/BioAlignments.jl?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 
 ## Description
-
-BioAlignments provides alignment algorithms, data structures, and I/O
-tools for SAM and BAM file formats.
-
+BioAlignments provides alignment algorithms, data structures, and I/O tools for SAM and BAM file formats.
 
 ## Installation
-
-Install BioAlignments from the Julia REPL:
+You can install BioAlignments from the [Julia REPL](https://docs.julialang.org/en/v1/manual/getting-started/).
+Press `]` to enter [pkg mode](https://docs.julialang.org/en/v1/stdlib/Pkg/), then enter the following:
 
 ```julia
-using Pkg
-add("BioAlignments")
-#Pkg.add("BioAlignments") for julia prior to v0.7
+add BioAlignments
 ```
 
-If you are interested in the cutting edge of the development, please
-check out the master branch to try new features before release.
-
+If you are interested in the cutting edge of the development, please check out the [develop branch](https://github.com/BioJulia/BioAlignments.jl/tree/develop) to try new features before release.
 
 ## Testing
+BioAlignments is tested against Julia `1.X` on Linux, OS X, and Windows.
 
-BioAlignments is tested against julia `0.7` and `1.x` on Linux, OS X, and Windows.
+**Latest build status:**
 
-| **Latest release** | **Latest build status** |
-|:------------------:|:-----------------------:|
-|  [![julia07](https://pkg.julialang.org/badges/BioAlignments_0.7.svg)](https://pkg.julialang.org/?pkg=BioAlignments) | [![travis](https://img.shields.io/travis/BioJulia/BioAlignments.jl/master.svg?label=Linux+/+macOS)](https://travis-ci.org/BioJulia/BioAlignments.jl) [![appveyor](https://ci.appveyor.com/api/projects/status/klkynmkr1tgd30gq/branch/master?svg=true)](https://ci.appveyor.com/project/Ward9250/bioalignments-jl/branch/master) [![coverage](https://codecov.io/github/BioJulia/BioAlignments.jl/coverage.svg?branch=master)](https://codecov.io/github/BioJulia/BioAlignments.jl?branch=master) |
-
+[![Build Status](https://travis-ci.org/BioJulia/BioAlignments.jl.svg?branch=master)](https://travis-ci.org/BioJulia/BioAlignments.jl)
+[![appveyor](https://ci.appveyor.com/api/projects/status/klkynmkr1tgd30gq/branch/master?svg=true)](https://ci.appveyor.com/project/Ward9250/bioalignments-jl/branch/master)
+[![codecov](https://codecov.io/gh/BioJulia/BioAlignments.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/BioJulia/BioAlignments.jl)
 
 ## Contributing
+We appreciate [contributions](https://github.com/BioJulia/BioAlignments.jl/graphs/contributors) from users including reporting bugs, fixing issues, improving performance and adding new features.
 
-We appreciate contributions from users including reporting bugs, fixing
-issues, improving performance and adding new features.
-
-Take a look at the [CONTRIBUTING](https://github.com/BioJulia/BioAlignments.jl/blob/master/CONTRIBUTING.md) file provided with
-every BioJulia package package for detailed contributor and maintainer
-guidelines.
-
+Take a look at the [contributing files](https://github.com/BioJulia/Contributing) detailed contributor and maintainer guidelines, and code of conduct.
 
 ### Financial contributions
-
-We also welcome financial contributions in full transparency on our
-[open collective](https://opencollective.com/biojulia).
-Anyone can file an expense. If the expense makes sense for the development
-of the community, it will be "merged" in the ledger of our open collective by
-the core contributors and the person who filed the expense will be reimbursed.
+We also welcome financial contributions in full transparency on our [open collective](https://opencollective.com/biojulia).
+Anyone can file an expense.
+If the expense makes sense for the development of the community, it will be "merged" in the ledger of our open collective by the core contributors and the person who filed the expense will be reimbursed.
 
 
 ## Backers & Sponsors
-
 Thank you to all our backers and sponsors!
 
 Love our work and community? [Become a backer](https://opencollective.com/biojulia#backer).
 
 [![backers](https://opencollective.com/biojulia/backers.svg?width=890)](https://opencollective.com/biojulia#backers)
 
-Does your company use BioJulia? Help keep BioJulia feature rich and healthy by
-[sponsoring the project](https://opencollective.com/biojulia#sponsor)
+Does your company use BioJulia? Help keep BioJulia feature rich and healthy by [sponsoring the project](https://opencollective.com/biojulia#sponsor).
 Your logo will show up here with a link to your website.
 
 [![](https://opencollective.com/biojulia/sponsor/0/avatar.svg)](https://opencollective.com/biojulia/sponsor/0/website)
@@ -81,7 +64,4 @@ Your logo will show up here with a link to your website.
 
 
 ## Questions?
-
-If you have a question about contributing or using BioJulia software, come
-on over and chat to us on [Discord](https://discord.gg/z73YNFz), or you can try the
-[Bio category of the Julia discourse site](https://discourse.julialang.org/c/domain/bio).
+If you have a question about contributing or using BioJulia software, come on over and chat to us on [Gitter](https://gitter.im/BioJulia/General), or you can try the [Bio category of the Julia discourse site](https://discourse.julialang.org/c/domain/bio).
