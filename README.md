@@ -12,12 +12,20 @@
 BioAlignments provides alignment algorithms, data structures, and I/O tools for SAM and BAM file formats.
 
 ## Installation
-You can install BioAlignments from the [Julia REPL](https://docs.julialang.org/en/v1/manual/getting-started/).
-Press `]` to enter [pkg mode](https://docs.julialang.org/en/v1/stdlib/Pkg/), then enter the following:
+BioAlignments is made available to install through BioJulia's package registry.
+By default, Julia's package manager only uses the "General" package registry.
+Your Julia configuration needs to include the BioJulia registry to be able to install the latest version of BioAlignments.
 
+To add the BioJulia registry from the [Julia REPL](https://docs.julialang.org/en/v1/manual/getting-started/), press `]` to enter [pkg mode](https://docs.julialang.org/en/v1/stdlib/Pkg/), then enter the following command:
+```julia
+registry add https://github.com/BioJulia/BioJuliaRegistry.git
+```
+
+After adding the registry to your configuration, you can install BioAlignments while in [pkg mode](https://docs.julialang.org/en/v1/stdlib/Pkg/) with the following:
 ```julia
 add BioAlignments
 ```
+
 If you are interested in the cutting edge of the development, please check out the [develop branch](https://github.com/BioJulia/BioAlignments.jl/tree/develop) to try new features before release.
 
 
