@@ -71,8 +71,8 @@ export
     alignment,
     hasalignment
 
-using BioCore
-import BioCore: distance
+using BioGenerics
+import BioGenerics: distance
 
 import BioSequences
 import BioSymbols

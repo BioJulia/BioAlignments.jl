@@ -40,7 +40,7 @@ score(aln::PairwiseAlignmentResult) = aln.value
 
 Retrun distance of alignment.
 """
-BioCore.distance(aln::PairwiseAlignmentResult) = aln.value
+BioGenerics.distance(aln::PairwiseAlignmentResult) = aln.value
 
 
 """
