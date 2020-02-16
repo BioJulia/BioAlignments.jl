@@ -107,7 +107,7 @@ julia> count_aligned(aln)
 17
 
 julia> collect(aln)  # pairwise alignment is iterable
-17-element Array{Tuple{BioSymbols.DNA,BioSymbols.DNA},1}:
+17-element Array{Tuple{DNA,DNA},1}:
  (DNA_Gap, DNA_A)
  (DNA_C, DNA_C)
  (DNA_C, DNA_C)
