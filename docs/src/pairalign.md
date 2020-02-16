@@ -126,11 +126,11 @@ julia> collect(aln)  # pairwise alignment is iterable
  (DNA_G, DNA_C)
  (DNA_G, DNA_G)
 
-julia> DNASequence([x for (x, _) in aln])  # create aligned `s1` with gaps
+julia> LongDNASeq([x for (x, _) in aln])  # create aligned `s1` with gaps
 17nt DNA Sequence:
 -CCTAGG------AGGG
 
-julia> DNASequence([y for (_, y) in aln])  # create aligned `s2` with gaps
+julia> LongDNASeq([y for (_, y) in aln])  # create aligned `s2` with gaps
 17nt DNA Sequence:
 ACCT-GGTATGATAGCG
 
