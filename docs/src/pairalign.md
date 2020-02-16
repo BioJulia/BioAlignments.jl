@@ -74,7 +74,7 @@ julia> s2 = dna"ACCTGGTATGATAGCG";
 julia> scoremodel = AffineGapScoreModel(EDNAFULL, gap_open=-5, gap_extend=-1);
 
 julia> res = pairalign(GlobalAlignment(), s1, s2, scoremodel)  # run pairwise alignment
-PairwiseAlignmentResult{Int64,BioSequences.BioSequence{BioSequences.DNAAlphabet{4}},BioSequences.BioSequence{BioSequences.DNAAlphabet{4}}}:
+PairwiseAlignmentResult{Int64,BioSequences.LongSequence{BioSequences.DNAAlphabet{4}},BioSequences.LongSequence{BioSequences.DNAAlphabet{4}}}:
   score: 13
   seq:  0 -CCTAGG------AGGG 10
            ||| ||      || |
@@ -85,7 +85,7 @@ julia> score(res)  # get the achieved score of this alignment
 13
 
 julia> aln = alignment(res)
-PairwiseAlignment{BioSequences.BioSequence{BioSequences.DNAAlphabet{4}},BioSequences.BioSequence{BioSequences.DNAAlphabet{4}}}:
+PairwiseAlignment{BioSequences.LongSequence{BioSequences.DNAAlphabet{4}},BioSequences.LongSequence{BioSequences.DNAAlphabet{4}}}:
   seq:  0 -CCTAGG------AGGG 10
            ||| ||      || |
   ref:  1 ACCT-GGTATGATAGCG 16
