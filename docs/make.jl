@@ -7,7 +7,7 @@ using Documenter, BioAlignments
 
 makedocs(
     format = Documenter.HTML(
-        edit_branch = "develop"
+        edit_link = :commit
     ),
     modules = [BioAlignments],
     sitename = "BioAlignments.jl",
