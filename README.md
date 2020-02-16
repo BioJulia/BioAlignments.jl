@@ -4,7 +4,7 @@
 [![MIT license](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/BioJulia/BioAlignments.jl/blob/master/LICENSE)
 [![Stable documentation](https://img.shields.io/badge/docs-stable-blue.svg)](https://biojulia.github.io/BioAlignments.jl/stable)
 [![Latest documentation](https://img.shields.io/badge/docs-dev-blue.svg)](https://biojulia.github.io/BioAlignments.jl/dev)
-[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![Project Status: Active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![Gitter](https://badges.gitter.im/BioJulia/BioAlignments.jl.svg)](https://gitter.im/BioJulia/BioAlignments.jl?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 
