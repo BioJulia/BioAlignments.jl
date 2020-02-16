@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.0.0]
+
 ### Added
 - BioJulia registry.
 
@@ -55,7 +57,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [0.1.0] - 2017-06-30
 - This initial release extracted the alignment utilities out from Bio.jl into this dedicated package.
 
-[Unreleased]: https://github.com/BioJulia/BioAlignments.jl/compare/v1.0.1...HEAD
+[Unreleased]: https://github.com/BioJulia/BioAlignments.jl/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/BioJulia/BioAlignments.jl/compare/v1.0.1...v2.0.0
 [1.0.1]: https://github.com/BioJulia/BioAlignments.jl/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/BioJulia/BioAlignments.jl/compare/v0.3.0...v1.0.0
 [0.3.0]: https://github.com/BioJulia/BioAlignments.jl/compare/v0.2.0...v0.3.0
