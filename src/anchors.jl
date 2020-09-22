@@ -15,10 +15,6 @@ struct AlignmentAnchor
     op::Operation
 end
 
-function AlignmentAnchor(pos::Tuple{Int,Int}, op)
-    return AlignmentAnchor(pos[1], pos[2], op)
-end
-
 function Base.show(io::IO, anc::AlignmentAnchor)
     print(io, "AlignmentAnchor(", anc.seqpos, ", ", anc.refpos, ", '", anc.op, "')")
 end

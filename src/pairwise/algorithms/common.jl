@@ -39,8 +39,8 @@ end
 
 macro finish_traceback()
     esc(quote
-        push!(anchors, AlignmentAnchor(anchor_point, op))
-        push!(anchors, AlignmentAnchor((i, j), OP_START))
+        push!(anchors, AlignmentAnchor(anchor_point..., op))
+        push!(anchors, AlignmentAnchor(i, j, OP_START))
         reverse!(anchors)
         pop!(anchors)  # remove OP_INVALID
     end)
@@ -49,7 +49,7 @@ end
 macro anchor(ex)
     esc(quote
         if op != $ex
-            push!(anchors, AlignmentAnchor(anchor_point, op))
+            push!(anchors, AlignmentAnchor(anchor_point..., op))
             op = $ex
             anchor_point = (i, j)
         end
