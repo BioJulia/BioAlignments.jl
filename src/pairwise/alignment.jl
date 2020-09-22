@@ -70,7 +70,7 @@ Count the number of positions where the `target` operation is applied.
 function Base.count(aln::PairwiseAlignment, target::Operation)
     anchors = aln.a.aln.anchors
     n = 0
-    for i in 2:lastindex(anchors)
+    @inbounds for i in 2:lastindex(anchors)
         op = anchors[i].op
         if op == target
             if ismatchop(op) || isinsertop(op)
