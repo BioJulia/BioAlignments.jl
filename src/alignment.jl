@@ -172,31 +172,30 @@ function check_alignment_anchors(anchors)
     end
 
     for i in 2:lastindex(anchors)
-        if anchors[i].refpos < anchors[i-1].refpos ||
-           anchors[i].seqpos < anchors[i-1].seqpos
+        @inbounds acur, aprev = anchors[i], anchors[i-1]
+        if acur.refpos < aprev.refpos || acur.seqpos < aprev.seqpos
             error("Alignment anchors must be sorted.")
         end
 
-        op = anchors[i].op
-        if convert(UInt8, op) > convert(UInt8, OP_MAX_VALID)
+        op = acur.op
+        if !isvalid(op)
             error("Anchor at index $(i) has an invalid operation.")
         end
 
         # reference skip/delete operations
         if isdeleteop(op)
-            if anchors[i].seqpos != anchors[i-1].seqpos
-                error("Invalid anchor positions for reference deletion.")
+            if acur.seqpos != aprev.seqpos
+                error("Invalid anchor sequence positions for reference deletion.")
             end
         # reference insertion operations
         elseif isinsertop(op)
-            if anchors[i].refpos != anchors[i-1].refpos
-                error("Invalid anchor positions for reference insertion.")
+            if acur.refpos != aprev.refpos
+                error("Invalid anchor reference positions for reference insertion.")
             end
         # match operations
         elseif ismatchop(op)
-            if anchors[i].refpos - anchors[i-1].refpos !=
-               anchors[i].seqpos - anchors[i-1].seqpos
-                error("Invalid anchor positions for match operation.")
+            if acur.refpos - aprev.refpos != acur.seqpos - aprev.seqpos
+               error("Invalid anchor positions for match operation.")
             end
         end
     end
