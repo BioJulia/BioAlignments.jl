@@ -132,6 +132,10 @@ end
 
 seq2ref(aln::PairwiseAlignment, i::Integer) = seq2ref(aln.a, i)
 ref2seq(aln::PairwiseAlignment, i::Integer) = ref2seq(aln.a, i)
+seq2aln(aln::PairwiseAlignment, i::Integer) = seq2aln(aln.a, i)
+ref2aln(aln::PairwiseAlignment, i::Integer) = ref2aln(aln.a, i)
+aln2seq(aln::PairwiseAlignment, i::Integer) = aln2seq(aln.a, i)
+aln2ref(aln::PairwiseAlignment, i::Integer) = aln2ref(aln.a, i)
 
 
 # Printers

@@ -27,6 +27,7 @@ function AlignedSequence(seq::BioSequences.BioSequence, seqpos::Integer,
     end
     seqpos -= 1
     refpos -= 1
+    alnpos = 0
     op = OP_START
     newseq = similar(seq, 0)  # sequence without gap symbols
     anchors = AlignmentAnchor[]
@@ -44,7 +45,7 @@ function AlignedSequence(seq::BioSequences.BioSequence, seqpos::Integer,
         end
 
         if op′ != op
-            push!(anchors, AlignmentAnchor(seqpos, refpos, op))
+            push!(anchors, AlignmentAnchor(seqpos, refpos, alnpos, op))
             op = op′
         end
 
@@ -55,8 +56,9 @@ function AlignedSequence(seq::BioSequences.BioSequence, seqpos::Integer,
         if y != BioSequences.gap(eltype(ref))
             refpos += 1
         end
+        alnpos += 1 # one or another don't have gap
     end
-    push!(anchors, AlignmentAnchor(seqpos, refpos, op))
+    push!(anchors, AlignmentAnchor(seqpos, refpos, alnpos, op))
     return AlignedSequence(newseq, anchors)
 end
 
@@ -72,6 +74,10 @@ end
 
 seq2ref(alnseq::AlignedSequence, i) = seq2ref(alnseq.aln, i)
 ref2seq(alnseq::AlignedSequence, i) = ref2seq(alnseq.aln, i)
+seq2aln(alnseq::AlignedSequence, i) = seq2aln(alnseq.aln, i)
+ref2aln(alnseq::AlignedSequence, i) = ref2aln(alnseq.aln, i)
+aln2seq(alnseq::AlignedSequence, i) = aln2seq(alnseq.aln, i)
+aln2ref(alnseq::AlignedSequence, i) = aln2ref(alnseq.aln, i)
 
 # simple letters and dashes representation of an alignment
 function Base.show(io::IO, alnseq::AlignedSequence)
