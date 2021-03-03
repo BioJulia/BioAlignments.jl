@@ -977,9 +977,13 @@ end
         seq2 = aa"EPSHPKAVSPTETKRCPTEKVQHLPVSAPPKITQFLKAEASKEIAKLTCVVESSVLRA"
         model = AffineGapScoreModel(BLOSUM62, gap_open=-10, gap_extend=-1)
         aln = alignment(pairalign(GlobalAlignment(), seq1, seq2, model))
+        # julia 1.6+ uses shorter type aliases when printing types
+        seqtype = VERSION >= v"1.6" ?
+            "BioSequences.LongAminoAcidSeq" :
+            "BioSequences.LongSequence{BioSequences.AminoAcidAlphabet}"
         @test sprint(show, aln) ==
         """
-        PairwiseAlignment{BioSequences.LongSequence{BioSequences.AminoAcidAlphabet},BioSequences.LongSequence{BioSequences.AminoAcidAlphabet}}:
+        PairwiseAlignment{$(seqtype),$(VERSION >= v"1.6" ? " " : "")$(seqtype)}:
           seq:  1 EPVTSHPKAVSPTETK--PTEKGQHLPVSAPPKITQSLKAEASKDIAKLTCAVESSALCA 58
                   ||  ||||||||||||  |||| ||||||||||||| ||||||| |||||| |||| | |
           ref:  1 EP--SHPKAVSPTETKRCPTEKVQHLPVSAPPKITQFLKAEASKEIAKLTCVVESSVLRA 58
