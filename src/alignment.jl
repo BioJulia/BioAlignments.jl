@@ -100,41 +100,42 @@ function Base.show(io::IO, aln::Alignment)
       print(io, "  CIGAR string: ", cigar(aln))
 end
 
+# generic function for mapping between seq and ref positions
+# getsrc specifies anchor source position getter
+# getdest specifies anchor destination position getter
+function pos2pos(aln::Alignment, i::Integer,
+                 srcpos::Function, destpos::Function)::Tuple{Int,Operation}
+    idx = findanchor(aln, i, srcpos)
+    if idx == 0
+        if srcpos === seqpos
+            throw(ArgumentError("invalid sequence position: $i"))
+        elseif srcpos === refpos
+            throw(ArgumentError("invalid reference position: $i"))
+        else
+            throw(ArgumentError("Unknown position getter: $srcpos"))
+        end
+    end
+    anchor = aln.anchors[idx]
+    pos = destpos(anchor)
+    if ismatchop(anchor.op)
+        pos += i - srcpos(anchor)
+    end
+    return pos, anchor.op
+end
+
 """
-    seq2ref(aln::Alignment, i::Integer)::Tuple{Int,Operation}
+    seq2ref(aln::Union{Alignment, AlignedSequence, PairwiseAlignment}, i::Integer)::Tuple{Int,Operation}
 
 Map a position `i` from sequence to reference.
 """
-function seq2ref(aln::Alignment, i::Integer)::Tuple{Int,Operation}
-    idx = findanchor(aln, i, Val{true})
-    if idx == 0
-        throw(ArgumentError("invalid sequence position: $i"))
-    end
-    anchor = aln.anchors[idx]
-    refpos = anchor.refpos
-    if ismatchop(anchor.op)
-        refpos += i - anchor.seqpos
-    end
-    return refpos, anchor.op
-end
+seq2ref(aln::Alignment, i::Integer) = pos2pos(aln, i, seqpos, refpos)
 
 """
-    ref2seq(aln::Alignment, i::Integer)::Tuple{Int,Operation}
+    ref2seq(aln::Union{Alignment, AlignedSequence, PairwiseAlignment}, i::Integer)::Tuple{Int,Operation}
 
 Map a position `i` from reference to sequence.
 """
-function ref2seq(aln::Alignment, i::Integer)::Tuple{Int,Operation}
-    idx = findanchor(aln, i, Val{false})
-    if idx == 0
-        throw(ArgumentError("invalid reference position: $i"))
-    end
-    anchor = aln.anchors[idx]
-    seqpos = anchor.seqpos
-    if ismatchop(anchor.op)
-        seqpos += i - anchor.refpos
-    end
-    return seqpos, anchor.op
-end
+ref2seq(aln::Alignment, i::Integer) = pos2pos(aln, i, refpos, seqpos)
 
 """
     cigar(aln::Alignment)
@@ -201,35 +202,32 @@ function check_alignment_anchors(anchors)
     end
 end
 
-# find the index of the first anchor that satisfies `i ≤ pos`
-@generated function findanchor(aln::Alignment, i::Integer, ::Type{Val{isseq}}) where isseq
-    pos = isseq ? :seqpos : :refpos
-    quote
-        anchors = aln.anchors
-        lo = 1
-        hi = lastindex(anchors)
-        if !(anchors[lo].$pos < i ≤ anchors[hi].$pos)
-            return 0
-        end
-        # binary search
-        @inbounds while hi - lo > 2
-            m = (lo + hi) >> 1
-            if anchors[m].$pos < i
-                lo = m
-            else  # i ≤ anchors[m].$pos
-                hi = m
-            end
-            # invariant (activate this for debugging)
-            #@assert anchors[lo].$pos < i ≤ anchors[hi].$pos
-        end
-        # linear search
-        @inbounds for j in lo+1:hi
-            if i ≤ aln.anchors[j].$pos
-                return j
-            end
-        end
-        # do not reach here
-        @assert false
+# find the index of the first anchor that satisfies `i ≤ pos(anchor)`
+function findanchor(aln::Alignment, i::Integer, pos::Function)
+    anchors = aln.anchors
+    lo = 1
+    hi = lastindex(anchors)
+    @inbounds if !(pos(anchors[lo]) < i ≤ pos(anchors[hi]))
         return 0
     end
+    # binary search
+    @inbounds while hi - lo > 2
+        m = (lo + hi) >> 1
+        if pos(anchors[m]) < i
+            lo = m
+        else  # i ≤ pos(anchors[m])
+            hi = m
+        end
+        # invariant (activate this for debugging)
+        #@assert pos(anchors[lo]) < i ≤ pos(anchors[hi])
+    end
+    # linear search
+    @inbounds for j in lo+1:hi
+        if i ≤ pos(aln.anchors[j])
+            return j
+        end
+    end
+    # do not reach here
+    @assert false
+    return 0
 end

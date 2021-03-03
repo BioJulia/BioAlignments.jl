@@ -18,3 +18,6 @@ end
 function Base.show(io::IO, anc::AlignmentAnchor)
     print(io, "AlignmentAnchor(", anc.seqpos, ", ", anc.refpos, ", '", anc.op, "')")
 end
+
+seqpos(anc::AlignmentAnchor) = anc.seqpos
+refpos(anc::AlignmentAnchor) = anc.refpos

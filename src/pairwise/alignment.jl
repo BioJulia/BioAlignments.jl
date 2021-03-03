@@ -130,23 +130,8 @@ function count_aligned(aln::PairwiseAlignment)
     return n
 end
 
-"""
-    seq2ref(aln::PairwiseAlignment, i::Integer)::Tuple{Int,Operation}
-
-Map a position `i` from the first sequence to the second.
-"""
-function seq2ref(aln::PairwiseAlignment, i::Integer)::Tuple{Int,Operation}
-    return seq2ref(aln.a, i)
-end
-
-"""
-    ref2seq(aln::PairwiseAlignment, i::Integer)::Tuple{Int,Operation}
-
-Map a position `i` from the second sequence to the first.
-"""
-function ref2seq(aln::PairwiseAlignment, i::Integer)::Tuple{Int,Operation}
-    return ref2seq(aln.a, i)
-end
+seq2ref(aln::PairwiseAlignment, i::Integer) = seq2ref(aln.a, i)
+ref2seq(aln::PairwiseAlignment, i::Integer) = ref2seq(aln.a, i)
 
 
 # Printers

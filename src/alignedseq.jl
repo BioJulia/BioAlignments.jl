@@ -70,13 +70,8 @@ function IntervalTrees.last(alnseq::AlignedSequence)
     return alnseq.aln.lastref
 end
 
-function seq2ref(alnseq::AlignedSequence, i::Integer)
-    return seq2ref(alnseq.aln, i)
-end
-
-function ref2seq(alnseq::AlignedSequence, i::Integer)
-    return ref2seq(alnseq.aln, i)
-end
+seq2ref(alnseq::AlignedSequence, i) = seq2ref(alnseq.aln, i)
+ref2seq(alnseq::AlignedSequence, i) = ref2seq(alnseq.aln, i)
 
 # simple letters and dashes representation of an alignment
 function Base.show(io::IO, alnseq::AlignedSequence)
