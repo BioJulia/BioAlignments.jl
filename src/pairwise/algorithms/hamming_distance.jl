@@ -9,7 +9,7 @@
 function hamming_distance(::Type{T}, a, b) where T
     m = length(a)
     @assert m == length(b)
-    anchors = [AlignmentAnchor(0, 0, OP_START)]
+    anchors = [AlignmentAnchor(0, 0, 0, OP_START)]
     if m == 0
         # empty string
         return 0, anchors
@@ -19,17 +19,17 @@ function hamming_distance(::Type{T}, a, b) where T
     for i in 2:m
         if a[i] == b[i]
             if !was_match
-                push!(anchors, AlignmentAnchor(i - 1, i - 1, OP_SEQ_MISMATCH))
+                push!(anchors, AlignmentAnchor(i - 1, i - 1, i - 1, OP_SEQ_MISMATCH))
             end
             was_match = true
         else
             if was_match
-                push!(anchors, AlignmentAnchor(i - 1, i - 1, OP_SEQ_MATCH))
+                push!(anchors, AlignmentAnchor(i - 1, i - 1, i - 1, OP_SEQ_MATCH))
             end
             d += T(1)
             was_match = false
         end
     end
-    push!(anchors, AlignmentAnchor(m, m, was_match ? OP_SEQ_MATCH : OP_SEQ_MISMATCH))
+    push!(anchors, AlignmentAnchor(m, m, m, was_match ? OP_SEQ_MATCH : OP_SEQ_MISMATCH))
     return d, anchors
 end
