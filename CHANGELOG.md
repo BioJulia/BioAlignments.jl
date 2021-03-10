@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 - Updated CI to use GitHub actions (#47)
+- *master* set as the main development branch (#49, #50)
 
 ### Removed
 - :exclamation: Reverted the use of *BioJulia* registry,

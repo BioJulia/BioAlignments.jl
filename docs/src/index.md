@@ -19,7 +19,7 @@ You can install *BioAlignments.jl* from Julia REPL in [pkg mode](https://docs.ju
 pkg> add BioAlignments
 ```
 
-If you are interested in the cutting edge of the development, please check out the [develop branch](https://github.com/BioJulia/BioAlignments.jl/tree/develop) to try new features before release.
+If you are interested in the cutting edge of the development, please check out the [*master* branch](https://github.com/BioJulia/BioAlignments.jl/tree/master) to try new features before release.
 
 ## Testing
 
