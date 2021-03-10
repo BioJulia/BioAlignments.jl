@@ -27,7 +27,7 @@ BioAlignments is tested against Julia `1.X` on Linux, OS X, and Windows.
 
 **Latest build status:**
 
-[![Build Status](https://travis-ci.org/BioJulia/BioAlignments.jl.svg?branch=master)](https://travis-ci.org/BioJulia/BioAlignments.jl)
+[![Build Status](https://github.com/BioJulia/BioAlignments.jl/workflows/CI/badge.svg)](https://github.com/BioJulia/BioAlignments.jl/actions)
 [![appveyor](https://ci.appveyor.com/api/projects/status/klkynmkr1tgd30gq/branch/master?svg=true)](https://ci.appveyor.com/project/Ward9250/bioalignments-jl/branch/master)
 [![codecov](https://codecov.io/gh/BioJulia/BioAlignments.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/BioJulia/BioAlignments.jl)
 
