@@ -22,6 +22,6 @@ makedocs(
 
 deploydocs(
     repo = "github.com/BioJulia/BioAlignments.jl.git",
-    devbranch = "develop",
+    devbranch = "master",
     push_preview = true
 )

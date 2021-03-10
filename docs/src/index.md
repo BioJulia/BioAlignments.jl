@@ -19,7 +19,7 @@ You can install *BioAlignments.jl* from Julia REPL in [pkg mode](https://docs.ju
 pkg> add BioAlignments
 ```
 
-If you are interested in the cutting edge of the development, please check out the [develop branch](https://github.com/BioJulia/BioAlignments.jl/tree/develop) to try new features before release.
+If you are interested in the cutting edge of the development, please check out the [*master* branch](https://github.com/BioJulia/BioAlignments.jl/tree/master) to try new features before release.
 
 ## Testing
 
@@ -27,7 +27,7 @@ If you are interested in the cutting edge of the development, please check out t
 
 **Latest build status:**
 
-[![Build Status](https://travis-ci.org/BioJulia/BioAlignments.jl.svg?branch=master)](https://travis-ci.org/BioJulia/BioAlignments.jl)
+[![Build Status](https://github.com/BioJulia/BioAlignments.jl/workflows/CI/badge.svg)](https://github.com/BioJulia/BioAlignments.jl/actions)
 [![appveyor](https://ci.appveyor.com/api/projects/status/klkynmkr1tgd30gq/branch/master?svg=true)](https://ci.appveyor.com/project/Ward9250/bioalignments-jl/branch/master)
 [![codecov](https://codecov.io/gh/BioJulia/BioAlignments.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/BioJulia/BioAlignments.jl)
 

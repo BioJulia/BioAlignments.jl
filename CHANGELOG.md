@@ -1,10 +1,22 @@
 # Changelog
+
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+### Added
+- Alignment position support (#44)
+
+### Changed
+- Updated CI to use GitHub actions (#47)
+- *master* set as the main development branch (#49, #50)
+
+### Removed
+- :exclamation: Reverted the use of *BioJulia* registry,
+  the package switched to [General Julia Registry](https://github.com/JuliaRegistries/General) (#48)
 
 ## [2.0.0]
 
