@@ -1014,7 +1014,9 @@ end
         seqtype = VERSION >= v"1.6" ?
             "BioSequences.LongAminoAcidSeq" :
             "BioSequences.LongSequence{BioSequences.AminoAcidAlphabet}"
-        @test sprint(show, aln) ==
+        buf = IOBuffer()
+        show(buf, MIME"text/plain"(), aln)
+        @test String(take!(buf)) ==
         """
         PairwiseAlignment{$(seqtype),$(VERSION >= v"1.6" ? " " : "")$(seqtype)}:
           seq:  1 EPVTSHPKAVSPTETK--PTEKGQHLPVSAPPKITQSLKAEASKDIAKLTCAVESSALCA 58
