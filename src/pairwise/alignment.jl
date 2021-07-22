@@ -132,7 +132,13 @@ aln2ref(aln::PairwiseAlignment, i::Integer) = aln2ref(aln.a, i)
 # Printers
 # --------
 
-showshort(io::IO, aln::PairwiseAlignment) = print(io, summary(aln), "()")
+function showshort(io::IO, aln::PairwiseAlignment)
+	print(io, summary(aln), "(lengths=(",
+		length(aln.a.seq), ", ", length(aln.b),
+		")/", length(aln), ')'
+	)
+end
+
 Base.show(io::IO, aln::PairwiseAlignment) = showshort(io, aln)
 
 function Base.show(io::IO, ::MIME"text/plain", aln::PairwiseAlignment)
