@@ -1014,7 +1014,9 @@ end
         seqtype = VERSION >= v"1.6" ?
             "BioSequences.LongAminoAcidSeq" :
             "BioSequences.LongSequence{BioSequences.AminoAcidAlphabet}"
-        @test sprint(show, aln) ==
+        buf = IOBuffer()
+        show(buf, MIME"text/plain"(), aln)
+        @test String(take!(buf)) ==
         """
         PairwiseAlignment{$(seqtype),$(VERSION >= v"1.6" ? " " : "")$(seqtype)}:
           seq:  1 EPVTSHPKAVSPTETK--PTEKGQHLPVSAPPKITQSLKAEASKDIAKLTCAVESSALCA 58
@@ -1039,6 +1041,12 @@ end
                   | |||| | |
           ref: 49 CVVESSVLRA 58
         """
+        buf = IOBuffer()
+        print(buf, (aln,))
+        @test String(take!(buf)) == (
+        	"""(PairwiseAlignment{$seqtype,$(VERSION >= v"1.6" ? " " : "")$(seqtype)}""" *
+        	"""(lengths=(58, 58)/60),)"""
+        )
         # Result from EMBOSS Needle:
         # EMBOSS_001         1 EPVTSHPKAVSPTETK--PTEKGQHLPVSAPPKITQSLKAEASKDIAKLT     48
         #                      ||  ||||||||||||  ||||.|||||||||||||.|||||||:|||||
