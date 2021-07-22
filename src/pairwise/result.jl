@@ -68,15 +68,24 @@ end
 # Printer
 # -------
 
+
 function Base.show(io::IO, aln::PairwiseAlignmentResult{T,S1,S2}) where {T,S1,S2}
-    println(io, summary(aln), ':')
-    if aln.isscore
-        print(io, "  score: ", aln.value)
+    print(io, summary(aln), '(', aln.isscore ? "score" : "distance", '=', aln.value, ')')
+end
+
+function Base.show(io::IO, ::MIME"text/plain", aln::PairwiseAlignmentResult{T,S1,S2}) where {T,S1,S2}
+    if get(io, :compact, false)
+        show(io, aln)
     else
-        print(io, "  distance: ", aln.value)
-    end
-    if hasalignment(aln)
-        println(io)
-        print(io, alignment(aln))
+        println(io, summary(aln), ':')
+        if aln.isscore
+            print(io, "  score: ", aln.value)
+        else
+            print(io, "  distance: ", aln.value)
+        end
+        if hasalignment(aln)
+            println(io)
+            print(io, alignment(aln))
+        end
     end
 end
