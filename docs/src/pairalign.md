@@ -5,6 +5,7 @@ CurrentModule = BioAlignments
 DocTestSetup = quote
     using BioSequences
     using BioAlignments
+    using BioAlignments.BioSymbols
 end
 ```
 
@@ -236,6 +237,15 @@ julia> mysubmat[AA_A,AA_R]  # the score is modified
 Make sure to create a copy of the original matrix when you create a matrix from
 a predefined matrix. In the above case, `BLOSUM62` is shared in the whole
 program and modification on it will affect any result that uses `BLOSUM62`.
+
+Other supported operations include `similar`, `isassigned`, and `BioSymbols.alphabet`:
+```jldoctest
+julia> reshape(alphabet(BLOSUM62), 1, :)
+1×27 Matrix{AminoAcid}:
+ AA_A  AA_R  AA_N  AA_D  AA_C  AA_Q  AA_E  …  AA_B  AA_J  AA_Z  AA_X  AA_Term
+```
+
+As shown, there is no entry corresponding to `AA_Gap`.
 
 `DichotomousSubstitutionMatrix` is a specialized matrix for matching or
 mismatching substitution.  This is a preferable choice when performance is more
