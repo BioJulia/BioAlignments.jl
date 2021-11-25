@@ -33,12 +33,14 @@ section.
 To represent an alignment we use a series of "anchors" stored in the
 `AlignmentAnchor` type. Anchors are form of run-length encoding alignment
 operations, but rather than store an operation along with a length, we store the
-end-point of that operation in both reference and query coordinates.
+end-point of that operation in query (`seqpos`), reference (`refpos`) and
+alignment (`alnpos`) coordinates.
 
 ```julia
 struct AlignmentAnchor
     seqpos::Int
     refpos::Int
+    alnpos::Int
     op::Operation
 end
 ```
@@ -56,6 +58,7 @@ For example, consider the following alignment:
                   0   4        9  12 15     19
                   |   |        |  |  |      |
         query:     TGGC----ATCATTTAACG---CAAG
+    alignment:     ....----.....---...---....
     reference: AGGGTGGCATTTATCAG---ACGTTTCGAGAC
                   |   |   |    |     |  |   |
                   4   8   12   17    20 23  27
@@ -63,23 +66,23 @@ For example, consider the following alignment:
 Using anchors we would represent this as the following series of anchors:
 ```julia
 [
-    AlignmentAnchor( 0,  4, OP_START),
-    AlignmentAnchor( 4,  8, OP_MATCH),
-    AlignmentAnchor( 4, 12, OP_DELETE),
-    AlignmentAnchor( 9, 17, OP_MATCH),
-    AlignmentAnchor(12, 17, OP_INSERT),
-    AlignmentAnchor(15, 20, OP_MATCH),
-    AlignmentAnchor(15, 23, OP_DELETE),
-    AlignmentAnchor(19, 27, OP_MATCH),
+    AlignmentAnchor( 0,  4,  0, OP_START),
+    AlignmentAnchor( 4,  8,  4, OP_MATCH),
+    AlignmentAnchor( 4, 12,  8, OP_DELETE),
+    AlignmentAnchor( 9, 17, 13, OP_MATCH),
+    AlignmentAnchor(12, 17, 16, OP_INSERT),
+    AlignmentAnchor(15, 20, 19, OP_MATCH),
+    AlignmentAnchor(15, 23, 22, OP_DELETE),
+    AlignmentAnchor(19, 27, 26, OP_MATCH),
 ]
 ```
 
 An `Alignment` object can be created from a series of anchors:
 ```jldoctest
 julia> Alignment([
-           AlignmentAnchor(0,  4, OP_START),
-           AlignmentAnchor(4,  8, OP_MATCH),
-           AlignmentAnchor(4, 12, OP_DELETE)
+           AlignmentAnchor(0,  4, 0, OP_START),
+           AlignmentAnchor(4,  8, 4, OP_MATCH),
+           AlignmentAnchor(4, 12, 8, OP_DELETE)
        ])
 Alignment:
   aligned range:
@@ -140,9 +143,9 @@ alignment:
 julia> AlignedSequence(  # pass an Alignment object
            dna"ACGTAT",
            Alignment([
-               AlignmentAnchor(0, 0, OP_START),
-               AlignmentAnchor(3, 3, OP_MATCH),
-               AlignmentAnchor(6, 3, OP_INSERT)
+               AlignmentAnchor(0, 0, 0, OP_START),
+               AlignmentAnchor(3, 3, 3, OP_MATCH),
+               AlignmentAnchor(6, 3, 6, OP_INSERT)
            ])
        )
 ···---
@@ -151,9 +154,9 @@ ACGTAT
 julia> AlignedSequence(  # or pass a vector of anchors
            dna"ACGTAT",
            [
-               AlignmentAnchor(0, 0, OP_START),
-               AlignmentAnchor(3, 3, OP_MATCH),
-               AlignmentAnchor(6, 3, OP_INSERT)
+               AlignmentAnchor(0, 0, 0, OP_START),
+               AlignmentAnchor(3, 3, 3, OP_MATCH),
+               AlignmentAnchor(6, 3, 6, OP_INSERT)
            ]
        )
 ···---
