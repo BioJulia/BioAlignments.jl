@@ -1,61 +1,176 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="600" height="180" viewBox="0, 0, 600, 180">
-  <g id="Background">
-    <rect x="0" y="0" width="600" height="180" fill="#FFFFFF"/>
-  </g>
-  <g id="Layer_1">
-    <g>
-      <g>
-        <g>
-          <g>
-            <g>
-              <g>
-                <text transform="matrix(1, 0, 0, 1, 118.533, 88.856)">
-                  <tspan x="-78.013" y="8.5" font-family="NotoMono" font-size="20" fill="#333333">op::Operation</tspan>
-                </text>
-                <text transform="matrix(1, 0, 0, 1, 106.531, 131.856)">
-                  <tspan x="-66.011" y="-5.5" font-family="NotoMono" font-size="20" fill="#333333">seqpos::Int</tspan>
-                  <tspan x="-66.011" y="22.5" font-family="NotoMono" font-size="20" fill="#333333">refpos::Int</tspan>
-                </text>
-              </g>
-              <path d="M28.781,75.856 L209.284,75.856 L209.284,161.856 L28.781,161.856 L28.781,75.856 z" fill-opacity="0" stroke="#000000" stroke-width="2"/>
-            </g>
-            <text transform="matrix(1, 0, 0, 1, 64.287, 59.856)">
-              <tspan x="-36.006" y="8.5" font-family="NotoMono" font-size="20" fill="#333333">Anchor</tspan>
-            </text>
-          </g>
-          <g>
-            <g>
-              <g>
-                <text transform="matrix(1, 0, 0, 1, 299.036, 88.856)">
-                  <tspan x="-78.013" y="8.5" font-family="NotoMono" font-size="20" fill="#333333">op::Operation</tspan>
-                </text>
-                <text transform="matrix(1, 0, 0, 1, 287.034, 131.856)">
-                  <tspan x="-66.011" y="-5.5" font-family="NotoMono" font-size="20" fill="#333333">seqpos::Int</tspan>
-                  <tspan x="-66.011" y="22.5" font-family="NotoMono" font-size="20" fill="#333333">refpos::Int</tspan>
-                </text>
-              </g>
-              <path d="M209.284,75.856 L389.787,75.856 L389.787,161.856 L209.284,161.856 L209.284,75.856 z" fill-opacity="0" stroke="#000000" stroke-width="2"/>
-            </g>
-            <text transform="matrix(1, 0, 0, 1, 244.79, 59.856)">
-              <tspan x="-36.006" y="8.5" font-family="NotoMono" font-size="20" fill="#333333">Anchor</tspan>
-            </text>
-          </g>
-          <g>
-            <g>
-              <path d="M389.787,75.856 L570.29,75.856 L570.29,161.856 L389.787,161.856 L389.787,75.856 z" fill-opacity="0" stroke="#000000" stroke-width="2"/>
-            </g>
-          </g>
-        </g>
-        <text transform="matrix(1, 0, 0, 1, 483.399, 119.707)">
-          <tspan x="-18.003" y="8.5" font-family="NotoMono" font-size="20" fill="#333333">...</tspan>
-        </text>
-      </g>
-      <path d="M18.175,44.927 L582.825,44.927 L582.825,168.784 L18.175,168.784 L18.175,44.927 z" fill-opacity="0" stroke="#000000" stroke-width="2"/>
-      <text transform="matrix(1, 0, 0, 1, 71.683, 26.216)">
-        <tspan x="-54.009" y="8.5" font-family="NotoMono" font-size="20" fill="#333333">Alignment</tspan>
-      </text>
-    </g>
-  </g>
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="386.375px" height="106.875px" viewBox="0 0 386.375 106.875" enable-background="new 0 0 386.375 106.875"
+	 xml:space="preserve">
+<defs>
+  <style type="text/css">
+    @import url('https://fonts.googleapis.com/css?family=Noto+Sans+Mono|Noto+Sans:,i');
+ </style>
+</defs>
+<text transform="matrix(1 0 0 1 80.4912 44.0371)" font-family="Noto Sans Mono" font-size="12">TGGC----ATCATTTAACG---CAAG</text>
+<text transform="matrix(1 0 0 1 51.6465 71.5)" font-family="Noto Sans Mono" font-size="12">AGGGTGGCATTTATCAG---ACGTTTCGAGAC</text>
+<g>
+    <rect x="80.491" y="48.709" fill="#D1D3D4" stroke="#6D6E71" stroke-width="0.5" stroke-miterlimit="10" width="29.467" height="11.628"/>
+    <rect x="138.542" y="48.709" fill="#D1D3D4" stroke="#6D6E71" stroke-width="0.5" stroke-miterlimit="10" width="35.333" height="11.628"/>
+    <rect x="196.208" y="48.709" fill="#D1D3D4" stroke="#6D6E71" stroke-width="0.5" stroke-miterlimit="10" width="21.167" height="11.628"/>
+    <rect x="239.292" y="48.709" fill="#D1D3D4" stroke="#6D6E71" stroke-width="0.5" stroke-miterlimit="10" width="29" height="11.628"/>
+    <rect x="109.958" y="48.709" fill="#FBB040" stroke="#F15A29" stroke-width="0.5" stroke-miterlimit="10" width="28.583" height="11.628"/>
+    <rect x="173.875" y="48.709" fill="#8DC63F" stroke="#006838" stroke-width="0.5" stroke-miterlimit="10" width="22.333" height="11.628"/>
+    <rect x="217.375" y="48.709" fill="#FBB040" stroke="#F15A29" stroke-width="0.5" stroke-miterlimit="10" width="21.917" height="11.628"/>
+	<text transform="matrix(1 0 0 1 80.4912 57.833)" font-family="Noto Sans Mono" font-size="12">....----.....---...---....</text>
+	<g>
+		<circle fill="#27AAE1" stroke="#1C75BC" stroke-width="0.5" stroke-miterlimit="10" cx="78.792" cy="49.395" r="4.083"/>
+		<text transform="matrix(1 0 0 1 76.375 52.145)" font-family="'Arial-ItalicMT'" font-size="8">1</text>
+	</g>
+	<g>
+		<circle fill="#A7A9AC" stroke="#6D6E71" stroke-width="0.5" stroke-miterlimit="10" cx="88.542" cy="49.395" r="4.083"/>
+		<text transform="matrix(1 0 0 1 86.1245 52.145)" font-family="'Arial-ItalicMT'" font-size="8">2</text>
+	</g>
+	<g>
+		<circle fill="#FBB040" stroke="#F15A29" stroke-width="0.5" stroke-miterlimit="10" cx="115.35" cy="49.395" r="4.083"/>
+		<text transform="matrix(1 0 0 1 112.9326 52.145)" font-family="'Arial-ItalicMT'" font-size="8">3</text>
+	</g>
+	<g>
+		<circle fill="#A7A9AC" stroke="#6D6E71" stroke-width="0.5" stroke-miterlimit="10" cx="144.041" cy="49.395" r="4.083"/>
+		<text transform="matrix(1 0 0 1 141.6235 52.145)" font-family="'Arial-ItalicMT'" font-size="8">4</text>
+	</g>
+	<g>
+		<circle fill="#8DC63F" stroke="#006838" stroke-width="0.5" stroke-miterlimit="10" cx="179.146" cy="49.395" r="4.083"/>
+		<text transform="matrix(1 0 0 1 176.7295 52.145)" font-family="'Arial-ItalicMT'" font-size="8">5</text>
+	</g>
+	<g>
+		<circle fill="#A7A9AC" stroke="#6D6E71" stroke-width="0.5" stroke-miterlimit="10" cx="201.767" cy="49.395" r="4.083"/>
+		<text transform="matrix(1 0 0 1 199.3496 52.145)" font-family="'Arial-ItalicMT'" font-size="8">6</text>
+	</g>
+	<g>
+		<circle fill="#FBB040" stroke="#F15A29" stroke-width="0.5" stroke-miterlimit="10" cx="223.146" cy="49.395" r="4.083"/>
+		<text transform="matrix(1 0 0 1 220.7295 52.145)" font-family="'Arial-ItalicMT'" font-size="8">7</text>
+	</g>
+	<g>
+		<circle fill="#A7A9AC" stroke="#6D6E71" stroke-width="0.5" stroke-miterlimit="10" cx="245.183" cy="49.395" r="4.083"/>
+		<text transform="matrix(1 0 0 1 242.7656 52.145)" font-family="'Arial-ItalicMT'" font-size="8">8</text>
+	</g>
+</g>
+<g>
+	<line fill="none" stroke="#000000" stroke-width="0.5" stroke-miterlimit="10" x1="79.542" y1="44.037" x2="79.542" y2="30.5"/>
+	<line fill="none" stroke="#000000" stroke-width="0.5" stroke-miterlimit="10" x1="106.208" y1="34.583" x2="106.208" y2="30.5"/>
+	<text transform="matrix(1 0 0 1 103.4531 29.167)" font-family="Noto Sans" font-style="italic" font-size="10">4</text>
+	<text transform="matrix(1 0 0 1 76.7866 29.167)" font-family="Noto Sans" font-style="italic" font-size="10">0</text>
+	<line fill="none" stroke="#000000" stroke-width="0.5" stroke-miterlimit="10" x1="170.125" y1="34.583" x2="170.125" y2="30.5"/>
+	<text transform="matrix(1 0 0 1 167.3706 29.167)" font-family="Noto Sans" font-style="italic" font-size="10">9</text>
+	<line fill="none" stroke="#000000" stroke-width="0.5" stroke-miterlimit="10" x1="191.958" y1="34.583" x2="191.958" y2="30.5"/>
+	<text transform="matrix(1 0 0 1 186.4487 29.167)" font-family="Noto Sans" font-style="italic" font-size="10">12</text>
+	<line fill="none" stroke="#000000" stroke-width="0.5" stroke-miterlimit="10" x1="213.708" y1="34.583" x2="213.708" y2="30.5"/>
+	<text transform="matrix(1 0 0 1 208.1987 29.167)" font-family="Noto Sans" font-style="italic" font-size="10">15</text>
+	<line fill="none" stroke="#000000" stroke-width="0.5" stroke-miterlimit="10" x1="264.042" y1="34.583" x2="264.042" y2="30.5"/>
+	<text transform="matrix(1 0 0 1 258.5322 29.167)" font-family="Noto Sans" font-style="italic" font-size="10">19</text>
+</g>
+<g>
+	<line fill="none" stroke="#000000" stroke-width="0.5" stroke-miterlimit="10" x1="106.208" y1="77.084" x2="106.208" y2="73"/>
+	<text transform="matrix(1 0 0 1 103.4531 85.4175)" font-family="Noto Sans" font-style="italic" font-size="10">8</text>
+	<line fill="none" stroke="#000000" stroke-width="0.5" stroke-miterlimit="10" x1="77.292" y1="77.084" x2="77.292" y2="73"/>
+	<text transform="matrix(1 0 0 1 74.5366 85.4175)" font-family="Noto Sans" font-style="italic" font-size="10">4</text>
+	<line fill="none" stroke="#000000" stroke-width="0.5" stroke-miterlimit="10" x1="134.375" y1="77.084" x2="134.375" y2="73"/>
+	<text transform="matrix(1 0 0 1 128.8652 85.4175)" font-family="Noto Sans" font-style="italic" font-size="10">12</text>
+	<line fill="none" stroke="#000000" stroke-width="0.5" stroke-miterlimit="10" x1="170.125" y1="77.084" x2="170.125" y2="73"/>
+	<text transform="matrix(1 0 0 1 164.6157 85.4175)" font-family="Noto Sans" font-style="italic" font-size="10">17</text>
+	<line fill="none" stroke="#000000" stroke-width="0.5" stroke-miterlimit="10" x1="213.708" y1="77.084" x2="213.708" y2="73"/>
+	<text transform="matrix(1 0 0 1 208.1987 85.4175)" font-family="Noto Sans" font-style="italic" font-size="10">20</text>
+	<line fill="none" stroke="#000000" stroke-width="0.5" stroke-miterlimit="10" x1="235.432" y1="77.084" x2="235.432" y2="73"/>
+	<text transform="matrix(1 0 0 1 229.9219 85.4175)" font-family="Noto Sans" font-style="italic" font-size="10">23</text>
+	<line fill="none" stroke="#000000" stroke-width="0.5" stroke-miterlimit="10" x1="264.042" y1="77.084" x2="264.042" y2="73"/>
+	<text transform="matrix(1 0 0 1 258.5322 85.4175)" font-family="Noto Sans" font-style="italic" font-size="10">27</text>
+</g>
+<text transform="matrix(1 0 0 1 20.3218 44.0371)" font-family="Noto Sans" font-style="italic" font-size="10">query</text>
+<text transform="matrix(1 0 0 1 0.272 57.833)" font-family="Noto Sans" font-style="italic" font-size="10">alignment</text>
+<text transform="matrix(1 0 0 1 4.1221 71.5)" font-family="Noto Sans" font-style="italic" font-size="10">reference</text>
+<g>
+	<circle fill="#27AAE1" stroke="#1C75BC" stroke-width="0.5" stroke-miterlimit="10" cx="78.792" cy="49.395" r="4.083"/>
+	<text transform="matrix(1 0 0 1 76.375 52.145)" font-family="'Arial-ItalicMT'" font-size="8">1</text>
+</g>
+<g>
+	<text transform="matrix(1 0 0 1 330.0449 9.479)" font-family="Noto Sans" font-style="italic" font-size="10">Anchors</text>
+	<text transform="matrix(1 0 0 1 321.5986 23.541)" font-family="Noto Sans" font-style="italic" font-size="8">op</text>
+	<text transform="matrix(1 0 0 1 343.668 28.249)" font-family="Noto Sans" font-style="italic" font-size="8">seq</text>
+	<text transform="matrix(1 0 0 1 358.5469 28.249)" font-family="Noto Sans" font-style="italic" font-size="8">aln</text>
+	<text transform="matrix(1 0 0 1 372.6396 28.249)" font-family="Noto Sans" font-style="italic" font-size="8">ref</text>
+	<text transform="matrix(1 0 0 1 350.4541 18.062)" font-family="Noto Sans" font-style="italic" font-size="8">position</text>
+	<g>
+		<circle fill="#27AAE1" stroke="#1C75BC" stroke-width="0.5" stroke-miterlimit="10" cx="304.083" cy="36.498" r="4.083"/>
+		<text transform="matrix(1 0 0 1 301.667 39.2485)" font-family="'Arial-ItalicMT'" font-size="8">1</text>
+	</g>
+	<text transform="matrix(1 0 0 1 314.165 39.2485)" fill="#1C75BC" font-family="Noto Sans Mono" font-size="8">START</text>
+	<text transform="matrix(1 0 0 1 349.9248 39.2485)" font-family="Noto Sans" font-style="italic" font-size="8">0</text>
+	<text transform="matrix(1 0 0 1 363.7588 39.2485)" font-family="Noto Sans" font-style="italic" font-size="8">0</text>
+	<text transform="matrix(1 0 0 1 378.4668 39.2485)" font-family="Noto Sans" font-style="italic" font-size="8">4</text>
+	<g>
+		<circle fill="#A7A9AC" stroke="#6D6E71" stroke-width="0.5" stroke-miterlimit="10" cx="304.083" cy="45.498" r="4.083"/>
+		<text transform="matrix(1 0 0 1 301.667 48.2485)" font-family="'Arial-ItalicMT'" font-size="8">2</text>
+	</g>
+	<text transform="matrix(1 0 0 1 314.165 48.2485)" font-family="Noto Sans Mono" font-size="8">MATCH</text>
+	<text transform="matrix(1 0 0 1 349.9248 48.2485)" font-family="Noto Sans" font-style="italic" font-size="8">4</text>
+	<text transform="matrix(1 0 0 1 363.7588 48.2485)" font-family="Noto Sans" font-style="italic" font-size="8">4</text>
+	<text transform="matrix(1 0 0 1 378.4668 48.2485)" font-family="Noto Sans" font-style="italic" font-size="8">8</text>
+	<g>
+		<circle fill="#FBB040" stroke="#F15A29" stroke-width="0.5" stroke-miterlimit="10" cx="304.083" cy="54.623" r="4.083"/>
+		<text transform="matrix(1 0 0 1 301.667 57.3735)" font-family="'Arial-ItalicMT'" font-size="8">3</text>
+	</g>
+	<text transform="matrix(1 0 0 1 311.7646 57.3735)" fill="#F15A29" font-family="Noto Sans Mono" font-size="8">DELETE</text>
+	<text transform="matrix(1 0 0 1 349.9248 57.3735)" font-family="Noto Sans" font-style="italic" font-size="8">4</text>
+	<text transform="matrix(1 0 0 1 363.7588 57.3735)" font-family="Noto Sans" font-style="italic" font-size="8">8</text>
+	<text transform="matrix(1 0 0 1 374.0586 57.3735)" font-family="Noto Sans" font-style="italic" font-size="8">12</text>
+	<g>
+		<circle fill="#A7A9AC" stroke="#6D6E71" stroke-width="0.5" stroke-miterlimit="10" cx="304.083" cy="63.664" r="4.083"/>
+		<text transform="matrix(1 0 0 1 301.667 66.4141)" font-family="'Arial-ItalicMT'" font-size="8">4</text>
+	</g>
+	<text transform="matrix(1 0 0 1 314.165 66.4141)" font-family="Noto Sans Mono" font-size="8">MATCH</text>
+	<text transform="matrix(1 0 0 1 349.9248 66.4141)" font-family="Noto Sans" font-style="italic" font-size="8">9</text>
+	<text transform="matrix(1 0 0 1 359.3506 66.4141)" font-family="Noto Sans" font-style="italic" font-size="8">13</text>
+	<text transform="matrix(1 0 0 1 374.0586 66.4141)" font-family="Noto Sans" font-style="italic" font-size="8">17</text>
+	<g>
+		<circle fill="#8DC63F" stroke="#006838" stroke-width="0.5" stroke-miterlimit="10" cx="304.083" cy="72.873" r="4.083"/>
+		<text transform="matrix(1 0 0 1 301.667 75.6235)" font-family="'Arial-ItalicMT'" font-size="8">5</text>
+	</g>
+	<text transform="matrix(1 0 0 1 311.7646 75.6235)" fill="#006838" font-family="Noto Sans Mono" font-size="8">INSERT</text>
+	<text transform="matrix(1 0 0 1 345.5166 75.6235)" font-family="Noto Sans" font-style="italic" font-size="8">12</text>
+	<text transform="matrix(1 0 0 1 359.3506 75.6235)" font-family="Noto Sans" font-style="italic" font-size="8">16</text>
+	<text transform="matrix(1 0 0 1 374.0586 75.6235)" font-family="Noto Sans" font-style="italic" font-size="8">17</text>
+	<g>
+		<circle fill="#A7A9AC" stroke="#6D6E71" stroke-width="0.5" stroke-miterlimit="10" cx="304.083" cy="82.248" r="4.083"/>
+		<text transform="matrix(1 0 0 1 301.667 84.9985)" font-family="'Arial-ItalicMT'" font-size="8">6</text>
+	</g>
+	<text transform="matrix(1 0 0 1 314.165 84.9985)" font-family="Noto Sans Mono" font-size="8">MATCH</text>
+	<text transform="matrix(1 0 0 1 345.5166 84.9985)" font-family="Noto Sans" font-style="italic" font-size="8">15</text>
+	<text transform="matrix(1 0 0 1 359.3506 84.9985)" font-family="Noto Sans" font-style="italic" font-size="8">19</text>
+	<text transform="matrix(1 0 0 1 374.0586 84.9985)" font-family="Noto Sans" font-style="italic" font-size="8">20</text>
+	<g>
+		<circle fill="#FBB040" stroke="#F15A29" stroke-width="0.5" stroke-miterlimit="10" cx="304.083" cy="91.854" r="4.083"/>
+		<text transform="matrix(1 0 0 1 301.667 94.6045)" font-family="'Arial-ItalicMT'" font-size="8">7</text>
+	</g>
+	<text transform="matrix(1 0 0 1 311.7646 94.6045)" fill="#F15A29" font-family="Noto Sans Mono" font-size="8">DELETE</text>
+	<text transform="matrix(1 0 0 1 345.5166 94.6045)" font-family="Noto Sans" font-style="italic" font-size="8">15</text>
+	<text transform="matrix(1 0 0 1 359.3506 94.6045)" font-family="Noto Sans" font-style="italic" font-size="8">22</text>
+	<text transform="matrix(1 0 0 1 374.0586 94.6045)" font-family="Noto Sans" font-style="italic" font-size="8">23</text>
+	<g>
+		<circle fill="#A7A9AC" stroke="#6D6E71" stroke-width="0.5" stroke-miterlimit="10" cx="304.083" cy="100.873" r="4.083"/>
+		<text transform="matrix(1 0 0 1 301.667 103.6235)" font-family="'Arial-ItalicMT'" font-size="8">8</text>
+	</g>
+	<text transform="matrix(1 0 0 1 314.165 103.6235)" font-family="Noto Sans Mono" font-size="8">MATCH</text>
+	<text transform="matrix(1 0 0 1 345.5166 103.6235)" font-family="Noto Sans" font-style="italic" font-size="8">19</text>
+	<text transform="matrix(1 0 0 1 359.3506 103.6235)" font-family="Noto Sans" font-style="italic" font-size="8">26</text>
+	<text transform="matrix(1 0 0 1 374.0586 103.6235)" font-family="Noto Sans" font-style="italic" font-size="8">27</text>
+	
+		<line fill="none" stroke="#A7A9AC" stroke-width="0.25" stroke-miterlimit="10" x1="310.25" y1="11.062" x2="310.25" y2="106.187"/>
+	
+		<line fill="none" stroke="#A7A9AC" stroke-width="0.25" stroke-miterlimit="10" x1="341.75" y1="11.062" x2="341.75" y2="106.187"/>
+	<line fill="none" stroke="#A7A9AC" stroke-width="0.25" stroke-miterlimit="10" x1="357" y1="21.208" x2="357" y2="106.187"/>
+	<line fill="none" stroke="#A7A9AC" stroke-width="0.25" stroke-miterlimit="10" x1="371" y1="21.208" x2="371" y2="106.187"/>
+	<line fill="none" stroke="#A7A9AC" stroke-width="0.25" stroke-miterlimit="10" x1="385.5" y1="11.062" x2="385.5" y2="106.187"/>
+	<line fill="none" stroke="#A7A9AC" stroke-width="0.25" stroke-miterlimit="10" x1="341.75" y1="21.208" x2="385.5" y2="21.208"/>
+	<line fill="none" stroke="#A7A9AC" stroke-width="0.25" stroke-miterlimit="10" x1="310.25" y1="11.062" x2="385.5" y2="11.062"/>
+	<line fill="none" stroke="#A7A9AC" stroke-width="0.25" stroke-miterlimit="10" x1="310.25" y1="31.062" x2="385.5" y2="31.062"/>
+	
+		<line fill="none" stroke="#A7A9AC" stroke-width="0.25" stroke-miterlimit="10" x1="385.5" y1="106.187" x2="310.25" y2="106.187"/>
+</g>
 </svg>

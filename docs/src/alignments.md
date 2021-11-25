@@ -22,20 +22,17 @@ Representing alignments
 -----------------------
 
 The `Alignment` type can represent a wide variety of global or local sequence
-alignments while facilitating efficient coordinate transformation.  Alignments
-are always relative to a possibly unspecified reference sequence and represent a
-series of [edit operations](https://en.wikipedia.org/wiki/Edit_distance)
-performed on that reference to transform it to the query sequence. An edit
-operation is, for example, matching, insertion, or deletion.  All operations
-defined in BioAlignments.jl are described in the [Alignment operations](@ref)
+alignments while facilitating efficient transformation of sequences coordinates.
+Alignments are always relative to a possibly unspecified *reference sequence* and represent a
+series of [*edit operations*](https://en.wikipedia.org/wiki/Edit_distance)
+performed on that reference to transform it to the query sequence. An *edit
+operation* is, for example, matching, insertion, or deletion.  All operations
+defined in *BioAlignments.jl* are described in the [Alignment operations](@ref)
 section.
 
-To represent an alignment we use a series of "anchors" stored in the
-`AlignmentAnchor` type. Anchors are form of run-length encoding alignment
-operations, but rather than store an operation along with a length, we store the
-end-point of that operation in query (`seqpos`), reference (`refpos`) and
-alignment (`alnpos`) coordinates.
-
+An alignment is defined as a series of `AlignmentAnchor` objects. An *"anchor"*
+specifies an *edit operation* (`op`) together with its end-point coordinates in
+the query (`seqpos`), reference (`refpos`) and alignment (`alnpos`) sequences:
 ```julia
 struct AlignmentAnchor
     seqpos::Int
@@ -44,38 +41,16 @@ struct AlignmentAnchor
     op::Operation
 end
 ```
-
-The next figure shows a schematic representation of an alignment object.
-
-![Alignment representation](assets/alignment.svg)
+The start of the sequence range to which the given operation is applied is determined
+by the sequence coordinates of the previous anchor in the series.
 
 Every alignment starts with a special `OP_START` operation which is used to give
 the position in the reference and query prior to the start of the alignment, or
 0, if the alignment starts at position 1.
 
-For example, consider the following alignment:
+For example, consider the following alignment and its representation as a series of anchors:
 
-                  0   4        9  12 15     19
-                  |   |        |  |  |      |
-        query:     TGGC----ATCATTTAACG---CAAG
-    alignment:     ....----.....---...---....
-    reference: AGGGTGGCATTTATCAG---ACGTTTCGAGAC
-                  |   |   |    |     |  |   |
-                  4   8   12   17    20 23  27
-
-Using anchors we would represent this as the following series of anchors:
-```julia
-[
-    AlignmentAnchor( 0,  4,  0, OP_START),
-    AlignmentAnchor( 4,  8,  4, OP_MATCH),
-    AlignmentAnchor( 4, 12,  8, OP_DELETE),
-    AlignmentAnchor( 9, 17, 13, OP_MATCH),
-    AlignmentAnchor(12, 17, 16, OP_INSERT),
-    AlignmentAnchor(15, 20, 19, OP_MATCH),
-    AlignmentAnchor(15, 23, 22, OP_DELETE),
-    AlignmentAnchor(19, 27, 26, OP_MATCH),
-]
-```
+![Alignment representation](assets/alignment.svg)
 
 An `Alignment` object can be created from a series of anchors:
 ```jldoctest
