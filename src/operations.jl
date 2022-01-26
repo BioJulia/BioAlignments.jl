@@ -47,7 +47,7 @@ for (name, char, doc, code) in [
         ("SKIP"        , 'N', "(typically long) deletion from the reference, e.g. due to RNA splicing"         , 0x03),
         ("SOFT_CLIP"   , 'S', "sequence removed from the beginning or end of the query sequence but stored"    , 0x04),
         ("HARD_CLIP"   , 'H', "sequence removed from the beginning or end of the query sequence and not stored", 0x05),
-        ("PAD"         , 'P', "not currently supported, but present for SAM/BAM compatibility"                 , 0x06),
+        ("PAD"         , 'P', "silent deletion from padded reference (not present in query or reference)"      , 0x06),
         ("SEQ_MATCH"   , '=', "match operation with matching sequence positions"                               , 0x07),
         ("SEQ_MISMATCH", 'X', "match operation with mismatching sequence positions"                            , 0x08),
         ("BACK"        , 'B', "not currently supported, but present for SAM/BAM compatibility"                 , 0x09),
