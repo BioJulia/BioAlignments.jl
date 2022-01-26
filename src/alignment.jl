@@ -182,7 +182,8 @@ aln2ref(aln::Alignment, i::Integer) = pos2pos(aln, i, alnpos, refpos)
 
 Make a CIGAR string encoding of `aln`.
 
-This is not entirely lossless as it discards the alignments start positions.
+This is not entirely lossless as it discards the alignments start positions and any meta
+operations (e.g. pads and hard clips).
 """
 function cigar(aln::Alignment)
     anchors = aln.anchors
@@ -196,7 +197,9 @@ function cigar(aln::Alignment)
     for i in 2:length(anchors)
         n = max(anchors[i].seqpos - anchors[i-1].seqpos,
                 anchors[i].refpos - anchors[i-1].refpos)
-        print(out, n, convert(Char, anchors[i].op))
+        if n > 0
+            print(out, n, convert(Char, anchors[i].op))
+        end
     end
     return String(take!(out))
 end
