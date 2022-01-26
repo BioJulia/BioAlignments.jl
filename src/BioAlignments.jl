@@ -32,6 +32,7 @@ export
     ismatchop,
     isinsertop,
     isdeleteop,
+    ismetaop,
     cigar,
 
     # substitution matrices
