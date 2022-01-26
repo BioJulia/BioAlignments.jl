@@ -94,6 +94,16 @@ function isdeleteop(op::Operation)
     return op == OP_DELETE || op == OP_SKIP
 end
 
+"""
+    ismetaop(op::Operation)
+
+Test if `op` is a meta operation and does not consume reference or sequence bases (i.e.
+`op ∈ (OP_PAD, OP_HARD_CLIP)`).
+"""
+function ismetaop(op::Operation)
+    return op == OP_PAD || op == OP_HARD_CLIP
+end
+
 function Base.convert(::Type{Operation}, c::Char)
     i = convert(Int, c)
     @inbounds op = i < 128 ? char_to_op[i+1] : OP_INVALID
