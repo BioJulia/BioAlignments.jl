@@ -190,8 +190,6 @@ function cigar(aln::Alignment)
     if isempty(anchors)
         return ""
     end
-    seqpos = anchors[1].seqpos
-    refpos = anchors[1].refpos
     @assert anchors[1].op == OP_START
     out = IOBuffer()
     for i in 2:length(anchors)
