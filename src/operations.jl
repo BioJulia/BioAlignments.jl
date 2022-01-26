@@ -79,10 +79,10 @@ end
 """
     isinsertop(op::Operation)
 
-Test if `op` is a insertion operation (i.e. `op ∈ (OP_INSERT, OP_SOFT_CLIP, OP_HARD_CLIP)`).
+Test if `op` is a insertion operation (i.e. `op ∈ (OP_INSERT, OP_SOFT_CLIP)`).
 """
 function isinsertop(op::Operation)
-    return op == OP_INSERT || op == OP_SOFT_CLIP || op == OP_HARD_CLIP
+    return op == OP_INSERT || op == OP_SOFT_CLIP
 end
 
 """
