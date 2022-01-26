@@ -79,6 +79,10 @@ function Alignment(cigar::AbstractString, seqpos::Int=1, refpos::Int=1)
                 seqpos += n
             elseif isdeleteop(op)
                 refpos += n
+            elseif ismetaop(op)
+                # This operation consumes no bases, so counteract the alignment postion
+                # movement below
+                alnpos -= n
             else
                 error("The $(op) CIGAR operation is not yet supported.")
             end
