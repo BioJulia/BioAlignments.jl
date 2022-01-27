@@ -13,6 +13,7 @@ function random_alignment(m, n, glob=true)
     insert_ops = [OP_INSERT]
     delete_ops = [OP_DELETE, OP_SKIP]
     meta_ops = [OP_PAD]
+    clip_ops = [OP_HARD_CLIP, OP_SOFT_CLIP]
     ops = vcat(match_ops, insert_ops, delete_ops, meta_ops)
 
     # This is just a random walk on a m-by-n matrix, where steps are either
@@ -76,6 +77,17 @@ function random_alignment(m, n, glob=true)
         push!(path, AlignmentAnchor(i, j, alnpos, op))
     end
 
+    # Randomly add a clip as the last operation
+    if rand(Bool)
+        iprev, jprev = i, j
+        op = rand(clip_ops)
+        if isinsertop(op)
+            i += 1
+        end
+        alnpos_inc = max(i - iprev, j - jprev)
+        alnpos += alnpos_inc > 0 ? alnpos_inc : rand(1:min(m,n))
+        push!(path, AlignmentAnchor(i, j, alnpos, op))
+    end
     return path
 end
 
