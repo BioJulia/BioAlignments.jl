@@ -10,7 +10,7 @@ import BioSequences: @dna_str, @aa_str
 # alignment.
 function random_alignment(m, n, glob=true)
     match_ops = [OP_MATCH, OP_SEQ_MATCH, OP_SEQ_MISMATCH]
-    insert_ops = [OP_INSERT, OP_SOFT_CLIP, OP_HARD_CLIP]
+    insert_ops = [OP_INSERT, OP_SOFT_CLIP]
     delete_ops = [OP_DELETE, OP_SKIP]
     ops = vcat(match_ops, insert_ops, delete_ops)
 
