@@ -39,6 +39,13 @@ function random_alignment(m, n, glob=true)
 
     alnpos = 0
     path = AlignmentAnchor[AlignmentAnchor(i, j, alnpos, OP_START)]
+
+    # If this is the first anchor, we can make it a hard clip, but we'll let the
+    # straightness simulator override it if it wants
+    if rand(Bool)
+        op = OP_HARD_CLIP
+    end
+
     while (glob && i < i_end && j < j_end) || (!glob && (i < i_end || j < j_end))
         straight = rand() < straight_pr
         iprev, jprev = i, j
