@@ -50,6 +50,12 @@ function random_alignment(m, n, glob=true)
         straight = rand() < straight_pr
         iprev, jprev = i, j
 
+        # If the last operation was a hard clip, then we can make this a soft clip, but the
+        # straightness simulator takes priority again
+        if last(path).op == OP_HARD_CLIP && rand(Bool)
+            op = OP_SOFT_CLIP
+        end
+
         if !straight
             op = rand(ops)
         end
