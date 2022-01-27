@@ -12,7 +12,8 @@ function random_alignment(m, n, glob=true)
     match_ops = [OP_MATCH, OP_SEQ_MATCH, OP_SEQ_MISMATCH]
     insert_ops = [OP_INSERT]
     delete_ops = [OP_DELETE, OP_SKIP]
-    ops = vcat(match_ops, insert_ops, delete_ops)
+    meta_ops = [OP_PAD]
+    ops = vcat(match_ops, insert_ops, delete_ops, meta_ops)
 
     # This is just a random walk on a m-by-n matrix, where steps are either
     # (+1,0), (0,+1), (+1,+1). To make somewhat more realistic alignments, it's
@@ -60,12 +61,15 @@ function random_alignment(m, n, glob=true)
                 j += 1
             elseif isinsertop(op)
                 i += 1
+            elseif ismetaop(op)
+                # Don't increment anything here
             else
                 i += 1
                 j += 1
             end
         end
-        alnpos += max(i - iprev, j - jprev)
+        alnpos_inc = max(i - iprev, j - jprev)
+        alnpos += alnpos_inc > 0 ? alnpos_inc : rand(1:min(m,n))
         push!(path, AlignmentAnchor(i, j, alnpos, op))
     end
 
@@ -158,7 +162,8 @@ end
             v = anchors[j]
             if (ismatchop(u.op) && ismatchop(v.op)) ||
                (isinsertop(u.op) && isinsertop(v.op)) ||
-               (isdeleteop(u.op) && isdeleteop(v.op))
+               (isdeleteop(u.op) && isdeleteop(v.op)) ||
+               (ismetaop(u.op) && ismetaop(v.op))
                 continue
             end
             anchors[i] = AlignmentAnchor(u.seqpos, u.refpos, u.alnpos, v.op)
