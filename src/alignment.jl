@@ -80,9 +80,9 @@ function Alignment(cigar::AbstractString, seqpos::Int=1, refpos::Int=1)
             elseif isdeleteop(op)
                 refpos += n
             elseif ismetaop(op)
-                # This operation consumes no bases, so counteract the alignment postion
-                # movement below
-                alnpos -= n
+                # Meta operations consume alignment positions, but not sequence or reference
+                # positions, so there is nothing to do here but prevent the "not supported"
+                # error
             else
                 error("The $(op) CIGAR operation is not yet supported.")
             end
@@ -182,8 +182,7 @@ aln2ref(aln::Alignment, i::Integer) = pos2pos(aln, i, alnpos, refpos)
 
 Make a CIGAR string encoding of `aln`.
 
-This is not entirely lossless as it discards the alignments start positions and any meta
-operations (e.g. pads and hard clips).
+This is not entirely lossless as it discards the alignments start positions.
 """
 function cigar(aln::Alignment)
     anchors = aln.anchors
@@ -193,8 +192,7 @@ function cigar(aln::Alignment)
     @assert anchors[1].op == OP_START
     out = IOBuffer()
     for i in 2:length(anchors)
-        n = max(anchors[i].seqpos - anchors[i-1].seqpos,
-                anchors[i].refpos - anchors[i-1].refpos)
+        n = anchors[i].alnpos - anchors[i-1].alnpos
         if n > 0
             print(out, n, convert(Char, anchors[i].op))
         end
