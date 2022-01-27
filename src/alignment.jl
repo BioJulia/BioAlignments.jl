@@ -211,6 +211,13 @@ function check_alignment_anchors(anchors)
         error("Alignments must begin with on OP_START anchor.")
     end
 
+    # Check if a hard clip occurs in the middle of the alignment
+    for i in 3:lastindex(anchors)-1
+        if anchors[i].op == OP_HARD_CLIP
+            error("OP_HARD_CLIP can only be present as the first (after OP_START) and/or last operation")
+        end
+    end
+
     for i in 2:lastindex(anchors)
         @inbounds acur, aprev = anchors[i], anchors[i-1]
         if acur.refpos < aprev.refpos || acur.seqpos < aprev.seqpos || acur.alnpos < aprev.alnpos
