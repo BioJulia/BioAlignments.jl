@@ -218,6 +218,36 @@ function check_alignment_anchors(anchors)
         end
     end
 
+    # Check if a soft clip has anything but hard clips and start anchors between them and
+    # the end of the alignment
+    for i in 3:lastindex(anchors)
+        if anchors[i].op == OP_SOFT_CLIP
+            # Check if this is the last operation, which is valid
+            if i == lastindex(anchors)
+                continue
+            end
+
+            # Walk forward
+            next_anchors = anchors[i+1:lastindex(anchors)]
+            next_valid = true
+            for anchor in next_anchors
+                next_valid = next_valid && anchor.op == OP_HARD_CLIP
+            end
+
+            # Walk backward
+            prev_anchors = anchors[1:i-1]
+            prev_valid = true
+            for anchor in prev_anchors
+                prev_valid = prev_valid && (anchor.op == OP_START || anchor.op == OP_HARD_CLIP)
+            end
+
+            # Check for invalid operations
+            if !(next_valid || prev_valid)
+                error("OP_SOFT_CLIP may only have OP_HARD_CLIP operations between it and the ends of the alignment")
+            end
+        end
+    end
+
     for i in 2:lastindex(anchors)
         @inbounds acur, aprev = anchors[i], anchors[i-1]
         if acur.refpos < aprev.refpos || acur.seqpos < aprev.seqpos || acur.alnpos < aprev.alnpos
