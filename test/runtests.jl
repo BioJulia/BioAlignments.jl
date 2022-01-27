@@ -48,7 +48,7 @@ function random_alignment(m, n, glob=true)
             j += 1
         elseif j == j_end
             if !straight
-                op = rand(inset_ops)
+                op = rand(insert_ops)
             end
             i += 1
         else
