@@ -88,6 +88,14 @@ function random_alignment(m, n, glob=true)
         alnpos += alnpos_inc > 0 ? alnpos_inc : rand(1:min(m,n))
         push!(path, AlignmentAnchor(i, j, alnpos, op))
     end
+
+    # Randomly add a hard clip as the last operation if the last operation was a soft clip
+    if rand(Bool) && last(path).op == OP_SOFT_CLIP
+        op = OP_HARD_CLIP
+        alnpos += rand(1:min(m,n))
+        push!(path, AlignmentAnchor(i, j, alnpos, op))
+    end
+
     return path
 end
 
