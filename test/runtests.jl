@@ -42,32 +42,22 @@ function random_alignment(m, n, glob=true)
     while (glob && i < i_end && j < j_end) || (!glob && (i < i_end || j < j_end))
         straight = rand() < straight_pr
         iprev, jprev = i, j
-        if i == i_end
-            if !straight
-                op = rand(delete_ops)
-            end
-            j += 1
-        elseif j == j_end
-            if !straight
-                op = rand(insert_ops)
-            end
-            i += 1
-        else
-            if !straight
-                op = rand(ops)
-            end
 
-            if isdeleteop(op)
-                j += 1
-            elseif isinsertop(op)
-                i += 1
-            elseif ismetaop(op)
-                # Don't increment anything here
-            else
-                i += 1
-                j += 1
-            end
+        if !straight
+            op = rand(ops)
         end
+
+        if isdeleteop(op)
+            j += 1
+        elseif isinsertop(op)
+            i += 1
+        elseif ismetaop(op)
+            # Don't increment anything here
+        else
+            i += 1
+            j += 1
+        end
+
         alnpos_inc = max(i - iprev, j - jprev)
         alnpos += alnpos_inc > 0 ? alnpos_inc : rand(1:min(m,n))
         push!(path, AlignmentAnchor(i, j, alnpos, op))
