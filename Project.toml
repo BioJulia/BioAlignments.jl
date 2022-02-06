@@ -1,6 +1,6 @@
 name = "BioAlignments"
 uuid = "00701ae9-d1dc-5365-b64a-a3a3ebf5695e"
-authors = ["Kenta Sato <bicycle1885@gmail.com>", "Ben J. Ward <benjward@protonmail.com>"]
+authors = ["Kenta Sato <bicycle1885@gmail.com>", "Sabrina J. Ward <sabrinajward@protonmail.com>"]
 version = "2.0.0"
 
 [deps]
