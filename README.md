@@ -1,5 +1,7 @@
 # <img src="./sticker.svg" width="30%" align="right" /> BioAlignments.jl
 
+[![DOI](https://zenodo.org/badge/94387480.svg)](https://zenodo.org/badge/latestdoi/94387480)
+
 [![Latest release](https://img.shields.io/github/release/BioJulia/BioAlignments.jl.svg)](https://github.com/BioJulia/BioAlignments.jl/releases/latest)
 [![MIT license](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/BioJulia/BioAlignments.jl/blob/master/LICENSE)
 [![Stable documentation](https://img.shields.io/badge/docs-stable-blue.svg)](https://biojulia.github.io/BioAlignments.jl/stable)
