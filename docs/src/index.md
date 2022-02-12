@@ -30,6 +30,7 @@ If you are interested in the cutting edge of the development, please check out t
 [![Build Status](https://github.com/BioJulia/BioAlignments.jl/workflows/CI/badge.svg)](https://github.com/BioJulia/BioAlignments.jl/actions)
 [![appveyor](https://ci.appveyor.com/api/projects/status/klkynmkr1tgd30gq/branch/master?svg=true)](https://ci.appveyor.com/project/Ward9250/bioalignments-jl/branch/master)
 [![codecov](https://codecov.io/gh/BioJulia/BioAlignments.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/BioJulia/BioAlignments.jl)
+[![Downstream](https://github.com/BioJulia/BioAlignments.jl/actions/workflows/Downstream.yml/badge.svg)](https://github.com/BioJulia/BioAlignments.jl/actions/workflows/Downstream.yml)
 
 ## Contributing
 

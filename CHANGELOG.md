@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 - Alignment position support (#44)
+- Add Downstream tests (#70)
 
 ### Changed
 - Updated CI to use GitHub actions (#47)
