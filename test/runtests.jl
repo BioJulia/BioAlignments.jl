@@ -1,4 +1,6 @@
 using Test
+using Documenter
+
 using BioAlignments
 using BioSymbols
 import BioSequences: @dna_str, @aa_str
@@ -1056,4 +1058,8 @@ end
         #                      |.||||.|.|
         # EMBOSS_001        49 CVVESSVLRA     58
     end
+
+    # Include doctests.
+    DocMeta.setdocmeta!(BioAlignments, :DocTestSetup, :(using BioAlignments); recursive=true)
+    doctest(BioAlignments; manual = false)
 end
