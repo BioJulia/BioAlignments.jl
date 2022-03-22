@@ -1014,7 +1014,7 @@ end
         aln = alignment(pairalign(GlobalAlignment(), seq1, seq2, model))
         # julia 1.6+ uses shorter type aliases when printing types
         seqtype = VERSION >= v"1.6" ?
-            "BioSequences.LongAminoAcidSeq" :
+            "BioSequences.LongAA" :
             "BioSequences.LongSequence{BioSequences.AminoAcidAlphabet}"
         buf = IOBuffer()
         show(buf, MIME"text/plain"(), aln)
