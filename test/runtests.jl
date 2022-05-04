@@ -542,6 +542,20 @@ end
         @test hasalignment(result) == true
     end
 
+    @testset "PaddedAlignment" begin
+        anchors = [
+            AlignmentAnchor(0, 0, 0, OP_START),
+            AlignmentAnchor(2, 2, 2, OP_SEQ_MATCH),
+            AlignmentAnchor(2, 2, 3, OP_PAD),
+            AlignmentAnchor(3, 3, 4, OP_SEQ_MATCH),
+            AlignmentAnchor(3, 3, 5, OP_HARD_CLIP),
+        ]
+        seq = AlignedSequence("ACG", anchors)
+        ref = "ACG"
+        aln = PairwiseAlignment(seq, ref)
+        @test collect(aln) == [('A', 'A'), ('C', 'C'), ('G', 'G')]
+    end
+
     @testset "count_<ops>" begin
         # anchors are derived from an alignment:
         #   seq: ACG---TGCAGAATTT
