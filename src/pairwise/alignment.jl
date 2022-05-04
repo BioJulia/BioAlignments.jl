@@ -133,7 +133,16 @@ Count the number of aligned positions.
 """
 function count_aligned(aln::PairwiseAlignment)
     anchors = aln.a.aln.anchors
-    return isempty(anchors) ? 0 : last(anchors).alnpos
+    n = 0
+    for i in 2:lastindex(anchors)
+        op = anchors[i].op
+        if ismatchop(op) || isinsertop(op)
+            n += anchors[i].seqpos - anchors[i-1].seqpos
+        elseif isdeleteop(op)
+            n += anchors[i].refpos - anchors[i-1].refpos
+        end
+    end
+    return n
 end
 
 seq2ref(aln::PairwiseAlignment, i::Integer) = seq2ref(aln.a, i)
