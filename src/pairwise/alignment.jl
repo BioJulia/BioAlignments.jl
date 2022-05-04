@@ -37,6 +37,19 @@ function Base.iterate(aln::PairwiseAlignment, ij=(2,1))
 
     anchors = aln.a.aln.anchors
     anchor = anchors[i]
+
+    # If this is a meta-operation, then advance to the next non-meta anchor, if available
+    # If there are no non-meta anchors left, then the iterator is finished
+    for k in i:lastindex(anchors)
+        i = k
+        anchor = anchors[i]
+        if !ismetaop(anchor.op)
+            break
+        elseif i == lastindex(anchors)
+            return nothing
+        end
+    end
+
     seq = aln.a.seq
     ref = aln.b
     seqpos = anchors[i-1].seqpos
