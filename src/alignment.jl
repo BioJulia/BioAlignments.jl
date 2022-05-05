@@ -83,6 +83,7 @@ function Alignment(cigar::AbstractString, seqpos::Int=1, refpos::Int=1)
                 # Meta operations consume alignment positions, but not sequence or reference
                 # positions, so there is nothing to do here but prevent the "not supported"
                 # error
+                nothing
             else
                 error("The $(op) CIGAR operation is not yet supported.")
             end
