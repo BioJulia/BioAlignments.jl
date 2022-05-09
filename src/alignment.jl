@@ -219,8 +219,8 @@ function check_alignment_anchors(anchors)
         end
     end
 
-    # Check if a soft clip has anything but hard clips and start anchors between them and
-    # the end of the alignment
+    # Soft clips must be at either end of the alignment, or alternatively can have hard
+    # clips between them and the ends of the alignment. Check to make sure this is true.
     for i in 3:lastindex(anchors)
         if anchors[i].op == OP_SOFT_CLIP
             # Check if this is the last operation, which is valid
@@ -242,8 +242,8 @@ function check_alignment_anchors(anchors)
                 prev_valid = prev_valid && (anchor.op == OP_START || anchor.op == OP_HARD_CLIP)
             end
 
-            # Check for invalid operations
-            if !(next_valid || prev_valid)
+            # Check if this soft clip is a valid starting clip or a valid ending clip
+            if !(next_valid || prev_valid) # Alternatively: !next_valid && !prev_valid
                 error("OP_SOFT_CLIP may only have OP_HARD_CLIP operations between it and the ends of the alignment")
             end
         end
