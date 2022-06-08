@@ -120,7 +120,7 @@ function Base.show(io::IO, submat::SubstitutionMatrix{T,S}) where {T,S}
     width = maximum(map(x -> length(x), mat))
     for i in 1:n + 1
         for j in 1:n + 1
-            print(io, lpad(mat[i, j], width + ifelse(last(mat[i, j]) == '\U0332', 2, 1)))
+            print(io, lpad(mat[i, j], width + 1))
         end
         println(io)
     end
