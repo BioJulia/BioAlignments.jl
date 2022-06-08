@@ -9,16 +9,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 - Alignment position support (#44)
-- Add Downstream tests (#70)
-- Add ssh secret to TagBot.yml (#71)
+- Compact printing of alignments (#53)
+- Downstream tests (#70)
+- SSH secret to TagBot.yml (#71)
+- Zenodo badge (#c49bb0a3)
 
 ### Changed
-- Updated CI to use GitHub actions (#47)
+- Updated CI to use GitHub actions (#47, #77)
 - *master* set as the main development branch (#49, #50)
+- Updated chat links (#ebea200c)
+- Expanded test matrix, adding julia v1.6 (#77)
 
 ### Removed
 - :exclamation: Reverted the use of *BioJulia* registry,
   the package switched to [General Julia Registry](https://github.com/JuliaRegistries/General) (#48)
+- :exclamation: Removed Gitter chat links (#ebea200c)
 
 ## [2.0.0]
 
