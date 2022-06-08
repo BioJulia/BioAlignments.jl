@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Downstream tests (#70)
 - SSH secret to TagBot.yml (#71)
 - Zenodo badge (#c49bb0a3)
+- Doctests as part of the unit tests (#78)
 
 ### Changed
 - Updated CI to use GitHub actions (#47, #77)
@@ -24,6 +25,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - :exclamation: Reverted the use of *BioJulia* registry,
   the package switched to [General Julia Registry](https://github.com/JuliaRegistries/General) (#48)
 - :exclamation: Removed Gitter chat links (#ebea200c)
+
+### Fixed
+- Doctests (#78)
 
 ## [2.0.0]
 

@@ -55,7 +55,7 @@ cost of substitution, insertion, and deletion:
 julia> costmodel = CostModel(match=0, mismatch=1, insertion=1, deletion=1);
 
 julia> pairalign(EditDistance(), "abcd", "adcde", costmodel)
-PairwiseAlignmentResult{Int64,String,String}:
+PairwiseAlignmentResult{Int64, String, String}:
   distance: 2
   seq: 1 abcd- 4
          | ||
@@ -74,7 +74,7 @@ julia> s2 = dna"ACCTGGTATGATAGCG";
 julia> scoremodel = AffineGapScoreModel(EDNAFULL, gap_open=-5, gap_extend=-1);
 
 julia> res = pairalign(GlobalAlignment(), s1, s2, scoremodel)  # run pairwise alignment
-PairwiseAlignmentResult{Int64,BioSequences.LongSequence{BioSequences.DNAAlphabet{4}},BioSequences.LongSequence{BioSequences.DNAAlphabet{4}}}:
+PairwiseAlignmentResult{Int64, BioSequences.LongDNASeq, BioSequences.LongDNASeq}:
   score: 13
   seq:  0 -CCTAGG------AGGG 10
            ||| ||      || |
@@ -85,7 +85,7 @@ julia> score(res)  # get the achieved score of this alignment
 13
 
 julia> aln = alignment(res)
-PairwiseAlignment{BioSequences.LongSequence{BioSequences.DNAAlphabet{4}},BioSequences.LongSequence{BioSequences.DNAAlphabet{4}}}:
+PairwiseAlignment{BioSequences.LongDNASeq, BioSequences.LongDNASeq}:
   seq:  0 -CCTAGG------AGGG 10
            ||| ||      || |
   ref:  1 ACCT-GGTATGATAGCG 16
@@ -107,7 +107,7 @@ julia> count_aligned(aln)
 17
 
 julia> collect(aln)  # pairwise alignment is iterable
-17-element Array{Tuple{DNA,DNA},1}:
+17-element Vector{Tuple{DNA, DNA}}:
  (DNA_Gap, DNA_A)
  (DNA_C, DNA_C)
  (DNA_C, DNA_C)
@@ -140,7 +140,7 @@ ACCT-GGTATGATAGCG
 
 A substitution matrix is a function of substitution score (or cost) from one
 symbol to other. Substitution value of `submat` from `x` to `y` can be obtained
-by writing `submat[x,y]`.
+by writing `submat[x, y]`.
 In BioAlignments.jl, `SubstitutionMatrix` and `DichotomousSubstitutionMatrix` are two
 distinct types representing substitution matrices.
 
@@ -152,7 +152,7 @@ defined:
 
 ```jldoctest
 julia> EDNAFULL
-SubstitutionMatrix{BioSymbols.DNA,Int64}:
+SubstitutionMatrix{BioSymbols.DNA, Int64}:
      A  C  M  G  R  S  V  T  W  Y  H  K  D  B  N
   A  5 -4  1 -4  1 -4 -1 -4  1 -4 -1 -4 -1 -4 -2
   C -4  5  1 -4 -4  1 -1 -4 -4  1 -1 -4 -4 -1 -2
@@ -177,7 +177,7 @@ For amino acids, PAM (Point Accepted Mutation) and BLOSUM (BLOcks SUbstitution M
 
 ```jldoctest
 julia> BLOSUM62
-SubstitutionMatrix{BioSymbols.AminoAcid,Int64}:
+SubstitutionMatrix{BioSymbols.AminoAcid, Int64}:
      A  R  N  D  C  Q  E  G  H  I  L  K  M  F  P  S  T  W  Y  V  O  U  B  J  Z  X  *
   A  4 -1 -2 -2  0 -1 -1  0 -2 -1 -1 -1 -1 -2 -1  1  0 -3 -2  0  0̲  0̲ -2  0̲ -1  0 -4
   R -1  5  0 -2 -3  1  0 -2  0 -3 -2  2 -1 -3 -2 -1 -1 -3 -2 -3  0̲  0̲ -1  0̲  0 -1 -4
@@ -222,13 +222,13 @@ These matrices are downloaded from: <ftp://ftp.ncbi.nih.gov/blast/matrices/>.
 ```jldoctest
 julia> mysubmat = copy(BLOSUM62);  # create a copy
 
-julia> mysubmat[AA_A,AA_R]  # score of AA_A => AA_R substitution is -1
+julia> mysubmat[AA_A, AA_R]  # score of AA_A => AA_R substitution is -1
 -1
 
-julia> mysubmat[AA_A,AA_R] = -3  # set the score to -3
+julia> mysubmat[AA_A, AA_R] = -3  # set the score to -3
 -3
 
-julia> mysubmat[AA_A,AA_R]  # the score is modified
+julia> mysubmat[AA_A, AA_R]  # the score is modified
 -3
 
 ```
@@ -248,10 +248,10 @@ DichotomousSubstitutionMatrix{Int64}:
      match =  1
   mismatch = -1
 
-julia> submat['A','A']  # match
+julia> submat['A', 'A']  # match
 1
 
-julia> submat['A','B']  # mismatch
+julia> submat['A', 'B']  # mismatch
 -1
 
 ```
