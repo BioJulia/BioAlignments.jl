@@ -74,7 +74,7 @@ julia> s2 = dna"ACCTGGTATGATAGCG";
 julia> scoremodel = AffineGapScoreModel(EDNAFULL, gap_open=-5, gap_extend=-1);
 
 julia> res = pairalign(GlobalAlignment(), s1, s2, scoremodel)  # run pairwise alignment
-PairwiseAlignmentResult{Int64, BioSequences.LongDNASeq, BioSequences.LongDNASeq}:
+PairwiseAlignmentResult{Int64, BioSequences.LongSequence{BioSequences.DNAAlphabet{4}}, BioSequences.LongSequence{BioSequences.DNAAlphabet{4}}}:
   score: 13
   seq:  0 -CCTAGG------AGGG 10
            ||| ||      || |
@@ -85,7 +85,7 @@ julia> score(res)  # get the achieved score of this alignment
 13
 
 julia> aln = alignment(res)
-PairwiseAlignment{BioSequences.LongDNASeq, BioSequences.LongDNASeq}:
+PairwiseAlignment{BioSequences.LongSequence{BioSequences.DNAAlphabet{4}}, BioSequences.LongSequence{BioSequences.DNAAlphabet{4}}}:
   seq:  0 -CCTAGG------AGGG 10
            ||| ||      || |
   ref:  1 ACCT-GGTATGATAGCG 16
@@ -126,11 +126,11 @@ julia> collect(aln)  # pairwise alignment is iterable
  (DNA_G, DNA_C)
  (DNA_G, DNA_G)
 
-julia> LongDNASeq([x for (x, _) in aln])  # create aligned `s1` with gaps
+julia> LongDNA{4}([x for (x, _) in aln])  # create aligned `s1` with gaps
 17nt DNA Sequence:
 -CCTAGG------AGGG
 
-julia> LongDNASeq([y for (_, y) in aln])  # create aligned `s2` with gaps
+julia> LongDNA{4}([y for (_, y) in aln])  # create aligned `s2` with gaps
 17nt DNA Sequence:
 ACCT-GGTATGATAGCG
 

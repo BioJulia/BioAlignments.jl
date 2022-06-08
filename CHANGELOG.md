@@ -20,11 +20,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - *master* set as the main development branch (#49, #50)
 - Updated chat links (#ebea200c)
 - Expanded test matrix, adding julia v1.6 (#77)
+- Incremented BioSequences compatibility to v3 (#72)
+- Incremented BioSymbols compatibility to v5 (#72)
+- Adjusted test matrix for minimum compatibility (#72)
+- Updated doctests (#72)
 
 ### Removed
 - :exclamation: Reverted the use of *BioJulia* registry,
   the package switched to [General Julia Registry](https://github.com/JuliaRegistries/General) (#48)
 - :exclamation: Removed Gitter chat links (#ebea200c)
+- :exclamation: Dropped support for julia less than v1.6 (#72)
 
 ### Fixed
 - Doctests (#78)

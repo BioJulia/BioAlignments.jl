@@ -1012,15 +1012,12 @@ end
         seq2 = aa"EPSHPKAVSPTETKRCPTEKVQHLPVSAPPKITQFLKAEASKEIAKLTCVVESSVLRA"
         model = AffineGapScoreModel(BLOSUM62, gap_open=-10, gap_extend=-1)
         aln = alignment(pairalign(GlobalAlignment(), seq1, seq2, model))
-        # julia 1.6+ uses shorter type aliases when printing types
-        seqtype = VERSION >= v"1.6" ?
-            "BioSequences.LongAminoAcidSeq" :
-            "BioSequences.LongSequence{BioSequences.AminoAcidAlphabet}"
+        seqtype = "BioSequences.LongAA"
         buf = IOBuffer()
         show(buf, MIME"text/plain"(), aln)
         @test String(take!(buf)) ==
         """
-        PairwiseAlignment{$(seqtype),$(VERSION >= v"1.6" ? " " : "")$(seqtype)}:
+        PairwiseAlignment{$seqtype, $seqtype}:
           seq:  1 EPVTSHPKAVSPTETK--PTEKGQHLPVSAPPKITQSLKAEASKDIAKLTCAVESSALCA 58
                   ||  ||||||||||||  |||| ||||||||||||| ||||||| |||||| |||| | |
           ref:  1 EP--SHPKAVSPTETKRCPTEKVQHLPVSAPPKITQFLKAEASKEIAKLTCVVESSVLRA 58
@@ -1046,7 +1043,7 @@ end
         buf = IOBuffer()
         print(buf, (aln,))
         @test String(take!(buf)) == (
-        	"""(PairwiseAlignment{$seqtype,$(VERSION >= v"1.6" ? " " : "")$(seqtype)}""" *
+        	"""(PairwiseAlignment{$seqtype, $seqtype}""" *
         	"""(lengths=(58, 58)/60),)"""
         )
         # Result from EMBOSS Needle:
