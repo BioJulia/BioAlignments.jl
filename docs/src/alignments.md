@@ -121,7 +121,7 @@ julia> convert(Operation, 'M')  # Char => Operation
 OP_MATCH
 
 julia> convert(Char, OP_MATCH)  # Operation => Char
-'M': ASCII/Unicode U+004d (category Lu: Letter, uppercase)
+'M': ASCII/Unicode U+004D (category Lu: Letter, uppercase)
 
 julia> ismatchop(OP_MATCH)
 true
