@@ -4,9 +4,7 @@
 	 width="386.375px" height="106.875px" viewBox="0 0 386.375 106.875" enable-background="new 0 0 386.375 106.875"
 	 xml:space="preserve">
 <defs>
-  <style type="text/css">
-    @import url('https://fonts.googleapis.com/css?family=Noto+Sans+Mono|Noto+Sans:,i');
- </style>
+  <link xmlns="http://www.w3.org/1999/xhtml" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+Mono|Noto+Sans:,i"/>
 </defs>
 <text transform="matrix(1 0 0 1 80.4912 44.0371)" font-family="Noto Sans Mono" font-size="12">TGGC----ATCATTTAACG---CAAG</text>
 <text transform="matrix(1 0 0 1 51.6465 71.5)" font-family="Noto Sans Mono" font-size="12">AGGGTGGCATTTATCAG---ACGTTTCGAGAC</text>
