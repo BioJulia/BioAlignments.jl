@@ -397,6 +397,20 @@ end
 
         @test convert(Matrix, BioAlignments.load_submat(AminoAcid, "BLOSUM62")) == convert(Matrix, BLOSUM62)
 
+        # Various operations
+        @test eltype(BLOSUM62) === Int
+        @test eltype(similar(BLOSUM62, Float64)) === Float64
+        @test !any(isassigned(similar(BLOSUM62)))
+        @test isassigned(BLOSUM62, AA_R, AA_K)
+        @test !isassigned(BLOSUM62, AA_R, AA_O)
+        @test size(BLOSUM62[isassigned(BLOSUM62)]) == (sum(BLOSUM62.defined),)
+        keep1, keep2 = vec(all(isassigned(BLOSUM62); dims=2)), vec(all(isassigned(BLOSUM62); dims=1))
+        @test size(BLOSUM62[keep1, keep2]) == (sum(keep1), sum(keep2))
+        @test BioSymbols.alphabet(BLOSUM62) == BioAlignments.alphabet_without_gap(AminoAcid)
+        myblossum = similar(BLOSUM62, Float64)
+        myblossum[AA_K,AA_R] = myblossum[AA_R,AA_K] = 1.11
+        @test myblossum[AA_K,AA_R] == myblossum[AA_R,AA_K] == 1.11
+
         submat = SubstitutionMatrix(DNA, rand(Float64, 15, 15))
         @test isa(submat, SubstitutionMatrix{DNA,Float64})
 

@@ -13,7 +13,7 @@ The required method:
 
 * `Base.getindex(submat, x, y)`: substitution score/cost from `x` to `y`
 """
-abstract type AbstractSubstitutionMatrix{S<:Real} end
+abstract type AbstractSubstitutionMatrix{S<:Real} end # is it deliberate that this is not <:AbstractMatrix{S}?
 
 """
 Substitution matrix.
@@ -82,16 +82,35 @@ Base.convert(::Type{Matrix}, submat::SubstitutionMatrix) = copy(submat.data)
     return submat.data[i,j]
 end
 
+Base.getindex(submat::SubstitutionMatrix, mask::AbstractMatrix{Bool}) = submat.data[mask]
+Base.getindex(submat::SubstitutionMatrix, mask1::AbstractVector{Bool}, mask2::AbstractVector{Bool}) = submat.data[mask1, mask2]
+
 function Base.setindex!(submat::SubstitutionMatrix{T}, val, x, y) where T
     i = index(convert(T, x))
     j = index(convert(T, y))
     submat.data[i,j] = val
     submat.defined[i,j] = true
-    return submat
+    return val
+end
+
+Base.eltype(::SubstitutionMatrix{T,S}) where {T,S} = S
+
+BioSymbols.alphabet(::SubstitutionMatrix{T}) where {T} = alphabet_without_gap(T)
+
+Base.isassigned(submat::SubstitutionMatrix) = submat.defined
+function Base.isassigned(submat::SubstitutionMatrix{T}, x, y) where T
+    i = index(convert(T, x))
+    j = index(convert(T, y))
+    return submat.defined[i,j]
 end
 
 function Base.copy(submat::SubstitutionMatrix{T,S}) where {T,S}
     return SubstitutionMatrix{T,S}(copy(submat.data), copy(submat.defined))
+end
+
+function Base.similar(submat::SubstitutionMatrix{T}, ::Type{S}=eltype(submat)) where {T,S<:Real}
+    n = length(BioSymbols.alphabet(T)) - 1
+    return SubstitutionMatrix{T,S}(Matrix{S}(undef, n, n), falses(n, n))
 end
 
 Base.minimum(submat::SubstitutionMatrix) = minimum(submat.data)
