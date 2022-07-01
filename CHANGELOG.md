@@ -9,7 +9,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 - Alignment position support (#44)
+
+## [2.2.0]
+
+### Added
 - Compact printing of alignments (#53)
+- More SubstitutionMatrix operations (#60)
 - Downstream tests (#70)
 - SSH secret to TagBot.yml (#71)
 - Zenodo badge (#c49bb0a3)
@@ -33,6 +38,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 - Doctests (#78)
+
+## 0.2.1 - 2022-10-22 [YANKED]
 
 ## [2.0.0]
 
@@ -85,7 +92,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [0.1.0] - 2017-06-30
 - This initial release extracted the alignment utilities out from Bio.jl into this dedicated package.
 
-[Unreleased]: https://github.com/BioJulia/BioAlignments.jl/compare/v2.0.0...HEAD
+[Unreleased]: https://github.com/BioJulia/BioAlignments.jl/compare/v2.2.0...HEAD
+[2.2.0]: https://github.com/BioJulia/BioAlignments.jl/compare/v2.0.0...v2.2.0
 [2.0.0]: https://github.com/BioJulia/BioAlignments.jl/compare/v1.0.1...v2.0.0
 [1.0.1]: https://github.com/BioJulia/BioAlignments.jl/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/BioJulia/BioAlignments.jl/compare/v0.3.0...v1.0.0
