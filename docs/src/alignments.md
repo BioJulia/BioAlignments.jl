@@ -177,3 +177,24 @@ julia> AlignedSequence(seq, ref)
 ACGT--AAT--
 
 ```
+
+You can get the underlying alignment and sequence back out of an
+`AlignedSequence` by using the `alignment` and `sequence` functions.
+
+```jldoctest
+julia> aln = AlignedSequence(dna"ACGT--AAT--", dna"ACGTTTAT-GG")
+········-··
+ACGT--AAT--
+
+julia> alignment(aln)
+Alignment:
+  aligned range:
+    seq: 0-7
+    ref: 0-10
+  CIGAR string: 4=2D1=1X1I2D
+
+julia> sequence(aln)
+7nt DNA Sequence:
+ACGTAAT
+
+```
