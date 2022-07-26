@@ -69,7 +69,8 @@ export
     score,
     distance,
     alignment,
-    hasalignment
+    hasalignment,
+    sequence
 
 using BioGenerics
 import BioGenerics: distance
