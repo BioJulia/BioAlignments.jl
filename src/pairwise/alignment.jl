@@ -22,6 +22,13 @@ Gets the underlying [`Alignment`](@ref) from `pairwise_alignment`.
 """
 alignment(aln::PairwiseAlignment) = alignment(aln.a)
 
+"""
+    sequence(pairwise_alignment)
+
+Gets the query sequence of `pairwise_alignment`.
+"""
+sequence(aln::PairwiseAlignment) = sequence(aln.a)
+
 function Base.iterate(aln::PairwiseAlignment, ij=(2,1))
     i, j = ij
     if i > lastindex(aln.a.aln.anchors)
