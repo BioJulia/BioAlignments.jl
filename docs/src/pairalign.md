@@ -91,6 +91,9 @@ PairwiseAlignment{BioSequences.LongSequence{BioSequences.DNAAlphabet{4}}, BioSeq
            ||| ||      || |
   ref:  1 ACCT-GGTATGATAGCG 16
 
+julia> sequence(res)
+10nt DNA Sequence:
+CCTAGGAGGG
 
 julia> count_matches(aln)
 8
