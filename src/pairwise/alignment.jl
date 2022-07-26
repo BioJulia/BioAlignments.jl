@@ -14,6 +14,14 @@ mutable struct PairwiseAlignment{S1,S2}
     b::S2
 end
 
+# Getter functions
+"""
+    alignment(pairwise_alignment)
+
+Gets the underlying [`Alignment`](@ref) from `pairwise_alignment`.
+"""
+alignment(aln::PairwiseAlignment) = alignment(aln.a)
+
 function Base.iterate(aln::PairwiseAlignment, ij=(2,1))
     i, j = ij
     if i > lastindex(aln.a.aln.anchors)
