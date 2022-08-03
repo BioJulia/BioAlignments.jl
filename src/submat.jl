@@ -156,12 +156,12 @@ end
 
 # Return the row/column index of `nt`.
 function index(nt::BioSymbols.NucleicAcid)
-    return reinterpret(Int8, nt)
+    return reinterpret(UInt8, nt)
 end
 
 # Return the row/column index of `aa`.
 function index(aa::BioSymbols.AminoAcid)
-    return reinterpret(Int8, aa) + 1
+    return reinterpret(UInt8, aa) + 1
 end
 
 

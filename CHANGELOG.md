@@ -9,16 +9,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 - Alignment position support (#44)
-- Compact printing of alignments (#53)
-- Downstream tests (#70)
-- SSH secret to TagBot.yml (#71)
-- Zenodo badge (#c49bb0a3)
-- Doctests as part of the unit tests (#78)
 
-### Changed
-- Updated CI to use GitHub actions (#47, #77)
-- *master* set as the main development branch (#49, #50)
-- Updated chat links (#ebea200c)
+## [2.2.0]
+
+### Added- Compact printing of alignments (#53)
+- More SubstitutionMatrix operations (#60)
+- Downstream tests (#70)
+- SSH secret to TagBot.yml (#71)- Doctests as part of the unit tests (#78)
+
+### Changed- Updated chat links (#ebea200c)
 - Expanded test matrix, adding julia v1.6 (#77)
 - Incremented BioSequences compatibility to v3 (#72)
 - Incremented BioSymbols compatibility to v5 (#72)
@@ -26,13 +25,35 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Updated doctests (#72)
 
 ### Removed
-- :exclamation: Reverted the use of *BioJulia* registry,
-  the package switched to [General Julia Registry](https://github.com/JuliaRegistries/General) (#48)
 - :exclamation: Removed Gitter chat links (#ebea200c)
 - :exclamation: Dropped support for julia less than v1.6 (#72)
+- :exclamation: Removed alignment position support, as it was a breaking change (#44, #76)
 
 ### Fixed
 - Doctests (#78)
+
+## [2.1.0] - 2022-02-10 [YANKED]
+
+### Added
+- Zenodo badge (#c49bb0a3)
+
+### Removed
+- :exclamation: Dropped support for julia less than v1 (#50)
+
+### Changed
+
+## [2.0.1] - 2022-02-08 [UNREGISTERED]
+
+### Added
+- Alignment position support (#44)
+
+### Changed
+- Updated CI to use GitHub actions (#47)
+- *master* set as the main development branch (#49, #50)
+
+### Removed
+- :exclamation: Reverted the use of *BioJulia* registry,
+  the package switched to [General Julia Registry](https://github.com/JuliaRegistries/General) (#48)
 
 ## [2.0.0]
 
@@ -85,7 +106,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [0.1.0] - 2017-06-30
 - This initial release extracted the alignment utilities out from Bio.jl into this dedicated package.
 
-[Unreleased]: https://github.com/BioJulia/BioAlignments.jl/compare/v2.0.0...HEAD
+[Unreleased]: https://github.com/BioJulia/BioAlignments.jl/compare/v2.2.0...HEAD
+[2.2.0]: https://github.com/BioJulia/BioAlignments.jl/compare/v2.1.0...v2.2.0
+[2.1.0]: https://github.com/BioJulia/BioAlignments.jl/compare/v2.0.1...v2.1.0
+[2.0.1]: https://github.com/BioJulia/BioAlignments.jl/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/BioJulia/BioAlignments.jl/compare/v1.0.1...v2.0.0
 [1.0.1]: https://github.com/BioJulia/BioAlignments.jl/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/BioJulia/BioAlignments.jl/compare/v0.3.0...v1.0.0
