@@ -7,11 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.3.0] - 2022-10-01
+
 ### Added
 - Getter functions for `AlignedSequence`, `PairwiseAlignment`, and
-  `PairwiseAlignmentResult`
+  `PairwiseAlignmentResult` (#83)
 
-## [2.2.0]
+## [2.2.0] - 2022-07-07
 
 ### Added
 - Compact printing of alignments (#53)
@@ -110,7 +112,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [0.1.0] - 2017-06-30
 - This initial release extracted the alignment utilities out from Bio.jl into this dedicated package.
 
-[Unreleased]: https://github.com/BioJulia/BioAlignments.jl/compare/v2.2.0...HEAD
+[Unreleased]: https://github.com/BioJulia/BioAlignments.jl/compare/v2.3.0...HEAD
+[2.2.1]: https://github.com/BioJulia/BioAlignments.jl/compare/v2.2.0...v2.3.0
 [2.2.0]: https://github.com/BioJulia/BioAlignments.jl/compare/v2.1.0...v2.2.0
 [2.1.0]: https://github.com/BioJulia/BioAlignments.jl/compare/v2.0.1...v2.1.0
 [2.0.1]: https://github.com/BioJulia/BioAlignments.jl/compare/v2.0.0...v2.0.1
