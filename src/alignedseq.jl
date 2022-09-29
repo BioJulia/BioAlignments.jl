@@ -60,6 +60,21 @@ function AlignedSequence(seq::BioSequences.BioSequence, seqpos::Integer,
     return AlignedSequence(newseq, anchors)
 end
 
+# Getter functions
+"""
+    alignment(aligned_sequence)
+
+Gets the [`Alignment`](@ref) of `aligned_sequence`.
+"""
+alignment(alnseq::AlignedSequence) = alnseq.aln
+
+"""
+    sequence(aligned_sequence)
+
+Return the sequence of `aligned_sequence`.
+"""
+sequence(alnseq::AlignedSequence) = alnseq.seq
+
 # First position in the reference sequence.
 function IntervalTrees.first(alnseq::AlignedSequence)
     return alnseq.aln.firstref
