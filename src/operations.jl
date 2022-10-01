@@ -47,7 +47,7 @@ for (name, char, doc, code) in [
         ("SKIP"        , 'N', "(typically long) deletion from the reference, e.g. due to RNA splicing"         , 0x03),
         ("SOFT_CLIP"   , 'S', "sequence removed from the beginning or end of the query sequence but stored"    , 0x04),
         ("HARD_CLIP"   , 'H', "sequence removed from the beginning or end of the query sequence and not stored", 0x05),
-        ("PAD"         , 'P', "not currently supported, but present for SAM/BAM compatibility"                 , 0x06),
+        ("PAD"         , 'P', "silent deletion from padded reference (not present in query or reference)"      , 0x06),
         ("SEQ_MATCH"   , '=', "match operation with matching sequence positions"                               , 0x07),
         ("SEQ_MISMATCH", 'X', "match operation with mismatching sequence positions"                            , 0x08),
         ("BACK"        , 'B', "not currently supported, but present for SAM/BAM compatibility"                 , 0x09),
@@ -79,10 +79,10 @@ end
 """
     isinsertop(op::Operation)
 
-Test if `op` is a insertion operation (i.e. `op ∈ (OP_INSERT, OP_SOFT_CLIP, OP_HARD_CLIP)`).
+Test if `op` is a insertion operation (i.e. `op ∈ (OP_INSERT, OP_SOFT_CLIP)`).
 """
 function isinsertop(op::Operation)
-    return op == OP_INSERT || op == OP_SOFT_CLIP || op == OP_HARD_CLIP
+    return op == OP_INSERT || op == OP_SOFT_CLIP
 end
 
 """
@@ -92,6 +92,16 @@ Test if `op` is a deletion operation (i.e. `op ∈ (OP_DELETE, OP_SKIP)`).
 """
 function isdeleteop(op::Operation)
     return op == OP_DELETE || op == OP_SKIP
+end
+
+"""
+    ismetaop(op::Operation)
+
+Test if `op` is a meta operation and does not consume reference or sequence bases (i.e.
+`op ∈ (OP_PAD, OP_HARD_CLIP)`).
+"""
+function ismetaop(op::Operation)
+    return op == OP_PAD || op == OP_HARD_CLIP
 end
 
 function Base.convert(::Type{Operation}, c::Char)

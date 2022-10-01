@@ -79,6 +79,11 @@ function Alignment(cigar::AbstractString, seqpos::Int=1, refpos::Int=1)
                 seqpos += n
             elseif isdeleteop(op)
                 refpos += n
+            elseif ismetaop(op)
+                # Meta operations consume alignment positions, but not sequence or reference
+                # positions, so there is nothing to do here but prevent the "not supported"
+                # error
+                nothing
             else
                 error("The $(op) CIGAR operation is not yet supported.")
             end
@@ -185,14 +190,13 @@ function cigar(aln::Alignment)
     if isempty(anchors)
         return ""
     end
-    seqpos = anchors[1].seqpos
-    refpos = anchors[1].refpos
     @assert anchors[1].op == OP_START
     out = IOBuffer()
     for i in 2:length(anchors)
-        n = max(anchors[i].seqpos - anchors[i-1].seqpos,
-                anchors[i].refpos - anchors[i-1].refpos)
-        print(out, n, convert(Char, anchors[i].op))
+        n = anchors[i].alnpos - anchors[i-1].alnpos
+        if n > 0
+            print(out, n, convert(Char, anchors[i].op))
+        end
     end
     return String(take!(out))
 end
@@ -206,6 +210,43 @@ function check_alignment_anchors(anchors)
 
     if anchors[1].op != OP_START
         error("Alignments must begin with on OP_START anchor.")
+    end
+
+    # Check if a hard clip occurs in the middle of the alignment
+    for i in 3:lastindex(anchors)-1
+        if anchors[i].op == OP_HARD_CLIP
+            error("OP_HARD_CLIP can only be present as the first (after OP_START) and/or last operation")
+        end
+    end
+
+    # Soft clips must be at either end of the alignment, or alternatively can have hard
+    # clips between them and the ends of the alignment. Check to make sure this is true.
+    for i in 3:lastindex(anchors)
+        if anchors[i].op == OP_SOFT_CLIP
+            # Check if this is the last operation, which is valid
+            if i == lastindex(anchors)
+                continue
+            end
+
+            # Walk forward
+            next_anchors = anchors[i+1:lastindex(anchors)]
+            next_valid = true
+            for anchor in next_anchors
+                next_valid = next_valid && anchor.op == OP_HARD_CLIP
+            end
+
+            # Walk backward
+            prev_anchors = anchors[1:i-1]
+            prev_valid = true
+            for anchor in prev_anchors
+                prev_valid = prev_valid && (anchor.op == OP_START || anchor.op == OP_HARD_CLIP)
+            end
+
+            # Check if this soft clip is a valid starting clip or a valid ending clip
+            if !(next_valid || prev_valid) # Alternatively: !next_valid && !prev_valid
+                error("OP_SOFT_CLIP may only have OP_HARD_CLIP operations between it and the ends of the alignment")
+            end
+        end
     end
 
     for i in 2:lastindex(anchors)

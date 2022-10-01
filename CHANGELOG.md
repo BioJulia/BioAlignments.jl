@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 - Alignment position support (#44)
+- Support for `P` CIGAR operation (#64)
+
+### Fixed
+- Hard clips no longer consume bases (#64)
 
 ## [2.3.0] - 2022-10-01
 

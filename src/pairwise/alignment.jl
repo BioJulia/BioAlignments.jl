@@ -37,6 +37,19 @@ function Base.iterate(aln::PairwiseAlignment, ij=(2,1))
 
     anchors = aln.a.aln.anchors
     anchor = anchors[i]
+
+    # If this is a meta-operation, then advance to the next non-meta anchor, if available
+    # If there are no non-meta anchors left, then the iterator is finished
+    for k in i:lastindex(anchors)
+        i = k
+        anchor = anchors[i]
+        if !ismetaop(anchor.op)
+            break
+        elseif i == lastindex(anchors)
+            return nothing
+        end
+    end
+
     seq = aln.a.seq
     ref = aln.b
     seqpos = anchors[i-1].seqpos
@@ -133,7 +146,16 @@ Count the number of aligned positions.
 """
 function count_aligned(aln::PairwiseAlignment)
     anchors = aln.a.aln.anchors
-    return isempty(anchors) ? 0 : last(anchors).alnpos
+    n = 0
+    for i in 2:lastindex(anchors)
+        op = anchors[i].op
+        if ismatchop(op) || isinsertop(op)
+            n += anchors[i].seqpos - anchors[i-1].seqpos
+        elseif isdeleteop(op)
+            n += anchors[i].refpos - anchors[i-1].refpos
+        end
+    end
+    return n
 end
 
 seq2ref(aln::PairwiseAlignment, i::Integer) = seq2ref(aln.a, i)

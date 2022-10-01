@@ -82,7 +82,7 @@ format](https://samtools.github.io/hts-specs/SAMv1.pdf) and are stored in the
 | `OP_SKIP`            | delete             | (typically long) deletion from the reference, e.g. due to RNA splicing          |
 | `OP_SOFT_CLIP`       | insert             | sequence removed from the beginning or end of the query sequence but stored     |
 | `OP_HARD_CLIP`       | insert             | sequence removed from the beginning or end of the query sequence and not stored |
-| `OP_PAD`             | special            | not currently supported, but present for SAM/BAM compatibility                  |
+| `OP_PAD`             | special            | silent deletion from padded reference (not present in query or reference)       |
 | `OP_SEQ_MATCH`       | match              | match operation with matching sequence positions                                |
 | `OP_SEQ_MISMATCH`    | match              | match operation with mismatching sequence positions                             |
 | `OP_BACK`            | special            | not currently supported, but present for SAM/BAM compatibility                  |

@@ -10,9 +10,11 @@ import BioSequences: @dna_str, @aa_str
 # alignment.
 function random_alignment(m, n, glob=true)
     match_ops = [OP_MATCH, OP_SEQ_MATCH, OP_SEQ_MISMATCH]
-    insert_ops = [OP_INSERT, OP_SOFT_CLIP, OP_HARD_CLIP]
+    insert_ops = [OP_INSERT]
     delete_ops = [OP_DELETE, OP_SKIP]
-    ops = vcat(match_ops, insert_ops, delete_ops)
+    meta_ops = [OP_PAD]
+    clip_ops = [OP_HARD_CLIP, OP_SOFT_CLIP]
+    ops = vcat(match_ops, insert_ops, delete_ops, meta_ops)
 
     # This is just a random walk on a m-by-n matrix, where steps are either
     # (+1,0), (0,+1), (+1,+1). To make somewhat more realistic alignments, it's
@@ -38,34 +40,59 @@ function random_alignment(m, n, glob=true)
 
     alnpos = 0
     path = AlignmentAnchor[AlignmentAnchor(i, j, alnpos, OP_START)]
+
+    # If this is the first anchor, we can make it a hard clip, but we'll let the
+    # straightness simulator override it if it wants
+    if rand(Bool)
+        op = OP_HARD_CLIP
+    end
+
     while (glob && i < i_end && j < j_end) || (!glob && (i < i_end || j < j_end))
         straight = rand() < straight_pr
         iprev, jprev = i, j
-        if i == i_end
-            if !straight
-                op = rand(delete_ops)
-            end
-            j += 1
-        elseif j == j_end
-            if !straight
-                op = rand(inset_ops)
-            end
-            i += 1
-        else
-            if !straight
-                op = rand(ops)
-            end
 
-            if isdeleteop(op)
-                j += 1
-            elseif isinsertop(op)
-                i += 1
-            else
-                i += 1
-                j += 1
-            end
+        # If the last operation was a hard clip, then we can make this a soft clip, but the
+        # straightness simulator takes priority again
+        if last(path).op == OP_HARD_CLIP && rand(Bool)
+            op = OP_SOFT_CLIP
         end
-        alnpos += max(i - iprev, j - jprev)
+
+        if !straight
+            op = rand(ops)
+        end
+
+        if isdeleteop(op)
+            j += 1
+        elseif isinsertop(op)
+            i += 1
+        elseif ismetaop(op)
+            # Don't increment anything here
+        else
+            i += 1
+            j += 1
+        end
+
+        alnpos_inc = max(i - iprev, j - jprev)
+        alnpos += alnpos_inc > 0 ? alnpos_inc : rand(1:min(m,n))
+        push!(path, AlignmentAnchor(i, j, alnpos, op))
+    end
+
+    # Randomly add a clip as the last operation
+    if rand(Bool)
+        iprev, jprev = i, j
+        op = rand(clip_ops)
+        if isinsertop(op)
+            i += 1
+        end
+        alnpos_inc = max(i - iprev, j - jprev)
+        alnpos += alnpos_inc > 0 ? alnpos_inc : rand(1:min(m,n))
+        push!(path, AlignmentAnchor(i, j, alnpos, op))
+    end
+
+    # Randomly add a hard clip as the last operation if the last operation was a soft clip
+    if rand(Bool) && last(path).op == OP_SOFT_CLIP
+        op = OP_HARD_CLIP
+        alnpos += rand(1:min(m,n))
         push!(path, AlignmentAnchor(i, j, alnpos, op))
     end
 
@@ -158,7 +185,8 @@ end
             v = anchors[j]
             if (ismatchop(u.op) && ismatchop(v.op)) ||
                (isinsertop(u.op) && isinsertop(v.op)) ||
-               (isdeleteop(u.op) && isdeleteop(v.op))
+               (isdeleteop(u.op) && isdeleteop(v.op)) ||
+               (ismetaop(u.op) && ismetaop(v.op))
                 continue
             end
             anchors[i] = AlignmentAnchor(u.seqpos, u.refpos, u.alnpos, v.op)
@@ -512,6 +540,20 @@ end
         @test isa(alignment(result), PairwiseAlignment) == true
         @test score(result) == 3
         @test hasalignment(result) == true
+    end
+
+    @testset "PaddedAlignment" begin
+        anchors = [
+            AlignmentAnchor(0, 0, 0, OP_START),
+            AlignmentAnchor(2, 2, 2, OP_SEQ_MATCH),
+            AlignmentAnchor(2, 2, 3, OP_PAD),
+            AlignmentAnchor(3, 3, 4, OP_SEQ_MATCH),
+            AlignmentAnchor(3, 3, 5, OP_HARD_CLIP),
+        ]
+        seq = AlignedSequence("ACG", anchors)
+        ref = "ACG"
+        aln = PairwiseAlignment(seq, ref)
+        @test collect(aln) == [('A', 'A'), ('C', 'C'), ('G', 'G')]
     end
 
     @testset "count_<ops>" begin
