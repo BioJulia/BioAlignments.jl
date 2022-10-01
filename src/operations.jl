@@ -113,7 +113,7 @@ function Base.convert(::Type{Char}, op::Operation)
 end
 
 function Base.print(io::IO, op::Operation)
-    write(io, convert(Char, op))
+    write(io, isvalid(op) ? convert(Char, op) : '?')
     return
 end
 

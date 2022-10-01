@@ -21,8 +21,14 @@ export
     AlignmentAnchor,
     Alignment,
     AlignedSequence,
+
     seq2ref,
     ref2seq,
+    seq2aln,
+    ref2aln,
+    aln2seq,
+    aln2ref,
+
     ismatchop,
     isinsertop,
     isdeleteop,

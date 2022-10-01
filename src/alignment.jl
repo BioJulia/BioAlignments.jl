@@ -7,7 +7,9 @@
 # License is MIT: https://github.com/BioJulia/Bio.jl/blob/master/LICENSE.md
 
 """
-Alignment of two sequences.
+Defines how to align a given sequence onto a reference sequence.
+The alignment is represented as a sequence of elementary operations (match, insertion, deletion etc)
+anchored to specific positions of the input and reference sequence.
 """
 struct Alignment
     anchors::Vector{AlignmentAnchor}
@@ -58,9 +60,10 @@ function Alignment(cigar::AbstractString, seqpos::Int=1, refpos::Int=1)
     # path starts prior to the first aligned position pair
     seqpos -= 1
     refpos -= 1
+    alnpos = 0
 
     n = 0
-    anchors = AlignmentAnchor[AlignmentAnchor(seqpos, refpos, OP_START)]
+    anchors = AlignmentAnchor[AlignmentAnchor(seqpos, refpos, alnpos, OP_START)]
     for c in cigar
         if isdigit(c)
             n = n * 10 + convert(Int, c - '0')
@@ -79,8 +82,9 @@ function Alignment(cigar::AbstractString, seqpos::Int=1, refpos::Int=1)
             else
                 error("The $(op) CIGAR operation is not yet supported.")
             end
+            alnpos += n
 
-            push!(anchors, AlignmentAnchor(seqpos, refpos, op))
+            push!(anchors, AlignmentAnchor(seqpos, refpos, alnpos, op))
             n = 0
         end
     end
@@ -100,41 +104,74 @@ function Base.show(io::IO, aln::Alignment)
       print(io, "  CIGAR string: ", cigar(aln))
 end
 
+# generic function for mapping between sequence, reference and alignment positions
+# getsrc specifies anchor source position getter
+# getdest specifies anchor destination position getter
+function pos2pos(aln::Alignment, i::Integer,
+                 srcpos::Function, destpos::Function)::Tuple{Int,Operation}
+    idx = findanchor(aln, i, srcpos)
+    if idx == 0
+        if srcpos === seqpos
+            throw(ArgumentError("invalid sequence position: $i"))
+        elseif srcpos === refpos
+            throw(ArgumentError("invalid reference position: $i"))
+        elseif srcpos === alnpos
+            throw(ArgumentError("invalid alignment position: $i"))
+        else
+            throw(ArgumentError("Unknown position getter: $srcpos"))
+        end
+    end
+    anchor = aln.anchors[idx]
+    pos = destpos(anchor)
+    if ismatchop(anchor.op) ||
+        ((srcpos === alnpos) && ((destpos === seqpos) && isinsertop(anchor.op) || (destpos === refpos) && isdeleteop(anchor.op))) ||
+        ((destpos === alnpos) && ((srcpos === seqpos) && isinsertop(anchor.op) || (srcpos === refpos) && isdeleteop(anchor.op)))
+        pos += i - srcpos(anchor)
+    end
+    return pos, anchor.op
+end
+
 """
-    seq2ref(aln::Alignment, i::Integer)::Tuple{Int,Operation}
+    seq2ref(aln::Union{Alignment, AlignedSequence, PairwiseAlignment}, i::Integer)::Tuple{Int,Operation}
 
 Map a position `i` from sequence to reference.
 """
-function seq2ref(aln::Alignment, i::Integer)::Tuple{Int,Operation}
-    idx = findanchor(aln, i, Val{true})
-    if idx == 0
-        throw(ArgumentError("invalid sequence position: $i"))
-    end
-    anchor = aln.anchors[idx]
-    refpos = anchor.refpos
-    if ismatchop(anchor.op)
-        refpos += i - anchor.seqpos
-    end
-    return refpos, anchor.op
-end
+seq2ref(aln::Alignment, i::Integer) = pos2pos(aln, i, seqpos, refpos)
 
 """
-    ref2seq(aln::Alignment, i::Integer)::Tuple{Int,Operation}
+    ref2seq(aln::Union{Alignment, AlignedSequence, PairwiseAlignment}, i::Integer)::Tuple{Int,Operation}
 
 Map a position `i` from reference to sequence.
 """
-function ref2seq(aln::Alignment, i::Integer)::Tuple{Int,Operation}
-    idx = findanchor(aln, i, Val{false})
-    if idx == 0
-        throw(ArgumentError("invalid reference position: $i"))
-    end
-    anchor = aln.anchors[idx]
-    seqpos = anchor.seqpos
-    if ismatchop(anchor.op)
-        seqpos += i - anchor.refpos
-    end
-    return seqpos, anchor.op
-end
+ref2seq(aln::Alignment, i::Integer) = pos2pos(aln, i, refpos, seqpos)
+
+"""
+    seq2aln(aln::Union{Alignment, AlignedSequence, PairwiseAlignment}, i::Integer)::Tuple{Int,Operation}
+
+Map a position `i` from the input sequence to the alignment sequence.
+"""
+seq2aln(aln::Alignment, i::Integer) = pos2pos(aln, i, seqpos, alnpos)
+
+"""
+    ref2aln(aln::Union{Alignment, AlignedSequence, PairwiseAlignment}, i::Integer)::Tuple{Int,Operation}
+
+Map a position `i` from the reference sequence to the alignment sequence.
+"""
+ref2aln(aln::Alignment, i::Integer) = pos2pos(aln, i, refpos, alnpos)
+
+"""
+    aln2seq(aln::Union{Alignment, AlignedSequence, PairwiseAlignment}, i::Integer)::Tuple{Int,Operation}
+
+Map a position `i` from the alignment sequence to the input sequence.
+"""
+aln2seq(aln::Alignment, i::Integer) = pos2pos(aln, i, alnpos, seqpos)
+
+"""
+    aln2ref(aln::Union{Alignment, AlignedSequence, PairwiseAlignment}, i::Integer)::Tuple{Int,Operation}
+
+Map a position `i` from the alignment sequence to the reference sequence.
+"""
+aln2ref(aln::Alignment, i::Integer) = pos2pos(aln, i, alnpos, refpos)
 
 """
     cigar(aln::Alignment)
@@ -172,65 +209,68 @@ function check_alignment_anchors(anchors)
     end
 
     for i in 2:lastindex(anchors)
-        if anchors[i].refpos < anchors[i-1].refpos ||
-           anchors[i].seqpos < anchors[i-1].seqpos
+        @inbounds acur, aprev = anchors[i], anchors[i-1]
+        if acur.refpos < aprev.refpos || acur.seqpos < aprev.seqpos || acur.alnpos < aprev.alnpos
             error("Alignment anchors must be sorted.")
         end
 
-        op = anchors[i].op
-        if convert(UInt8, op) > convert(UInt8, OP_MAX_VALID)
+        op = acur.op
+        if !isvalid(op)
             error("Anchor at index $(i) has an invalid operation.")
         end
 
         # reference skip/delete operations
         if isdeleteop(op)
-            if anchors[i].seqpos != anchors[i-1].seqpos
-                error("Invalid anchor positions for reference deletion.")
+            if acur.seqpos != aprev.seqpos
+                error("Invalid anchor sequence positions for reference deletion.")
+            end
+            if acur.alnpos - aprev.alnpos != acur.refpos - aprev.refpos
+                error("Invalid anchor reference positions for reference deletion.")
             end
         # reference insertion operations
         elseif isinsertop(op)
-            if anchors[i].refpos != anchors[i-1].refpos
-                error("Invalid anchor positions for reference insertion.")
+            if acur.refpos != aprev.refpos
+                error("Invalid anchor reference positions for reference insertion.")
+            end
+            if acur.alnpos - aprev.alnpos != acur.seqpos - aprev.seqpos
+                error("Invalid anchor sequence positions for reference deletion.")
             end
         # match operations
         elseif ismatchop(op)
-            if anchors[i].refpos - anchors[i-1].refpos !=
-               anchors[i].seqpos - anchors[i-1].seqpos
-                error("Invalid anchor positions for match operation.")
+            if (acur.refpos - aprev.refpos != acur.seqpos - aprev.seqpos) ||
+               (acur.alnpos - aprev.alnpos != acur.seqpos - aprev.seqpos)
+               error("Invalid anchor positions for match operation.")
             end
         end
     end
 end
 
-# find the index of the first anchor that satisfies `i ≤ pos`
-@generated function findanchor(aln::Alignment, i::Integer, ::Type{Val{isseq}}) where isseq
-    pos = isseq ? :seqpos : :refpos
-    quote
-        anchors = aln.anchors
-        lo = 1
-        hi = lastindex(anchors)
-        if !(anchors[lo].$pos < i ≤ anchors[hi].$pos)
-            return 0
-        end
-        # binary search
-        @inbounds while hi - lo > 2
-            m = (lo + hi) >> 1
-            if anchors[m].$pos < i
-                lo = m
-            else  # i ≤ anchors[m].$pos
-                hi = m
-            end
-            # invariant (activate this for debugging)
-            #@assert anchors[lo].$pos < i ≤ anchors[hi].$pos
-        end
-        # linear search
-        @inbounds for j in lo+1:hi
-            if i ≤ aln.anchors[j].$pos
-                return j
-            end
-        end
-        # do not reach here
-        @assert false
+# find the index of the first anchor that satisfies `i ≤ pos(anchor)`
+function findanchor(aln::Alignment, i::Integer, pos::Function)
+    anchors = aln.anchors
+    lo = 1
+    hi = lastindex(anchors)
+    @inbounds if !(pos(anchors[lo]) < i ≤ pos(anchors[hi]))
         return 0
     end
+    # binary search
+    @inbounds while hi - lo > 2
+        m = (lo + hi) >> 1
+        if pos(anchors[m]) < i
+            lo = m
+        else  # i ≤ pos(anchors[m])
+            hi = m
+        end
+        # invariant (activate this for debugging)
+        #@assert pos(anchors[lo]) < i ≤ pos(anchors[hi])
+    end
+    # linear search
+    @inbounds for j in lo+1:hi
+        if i ≤ pos(aln.anchors[j])
+            return j
+        end
+    end
+    # do not reach here
+    @assert false
+    return 0
 end

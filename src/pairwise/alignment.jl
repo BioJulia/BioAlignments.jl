@@ -85,7 +85,7 @@ Count the number of positions where the `target` operation is applied.
 function Base.count(aln::PairwiseAlignment, target::Operation)
     anchors = aln.a.aln.anchors
     n = 0
-    for i in 2:lastindex(anchors)
+    @inbounds for i in 2:lastindex(anchors)
         op = anchors[i].op
         if op == target
             if ismatchop(op) || isinsertop(op)
@@ -133,35 +133,15 @@ Count the number of aligned positions.
 """
 function count_aligned(aln::PairwiseAlignment)
     anchors = aln.a.aln.anchors
-    n = 0
-    for i in 2:lastindex(anchors)
-        op = anchors[i].op
-        if ismatchop(op) || isinsertop(op)
-            n += anchors[i].seqpos - anchors[i-1].seqpos
-        elseif isdeleteop(op)
-            n += anchors[i].refpos - anchors[i-1].refpos
-        end
-    end
-    return n
+    return isempty(anchors) ? 0 : last(anchors).alnpos
 end
 
-"""
-    seq2ref(aln::PairwiseAlignment, i::Integer)::Tuple{Int,Operation}
-
-Map a position `i` from the first sequence to the second.
-"""
-function seq2ref(aln::PairwiseAlignment, i::Integer)::Tuple{Int,Operation}
-    return seq2ref(aln.a, i)
-end
-
-"""
-    ref2seq(aln::PairwiseAlignment, i::Integer)::Tuple{Int,Operation}
-
-Map a position `i` from the second sequence to the first.
-"""
-function ref2seq(aln::PairwiseAlignment, i::Integer)::Tuple{Int,Operation}
-    return ref2seq(aln.a, i)
-end
+seq2ref(aln::PairwiseAlignment, i::Integer) = seq2ref(aln.a, i)
+ref2seq(aln::PairwiseAlignment, i::Integer) = ref2seq(aln.a, i)
+seq2aln(aln::PairwiseAlignment, i::Integer) = seq2aln(aln.a, i)
+ref2aln(aln::PairwiseAlignment, i::Integer) = ref2aln(aln.a, i)
+aln2seq(aln::PairwiseAlignment, i::Integer) = aln2seq(aln.a, i)
+aln2ref(aln::PairwiseAlignment, i::Integer) = aln2ref(aln.a, i)
 
 
 # Printers

@@ -36,10 +36,11 @@ function random_alignment(m, n, glob=true)
         j_end = rand(j+1:n)
     end
 
-    path = AlignmentAnchor[AlignmentAnchor(i, j, OP_START)]
+    alnpos = 0
+    path = AlignmentAnchor[AlignmentAnchor(i, j, alnpos, OP_START)]
     while (glob && i < i_end && j < j_end) || (!glob && (i < i_end || j < j_end))
         straight = rand() < straight_pr
-
+        iprev, jprev = i, j
         if i == i_end
             if !straight
                 op = rand(delete_ops)
@@ -64,7 +65,8 @@ function random_alignment(m, n, glob=true)
                 j += 1
             end
         end
-        push!(path, AlignmentAnchor(i, j, op))
+        alnpos += max(i - iprev, j - jprev)
+        push!(path, AlignmentAnchor(i, j, alnpos, op))
     end
 
     return path
@@ -122,15 +124,15 @@ end
     end
 
     @testset "AlignmentAnchor" begin
-        anchor = AlignmentAnchor(1, 2, OP_MATCH)
-        @test string(anchor) == "AlignmentAnchor(1, 2, 'M')"
+        anchor = AlignmentAnchor(1, 2, 3, OP_MATCH)
+        @test string(anchor) == "AlignmentAnchor(1, 2, 3, 'M')"
     end
 
     @testset "Alignment" begin
         # alignments with nonsense operations
         @test_throws Exception Alignment(AlignmentAnchor[
-            Operation(0, 0, OP_START),
-            Operation(100, 100, convert(Operation, 0xfa))])
+            Operation(0, 0, 0, OP_START),
+            Operation(100, 100, 100, convert(Operation, 0xfa))])
 
         # test bad alignment anchors by swapping nodes in paths
         for _ in 1:100
@@ -159,8 +161,8 @@ end
                (isdeleteop(u.op) && isdeleteop(v.op))
                 continue
             end
-            anchors[i] = AlignmentAnchor(u.seqpos, u.refpos, v.op)
-            anchors[j] = AlignmentAnchor(v.seqpos, v.refpos, u.op)
+            anchors[i] = AlignmentAnchor(u.seqpos, u.refpos, u.alnpos, v.op)
+            anchors[j] = AlignmentAnchor(v.seqpos, v.refpos, v.alnpos, u.op)
             @test_throws Exception Alignment(anchors)
         end
 
@@ -183,31 +185,50 @@ end
         #               |   |   |    |     |  |   |
         #               4   8   12   17    20 23  27
         anchors = [
-            AlignmentAnchor( 0,  4, OP_START),
-            AlignmentAnchor( 4,  8, OP_MATCH),
-            AlignmentAnchor( 4, 12, OP_DELETE),
-            AlignmentAnchor( 9, 17, OP_MATCH),
-            AlignmentAnchor(12, 17, OP_INSERT),
-            AlignmentAnchor(15, 20, OP_MATCH),
-            AlignmentAnchor(15, 23, OP_DELETE),
-            AlignmentAnchor(19, 27, OP_MATCH)
+            AlignmentAnchor( 0,  4,  0, OP_START),
+            AlignmentAnchor( 4,  8,  4, OP_MATCH),
+            AlignmentAnchor( 4, 12,  8, OP_DELETE),
+            AlignmentAnchor( 9, 17, 13, OP_MATCH),
+            AlignmentAnchor(12, 17, 16, OP_INSERT),
+            AlignmentAnchor(15, 20, 19, OP_MATCH),
+            AlignmentAnchor(15, 23, 22, OP_DELETE),
+            AlignmentAnchor(19, 27, 26, OP_MATCH)
         ]
         query = "TGGCATCATTTAACGCAAG"
         alnseq = AlignedSequence(query, anchors)
         @test BioAlignments.first(alnseq) ==  5
         @test BioAlignments.last(alnseq)  == 27
         # OP_MATCH
-        for (seqpos, refpos) in [(1, 5), (2, 6), (4, 8), (13, 18), (19, 27)]
+        for (seqpos, refpos, alnpos) in [(1, 5, 1), (2, 6, 2), (4, 8, 4), (13, 18, 17), (19, 27, 26)]
             @test seq2ref(alnseq, seqpos) == (refpos, OP_MATCH)
             @test ref2seq(alnseq, refpos) == (seqpos, OP_MATCH)
+            @test seq2aln(alnseq, seqpos) == (alnpos, OP_MATCH)
+            @test ref2aln(alnseq, refpos) == (alnpos, OP_MATCH)
+            @test aln2seq(alnseq, alnpos) == (seqpos, OP_MATCH)
+            @test aln2ref(alnseq, alnpos) == (refpos, OP_MATCH)
         end
         # OP_INSERT
         @test seq2ref(alnseq, 10) == (17, OP_INSERT)
         @test seq2ref(alnseq, 11) == (17, OP_INSERT)
+        @test seq2aln(alnseq, 10) == (14, OP_INSERT)
+        @test seq2aln(alnseq, 11) == (15, OP_INSERT)
+        @test aln2seq(alnseq, 14) == (10, OP_INSERT)
+        @test aln2seq(alnseq, 15) == (11, OP_INSERT)
+        @test aln2ref(alnseq, 14) == (17, OP_INSERT)
+        @test aln2ref(alnseq, 15) == (17, OP_INSERT)
         # OP_DELETE
         @test ref2seq(alnseq,  9) == ( 4, OP_DELETE)
         @test ref2seq(alnseq, 10) == ( 4, OP_DELETE)
+        @test ref2aln(alnseq, 9) == (5, OP_DELETE)
+        @test ref2aln(alnseq, 10) == (6, OP_DELETE)
+        @test aln2seq(alnseq, 5) == (4, OP_DELETE)
+        @test aln2seq(alnseq, 6) == (4, OP_DELETE)
+        @test aln2ref(alnseq, 5) == (9, OP_DELETE)
+        @test aln2ref(alnseq, 6) == (10, OP_DELETE)
         @test ref2seq(alnseq, 23) == (15, OP_DELETE)
+        @test ref2aln(alnseq, 23) == (22, OP_DELETE)
+        @test aln2seq(alnseq, 22) == (15, OP_DELETE)
+        @test aln2ref(alnseq, 22) == (23, OP_DELETE)
         @test sprint(show, alnseq) == """
         ·············---··········
         TGGC----ATCATTTAACG---CAAG"""
@@ -218,14 +239,14 @@ end
         @test BioAlignments.first(alnseq) == 1
         @test BioAlignments.last(alnseq)  == 9
         @test alnseq.aln.anchors == [
-             AlignmentAnchor( 0, 0, '0')
-             AlignmentAnchor( 1, 0, 'I')
-             AlignmentAnchor( 4, 3, '=')
-             AlignmentAnchor( 4, 5, 'D')
-             AlignmentAnchor( 5, 6, 'X')
-             AlignmentAnchor( 9, 6, 'I')
-             AlignmentAnchor(11, 8, 'X')
-             AlignmentAnchor(12, 9, '=')
+             AlignmentAnchor( 0, 0,  0, '0')
+             AlignmentAnchor( 1, 0,  1, 'I')
+             AlignmentAnchor( 4, 3,  4, '=')
+             AlignmentAnchor( 4, 5,  6, 'D')
+             AlignmentAnchor( 5, 6,  7, 'X')
+             AlignmentAnchor( 9, 6, 11, 'I')
+             AlignmentAnchor(11, 8, 13, 'X')
+             AlignmentAnchor(12, 9, 14, '=')
         ]
         @test sprint(show, alnseq) == """
         -······----···
@@ -479,8 +500,8 @@ end
 
     @testset "Alignment" begin
         anchors = [
-            AlignmentAnchor(0, 0, OP_START),
-            AlignmentAnchor(3, 3, OP_SEQ_MATCH)
+            AlignmentAnchor(0, 0, 0, OP_START),
+            AlignmentAnchor(3, 3, 3, OP_SEQ_MATCH)
         ]
         seq = AlignedSequence("ACG", anchors)
         ref = "ACG"
@@ -501,16 +522,16 @@ end
         a = dna"ACGTGCAGAATTT"
         b = dna"AAAATTTGAAGTAT"
         anchors = [
-            AlignmentAnchor( 0,  0, '0'),
-            AlignmentAnchor( 1,  1, '='),
-            AlignmentAnchor( 3,  3, 'X'),
-            AlignmentAnchor( 3,  6, 'D'),
-            AlignmentAnchor( 5,  8, '='),
-            AlignmentAnchor( 6,  9, 'X'),
-            AlignmentAnchor( 8, 11, '='),
-            AlignmentAnchor( 9, 12, 'X'),
-            AlignmentAnchor(11, 14, '='),
-            AlignmentAnchor(13, 14, 'I')
+            AlignmentAnchor( 0,  0,  0, '0'),
+            AlignmentAnchor( 1,  1,  1, '='),
+            AlignmentAnchor( 3,  3,  3, 'X'),
+            AlignmentAnchor( 3,  6,  6, 'D'),
+            AlignmentAnchor( 5,  8,  8, '='),
+            AlignmentAnchor( 6,  9,  9, 'X'),
+            AlignmentAnchor( 8, 11, 11, '='),
+            AlignmentAnchor( 9, 12, 12, 'X'),
+            AlignmentAnchor(11, 14, 14, '='),
+            AlignmentAnchor(13, 14, 16, 'I')
         ]
         aln = PairwiseAlignment(AlignedSequence(a, anchors), b)
         @test count_matches(aln) == 7
@@ -534,9 +555,21 @@ end
         @test seq2ref(aln, 1) == (1, OP_SEQ_MATCH)
         @test seq2ref(aln, 2) == (3, OP_SEQ_MATCH)
         @test seq2ref(aln, 3) == (4, OP_SEQ_MATCH)
+        @test seq2aln(aln, 1) == (1, OP_SEQ_MATCH)
+        @test seq2aln(aln, 2) == (3, OP_SEQ_MATCH)
+        @test seq2aln(aln, 3) == (4, OP_SEQ_MATCH)
+        @test aln2seq(aln, 1) == (1, OP_SEQ_MATCH)
+        @test aln2seq(aln, 2) == (1, OP_DELETE)
+        @test aln2seq(aln, 3) == (2, OP_SEQ_MATCH)
         @test ref2seq(aln, 1) == (1, OP_SEQ_MATCH)
         @test ref2seq(aln, 2) == (1, OP_DELETE)
         @test ref2seq(aln, 3) == (2, OP_SEQ_MATCH)
+        @test ref2aln(aln, 1) == (1, OP_SEQ_MATCH)
+        @test ref2aln(aln, 2) == (2, OP_DELETE)
+        @test ref2aln(aln, 3) == (3, OP_SEQ_MATCH)
+        @test aln2ref(aln, 1) == (1, OP_SEQ_MATCH)
+        @test aln2ref(aln, 2) == (2, OP_DELETE)
+        @test aln2ref(aln, 3) == (3, OP_SEQ_MATCH)
     end
 
     @testset "GlobalAlignment" begin

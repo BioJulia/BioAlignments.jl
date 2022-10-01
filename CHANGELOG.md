@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+- Alignment position support (#44)
+
 ## [2.3.0] - 2022-10-01
 
 ### Added
@@ -15,15 +18,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [2.2.0] - 2022-07-07
 
-### Added
-- Compact printing of alignments (#53)
+### Added- Compact printing of alignments (#53)
 - More SubstitutionMatrix operations (#60)
 - Downstream tests (#70)
-- SSH secret to TagBot.yml (#71)
-- Doctests as part of the unit tests (#78)
+- SSH secret to TagBot.yml (#71)- Doctests as part of the unit tests (#78)
 
-### Changed
-- Updated chat links (#ebea200c)
+### Changed- Updated chat links (#ebea200c)
 - Expanded test matrix, adding julia v1.6 (#77)
 - Incremented BioSequences compatibility to v3 (#72)
 - Incremented BioSymbols compatibility to v5 (#72)
