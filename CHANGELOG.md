@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.0.0]
+
 ### Added
 - Alignment position support (#44)
 - Support for `P` CIGAR operation (#64)
@@ -116,8 +118,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [0.1.0] - 2017-06-30
 - This initial release extracted the alignment utilities out from Bio.jl into this dedicated package.
 
-[Unreleased]: https://github.com/BioJulia/BioAlignments.jl/compare/v2.3.0...HEAD
-[2.2.1]: https://github.com/BioJulia/BioAlignments.jl/compare/v2.2.0...v2.3.0
+[Unreleased]: https://github.com/BioJulia/BioAlignments.jl/compare/v3.0.0...HEAD
+[3.0.0]: https://github.com/BioJulia/BioAlignments.jl/compare/v2.3.0...v3.0.0
+[2.3.0]: https://github.com/BioJulia/BioAlignments.jl/compare/v2.2.0...v2.3.0
 [2.2.0]: https://github.com/BioJulia/BioAlignments.jl/compare/v2.1.0...v2.2.0
 [2.1.0]: https://github.com/BioJulia/BioAlignments.jl/compare/v2.0.1...v2.1.0
 [2.0.1]: https://github.com/BioJulia/BioAlignments.jl/compare/v2.0.0...v2.0.1
