@@ -213,13 +213,23 @@ SubstitutionMatrix{BioSymbols.AminoAcid, Int64}:
 (underlined values are default ones)
 
 ```
+PAM and BLOSUM matrices are downloaded from: <ftp://ftp.ncbi.nih.gov/blast/matrices/>.
+
+CHEMICAL is another kind of substitution matrix for amino acids.  
+As of now, it consists of a single matrix, `GRANTHAM1974`, which is taken from 
+[R. Grantham's 1974 paper](https://www.science.org/doi/10.1126/science.185.4154.862?url_ver=Z39.88-2003&rfr_id=ori:rid:crossref.org&rfr_dat=cr_pub%20%200pubmed) 
+in which the distance between any two amino acids (of the basic 20 amino acids) 
+is based on three properties: composition, polarity, and molecular volume.  
+Based on the original average score in the table, we have taken ourselves the liberty to define `default_mismatch = 100` as a substitution score between two amino acids if any of them is not present in that table.
+
 
 | Matrix   | Constants                                                  |
 | :------- | :----------                                                |
 | PAM      | `PAM30`, `PAM70`, `PAM250`                                 |
 | BLOSUM   | `BLOSUM45`, `BLOSUM50`, `BLOSUM62`, `BLOSUM80`, `BLOSUM90` |
+| CHEMICAL | `GRANTHAM1974`                                             |
 
-These matrices are downloaded from: <ftp://ftp.ncbi.nih.gov/blast/matrices/>.
+
 
 `SubstitutionMatrix` can be modified like a regular matrix:
 

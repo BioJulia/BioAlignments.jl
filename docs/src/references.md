@@ -47,6 +47,7 @@ BLOSUM50
 BLOSUM62
 BLOSUM80
 BLOSUM90
+GRANTHAM1974
 ```
 
 ## Pairwise alignments
