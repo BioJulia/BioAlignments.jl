@@ -205,11 +205,16 @@ end
 # Predefined Substitution Matrices
 # --------------------------------
 
-function load_submat(::Type{T}, name) where T
-    return parse_ncbi_submat(T, joinpath(dirname(@__FILE__), "data", "submat", name))
+function load_submat(::Type{T}, name; default_match=0, default_mismatch=0) where T
+    return parse_ncbi_submat(T, joinpath(dirname(@__FILE__), "data", "submat", name); default_match, default_mismatch)
 end
 
-function parse_ncbi_submat(::Type{T}, filepath) where T
+function parse_ncbi_submat(
+    ::Type{T},
+    filepath;
+    default_match = 0,
+    default_mismatch = 0,
+) where T
     scores = Dict{Tuple{T,T},Int}()
     cols = T[]
     open(filepath) do io
@@ -233,7 +238,7 @@ function parse_ncbi_submat(::Type{T}, filepath) where T
             end
         end
     end
-    return SubstitutionMatrix(scores, default_match=0, default_mismatch=0)
+    return SubstitutionMatrix(scores; default_match, default_mismatch)
 end
 
 "EDNAFULL (or NUC4.4) substitution matrix"
@@ -246,19 +251,25 @@ const PAM30    = load_submat(BioSymbols.AminoAcid, "PAM30")
 const PAM70    = load_submat(BioSymbols.AminoAcid, "PAM70")
 
 "PAM250 substitution matrix"
-const PAM250   = load_submat(BioSymbols.AminoAcid, "PAM250")
+const PAM250       = load_submat(BioSymbols.AminoAcid, "PAM250")
 
 "BLOSUM45 substitution matrix"
-const BLOSUM45 = load_submat(BioSymbols.AminoAcid, "BLOSUM45")
+const BLOSUM45     = load_submat(BioSymbols.AminoAcid, "BLOSUM45")
 
 "BLOSUM50 substitution matrix"
-const BLOSUM50 = load_submat(BioSymbols.AminoAcid, "BLOSUM50")
+const BLOSUM50     = load_submat(BioSymbols.AminoAcid, "BLOSUM50")
 
 "BLOSUM62 substitution matrix"
-const BLOSUM62 = load_submat(BioSymbols.AminoAcid, "BLOSUM62")
+const BLOSUM62     = load_submat(BioSymbols.AminoAcid, "BLOSUM62")
 
 "BLOSUM80 substitution matrix"
-const BLOSUM80 = load_submat(BioSymbols.AminoAcid, "BLOSUM80")
+const BLOSUM80     = load_submat(BioSymbols.AminoAcid, "BLOSUM80")
 
 "BLOSUM90 substitution matrix"
-const BLOSUM90 = load_submat(BioSymbols.AminoAcid, "BLOSUM90")
+const BLOSUM90     = load_submat(BioSymbols.AminoAcid, "BLOSUM90")
+
+"""
+A substitution matrix for the basic 20 amino acids based on three chemicl properties: composition, polarity, and molecular volume.  
+Taken from [R. Grantham's 1974 paper](https://www.science.org/doi/10.1126/science.185.4154.862?url_ver=Z39.88-2003&rfr_id=ori:rid:crossref.org&rfr_dat=cr_pub%20%200pubmed).
+"""
+const GRANTHAM1974 = load_submat(BioSymbols.AminoAcid, "GRANTHAM1974", default_mismatch = 100)

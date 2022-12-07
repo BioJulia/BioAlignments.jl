@@ -413,6 +413,23 @@ end
         @test BLOSUM62[AA_O,AA_R] ===  0  # default
         @test BLOSUM62[AA_R,AA_O] ===  0  # default
 
+        basic20aminoacids = [
+            AA_A, AA_R, AA_N, AA_D, AA_C, AA_Q, AA_E, AA_G, AA_H, AA_I, 
+            AA_L, AA_K, AA_M, AA_F, AA_P, AA_S, AA_T, AA_W, AA_Y, AA_V
+        ]
+        otheraminoacids = [AA_O, AA_U, AA_B, AA_J, AA_Z, AA_X, AA_Term]
+        for basicaa ∈ basic20aminoacids
+            @test GRANTHAM1974[basicaa,basicaa] === 0 # default match
+        end
+        for basicaa ∈ basic20aminoacids, otheraa ∈ otheraminoacids
+            @test GRANTHAM1974[basicaa,otheraa] === 100 # default mismatch defined as the original mean in Grantham's 1974 paper
+        end
+        @test GRANTHAM1974[AA_A,AA_R] === 112
+        @test GRANTHAM1974[AA_R,AA_A] === 112
+        @test GRANTHAM1974[AA_I,AA_L] ===  5
+        @test GRANTHAM1974[AA_C,AA_S] ===  112
+        @test GRANTHAM1974[AA_M,AA_W] ===  67
+
         # update
         myblosum = copy(BLOSUM62)
         @test myblosum[AA_A,AA_R] === -1
@@ -424,6 +441,13 @@ end
         @test myblosum[AA_O,AA_R] === -3
 
         @test convert(Matrix, BioAlignments.load_submat(AminoAcid, "BLOSUM62")) == convert(Matrix, BLOSUM62)
+
+        mygrantham = copy(GRANTHAM1974)
+        @test mygrantham[AA_A,AA_R] === 112
+        mygrantham[AA_A,AA_R] = 10
+        @test mygrantham[AA_A,AA_R] === 10
+
+        @test convert(Matrix, BioAlignments.load_submat(AminoAcid, "GRANTHAM1974", default_mismatch = 100)) == convert(Matrix, GRANTHAM1974)
 
         # Various operations
         @test eltype(BLOSUM62) === Int
