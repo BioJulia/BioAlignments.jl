@@ -222,12 +222,22 @@ in which the distance between any two amino acids (of the basic 20 amino acids)
 is based on three properties: composition, polarity, and molecular volume.  
 Based on the original average score in the table, we have taken ourselves the liberty to define `default_mismatch = 100` as a substitution score between two amino acids if any of them is not present in that table.
 
+STRUCTURE is a substitution matrix for protein structure comparison. It consists of a single
+matrix, `FOLDSEEK3DI`, which is taken from the
+[Foldseek](https://www.nature.com/articles/s41587-023-01773-0), a method that aligns protein
+sequences by describing tertiary amino acid interactions within proteins as sequences over a
+structural alphabet obtained from the latent space of a VQ-VAE. BioAlignments.jl doesn't offer
+the functionality to convert protein structures to sequences, but you can use `FOLDSEEK3DI` as a
+substitution matrix for aligning said sequences over the structural alphabet obtained from
+Foldseek.
 
-| Matrix   | Constants                                                  |
-| :------- | :----------                                                |
-| PAM      | `PAM30`, `PAM70`, `PAM250`                                 |
-| BLOSUM   | `BLOSUM45`, `BLOSUM50`, `BLOSUM62`, `BLOSUM80`, `BLOSUM90` |
-| CHEMICAL | `GRANTHAM1974`                                             |
+
+| Matrix    | Constants                                                  |
+| :-------  | :----------                                                |
+| PAM       | `PAM30`, `PAM70`, `PAM250`                                 |
+| BLOSUM    | `BLOSUM45`, `BLOSUM50`, `BLOSUM62`, `BLOSUM80`, `BLOSUM90` |
+| CHEMICAL  | `GRANTHAM1974`                                             |
+| STRUCTURE | `FOLDSEEK3DI`                                              |
 
 
 
