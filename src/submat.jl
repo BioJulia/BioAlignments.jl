@@ -268,6 +268,9 @@ const BLOSUM80     = load_submat(BioSymbols.AminoAcid, "BLOSUM80")
 "BLOSUM90 substitution matrix"
 const BLOSUM90     = load_submat(BioSymbols.AminoAcid, "BLOSUM90")
 
+"Foldseek's 3di substitution matrix"
+const FOLDSEEK3DI  = load_submat(BioSymbols.AminoAcid, "3di")
+
 """
 A substitution matrix for the basic 20 amino acids based on three chemicl properties: composition, polarity, and molecular volume.  
 Taken from [R. Grantham's 1974 paper](https://www.science.org/doi/10.1126/science.185.4154.862?url_ver=Z39.88-2003&rfr_id=ori:rid:crossref.org&rfr_dat=cr_pub%20%200pubmed).

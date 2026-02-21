@@ -430,6 +430,12 @@ end
         @test GRANTHAM1974[AA_C,AA_S] ===  112
         @test GRANTHAM1974[AA_M,AA_W] ===  67
 
+        # foldseek
+        @test FOLDSEEK3DI[AA_D,AA_F] === 0
+        @test FOLDSEEK3DI[AA_F,AA_D] === 0
+        @test FOLDSEEK3DI[AA_X,AA_A] === 0
+        @test FOLDSEEK3DI[AA_A,AA_A] === 6
+
         # update
         myblosum = copy(BLOSUM62)
         @test myblosum[AA_A,AA_R] === -1
