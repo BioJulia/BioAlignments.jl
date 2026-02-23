@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    continue-on-error: ${{ matrix.experimental }}
+    strategy:
+      fail-fast: false
+      matrix:
+        julia-version: ['1.6', '1']
+        os: [ubuntu-latest, windows-latest]
+        experimental: [false]
+        include:
+          # Include nightly, but experimental, so it's allowed to fail without
+          # failing CI.
+          - julia-version: nightly
+            os: ubuntu-latest
+            experimental: true
+            fail_ci_if_error: false
+        include:
+          # Include MacOS on Julia from v1.8, since older version of Julia requires
+          # macOS with x86, which is harder to come by these days
+          - julia-version: '1.8'
+            os: macOS-latest
+            experimental: false
+            fail_ci_if_error: true
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      - name: Setup Julia
+        uses: julia-actions/setup-julia@latest
+        with:
+          version: ${{ matrix.julia-version }}
+      - name: Run Tests
+        uses: julia-actions/julia-runtest@latest
+      - name: Create CodeCov
+        uses: julia-actions/julia-processcoverage@latest
+      - name: Upload CodeCov
+        uses: codecov/codecov-action@v4
+        with:
+          file: ./lcov.info
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: false
+          token: ${{ secrets.CODECOV_TOKEN }}
