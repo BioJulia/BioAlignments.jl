@@ -18,6 +18,7 @@ OP_START
 ismatchop
 isinsertop
 isdeleteop
+ismetaop(::Operation)
 ```
 
 ## Alignments
@@ -29,6 +30,10 @@ Alignment(::Vector{AlignmentAnchor}, ::Bool)
 Alignment(::AbstractString, ::Int, ::Int)
 seq2ref(::Alignment, ::Integer)
 ref2seq(::Alignment, ::Integer)
+ref2aln(::Alignment, ::Integer)
+seq2aln(::Alignment, ::Integer)
+aln2ref(::Alignment, ::Integer)
+aln2seq(::Alignment, ::Integer)
 cigar(::Alignment)
 ```
 
@@ -77,6 +82,7 @@ score
 distance
 alignment
 hasalignment
-seq2ref(::PairwiseAlignment, ::Integer)
-ref2seq(::PairwiseAlignment, ::Integer)
+sequence(::PairwiseAlignmentResult)
+sequence(::PairwiseAlignment)
+sequence(::AlignedSequence)
 ```

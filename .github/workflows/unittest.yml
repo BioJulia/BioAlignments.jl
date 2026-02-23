@@ -23,11 +23,10 @@ jobs:
             os: ubuntu-latest
             experimental: true
             fail_ci_if_error: false
-        include:
           # Include MacOS on Julia from v1.8, since older version of Julia requires
           # macOS with x86, which is harder to come by these days
           - julia-version: '1.8'
-            os: macOS-latest
+            os: macos-latest
             experimental: false
             fail_ci_if_error: true
 

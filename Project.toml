@@ -15,6 +15,9 @@ BioGenerics = "0.1"
 BioSequences = "3"
 BioSymbols = "5"
 IntervalTrees = "1"
+LinearAlgebra = "1.6"
+Test = "1.6"
+Documenter = "1.17"
 julia = "1"
 
 [extras]

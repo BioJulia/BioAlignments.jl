@@ -1,8 +1,3 @@
-using Pkg
-
-Pkg.develop(PackageSpec(path=pwd()))
-Pkg.instantiate()
-
 using Documenter, BioAlignments
 
 makedocs(
@@ -17,7 +12,7 @@ makedocs(
         "Pairwise alignment" => "pairalign.md",
         "API Reference" => "references.md"
     ],
-    authors = replace(join(Pkg.TOML.parsefile("Project.toml")["authors"], ", "), r" <.*?>" => "" ) * ", The BioJulia Organisation, and other contributors."
+    authors = "Kenta Sato, Sabrina J. Ward, The BioJulia Organisation, and other contributors."
 )
 
 deploydocs(
