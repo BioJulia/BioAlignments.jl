@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+- Foldseek's 3di substitution matrix (#93)
+
 ## [3.1.0] - 2023-01-03
 
 ### Added

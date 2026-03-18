@@ -49,6 +49,7 @@ export
     BLOSUM80,
     BLOSUM90,
     GRANTHAM1974,
+    FOLDSEEK3DI,
 
     # alignment types
     GlobalAlignment,
