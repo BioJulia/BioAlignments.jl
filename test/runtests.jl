@@ -431,10 +431,13 @@ end
         @test GRANTHAM1974[AA_M,AA_W] ===  67
 
         # foldseek
-        @test FOLDSEEK3DI[AA_D,AA_F] === 0
-        @test FOLDSEEK3DI[AA_F,AA_D] === 0
-        @test FOLDSEEK3DI[AA_X,AA_A] === 0
-        @test FOLDSEEK3DI[AA_A,AA_A] === 6
+        for basicaa ∈ basic20aminoacids
+            @test FOLDSEEK3DI[AA_X,basicaa] === 0 # default match
+        end
+        for (basicaa, score) in zip(basic20aminoacids, [6 6 4 9 7 6 6 8 9 6 10 7 4 5 6 6 8 3 8 9 0])
+            @test FOLDSEEK3DI[AA_X,basicaa] === 0 # default match
+        end
+
 
         # update
         myblosum = copy(BLOSUM62)
