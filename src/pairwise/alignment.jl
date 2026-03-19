@@ -29,6 +29,14 @@ Gets the query sequence of `pairwise_alignment`.
 """
 sequence(aln::PairwiseAlignment) = sequence(aln.a)
 
+"""
+    reference(aln::PairwiseAlignment)
+    
+Returns the reference sequence of the alignment.
+"""
+reference(aln::PairwiseAlignment) =  aln.b
+
+
 function Base.iterate(aln::PairwiseAlignment, ij=(2,1))
     i, j = ij
     if i > lastindex(aln.a.aln.anchors)

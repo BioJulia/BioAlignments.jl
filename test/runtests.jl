@@ -565,9 +565,10 @@ end
             AlignmentAnchor(3, 3, 3, OP_SEQ_MATCH)
         ]
         seq = AlignedSequence("ACG", anchors)
-        ref = "ACG"
+        ref = "ACGA"
         aln = PairwiseAlignment(seq, ref)
         @test collect(aln) == [('A', 'A'), ('C', 'C'), ('G', 'G')]
+        @test BioAlignments.reference(aln) == ref
         result = PairwiseAlignmentResult(3, true, seq, ref)
         @test isa(result, PairwiseAlignmentResult) == true
         @test isa(alignment(result), PairwiseAlignment) == true
